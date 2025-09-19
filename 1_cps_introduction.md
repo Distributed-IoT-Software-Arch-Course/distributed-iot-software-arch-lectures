@@ -2,14 +2,13 @@
 
 ## Lecture Information
 
-| **Course Title** | Distributed and Internet of Things Software Architectures |
-|------------------|----------------------------------------------------------|
 | **Master's Degree** | Digital Automation Engineering (D.M.270/04)           |
-| **Curriculum**   | Digital Infrastructure                                   |
-| **Lecture Title**| Cyber-Physical Systems & Internet of Things              |
-| **Author**       | Prof. Marco Picone (marco.picone@unimore.it)             |
-| **Academic Year**| A.A 2025/2026                                            |
-| **Last Update**  | September 2025                                           | 
+|---------------------|-------------------------------------------------------|
+| **Curriculum**      | Digital Infrastructure                                |
+| **Lecture Title**   | Cyber-Physical Systems & Internet of Things           |
+| **Author**          | Prof. Marco Picone (marco.picone@unimore.it)          |
+| **Academic Year**   | A.A 2025/2026                                         |
+| **Last Update**     | September 2025                                        | 
 
 
 <!-- > [!TIP]
