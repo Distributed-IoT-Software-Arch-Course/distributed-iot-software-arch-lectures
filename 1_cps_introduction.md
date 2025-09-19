@@ -169,6 +169,8 @@ They represent a major paradigm in the framework of collective and connected sys
 
 ---
 
+### An Industrial "Example" of CPS Technologies
+
 ![CPS Industrial Technologies](images/Lecture1/cps_technologies.png)
 **Sources:** [Link1](https://www.mouser.it/new/analog-devices/adi-industry-4), [Link2](https://www.linkedin.com/pulse/examples-industry-40-use-cases-luka-kozamernik/)
 
@@ -188,6 +190,8 @@ The previous figure shows some of the main technologies that are used in CPS and
 
 ---
 
+### From Technologies to Services
+
 ![CPS Industrial Technologies](images/Lecture1/cps_highlevel_services.png)
 
 One important aspect of CPS is that technologies are meant to enable the creation of added value for the end user, by improving efficiency, productivity, safety, and sustainability in various application domains. CPS technologies are often designed to be interoperable and scalable, allowing for seamless integration with existing systems and the ability to adapt to changing requirements and environments.
@@ -206,6 +210,8 @@ As illustrated in the previous figure, CPS technologies can enable services in t
 - **Environmental Monitoring**: CPS technologies can enable environmental monitoring systems that track environmental conditions, such as air quality, temperature, and humidity, to ensure compliance with regulations and promote sustainability in industrial operations.
 
 ---
+
+### CPS Software as Distributed Software
 
 One of the main characteristics of CPS is that each component is characterized by its own software module that is responsible for the management of the component itself. When multiple components are integrated into a CPS, the software modules of each component need to interact and communicate with each other to enable the overall functionality of the system and we start talking about **Distributed Systems** and **Distributed Software**.
 
