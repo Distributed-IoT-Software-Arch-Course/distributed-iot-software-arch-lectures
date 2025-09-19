@@ -40,7 +40,11 @@ The original idea of the Internet was to connect computers, but very soon, the i
 
 ## Where are we today ?
 
-The internet now connects billions devices anywhere!
+Today, the Internet and the Web have evolved far beyond their original purpose of connecting a handful of computers. They now interconnect billions of devices worldwide—including smartphones, tablets, sensors, vehicles, appliances, and industrial machines—across every continent. This massive global network enables seamless communication, collaboration, and data exchange at unprecedented scale.
+
+The exponential growth in connected devices has led to an explosion in the volume of data generated, transmitted, and processed every second. Modern Internet infrastructure supports vast amounts of real-time information, multimedia content, and interactive services. Cloud computing, edge computing, and advanced networking technologies have made it possible to deliver rich digital experiences, from social media and streaming platforms to e-commerce, smart cities, and industrial automation.
+
+As a result, the Internet has become the backbone for countless services and applications, powering innovation and transforming how we live, work, and interact. The availability of massive data volumes and intelligent services continues to drive new opportunities and challenges in connectivity, security, and digital transformation.
 
 ![The current state of the Internet/Web](images/Lecture1/current_internet_web.png)
 **Figure 1.2:** A "snapshot" of the current state of the Internet/Web
