@@ -36,13 +36,16 @@ Since from the beginning of the Internet, there was the desire to connect more â
 
 The original idea of the Internet was to connect computers, but very soon, the idea of connecting other devices to the network emerged. The image above shows a representation of the ARPANET network in 1978, where we can see various types of devices connected to the network such as mainframe computers, minicomputers, and terminals through different geographical locations such as universities, research institutions, and government agencies involving multiple countries and satellite links.
 
+---
+
 ## Where are we today ?
 
 The internet now connects billions devices anywhere!
 
 ![The current state of the Internet/Web](images/Lecture1/current_internet_web.png)
 
-<!-- Slide number: 5 -->
+---
+
 ## The First "Connected Devices" - The Cold Drink Machine
 
 
@@ -56,6 +59,7 @@ The internet now connects billions devices anywhere!
 CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino 
 **Sources:** [Link1](https://slideplayer.com/slide/14090495/), [Link2](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
+---
 
 ## The First "Connected Devices" - The XCoffee
 
@@ -68,6 +72,8 @@ CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influ
 ![XCoffee Machine](images/Lecture1/xcoffee.png)
 
 **Sources:** [Link1](https://www.cl.cam.ac.uk/coffee/qsf/coffee.html), [Link2](https://odannyboy.medium.com/the-first-things-on-the-internet-of-things-5d817d45ac9c),[Link3](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
+
+---
 
 ## The Mobile Centric World
 
@@ -92,6 +98,8 @@ Another interesting example is the event of the concert of Vasco Rossi in Modena
 
 This is another example of how the mobile revolution is changing the way we live and interact, and how the underlying network and internet infrastructures are crucial to support this massive connectivity.
 
+---
+
 ### Mobile & Wearable Computing
 
 Another interesting aspect of the mobile revolution is the rise of wearable computing devices, such as smartwatches, fitness trackers, and augmented reality glasses. These devices are designed to be worn on the body and provide users with real-time access to information, notifications, and health monitoring features.
@@ -102,6 +110,7 @@ Nowadays, we are not just associated to one or two mobile devices, but we are su
 
 This devices creates a new paradigm where the physical and digital worlds are increasingly interconnected, leading to new opportunities and challenges in terms of connectivity, security, and data management.
 
+---
 
 # Cyberâ€“Physical Systems
 
@@ -130,6 +139,8 @@ As illustrated in the figure above, CPS typically involve the following phases:
 3. **Act**: Finally, actuators are used to execute the planned actions, such as adjusting a thermostat, controlling a robotic arm, or activating an alarm. 
 
 **Note:** After the action phase, the cycle continues with the system continuously perceiving, analyzing, learning, planning, and acting in a dynamic and adaptive manner.
+
+---
 
 ## A Multi-Disciplinary Approach
 
