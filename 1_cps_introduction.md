@@ -112,11 +112,49 @@ This is another example of how the mobile revolution is changing the way we live
 
 Another interesting aspect of the mobile revolution is the rise of wearable computing devices, such as smartwatches, fitness trackers, and augmented reality glasses. These devices are designed to be worn on the body and provide users with real-time access to information, notifications, and health monitoring features.
 
-![Wearable Computing](images/Lecture1/wearable_computing.png)
+![Wearable Computing](images/Lecture1/wearable_computing.png)<br>
+**Figure 1.7:** Wearable Computing Devices</br>
 
 Nowadays, we are not just associated to one or two mobile devices, but we are surrounded by a plethora of connected devices that are becoming an integral part of our daily lives. From smart home devices to connected cars, the Internet of Things (IoT) is transforming the way we interact with our environment and the world around us. 
 
 This devices creates a new paradigm where the physical and digital worlds are increasingly interconnected, leading to new opportunities and challenges in terms of connectivity, security, and data management.
+
+---
+
+# The Internet of Things (IoT) Evolution & Revolution
+
+In the context of the mobile revolution, the Internet of Things (IoT) has emerged as a transformative concept that envisions a world where everyday objects are connected to the internet, enabling them to collect and exchange data. The IoT represents a significant evolution in the way we interact with technology, 
+as it extends connectivity beyond traditional computing devices to encompass a wide range of physical objects and environments.
+
+> The **Internet of Things (IoT)** refers to the idea of a network of networks with billions of uniquely identified physical devices
+> denoted also as **Smart Objects** organized in an **Internet-like structure**.
+> Smart Objects are items such as sensors, consumer devices, and enterprise assets that are **connected to both the Internet and each other**.
+
+![IoT Pillars](images/Lecture1/iot_pillars.png) <br>
+**Figure 1.8:** IoT Pillars - Communication Technologies (e.g., LoRa, NB-IoT), Hardware (e.g., Raspberry Pi, Arduino), Software (e.g., C/C++, Python, Linux, RTOS) and Protocols (e.g., MQTT, CoAP)</br>
+
+One of the **key characteristics of the Internet of Things (IoT)** is its reliance on the **Internet** itself. 
+The IoT is not simply about connecting devices; it is about connecting them **using standard Internet protocols**, rather than proprietary solutions. This approach is **crucial for achieving scalability, interoperability, and global accessibility** in IoT systems.
+
+At the core of IoT connectivity is the **Internet Protocol (IP)**, which provides a **universal and standardized method for devices to communicate and exchange data** across networks. 
+Devices that join an IoT network are **directly or indirectly connected to an IP network**, allowing them to be **addressed, managed, and integrated using standard IP-based protocols**.
+By leveraging **IP as a common protocol**, IoT devices can not only communicate with each other, but also **connect seamlessly to the broader Internet and cloud services**. This enables **new opportunities for data storage, processing, and analysis**, and supports the development of **innovative applications and services** on a global scale.
+
+A key element to consider it that being connected to the Internet is not mandatory for all the devices, but they must be able to communicate using IP protocols, even if they are connected to a local network that is not directly connected to the Internet.
+We can have IoT deployments that are fully connected to the Internet, partially connected, or even completely isolated from it, depending on the specific use case and requirements.
+The common factor is that the devices must be able to communicate using IP protocols, regardless of their connectivity to the broader Internet.
+
+![IoT Stack](images/Lecture1/iot_stack.png) <br>
+**Figure 1.9:** IoT Protocol Stack vs Traditional Networking Stack</br>
+
+IoT device cannot always use the traditional Internet protocol stack due to their **resource constraints** (e.g., limited processing power, memory, and energy).
+For this reason, IoT devices often use **lightweight protocols** that are specifically designed for resource-constrained environments. 
+These protocols are optimized for low power consumption, reduced bandwidth usage, and efficient data transmission.
+
+For example, protocols such as **MQTT (Message Queuing Telemetry Transport)** and **CoAP (Constrained Application Protocol)** are commonly used in IoT applications.
+These protocols are designed to be lightweight and efficient, making them well-suited for IoT devices with limited resources.
+They are the counterpart of traditional protocols like HTTP and TCP, which are more resource-intensive and may not be suitable for all IoT scenarios
+or in case of MQTT that can be compared to the traditional AMQP protocol used in enterprise messaging systems.
 
 ---
 
