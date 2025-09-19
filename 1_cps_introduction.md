@@ -32,6 +32,7 @@
 Since from the beginning of the Internet, there was the desire to connect more “things” to it. Source: ARPANET Completion Report: January 4, 1978.
 
 ![ARPANET Completion Report January 4, 1978](images/Lecture1/arpanet_1978.png)
+**Figure 1:** ARPANET Completion Report January 4, 1978
 
 The original idea of the Internet was to connect computers, but very soon, the idea of connecting other devices to the network emerged. The image above shows a representation of the ARPANET network in 1978, where we can see various types of devices connected to the network such as mainframe computers, minicomputers, and terminals through different geographical locations such as universities, research institutions, and government agencies involving multiple countries and satellite links.
 
@@ -42,6 +43,7 @@ The original idea of the Internet was to connect computers, but very soon, the i
 The internet now connects billions devices anywhere!
 
 ![The current state of the Internet/Web](images/Lecture1/current_internet_web.png)
+**Figure 2:** A "snapshot" of the current state of the Internet/Web
 
 ---
 
@@ -55,7 +57,7 @@ The internet now connects billions devices anywhere!
 
 
 ![Connected Drink Machine](images/Lecture1/drink_machine.png)
-CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino 
+**Figure 3:** CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino 
 **Sources:** [Link1](https://slideplayer.com/slide/14090495/), [Link2](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
 ---
