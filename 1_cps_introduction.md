@@ -72,7 +72,7 @@ The internet now connects billions devices anywhere!
 > keep the user updated on the information about whether the pot was filled.
 
 ![XCoffee Machine](images/Lecture1/xcoffee.png)</br>
-**Figure 1.4:** The XCoffee Machine - The First "Connected Device"
+**Figure 1.4:** The XCoffee Machine - The First "Connected Device"</br>
 **Sources:** [Link1](https://www.cl.cam.ac.uk/coffee/qsf/coffee.html), [Link2](https://odannyboy.medium.com/the-first-things-on-the-internet-of-things-5d817d45ac9c),[Link3](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
 ---
@@ -86,7 +86,8 @@ In the picture below, you can see how the mobile revolution has transformed St. 
 >What a difference 8 years makes: St. Peter’s Square in 2005 and yesterday (2013)” 
 (Facebook NBC News)
 
-![Piazza San Pietro - The Mobile Revolution](images/Lecture1/piazza_san_pietro.png)
+![Piazza San Pietro - The Mobile Revolution](images/Lecture1/piazza_san_pietro.png) <br>    
+**Figure 1.5:** Piazza San Pietro - The Mobile Revolution</br>
 
 This image hides an interesting aspect on what we are not seeing and able to support this massive number of mobile devices. The answer is the **Network and Internet infrastructures, which are the backbone of the mobile revolution and are able to support the increasing demand for data and connectivity combined with Cloud Computing infrastructures and services**.
 
@@ -94,9 +95,11 @@ Those infrastructures evolved a lot in the last 20 years, and they are still evo
 
 Another interesting example is the event of the concert of Vasco Rossi in Modena Park, July 2017, where more than 230K people attended the event and almost all of them were using their mobile devices to share the event in real time.
 
-![Vasco Rossi Concert, Modena Park](images/Lecture1/olivetti_modena_park.png)
+![Vasco Rossi Concert, Modena Park](images/Lecture1/olivetti_modena_park.png) <br>
+**Figure 1.6:** 230K Devices at Vasco Rossi Concert @ Modena Park - July 2017</br>
+**Source:** [Link](https://www.digitaldata.olivetti.com/timbigdata/concerto-di-vasco-rossi)
 
-230K Devices at Vasco Rossi Concert @ Modena Park - July 2017 Source: https://www.digitaldata.olivetti.com/timbigdata/concerto-di-vasco-rossi
+
 
 This is another example of how the mobile revolution is changing the way we live and interact, and how the underlying network and internet infrastructures are crucial to support this massive connectivity.
 
