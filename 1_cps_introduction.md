@@ -261,6 +261,8 @@ On the other hand, the envisioned goal is to build a new generation of distribut
 
 ## From CPS to CPSoS (Cyber-Physical System of Systems)
 
+![Cyber-Physical System of Systems](images/Lecture1/cps_of_systems.png)
+
 The concept of **Cyber-Physical System of Systems (CPSoS)** refers to the **integration** and **collaboration** of multiple, interconnected **Cyber-Physical Systems (CPSs)** to form a more complex and sophisticated system. In a CPSoS, each individual CPS maintains its **autonomy** and **functionality**, yet participates in **coordinated interaction** and **networked communication** with other CPS units to achieve shared objectives.
 
 A **CPSoS** is characterized by:
