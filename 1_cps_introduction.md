@@ -59,7 +59,6 @@ The internet now connects billions devices anywhere!
 ![Connected Drink Machine](images/Lecture1/drink_machine.png)
 
 **Figure 1.3:** CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino 
-
 **Sources:** [Link1](https://slideplayer.com/slide/14090495/), [Link2](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
 ---
@@ -72,7 +71,7 @@ The internet now connects billions devices anywhere!
 > that was observing the coffee pot and taking pictures of it several times a minute. Then the pictures were sent to the client application, to 
 > keep the user updated on the information about whether the pot was filled.
 
-![XCoffee Machine](images/Lecture1/xcoffee.png)
+![XCoffee Machine](images/Lecture1/xcoffee.png)</br>
 **Figure 1.4:** The XCoffee Machine - The First "Connected Device"
 **Sources:** [Link1](https://www.cl.cam.ac.uk/coffee/qsf/coffee.html), [Link2](https://odannyboy.medium.com/the-first-things-on-the-internet-of-things-5d817d45ac9c),[Link3](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
