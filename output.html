@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Autore" />
+  <meta name="dcterms.date" content="2025-09-17" />
+  <title>Titolo</title>
+  <style>
+    html {
+      line-height: 1.5;
+      font-family: Georgia, serif;
+      font-size: 20px;
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 1em;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Titolo</h1>
+<p class="author">Autore</p>
+<p class="date">2025-09-17</p>
+</header>
+<h1
+id="lecture-1---introduction-to-cyber-physical-systems-internet-of-things">Lecture
+1 - Introduction to Cyber-Physical Systems &amp; Internet of Things</h1>
+<h2 id="lecture-information">Lecture Information</h2>
+<table>
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 76%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Course Title</strong></th>
+<th>Distributed and Internet of Things Software Architectures</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Master’s Degree</strong></td>
+<td>Digital Automation Engineering (D.M.270/04)</td>
+</tr>
+<tr class="even">
+<td><strong>Curriculum</strong></td>
+<td>Digital Infrastructure</td>
+</tr>
+<tr class="odd">
+<td><strong>Lecture Title</strong></td>
+<td>Cyber-Physical Systems &amp; Internet of Things</td>
+</tr>
+<tr class="even">
+<td><strong>Author</strong></td>
+<td>Prof. Marco Picone (marco.picone@unimore.it)</td>
+</tr>
+<tr class="odd">
+<td><strong>Academic Year</strong></td>
+<td>A.A 2025/2026</td>
+</tr>
+<tr class="even">
+<td><strong>Last Update</strong></td>
+<td>September 2025</td>
+</tr>
+</tbody>
+</table>
+<!-- > [!TIP]
+> MarkItDown now offers an MCP (Model Context Protocol) server for integration with LLM applications like Claude Desktop. See [markitdown-mcp](https://github.com/microsoft/markitdown/tree/main/packages/markitdown-mcp) for more information. -->
+<h1 id="outline">Outline</h1>
+<ul>
+<li>Cyber-Physical Systems</li>
+<li>Cyber-Physical Application Scenarios</li>
+<li>Internet of Things (IoT) Definition &amp; Vision</li>
+<li>From WSN and M2M to IoT</li>
+<li>IoT Characteristics</li>
+<li>IoT Protocol Stack</li>
+<li>IoT Connectivity</li>
+<li>IoT Software</li>
+</ul>
+<h1 id="internet-connected-devices">Internet &amp; Connected
+Devices</h1>
+<h2 id="where-do-we-started">Where do we started ?</h2>
+<p>Since from the beginning of the Internet, there was the desire to
+connect more “things” to it. Source: ARPANET Completion Report: January
+4, 1978.</p>
+<figure>
+<img src="images/Lecture1/arpanet_1978.png"
+alt="ARPANET Completion Report January 4, 1978" />
+<figcaption aria-hidden="true">ARPANET Completion Report January 4,
+1978</figcaption>
+</figure>
+<h2 id="where-are-we-today">Where are we today ?</h2>
+<p>The internet now connects billions devices anywhere!</p>
+<figure>
+<img src="images/Lecture1/current_internet_web.png"
+alt="The current state of the Internet/Web" />
+<figcaption aria-hidden="true">The current state of the
+Internet/Web</figcaption>
+</figure>
+<!-- Slide number: 5 -->
+<h2 id="the-first-connected-devices---the-cold-drink-machine">The First
+“Connected Devices” - The Cold Drink Machine</h2>
+<pre><code>The students of Carnegie Mellon University invent the ARPANET-connected coke machine. Four students from the School of Computer Science department installed the switches in the coke machine. They counted how many coke bottles had remained in each row and for how long. If the loaded bottle spends a long time in the machine, it is labeled “cold”. All this data was then remotely available to customers via a finger interface. This experiment had inspired a lot of inventors all over the world to create their own connected appliances.</code></pre>
+<p><img src="images/Lecture1/drink_machine.png"
+alt="Connected Drink Machine" /> CSE3002 Team Project History of
+Internet of Things (IoT) Devices and Their Influence on Cyber Security
+Team F Christopher Byars Dylan Leonard Brian Patino. Sources:
+https://slideplayer.com/slide/14090495/,
+https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/</p>
+<h2 id="the-first-connected-devices---the-xcoffee">The First “Connected
+Devices” - The XCoffee</h2>
+<pre><code>The XCoffee is created at the Computer Laboratory of the University of Cambridge. Two academics who worked at the Trojan Room in the laboratory had a video-frame grabber attached to one of the computers. They decided to connect a camera controlled by a server application that was observing the coffee pot and taking pictures of it several times a minute. Then the pictures were sent to the client application, to keep the user updated on the information about whether the pot was filled.</code></pre>
+<figure>
+<img src="images/Lecture1/xcoffee.png" alt="XCoffee Machine" />
+<figcaption aria-hidden="true">XCoffee Machine</figcaption>
+</figure>
+<p>Sources: https://www.cl.cam.ac.uk/coffee/qsf/coffee.html,
+https://odannyboy.medium.com/the-first-things-on-the-internet-of-things-5d817d45ac9c,https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/</p>
+<h2 id="the-mobile-centric-world">The Mobile Centric World</h2>
+<pre><code>What a difference 8 years makes: St. Peter’s Square in 2005 and yesterday (2013)” (Facebook NBC News)</code></pre>
+<figure>
+<img src="images/Lecture1/piazza_san_pietro.png"
+alt="Piazza San Pietro - The Mobile Revolution" />
+<figcaption aria-hidden="true">Piazza San Pietro - The Mobile
+Revolution</figcaption>
+</figure>
+<p>Another interesting example is the event …</p>
+<figure>
+<img src="images/Lecture1/olivetti_modena_park.png"
+alt="Vasco Rossi Concert, Modena Park" />
+<figcaption aria-hidden="true">Vasco Rossi Concert, Modena
+Park</figcaption>
+</figure>
+<p>230K Devices at Vasco Rossi Concert @ Modena Park - July 2017 Source:
+https://www.digitaldata.olivetti.com/timbigdata/concerto-di-vasco-rossi</p>
+<h3 id="mobile-wearable-computing">Mobile &amp; Wearable Computing</h3>
+<figure>
+<img src="images/Lecture1/wearable_computing.png"
+alt="Vasco Rossi Concert, Modena Park" />
+<figcaption aria-hidden="true">Vasco Rossi Concert, Modena
+Park</figcaption>
+</figure>
+<!-- Slide number: 11 -->
+<h1 id="cyberphysical-systems">Cyber–Physical Systems</h1>
+<blockquote>
+<p>[!IMPORTANT] A <strong>Cyber-Physical System (CPS)</strong> refers to
+integrated systems that combine computational elements with physical
+components, enabling the interaction and collaboration between the
+digital and physical worlds. CPS typically involve a network of
+<strong>sensors</strong>, <strong>actuators</strong>, and
+<strong>computational devices</strong> that <strong>collect
+data</strong> from the physical environment, <strong>process</strong>
+it, and <strong>control</strong> physical processes or objects.</p>
+</blockquote>
+<figure>
+<img src="images/Lecture1/cps_highlevel_overview.png"
+alt="Cyber-Physical Systems High-Level Overview" />
+<figcaption aria-hidden="true">Cyber-Physical Systems High-Level
+Overview</figcaption>
+</figure>
+<!-- Slide number: 12 -->
+<h1 id="cyberphysical-systems-1">Cyber–Physical Systems</h1>
+<p>2 Plan Learn Analyze</p>
+<p><img src="Picture4.jpg"
+alt="Digital Brain Icon - Free PNG &amp; SVG 2486380 - Noun Project" />
+Cyber World</p>
+<p>3</p>
+<p>Act Perceive</p>
+<p>1</p>
+<p>Physical World</p>
+<p>12</p>
+<!-- Slide number: 13 -->
+<h1 id="cyberphysical-systems-2">Cyber–Physical Systems</h1>
+<p>The field of cyber-physical systems is cross-disciplinary in nature —
+building upon complex technology systems that promote advancement in
+countless fields Cyber-physical systems are engineered systems where
+functionalities and salient properties emerge from the networked
+interaction of cyber/digital and physical components CPS technology
+seeks to develop and deploy technologies needed for the seamless
+integration of cyber and physical systems including: Processes Software
+Networking Artificial Intelligence Coordination/Orchestration Algorithms
+Systems on Chip (SoC) Embedded Systems Robotics and counting … 13</p>
+<!-- Slide number: 14 -->
+<h1 id="cyberphysical-systems-3">Cyber–Physical Systems</h1>
+<p>Cyber-physical systems are also a way to encompass the large spectrum
+of application scenarios including: Industry 4.0 Internet of Things
+(IoT) Automotive Military Medical &amp; Healthcare and so on They have
+recently emerged as the leading domain for the study and implementation
+of multi-component systems where computational and physical resources
+are strictly interconnected and seamlessly integrated</p>
+<p><img src="Picture54.jpg"
+alt="A robot welding a car body Description automatically generated" />
+14</p>
+<!-- Slide number: 15 -->
+<h1 id="cyberphysical-systems-4">Cyber–Physical Systems</h1>
+<p>CPSs integrate in the same environment and application scenario:
+Sensing Actuation Computation Control Networking Communication They
+represent a major paradigm in the framework of collective and connected
+systems, as well as a vertical study of systems: they are inherently
+transdisciplinary, generalizing and expanding individual sub-fields</p>
+<figure>
+<img src="Picture4.jpg" alt="Message - free icon" />
+<figcaption aria-hidden="true">Message - free icon</figcaption>
+</figure>
+<figure>
+<img src="Picture4.jpg" alt="Message - free icon" />
+<figcaption aria-hidden="true">Message - free icon</figcaption>
+</figure>
+<figure>
+<img src="Picture4.jpg" alt="Message - free icon" />
+<figcaption aria-hidden="true">Message - free icon</figcaption>
+</figure>
+<figure>
+<img src="Picture4.jpg" alt="Message - free icon" />
+<figcaption aria-hidden="true">Message - free icon</figcaption>
+</figure>
+<figure>
+<img src="Picture4.jpg" alt="Message - free icon" />
+<figcaption aria-hidden="true">Message - free icon</figcaption>
+</figure>
+<figure>
+<img src="Picture4.jpg" alt="Message - free icon" />
+<figcaption aria-hidden="true">Message - free icon</figcaption>
+</figure>
+<p>15</p>
+<!-- Slide number: 16 -->
+<h1 id="cyberphysical-systems-technologies-some">Cyber–Physical Systems
+– Technologies (Some)</h1>
+<p><img src="Picture4.jpg"
+alt="A diagram of a factory Description automatically generated" />
+Wireless Networks Edge Computing Robots Robots</p>
+<p>Monitoring, Coordination, Automation Internet/Cloud Access Wired
+Networks Human-to-Machine Interaction(s) Protocols
+https://www.mouser.it/new/analog-devices/adi-industry-4https://www.linkedin.com/pulse/examples-industry-40-use-cases-luka-kozamernik/
+16</p>
+<!-- Slide number: 17 -->
+<h1 id="cyberphysical-systems-high-level-overview">Cyber–Physical
+Systems – High Level Overview</h1>
+<p><img src="Picture4.jpg"
+alt="A diagram of a factory Description automatically generated" />
+Decision</p>
+<p>Insight Goal Context Key Performance Indicator Process Event Data
+System(s) Equipment 17</p>
+<!-- Slide number: 18 -->
+<h1 id="cyberphysical-systems-distributed-software">Cyber–Physical
+Systems – Distributed Software</h1>
+<p><img src="Picture4.jpg"
+alt="A diagram of a factory Description automatically generated" />
+Distributed Software</p>
+<p>18
+https://www.linkedin.com/pulse/examples-industry-40-use-cases-luka-kozamernik/</p>
+<!-- Slide number: 19 -->
+<h1 id="cyberphysical-system--distributed-software">Cyber–Physical
+System- Distributed Software</h1>
+<p>Integration of Physical and Digital Components: CPS involves the
+integration of software systems with physical components such as
+sensors, actuators, and control systems. The software must interact with
+these physical elements to monitor and control the underlying physical
+processes. Real-Time and Predictability: CPS often operates in real-time
+or near-real-time environments where timely and predictable responses
+are critical. The software must be designed to meet stringent timing
+requirements, ensuring timely data collection, processing, and control
+actions. Heterogeneity and Interoperability: CPS typically involve a mix
+of diverse technologies, devices, and communication protocols. The
+software must be capable of interacting and integrating with different
+hardware and software components, ensuring interoperability and seamless
+communication among them. Safety and Reliability: CPS are often deployed
+in safety-critical domains such as automotive, healthcare, and
+industrial automation. The software must be developed with a strong
+emphasis on safety and reliability, adhering to rigorous standards and
+employing techniques like fault tolerance and error handling. 19</p>
+<!-- Slide number: 20 -->
+<h1 id="cyberphysical-system--distributed-software-1">Cyber–Physical
+System- Distributed Software</h1>
+<p>Scalability and Adaptability: CPS are often deployed in large-scale
+systems where the number of connected devices and data volumes can be
+substantial. The software must be scalable, capable of handling
+increasing system complexity and data loads. Additionally, it should be
+adaptable to dynamic changes in the environment or system requirements.
+Network and Connectivity: CPS software must utilize the network
+connectivity for communication between the cyber and physical world, as
+well as among different CPS components. For example, a smart grid system
+must coordinate the power generation and distribution among different
+sources and consumers through the internet. Security and Privacy: CPS
+are vulnerable to cybersecurity threats due to their interconnected
+nature. The software must incorporate robust security measures to
+protect against potential attacks and ensure the privacy and integrity
+of sensitive data. Verification and Validation: Due to the critical
+nature of CPS, software development for CPS requires thorough
+verification and validation processes. Rigorous testing, simulation, and
+formal methods are employed to ensure the correctness, performance, and
+safety of the software 20</p>
+<!-- Slide number: 21 -->
+<h1 id="cyberphysical-system-open-issues">Cyber–Physical System Open
+Issues</h1>
+<p>If we escalate to the more general Cyber-Physical System models, the
+design and control challenges become even harder, since individual
+component autonomy must be glued by explicitly addressing
+interdependence and coordination, interoperability, distributed control
+and emergence of behaviors In this context centralized and static
+management and control model are not expected to be the right solution
+approach to address all these challenges and the current main existing
+issues are the following: Centralized and monolithic Software
+architectures Missing management of the massive heterogeneity and
+fragmentation of the physical layer (protocols, software, hardware, data
+format, etc …) Limited interoperability and collaboration both between
+existing solutions and through cross-domain application scenarios
+Centralized learning and coordination 21</p>
+<!-- Slide number: 22 -->
+<h1
+id="cyberphysical-system-open-challenges-opportunities">Cyber–Physical
+System Open Challenges (Opportunities)</h1>
+<p>On the other hand, the envisioned goal is to build a new generation
+of distributed, highly-dynamic, opportunistic, able to operate in an
+open and coordinated environment through: distributed and continuum
+architectures (across device, edge, cloud) networking and intelligent
+communication effective management of the physical layer heterogeneity
+standardization and native interoperability control, supervision and
+management local coordination autonomy of the sub-systems native system
+re-configuration decentralized learning &amp; dynamic evolution and
+behaviors 22</p>
+<!-- Slide number: 23 -->
+<h1 id="cyberphysical-system-of-systems">Cyber–Physical System of
+Systems</h1>
+<p>The concept of Cyber-Physical System of Systems (CPSoS) refers to the
+integration and collaboration of multiple interconnected CPSs to create
+a more complex and sophisticated system CPSoS is characterized by the
+coordination and interaction of individual CPS units, each with its own
+set of physical components, computational elements, and networked
+communication. In a CPSoS, the individual CPS units retain their
+autonomy and functionality while working together towards a common goal
+or objective. These systems can vary in scale and complexity, ranging
+from localized collaborations to large-scale networks of interconnected
+CPS units The key idea behind CPSoS is to leverage the capabilities and
+resources of multiple CPS units to achieve enhanced performance,
+efficiency, and functionality that would not be possible with isolated
+systems. By combining the individual strengths of different CPS units,
+CPSoS can offer improved system-wide intelligence, resilience, and
+adaptability. 23</p>
+<!-- Slide number: 24 -->
+<h1 id="cyberphysical-system-of-systems-1">Cyber–Physical System of
+Systems</h1>
+<p>CPSoS can be found in various domains, such as smart cities,
+transportation systems, industrial automation, and healthcare. Examples
+include: interconnected traffic management systems coordinated smart
+grid networks integrated healthcare monitoring systems smart
+manufacturing However, managing CPSoS presents several challenges:
+ensuring interoperability and seamless communication between different
+CPS units handling heterogeneity in system architectures and
+technologies addressing issues of scalability and complexity managing
+security and privacy concerns across the interconnected systems.
+Overall, CPSoS represents a higher-level integration of multiple CPS
+units, enabling collaborative and coordinated operation to achieve more
+advanced functionalities, improved performance, and increased system
+intelligence. 24</p>
+<!-- Slide number: 25 -->
+<h1 id="cyber-physical-applications---one-point-of-view">Cyber-Physical
+Applications - One Point of View</h1>
+<p><img src="GoogleShape426p60.jpg" alt="Google Shape;426;p60" /> 25</p>
+<!-- Slide number: 26 -->
+<h1
+id="cyber-physical-application-an-integrated-point-of-view">Cyber-Physical
+Application – An Integrated Point of View</h1>
+<p><img src="GoogleShape432p61.jpg" alt="Google Shape;432;p61" />
+Cyber-Physical System of Systems 26</p>
+<!-- Slide number: 27 -->
+<h1 id="cpsos-smart-manufacturing-example">CPSoS – Smart Manufacturing
+Example</h1>
+<p>For example, in a Smart Manufacturing use case In this scenario,
+various interconnected CPS units collaborate to optimize production
+processes, monitor equipment health, and improve overall efficiency. The
+CPSoS in a smart manufacturing system typically includes multiple CPS
+components such as: Industrial Robots: Robotic arms and automation
+systems that perform tasks like assembly, welding, or material handling.
+Internet of Things Devices: Sensors and actuators embedded in machinery,
+equipment, and production lines to collect real-time data on parameters
+like temperature, pressure, vibration, and energy consumption.
+Industrial Control Systems: Distributed control systems and Programmable
+Logic Controllers (PLCs) that regulate and coordinate operations across
+different CPS units. Data Analytics and AI Systems: Machine learning
+algorithms and data analytics tools that process the collected data,
+identify patterns, and provide insights for predictive maintenance,
+quality control, and optimization. Supply Chain Management Systems: CPS
+units involved in the coordination and optimization of supply chain
+activities, including inventory management, demand forecasting, and
+logistics. Human-Machine Interfaces: Interfaces that allow human
+operators to monitor and control the manufacturing processes, providing
+real-time feedback and facilitating human-machine collaboration. 27</p>
+<!-- Slide number: 28 -->
+<h1 id="cpsos-smart-manufacturing-example-1">CPSoS – Smart Manufacturing
+Example</h1>
+<p>These interconnected CPS units collaborate to achieve various
+objectives, such as: Optimizing production schedules based on demand
+forecasts and real-time data on equipment performance. Implementing
+predictive maintenance strategies by monitoring equipment health in
+real-time and identifying potential failures before they occur.
+Optimizing energy consumption and resource utilization by leveraging
+real-time data on energy usage and production demands. Enabling
+real-time quality control through continuous monitoring and feedback on
+product quality parameters. Facilitating flexible and adaptive
+production processes by dynamically reconfiguring CPS units based on
+changing demands or resource availability. In such scenario, the CPSoS
+in smart manufacturing systems improves efficiency, productivity, and
+quality by leveraging the integration and collaboration of multiple CPS
+units. It enables real-time monitoring, control, and optimization of
+manufacturing processes, resulting in enhanced operational performance
+and competitiveness in the industrial ecosystem. 28</p>
+<!-- Slide number: 29 -->
+<h1 id="industrial-iot-iiot">Industrial IoT (IIoT)</h1>
+<figure>
+<img src="GoogleShape486p66.jpg" alt="Google Shape;486;p66" />
+<figcaption aria-hidden="true">Google Shape;486;p66</figcaption>
+</figure>
+<p><img src="GoogleShape487p66.jpg" alt="Google Shape;487;p66" /> 29</p>
+<!-- Slide number: 30 -->
+<h1 id="industrial-iot-iiot-1">Industrial IoT (IIoT)</h1>
+<p><img src="GoogleShape493p67.jpg" alt="Google Shape;493;p67" />
+Source: RedHat l’OpenSource e i suoi partner per l’Internet of Things.
+Milano 30/10/2018, RedHat Forum 2018. 30</p>
+<!-- Slide number: 31 -->
+<h1 id="smart-home-smart-building">Smart Home &amp; Smart Building</h1>
+<figure>
+<img src="GoogleShape438p62.jpg" alt="Google Shape;438;p62" />
+<figcaption aria-hidden="true">Google Shape;438;p62</figcaption>
+</figure>
+<p><img src="GoogleShape439p62.jpg" alt="Google Shape;439;p62" />
+Centralized Building Control Common Policies (e.g., Office hours,
+Temperatures, etc ..) High number of guest, visitors and promiscuous
+accesses Complex Behaviour and High number of heterogeneous devices and
+data Apartment Local Control Local Dynamic Policies Limited number of
+guests Simple Behaviour and limited number of Smart Objects 31</p>
+<!-- Slide number: 32 -->
+<h1 id="smart-cities">Smart Cities</h1>
+<p><img src="GoogleShape462p64.jpg" alt="Google Shape;462;p64" />
+Heterogeneous Applications, Data and Connectivity Solutions
+Interoperability and Seamless Communication between subsystem is a key
+of success though the use of standard protocols, Open Data and a shared
+technological stack Mobility of users and things Citizens, Visitors and
+Tourists as natural consumers of customized data and services 32</p>
+<!-- Slide number: 33 -->
+<h1 id="the-internet-of-things-revolution">The Internet of Things
+(R)Evolution</h1>
+<p><img src="GoogleShape155p22.jpg" alt="Google Shape;155;p22" />
+Internet of Things has already both directly or indirectly transformed
+several markets and fields such as: Communication (e.g., 5G Cellular
+Networks) Internet Architecture (Edge Computing) Human–Machine
+Interaction Mobile Device and Applications Industry Single Board
+Computers and prototyping platforms Furthermore it may embrace a massive
+amount of heterogeneous research and technologies fields at the same
+time: Computer Science Software Engineering Networking &amp;
+Communication Systems Distributed Systems Artificial Intelligence and
+Machine Learning Electronics Business …. and counting</p>
+<p><img src="GoogleShape156p22.jpg" alt="Google Shape;156;p22" />
+https://safeatlast.co/blog/iot-statistics/ 33</p>
+<!-- Slide number: 34 -->
+<h1 id="iot-trends">IoT Trends</h1>
+<p>https://iot-analytics.com/iot-technologies/</p>
+<p><img src="Picture4.jpg" /> 34</p>
+<!-- Slide number: 35 -->
+<h1 id="what-is-the-internet-of-things">What is the Internet of Things
+?</h1>
+<p><img src="GoogleShape170p24.jpg" alt="Google Shape;170;p24" /> A
+network of networks with billions of uniquely identified physical Smart
+Objects organized in an Internet-like structure Smart Objects are items
+such as sensors, consumer devices, and enterprise assets that are
+connected to both the Internet and each other 35</p>
+<!-- Slide number: 36 -->
+<h1 id="iot-characteristics">IoT Characteristics</h1>
+<p>The main and distinctive characteristics of the Internet of Things
+are the following Unique identifiable objects (things) with embedded
+intelligence able to sense or interact with the environment and
+communicate with the external world Presence of constrained devices with
+limited processing, storage and energy capabilities IP (Internet
+Protocol) based Networks (both IPv6 and IPv4) Different Communication
+Technologies (e.g., WiFi, Cellular, 802.15.4 etc …) Standard protocols
+and Interoperability Disruptive heterogeneity in terms of data, hardware
+and software Security Interaction between People &amp; Things 36</p>
+<!-- Slide number: 37 -->
+<h1 id="iot-challenges">IoT Challenges</h1>
+<figure>
+<img src="GoogleShape189p27.jpg" alt="Google Shape;189;p27" />
+<figcaption aria-hidden="true">Google Shape;189;p27</figcaption>
+</figure>
+<p><img src="GoogleShape190p27.jpg" alt="Google Shape;190;p27" /> 37</p>
+<!-- Slide number: 38 -->
+<h1 id="iot-vs-wireless-sensor-networks">IoT vs Wireless Sensor
+Networks</h1>
+<p>Wireless Ad-hoc Sensor Networks (WSN) represent the ancestors of the
+Internet of Things without a common and shared IP network. WSNs promised
+wide support of the interaction between people and their surroundings.
+The potential of the WSN lies in the three words composing the acronym
+itself: Wireless: puts the focus on the freedom that the elimination of
+wires gives in terms of mobility support and ease of system deployment
+Sensor: reflects the capability of sensing technology to provide the
+means to perceive and interact – in a wide sense – with the world
+Networks: gives emphasis to the possibility of building systems whose
+functional capabilities are given by a plurality of communicating
+devices, possibly distributed over large areas. 38</p>
+<!-- Slide number: 39 -->
+<h1 id="telemetry-machine-2-machine-m2m">Telemetry &amp; Machine 2
+Machine (M2M)</h1>
+<p>Telemetry allows the possibility to collect remote measurements from
+the field Telemetry can be associated to: Long-range Measurements:
+temperature, humidity, wind from remote weather stations (cellular
+network or Inmarsat satellite network); Formula 1 Short-range
+Measurements: pacemaker (telemetry coil, to measure the activity without
+surgery: low-power communication) M2M is a generalization of telemetry,
+which implies autonomic bidirectional communication between non-human
+operated machines and a central collector device</p>
+<p><img src="GoogleShape203p29.jpg" alt="Google Shape;203;p29" /> 39</p>
+<!-- Slide number: 40 -->
+<h1 id="m2m-fragmentation">M2M Fragmentation</h1>
+<p>Fragmented industry verticals: most industries are solving their M2M
+needs on their own; Often converging upon similar architectures and
+elements; the M2M “wheel” is reinvented from industry to industry
+Customized solutions abound: since solutions are on an
+industry-by-industry basis, each solution requires its own design,
+production, and implementation cycle; unique solutions often result in
+sole-sourcing of customized hardware; software design is limited to a
+small group of developers who understand the architecture and API’s for
+a particular industry or platform, thus leading to high development
+costs and high costs for support. Lack of scale for components:
+economies of scale are difficult to achieve in any given industry since
+solutions are so varied and unique. 40</p>
+<!-- Slide number: 41 -->
+<h1 id="iot-vs-machine-2-machine-m2m">IoT vs Machine 2 Machine
+(M2M)</h1>
+<p><img src="GoogleShape215p31.jpg" alt="Google Shape;215;p31" /> Figure
+from: https://www.avsystem.com/blog/iot-and-m2m-what-is-the-difference/
+41</p>
+<!-- Slide number: 42 -->
+<h1 id="iot-vs-machine-2-machine-m2m-1">IoT vs Machine 2 Machine
+(M2M)</h1>
+<p><img src="GoogleShape222p32.jpg" alt="Google Shape;222;p32" /> 42</p>
+<!-- Slide number: 43 -->
+<h1 id="vertical-silos-are-not-real-iot">Vertical Silos are not Real IoT
+!</h1>
+<p><img src="GoogleShape228p33.jpg" alt="Google Shape;228;p33" /> 43</p>
+<!-- Slide number: 44 -->
+<h1 id="vertical-silos-are-not-real-iot-1">Vertical Silos are not Real
+IoT !</h1>
+<figure>
+<img src="GoogleShape234p34.jpg" alt="Google Shape;234;p34" />
+<figcaption aria-hidden="true">Google Shape;234;p34</figcaption>
+</figure>
+<p><img src="GoogleShape236p34.jpg" alt="Google Shape;236;p34" /> 44</p>
+<!-- Slide number: 45 -->
+<h1 id="iot-pillars">IoT ”Pillars”</h1>
+<p><img src="GoogleShape183p26.jpg" alt="Google Shape;183;p26" /> 45</p>
+<!-- Slide number: 46 -->
+<h1 id="a-shared-iot-multi-layer-model">A Shared IoT Multi-Layer
+Model</h1>
+<p>It is possible to abstract IoT Systems and Architectures through a
+general multi-layer reference model with the aim to provide an
+high-level overview and to help in understanding the different layers
+and their interactions, enabling the development of comprehensive and
+scalable IoT solutions Of course, the model can be adapted and
+customized based on specific IoT implementations and requirements Main
+layers characterizing this reference model are: Perception Layer Network
+Layer Data and Information Management Layer Services and Applications
+Layer Business Layer 46</p>
+<!-- Slide number: 47 -->
+<h1 id="a-shared-iot-multi-layer-model-an-example">A Shared IoT
+Multi-Layer Model (An Example)</h1>
+<p><img src="Picture2.jpg" alt="Seven levels of IoT Reference Model" />
+Business Layer Services and Applications Layer</p>
+<p>Data and Information Management Layer</p>
+<p>Network Layer Perception Layer
+https://www.altexsoft.com/blog/iot-architecture-layers-components/
+https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2014/m10/the-internet-of-things-world-forum-unites-industry-leaders-in-chicago-to-accelerate-the-adoption-of-iot-business-models.html
+47</p>
+<!-- Slide number: 48 -->
+<h1 id="a-shared-iot-multi-layer-model-1">A Shared IoT Multi-Layer
+Model</h1>
+<p>Perception Layer: The perception layer is the bottommost layer of the
+IoT World-Forum Reference Model. It comprises the physical objects,
+sensors, actuators, and devices that interact with the physical
+environment. This layer collects data from the environment, such as
+temperature, humidity, or motion, through sensors and converts it into
+digital information. Network Layer: The network layer builds upon the
+perception layer and provides the infrastructure for communication and
+connectivity. It encompasses various technologies and protocols for
+local and wide-area networking, such as wireless (Wi-Fi, Bluetooth,
+Zigbee), wired (Ethernet), or cellular networks. This layer facilitates
+the transfer of data between devices, gateways, and the cloud. Data and
+Information Management Layer: The data and information management layer
+focuses on the storage, processing, and management of data generated by
+IoT devices. It includes components such as data storage systems,
+databases, and data analytics platforms. This layer handles tasks such
+as data filtering, aggregation, analysis, and enables efficient storage
+and retrieval of IoT-generated data. Services and Applications Layer:
+The services and applications layer builds upon the previous layers and
+provides higher-level functionalities and services to end-users. It
+includes services like device management, security, data visualization,
+and application development frameworks. This layer enables the creation
+of diverse IoT applications and services tailored to specific use cases.
+Business Layer: The business layer is the topmost layer of the IoT
+World-Forum Reference Model. It focuses on the business aspects,
+including the monetization, governance, and value creation of IoT
+solutions. This layer encompasses business models, standards,
+regulations, and policies that govern the deployment and operation of
+IoT systems. It also includes considerations such as privacy, ethics,
+and sustainability. 48</p>
+<!-- Slide number: 49 -->
+<h1 id="iot-hardware">IoT Hardware</h1>
+<figure>
+<img src="GoogleShape242p35.jpg" alt="Google Shape;242;p35" />
+<figcaption aria-hidden="true">Google Shape;242;p35</figcaption>
+</figure>
+<p><img src="GoogleShape243p35.jpg" alt="Google Shape;243;p35" /> 49</p>
+<!-- Slide number: 50 -->
+<h1 id="iot-hardware-1">IoT Hardware</h1>
+<p>Communication: This gives the smart object its communication
+capabilities. It is typically either a radio transceiver with an antenna
+or a wired connection. Microcontroller: This gives the smart object its
+behavior. It is a small microprocessor that runs the software of the
+smart object. Sensors or actuators: These give the smart object a way to
+sense and interact with the physical world. Power source: This is needed
+because the smart object contains electrical circuits. The most common
+power source is a battery, but there are other examples as well such as
+piezoelectric power sources, that provide power when a physical force is
+applied, or small solar cells, that provide power when light shines on
+them. 50</p>
+<!-- Slide number: 51 -->
+<h1 id="internet-of-things-protocol-stack">Internet of Things Protocol
+Stack</h1>
+<p>The extremely high number of IoT devices, together with their
+heterogeneity, require proper mechanisms for the management and seamless
+interaction with smart objects. At the physical layer, low power Wi-Fi,
+IEEE 802.15.4, LoRa and LoRaWAN, 4.5G/5G, and Bluetooth Low-Energy (BLE)
+are used to minimize energy consumption. Interoperability among IoT
+devices will be provided through the use of the Internet Protocol (IP),
+which will also guarantee integration with the Internet (6LoWPAN). At
+the application layer, CoAP (RFC 7252) has been designed to bring the
+REST paradigm to constrained devices. MQTT represents instead the
+Pub/Sub IoT standard at the moment.</p>
+<p><img src="GoogleShape263p38.jpg" alt="Google Shape;263;p38" /> 51</p>
+<!-- Slide number: 52 -->
+<h1 id="iot-connectivity">IoT Connectivity</h1>
+<p><img src="GoogleShape270p39.jpg" alt="Google Shape;270;p39" />
+https://www.qorvo.com/design-hub/blog/iot-standards-the-end-game |
+https://www.digikey.com/en/articles/techzone/2018/jun/speed-development-secure-cellular-connected-iot-applications
+52</p>
+<!-- Slide number: 53 -->
+<h1 id="iot-software-an-overview">IoT Software – An Overview</h1>
+<p>An IoT solution typically involves numerous devices (referred to as
+“things”), which may utilize gateways to establish communication through
+a network. This network connects to an enterprise back-end server
+running an IoT platform, which facilitates the integration of IoT data
+into the existing enterprise infrastructure. The devices, gateways, and
+cloud platform have clearly defined roles, each providing specific
+features and functionalities necessary for a reliable and effective IoT
+solution.</p>
+<p><img src="Picture3.jpg"
+alt="A diagram of a cloud Description automatically generated" /> 53
+Source: https://iot.eclipse.org/community/resources/white-papers/</p>
+<!-- Slide number: 54 -->
+<h1 id="iot-software-sensors-actuators">IoT Software – Sensors &amp;
+Actuators</h1>
+<p>The “Thing” serves as the initial component in an IoT solution,
+typically generating data and interacting with the physical world.
+Things are often constrained in terms of size and power supply, hence
+they commonly utilize microcontrollers (MCUs) with limited capabilities.
+These MCUs are specialized for specific tasks, designed for
+cost-effective mass production. The software running on MCU-based
+devices is tailored to support specific functions. Key features of the
+software stack on such devices may include: IoT Operating System: While
+many devices operate without an operating system, some incorporate
+embedded or real-time operating systems specifically suited for small,
+constrained devices, offering IoT-specific capabilities. Hardware
+Abstraction: This software layer allows access to MCU’s hardware
+features, such as flash memory, GPIOs, and serial interfaces,
+abstracting their complexities. Communication Support: Drivers and
+protocols facilitate device connectivity to wired or wireless protocols
+like Bluetooth, Z-Wave, Thread, CAN bus, MQTT, CoAP, enabling efficient
+device communication. Remote Management: The capability to remotely
+control the device, enabling firmware upgrades or battery level
+monitoring, ensuring efficient device management.</p>
+<p><img src="Picture4.jpg"
+alt="A screenshot of a computer program Description automatically generated" />
+Source: https://iot.eclipse.org/community/resources/white-papers/ 54</p>
+<!-- Slide number: 55 -->
+<h1 id="iot-software-gateways">IoT Software – Gateways</h1>
+<p>The IoT gateway serves as the central hub for a group of sensors and
+actuators, facilitating their connectivity with each other and external
+networks. It can manifest as a physical hardware device or as a
+functional component integrated within a larger “Thing” connected to the
+network. Examples of gateways include industrial machines, connected
+automobiles, or home automation appliances. An IoT gateway often
+provides data processing and storage capabilities at the edge to handle
+network latency and ensure reliability. It addresses interoperability
+challenges between incompatible devices for device-to-device
+connectivity. In a typical IoT architecture, multiple IoT gateways
+support numerous devices, forming a scalable infrastructure.</p>
+<p><img src="Picture2.jpg"
+alt="A screenshot of a computer program Description automatically generated" />
+Source: https://iot.eclipse.org/community/resources/white-papers/ 55</p>
+<!-- Slide number: 56 -->
+<h1 id="iot-software-gateways-1">IoT Software – Gateways</h1>
+<p>IoT gateways are increasingly reliant on software to implement their
+core functionalities. The essential features of a gateway’s software
+stack include: Operating System: Typically, a general-purpose operating
+system like Linux is employed as the foundation for the gateway
+software. Application Container or Runtime Environment: IoT gateways
+often possess the capability to execute application code and allow
+dynamic updates. For instance, gateways may support languages such as
+Java, Python, or Node.js. Communication and Connectivity: IoT gateways
+need to support various connectivity protocols to interact with
+different devices (e.g., Bluetooth, Wi-Fi, Z-Wave, ZigBee, Thread). They
+also require the ability to connect to different network types (e.g.,
+Ethernet, cellular, Wi-Fi, satellite) while ensuring reliable, secure,
+and confidential communication. Data Management &amp; Messaging: Gateway
+software incorporates local data persistence to support scenarios
+involving network latency, offline mode, and real-time analytics at the
+edge. Additionally, it facilitates consistent forwarding of device data
+to an IoT platform. Remote Management: The gateway software enables
+remote provisioning, configuration, and startup/shutdown of gateways,
+along with managing the applications running on them. This functionality
+empowers administrators to perform tasks remotely for efficient gateway
+management.</p>
+<p><img src="Picture2.jpg"
+alt="A screenshot of a computer program Description automatically generated" />
+Source: https://iot.eclipse.org/community/resources/white-papers/ 56</p>
+<!-- Slide number: 57 -->
+<h1 id="iot-software-cloud-platforms">IoT Software – Cloud &amp;
+Platforms</h1>
+<p>An IoT Platform serves as the software infrastructure and service
+framework necessary to enable IoT solutions. They mainly operate on
+Cloud Infrastructures (such as OpenShift, AWS, Microsoft Azure, or Cloud
+Foundry) or within an enterprise data center. The platform is designed
+to scale horizontally, accommodating the large number of connected
+devices, as well as vertically to cater to the diverse range of IoT
+solutions. Additionally, the IoT Cloud Platform facilitates
+interoperability between the IoT solution and existing enterprise
+applications, as well as other IoT solutions. The essential
+functionalities of an IoT Cloud Platform include: Connectivity and
+Message Routing Device Management and Device Registry Data Management
+and Storage Event Management, Analytics &amp; User Interface Application
+Enablement IoT platforms are not only in the Cloud ! We will talk about
+that aspect in a dedicated Lecture :)</p>
+<p><img src="Picture3.jpg"
+alt="A blue rectangular box with text Description automatically generated" />
+Source: https://iot.eclipse.org/community/resources/white-papers/ 57</p>
+<!-- Slide number: 58 -->
+<h1 id="iot-software-cloud-platforms-1">IoT Software – Cloud &amp;
+Platforms</h1>
+<p>Connectivity and Message Routing: IoT platforms must effectively
+interact with a vast number of devices and gateways, supporting various
+protocols and data formats. They normalize and integrate this data for
+seamless integration with the enterprise systems. Device Management and
+Device Registry: The platform provides a central registry for
+identifying devices and gateways within the IoT solution. It enables
+device provisioning, software updates, and overall management of
+devices. Data Management and Storage: An IoT Cloud Platform incorporates
+a scalable data store capable of handling the volume and variety of IoT
+data generated. It ensures efficient storage, retrieval, and management
+of the data. Event Management, Analytics &amp; User Interface: The
+platform offers scalable event processing capabilities, enabling the
+consolidation, analysis, and interpretation of IoT data. It facilitates
+the creation of reports, graphs, dashboards, and user interfaces to
+visualize and gain insights from the data. Application Enablement: The
+IoT Cloud Platform allows the creation of custom reports, graphs,
+dashboards, and provides APIs for seamless application integration. It
+empowers developers to leverage the platform’s capabilities for
+application development and integration.</p>
+<p><img src="Picture3.jpg"
+alt="A blue rectangular box with text Description automatically generated" />
+Source: https://iot.eclipse.org/community/resources/white-papers/ 58</p>
+<!-- Slide number: 59 -->
+<h1 id="iot-software-cross-stack-functionalities">IoT Software –
+Cross-Stack Functionalities</h1>
+<p><img src="Picture6.jpg"
+alt="A screenshot of a computer Description automatically generated" />
+Source: https://iot.eclipse.org/community/resources/white-papers/ 59</p>
+<!-- Slide number: 60 -->
+<h1 id="iot-software-cross-stack-functionalities-1">IoT Software –
+Cross-Stack Functionalities</h1>
+<p>Within an IoT solution, various features must be taken into
+consideration across different stacks of the architecture, including:
+Security: Implementing robust security measures throughout the entire
+IoT ecosystem is crucial. This involves incorporating authentication,
+encryption, and authorization features at each level, from devices to
+the cloud. Ontologies: Establishing a standardized format and
+description for device data is essential for enabling effective data
+analytics and promoting data interoperability. The ability to define
+ontologies and metadata that can span across diverse domains is a
+significant focus in the IoT realm. Development Tools and SDKs: IoT
+developers require appropriate development tools that support the wide
+range of hardware and software platforms involved in IoT solutions.
+These tools aid in streamlining the development process and ensuring
+compatibility across different platforms. Source:
+https://iot.eclipse.org/community/resources/white-papers/ 60</p>
+<!-- Slide number: 61 -->
+<h1 id="iot-software-key-characteristics">IoT Software – Key
+Characteristics</h1>
+<p>There are certain shared characteristics that should be embraced by
+every IoT stack, including: Loosely Coupled: Each IoT stack should have
+the ability to function independently of other stacks. It should be
+possible to utilize an IoT Cloud Platform from one provider, an IoT
+gateway from another provider, and a device stack from a third provider,
+enabling flexibility and interoperability. Modular: Each stack should
+allow for the selection and integration of features from different
+suppliers. This modular approach facilitates customization and the
+ability to choose components that best fit the specific IoT solution
+requirements. Platform-Independent: Each stack should be agnostic to the
+underlying hardware and cloud infrastructure. For example, the device
+stack should be compatible with multiple microcontrollers (MCUs), while
+the IoT Cloud Platform should be adaptable to different Cloud Platform
+as a Service (PaaS) offerings. Based on Open Standards: Communication
+between the stacks should be based on open standards, ensuring
+interoperability and compatibility across different IoT components. Open
+standards foster collaboration and the creation of ecosystems that
+promote seamless integration. Defined APIs: Each stack should provide
+well-defined Application Programming Interfaces (APIs) that enable easy
+integration with existing applications and facilitate interoperability
+with other IoT solutions. These APIs simplify the development and
+integration processes, promoting efficient connectivity and data
+exchange.</p>
+<p><img src="Picture3.jpg"
+alt="A black and white icon of a ship Description automatically generated" />
+61</p>
+<!-- Slide number: 62 -->
+<h1 id="some-references">(Some) References</h1>
+<p>White Paper: DevOps for Developing Cyber-Physical Systems.
+https://www.iks.fraunhofer.de/en/publications/whitepapers-studies/whitepaper-devops-cyber-physical-systems.html
+What is the difference between CPS and IoT ?
+https://blog.engineering.vanderbilt.edu/what-is-the-difference-between-cps-and-iot
+Example of Industry 4.0 Use Cases:
+https://www.linkedin.com/pulse/examples-industry-40-use-cases-luka-kozamernik/
+Cyber-Physical Systems:
+https://www.nist.gov/itl/ssd/cyber-physical-systems Safety and Security
+of Cyber-Physical Systems. Engineering dependable Software using
+Principle-based Development.
+https://link.springer.com/book/10.1007/978-3-658-37182-1 Introduction to
+Cyber-Physical Systems:
+https://www.geeksforgeeks.org/introduction-to-cyber-physical-system/
+Melanie Schranz, Gianni A. Di Caro, Thomas Schmickl, Wilfried
+Elmenreich, Farshad Arvin, Ahmet Şekercioğlu, Micha Sende. Swarm
+Intelligence and cyber-physical systems: Concepts, challenges and future
+trends. Swarm and Evolutionary Computation, Volume 60, 2021, 100762,
+ISSN 2210-6502, https://doi.org/10.1016/j.swevo.2020.100762. E.A. Lee,
+Cyber physical systems: design challenges. Proceedings of the Eleventh
+IEEE International Symposium on Object Oriented Real-Time Distributed
+Computing (2008), pp. 363-369 N. S. Foundation, Cyber physical systems,
+(https://www.nsf.gov/funding/pgm_summ.jsp?pims_id=503286) C.B. Nielsen,
+P.G. Larsen, J. Fitzgerald, J. Woodcock, J. Peleska. Systems of systems
+engineering: basic concepts, model-based techniques, and research
+directions. ACM Comput. Surv., 48 (2) (2015) Y. Liu, Y. Peng, B. Wang,
+S. Yao, Z. Liu. Review on cyber-physical systems. IEEE/CAA J. Autom.
+Sin., 4 (1) (2017), pp. 27-40 The Three Software Stacks Required for IoT
+Architectures:
+https://iot.eclipse.org/community/resources/white-papers/pdf/Eclipse%20IoT%20White%20Paper%20-%20The%20Three%20Software%20Stacks%20Required%20for%20IoT%20Architectures.pdf
+Open Source Software in Industry 4.0:
+https://iot.eclipse.org/community/resources/white-papers/pdf/Eclipse%20IoT%20White%20Paper%20-%20Open%20Source%20Software%20for%20Industry%204.0.pdf
+62</p>
+<!-- Slide number: 63 -->
+<figure>
+<img
+src="1280pxLogo_Università_degli_Studi_di_Modena_e_Reggio_Emiliasvgpng.jpg"
+alt="1280px-Logo_Università_degli_Studi_di_Modena_e_Reggio_Emilia.svg.png" />
+<figcaption
+aria-hidden="true">1280px-Logo_Università_degli_Studi_di_Modena_e_Reggio_Emilia.svg.png</figcaption>
+</figure>
+<p>Distributed and Internet of Things Software Architectures Digital
+Automation Engineering (D.M.270/04) Curriculum: Digital Infrastructure
+Cyber-Physical Systems &amp; Internet of Things Prof. Marco Picone A.A
+2025/2026 63</p>
+</body>
+</html>
