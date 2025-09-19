@@ -31,7 +31,7 @@
 
 Since from the beginning of the Internet, there was the desire to connect more “things” to it. Source: ARPANET Completion Report: January 4, 1978.
 
-![ARPANET Completion Report January 4, 1978](images/Lecture1/arpanet_1978.png)
+![ARPANET Completion Report January 4, 1978](images/Lecture1/arpanet_1978.png)<br>
 **Figure 1.1:** ARPANET Completion Report January 4, 1978
 
 The original idea of the Internet was to connect computers, but very soon, the idea of connecting other devices to the network emerged. The image above shows a representation of the ARPANET network in 1978, where we can see various types of devices connected to the network such as mainframe computers, minicomputers, and terminals through different geographical locations such as universities, research institutions, and government agencies involving multiple countries and satellite links.
@@ -46,7 +46,7 @@ The exponential growth in connected devices has led to an explosion in the volum
 
 As a result, the Internet has become the backbone for countless services and applications, powering innovation and transforming how we live, work, and interact. The availability of massive data volumes and intelligent services continues to drive new opportunities and challenges in connectivity, security, and digital transformation.
 
-![The current state of the Internet/Web](images/Lecture1/current_internet_web.png)
+![The current state of the Internet/Web](images/Lecture1/current_internet_web.png)<br>
 **Figure 1.2:** A "snapshot" of the current state of the Internet/Web
 
 ---
@@ -60,9 +60,8 @@ As a result, the Internet has become the backbone for countless services and app
 > interface. This experiment had inspired a lot of inventors all over the world to create their own connected appliances.
 
 
-![Connected Drink Machine](images/Lecture1/drink_machine.png)
-
-**Figure 1.3:** CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino 
+![Connected Drink Machine](images/Lecture1/drink_machine.png)<br>
+**Figure 1.3:** CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino <br>
 **Sources:** [Link1](https://slideplayer.com/slide/14090495/), [Link2](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
 ---
