@@ -62,7 +62,7 @@ As a result, the Internet has become the backbone for countless services and app
 
 ![Connected Drink Machine](images/Lecture1/drink_machine.png)<br>
 **Figure 1.3:** CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino <br>
-**Sources:** [Link1](https://slideplayer.com/slide/14090495/), [Link2](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
+**Sources:** [Link](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
 ---
 
