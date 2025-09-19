@@ -235,7 +235,7 @@ On the other hand, the envisioned goal is to build a new generation of distribut
 - **native system re-configuration**
 - **decentralized learning** & **dynamic evolution** and **behaviors**
 
-## From CPS to CPSoS (Cyber-Physical System of Systems)
+---
 
 ## From CPS to CPSoS (Cyber-Physical System of Systems)
 
