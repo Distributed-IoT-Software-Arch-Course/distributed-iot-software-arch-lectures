@@ -151,10 +151,13 @@ IoT device cannot always use the traditional Internet protocol stack due to thei
 For this reason, IoT devices often use **lightweight protocols** that are specifically designed for resource-constrained environments. 
 These protocols are optimized for low power consumption, reduced bandwidth usage, and efficient data transmission.
 
-For example, protocols such as **MQTT (Message Queuing Telemetry Transport)** and **CoAP (Constrained Application Protocol)** are commonly used in IoT applications.
-These protocols are designed to be lightweight and efficient, making them well-suited for IoT devices with limited resources.
-They are the counterpart of traditional protocols like HTTP and TCP, which are more resource-intensive and may not be suitable for all IoT scenarios
-or in case of MQTT that can be compared to the traditional AMQP protocol used in enterprise messaging systems.
+For example, two widely adopted protocols in IoT applications are **MQTT (Message Queuing Telemetry Transport)** and **CoAP (Constrained Application Protocol)**. 
+
+- **MQTT** is a lightweight, publish-subscribe messaging protocol designed for efficient communication between devices with limited bandwidth and resources. It is commonly used for telemetry and remote monitoring in IoT scenarios. MQTT can be compared to traditional enterprise messaging protocols such as **AMQP (Advanced Message Queuing Protocol)**, as both support the publish-subscribe paradigm, but MQTT is optimized for constrained environments.
+
+- **CoAP** is a specialized web transfer protocol designed for use with resource-constrained devices and networks. It follows a request/response model similar to **HTTP (Hypertext Transfer Protocol)**, but is much more lightweight, making it suitable for IoT deployments where minimizing overhead is critical.
+
+These protocols are specifically engineered to be lightweight and efficient, addressing the limitations of IoT devices in terms of processing power, memory, and energy consumption. In contrast, traditional protocols like HTTP and **TCP (Transmission Control Protocol)** are more resource-intensive and may not be practical for all IoT scenarios.
 
 ---
 
