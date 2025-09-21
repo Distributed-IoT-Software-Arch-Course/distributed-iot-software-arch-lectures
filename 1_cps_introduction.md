@@ -279,14 +279,14 @@ its own bespoke solutions rather than leveraging common architectures and reusab
 
 **Figure 1.10:** Schematic representation of the difference between M2M and IoT
 
-| Aspect             | M2M                                   | IoT                                                        |
-|--------------------|---------------------------------------|------------------------------------------------------------|
-| Communication      | Point-to-point                        | Many-to-many via Internet/cloud                            |
-| Scope              | Device-specific, narrow               | Wide, heterogeneous, spanning multiple domains             |
-| Data Processing    | Local, limited                        | Cloud-based, distributed, advanced analytics               |
-| Standards          | Proprietary, domain-specific          | Open, global, cross-domain                                 |
-| Scalability        | Limited, hard to extend               | Highly scalable, billions of devices                       |
-| Applications       | Vertical solutions (e.g., smart meter)| Horizontal ecosystems (e.g., smart cities, Industry 4.0)   |
+| **Aspect**             | **M2M**                                   | **IoT**                                                    |
+|------------------------|-------------------------------------------|------------------------------------------------------------|
+| **Communication**      | Point-to-point                            | Many-to-many via Internet/cloud                            |
+| **Scope**              | Device-specific, narrow                   | Wide, heterogeneous, spanning multiple domains             |
+| **Data Processing**    | Local, limited                            | Cloud-based, distributed, advanced analytics               |
+| **Standards**          | Proprietary, domain-specific              | Open, global, cross-domain                                 |
+| **Scalability**        | Limited, hard to extend                   | Highly scalable, billions of devices                       |
+| **Applications**       | Vertical solutions (e.g., smart meter)    | Horizontal ecosystems (e.g., smart cities, Industry 4.0)   |
 
 WSN and M2M laid the groundwork for IoT by demonstrating the potential of connected devices. 
 However, IoT expands upon these concepts by leveraging standard Internet protocols, enabling global connectivity, interoperability, 
@@ -296,11 +296,30 @@ working together in a collaborative manner.
 
 ---
 
+# IoT Device Core Characteristics
+
+![](images/Lecture1/iot_device_core_modules.png)
+
+**Figure 1.11:** Schematic representation of the core characteristics of IoT devices
+
+Understanding the core components of IoT devices is fundamental for designing, developing, and deploying effective cyber-physical and IoT systems. Identifying these modules allows engineers to address key requirements such as connectivity, sensing, processing, and energy management, ensuring that devices can reliably interact with both the physical and digital worlds. A clear grasp of these building blocks also supports interoperability, scalability, and security across diverse application domains.
+The main modules of an IoT device usually include:
+
+- **Communication:** Enables the device to exchange data with other systems or networks, typically via a radio transceiver with an antenna or a wired connection.
+- **Microcontroller:** Acts as the device’s “brain,” running embedded software to control its behavior and manage operations.
+- **Sensors or Actuators:** Allow the device to sense environmental conditions or interact with the physical world, providing input or output capabilities.
+- **Power Source:** Supplies energy to the device’s electronic circuits. Common options include batteries, piezoelectric sources (activated by physical force), or small solar cells (powered by light).
+
+IoT devices do not work alone, but they are part of a larger ecosystem that includes multiple devices, networks, cloud services, and user interfaces through 
+different types of architectures and deployment models as we briefly introduce in the next section.
+
+---
+
 # A Shared IoT Multi-Layer Model
 
 ![](images/Lecture1/iot_industrial_multi_layer.png)
 
-**Figure 1.11:** An example of an IoT Multi-Layer Model in the Industrial Domain where different layers are represented and interconnected to support the IoT ecosystem. 
+**Figure 1.12:** An example of an IoT Multi-Layer Model in the Industrial Domain where different layers are represented and interconnected to support the IoT ecosystem. 
 [Link1](https://www.altexsoft.com/blog/iot-architecture-layers-components/), [Link2](https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2014/m10/the-internet-of-things-world-forum-unites-industry-leaders-in-chicago-to-accelerate-the-adoption-of-iot-business-models.html)
 
 A general multi-layer reference model is often used to abstract and describe IoT systems and architectures. 
@@ -322,6 +341,59 @@ This architecture typically comprises the following layers:
   - **Application:** This layer provides the specific functionalities and services that utilize the processed IoT data. This includes reporting, analytics, and control mechanisms that enable users to interact with and manage their IoT systems.
 - **Business Layer:**
   - **Collaboration & Processes:** The highest layer, where the insights derived from IoT data are integrated into broader business processes and decision-making. It involves people, organizational workflows, and strategic collaborations that drive value from IoT deployments.
+
+---
+
+# IoT Software an Overview
+
+![](images/Lecture1/iot_involved_actors.png)
+
+**Figure 1.13:** A schematic representation of the main actors involved in an IoT solution. 
+[Link1](https://iot.eclipse.org/community/resources/white-papers/)
+
+An effective IoT solution comprises a diverse array of connected devices ("things") that collect and transmit data. These devices often communicate via gateways, which serve as intermediaries to bridge local device networks with broader enterprise or cloud infrastructures. The network enables secure and reliable data exchange between devices, gateways, and a centralized IoT platform—typically hosted on enterprise back-end servers or in the cloud.
+
+The IoT platform plays a pivotal role by aggregating, processing, and integrating device data into existing enterprise systems and workflows. Each component—devices, gateways, and the cloud platform—fulfills distinct responsibilities:
+
+- **Devices ("Things")**: Sense, actuate, and generate data from the physical environment.
+- **Gateways**: Manage connectivity, protocol translation, and local processing, ensuring seamless communication between devices and the network.
+- **IoT Platform (Cloud/Enterprise Server)**: Orchestrates device management, data analytics, integration with business applications, and overall system reliability.
+
+This layered architecture ensures scalable, interoperable, and secure IoT deployments that can be tailored to meet specific business and operational requirements.
+Of course this architecture can be more complex and include additional components such as:
+
+- **Edge/Fog Computing Nodes**: Intermediate processing units that perform data analysis and decision-making closer to the data source, reducing latency and bandwidth usage.
+- **Security Modules**: Dedicated components for ensuring data integrity, confidentiality, and authentication across the IoT ecosystem.
+- **User Interfaces**: Dashboards, mobile apps, and other interfaces that allow users to interact with and manage IoT devices and data.
+- **Analytics Engines**: Advanced data processing units that apply machine learning and AI techniques to derive insights from IoT data.
+- **Integration Layers**: Middleware that facilitates communication and data exchange between the IoT platform and existing enterprise systems (e.g., ERP, CRM).
+- **Management and Orchestration Tools**: Software for monitoring, updating, and managing the entire IoT infrastructure.
+- **APIs and SDKs**: Tools that enable developers to build applications and services on top of the IoT platform.
+- **Data Storage Solutions**: Scalable databases and data lakes designed to handle the large volumes of data generated by IoT devices.
+- **Communication Networks**: Various network technologies (e.g., LPWAN, 5G, Wi-Fi) that provide connectivity options tailored to different IoT use cases.
+- **Backup and Recovery Systems**: Mechanisms to ensure data resilience and availability in case of failures.
+- **Monitoring and Alerting Systems**: Tools that provide real-time monitoring of device status, performance metrics, and alerting for anomalies or failures.
+- **Development and Testing Environments**: Platforms that facilitate the development, simulation, and testing of IoT applications before deployment.
+
+---
+
+## IoT Software - Sensor & Actuator
+
+![](images/Lecture1/iot_device_software.png)
+
+**Figure 1.14:** IoT Devices software stack and main components. 
+[Link1](https://iot.eclipse.org/community/resources/white-papers/)
+
+
+The "Thing" serves as the initial component in an IoT solution, typically generating data and interacting with the physical world. 
+Things are often constrained in terms of size and power supply, hence they commonly utilize **Microcontrollers (MCUs)** with limited capabilities. 
+These MCUs are specialized for specific tasks, designed for cost-effective mass production. The software running on MCU-based devices is tailored to support specific functions. 
+Key features of the software stack on such devices may include:
+
+- **IoT Operating System**: While many devices operate without an operating system, some incorporate embedded or real-time operating systems specifically suited for small, constrained devices, offering IoT-specific capabilities.
+- **Hardware Abstraction**: This software layer allows access to MCU's hardware features, such as flash memory, GPIOs, and serial interfaces, abstracting their complexities.
+- **Communication Support**: Drivers and protocols facilitate device connectivity to wired or wireless protocols like Bluetooth, Z-Wave, Thread, CAN bus, MQTT, CoAP, enabling efficient device communication.
+- **Remote Management**: The capability to remotely control the device, enabling firmware upgrades or battery level monitoring, ensuring efficient device management.
 
 ---
 
