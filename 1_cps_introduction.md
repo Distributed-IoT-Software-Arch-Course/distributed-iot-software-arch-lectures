@@ -11,9 +11,6 @@
 | **Last Update**     | September 2025                                        | 
 
 
-<!-- > [!TIP]
-> MarkItDown now offers an MCP (Model Context Protocol) server for integration with LLM applications like Claude Desktop. See [markitdown-mcp](https://github.com/microsoft/markitdown/tree/main/packages/markitdown-mcp) for more information. -->
-
 # Outline
 
 - Cyber-Physical Systems
@@ -31,7 +28,8 @@
 
 Since from the beginning of the Internet, there was the desire to connect more “things” to it. Source: ARPANET Completion Report: January 4, 1978.
 
-![ARPANET Completion Report January 4, 1978](images/Lecture1/arpanet_1978.png)<br>
+![ARPANET Completion Report January 4, 1978](images/Lecture1/arpanet_1978.png)
+
 **Figure 1.1:** ARPANET Completion Report January 4, 1978
 
 The original idea of the Internet was to connect computers, but very soon, the idea of connecting other devices to the network emerged. The image above shows a representation of the ARPANET network in 1978, where we can see various types of devices connected to the network such as mainframe computers, minicomputers, and terminals through different geographical locations such as universities, research institutions, and government agencies involving multiple countries and satellite links.
@@ -46,23 +44,30 @@ The exponential growth in connected devices has led to an explosion in the volum
 
 As a result, the Internet has become the backbone for countless services and applications, powering innovation and transforming how we live, work, and interact. The availability of massive data volumes and intelligent services continues to drive new opportunities and challenges in connectivity, security, and digital transformation.
 
-![The current state of the Internet/Web](images/Lecture1/current_internet_web.png)<br>
+![The current state of the Internet/Web](images/Lecture1/current_internet_web.png)
+
 **Figure 1.2:** A "snapshot" of the current state of the Internet/Web
 
 ---
 
 ## The First "Connected Devices" - The Cold Drink Machine
 
+The ARPANET-connected Coke machine at Carnegie Mellon University is widely recognized as one of the earliest examples of a "smart" connected device. 
+This innovative project demonstrated how everyday appliances could be enhanced with network connectivity, paving the way for future developments in the Internet of Things (IoT).
 
-> The students of Carnegie Mellon University invent the ARPANET-connected coke machine. Four students from the School of Computer Science 
-> department installed the switches in the coke machine. They counted how many coke bottles had remained in each row and for how long. If the 
-> loaded bottle spends a long time in the machine, it is labeled “cold”. All this data was then remotely available to customers via a finger 
-> interface. This experiment had inspired a lot of inventors all over the world to create their own connected appliances.
+Key highlights of the ARPANET-connected Coke machine:
+
+- Developed by students at Carnegie Mellon University's School of Computer Science.
+- Switches were installed in the Coke machine to monitor the number of bottles in each row.
+- The system tracked how long each bottle remained in the machine; bottles stored for a longer time were labeled as "cold."
+- Users could remotely access the machine's status via a finger interface over ARPANET.
+- This pioneering experiment inspired inventors worldwide to create their own network-connected appliances.
 
 
-![Connected Drink Machine](images/Lecture1/drink_machine.png)<br>
-**Figure 1.3:** CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino <br>
-**Sources:** [Link](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
+![](images/Lecture1/drink_machine.png)
+
+**Figure 1.3:** CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino. 
+[**[Link]**](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
 ---
 
@@ -74,8 +79,10 @@ As a result, the Internet has become the backbone for countless services and app
 > that was observing the coffee pot and taking pictures of it several times a minute. Then the pictures were sent to the client application, to 
 > keep the user updated on the information about whether the pot was filled.
 
-![XCoffee Machine](images/Lecture1/xcoffee.png)</br>
-**Figure 1.4:** The XCoffee Machine - The First "Connected Device"</br>
+![XCoffee Machine](images/Lecture1/xcoffee.png)
+
+**Figure 1.4:** The XCoffee Machine - The First "Connected Device"
+
 **Sources:** [Link1](https://www.cl.cam.ac.uk/coffee/qsf/coffee.html), [Link2](https://odannyboy.medium.com/the-first-things-on-the-internet-of-things-5d817d45ac9c),[Link3](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
 ---
@@ -89,8 +96,9 @@ In the picture below, you can see how the mobile revolution has transformed St. 
 >What a difference 8 years makes: St. Peter’s Square in 2005 and yesterday (2013)” 
 (Facebook NBC News)
 
-![Piazza San Pietro - The Mobile Revolution](images/Lecture1/piazza_san_pietro.png) <br>    
-**Figure 1.5:** Piazza San Pietro - The Mobile Revolution</br>
+![Piazza San Pietro - The Mobile Revolution](images/Lecture1/piazza_san_pietro.png)    
+
+**Figure 1.5:** Piazza San Pietro - The Mobile Revolution
 
 This image hides an interesting aspect on what we are not seeing and able to support this massive number of mobile devices. The answer is the **Network and Internet infrastructures, which are the backbone of the mobile revolution and are able to support the increasing demand for data and connectivity combined with Cloud Computing infrastructures and services**.
 
@@ -98,13 +106,15 @@ Those infrastructures evolved a lot in the last 20 years, and they are still evo
 
 Another interesting example is the event of the concert of Vasco Rossi in Modena Park, July 2017, where more than 230K people attended the event and almost all of them were using their mobile devices to share the event in real time.
 
-![Vasco Rossi Concert, Modena Park](images/Lecture1/olivetti_modena_park.png) <br>
-**Figure 1.6:** 230K Devices at Vasco Rossi Concert @ Modena Park - July 2017</br>
+![Vasco Rossi Concert, Modena Park](images/Lecture1/olivetti_modena_park.png)
+
+**Figure 1.6:** 230K Devices at Vasco Rossi Concert @ Modena Park - July 2017
+
 **Source:** [Link](https://www.digitaldata.olivetti.com/timbigdata/concerto-di-vasco-rossi)
 
 
-
-This is another example of how the mobile revolution is changing the way we live and interact, and how the underlying network and internet infrastructures are crucial to support this massive connectivity.
+This is another example of how the mobile revolution is changing the way we live and interact, and how the 
+underlying network and internet infrastructures are crucial to support this massive connectivity.
 
 ---
 
@@ -112,8 +122,9 @@ This is another example of how the mobile revolution is changing the way we live
 
 Another interesting aspect of the mobile revolution is the rise of wearable computing devices, such as smartwatches, fitness trackers, and augmented reality glasses. These devices are designed to be worn on the body and provide users with real-time access to information, notifications, and health monitoring features.
 
-![Wearable Computing](images/Lecture1/wearable_computing.png)<br>
-**Figure 1.7:** Wearable Computing Devices</br>
+![Wearable Computing](images/Lecture1/wearable_computing.png)
+
+**Figure 1.7:** Wearable Computing Devices
 
 Nowadays, we are not just associated to one or two mobile devices, but we are surrounded by a plethora of connected devices that are becoming an integral part of our daily lives. From smart home devices to connected cars, the Internet of Things (IoT) is transforming the way we interact with our environment and the world around us. 
 
@@ -126,12 +137,13 @@ This devices creates a new paradigm where the physical and digital worlds are in
 In the context of the mobile revolution, the Internet of Things (IoT) has emerged as a transformative concept that envisions a world where everyday objects are connected to the internet, enabling them to collect and exchange data. The IoT represents a significant evolution in the way we interact with technology, 
 as it extends connectivity beyond traditional computing devices to encompass a wide range of physical objects and environments.
 
-> The **Internet of Things (IoT)** refers to the idea of a network of networks with billions of uniquely identified physical devices
+> 🔍 The **Internet of Things (IoT)** refers to the idea of a network of networks with billions of uniquely identified physical devices
 > denoted also as **Smart Objects** organized in an **Internet-like structure**.
 > Smart Objects are items such as sensors, consumer devices, and enterprise assets that are **connected to both the Internet and each other**.
 
-![IoT Pillars](images/Lecture1/iot_pillars.png) <br>
-**Figure 1.8:** IoT Pillars - Communication Technologies (e.g., LoRa, NB-IoT), Hardware (e.g., Raspberry Pi, Arduino), Software (e.g., C/C++, Python, Linux, RTOS) and Protocols (e.g., MQTT, CoAP)</br>
+![IoT Pillars](images/Lecture1/iot_pillars.png)
+
+**Figure 1.8:** IoT Pillars - Communication Technologies (e.g., LoRa, NB-IoT), Hardware (e.g., Raspberry Pi, Arduino), Software (e.g., C/C++, Python, Linux, RTOS) and Protocols (e.g., MQTT, CoAP)
 
 One of the **key characteristics of the Internet of Things (IoT)** is its reliance on the **Internet** itself. 
 The IoT is not simply about connecting devices; it is about connecting them **using standard Internet protocols**, rather than proprietary solutions. This approach is **crucial for achieving scalability, interoperability, and global accessibility** in IoT systems.
@@ -144,8 +156,9 @@ A key element to consider it that being connected to the Internet is not mandato
 We can have IoT deployments that are fully connected to the Internet, partially connected, or even completely isolated from it, depending on the specific use case and requirements.
 The common factor is that the devices must be able to communicate using IP protocols, regardless of their connectivity to the broader Internet.
 
-![IoT Stack](images/Lecture1/iot_stack.png) <br>
-**Figure 1.9:** IoT Protocol Stack vs Traditional Networking Stack</br>
+![](images/Lecture1/iot_stack.png)
+
+**Figure 1.9:** IoT Protocol Stack vs Traditional Networking Stack
 
 IoT device cannot always use the traditional Internet protocol stack due to their **resource constraints** (e.g., limited processing power, memory, and energy).
 For this reason, IoT devices often use **lightweight protocols** that are specifically designed for resource-constrained environments. 
@@ -182,16 +195,149 @@ to build smarter, more responsive, and data-driven solutions across domains.
 
 ---
 
+## IoT Main Characteristics
+
+The **Internet of Things (IoT)** is defined by several distinctive characteristics that set it apart from traditional computing paradigms. 
+The most important keywords and concepts include:
+
+- **Unique Identifiable Objects**: Each "thing" in the IoT ecosystem is uniquely identifiable and typically equipped with **embedded intelligence** (e.g., sensors, actuators, microcontrollers) to **sense** or **interact** with the environment and **communicate** with external systems.
+- **Constrained Devices**: Many IoT devices operate with **limited processing power**, **storage**, and **energy resources**, requiring efficient and lightweight solutions.
+- **IP-Based Networks**: IoT connectivity is built on **Internet Protocol (IP)** standards (including **IPv4** and **IPv6**), enabling global addressing and interoperability.
+- **Diverse Communication Technologies**: IoT leverages a wide range of **communication technologies** such as **WiFi**, **Cellular**, **Bluetooth**, **LPWAN**, and **IEEE 802.15.4** to connect devices across different environments.
+- **Standard Protocols & Interoperability**: The use of **standard protocols** (e.g., **MQTT**, **CoAP**, **HTTP**) is essential for **interoperability** among heterogeneous devices and platforms.
+- **Disruptive Heterogeneity**: IoT systems exhibit significant **heterogeneity** in terms of **data formats**, **hardware architectures**, and **software platforms**, posing challenges for integration and management.
+- **Security**: Ensuring **security** and **privacy** is critical due to the vast number of connected devices and the sensitive nature of the data exchanged.
+- **Interaction between People & Things**: IoT enables seamless **interaction** and **collaboration** between **people** and **things**, fostering new applications and user experiences.
+
+These characteristics collectively drive the evolution of IoT, shaping its architecture, protocols, and application domains.
+
+---
+
+## Some of the Main IoT Challenges
+
+The Internet of Things (IoT) presents several significant challenges that need to be addressed to ensure its successful implementation and widespread adoption. 
+Some of the main challenges include:
+
+- **Scalability**: The IoT ecosystem is expected to grow exponentially, with billions of devices connected to the internet. Managing and scaling such a vast network of devices poses significant challenges in terms of infrastructure, data management, and network performance.
+- **Interoperability**: IoT devices come from various manufacturers and use different communication protocols and data formats. Ensuring seamless interoperability among heterogeneous devices and platforms is crucial for the success of IoT systems.
+- **Heterogeneity**: The diversity of IoT devices, ranging from simple sensors to complex machines, introduces challenges in terms of device management, configuration, and integration. Developing standardized approaches to handle this heterogeneity is essential.
+- **Security**: The proliferation of connected devices increases the attack surface for cyber threats. Ensuring robust security measures to protect IoT devices and the data they generate is essential to prevent unauthorized access, data breaches, and other security risks.
+- **Data Management**: IoT generates massive amounts of data that need to be collected, stored, processed, and analyzed. Efficient data management strategies are required to handle the volume, velocity, and variety of IoT data.
+- **Energy Efficiency**: Many IoT devices are battery-powered and operate in resource-constrained environments. Developing energy-efficient solutions is critical to prolong device lifespan and reduce maintenance costs.
+- **Privacy**: IoT devices often collect sensitive personal data, raising concerns about user privacy. Implementing privacy-preserving mechanisms and ensuring compliance with data protection regulations is essential.
+- **Real-Time Processing**: Many IoT applications require real-time data processing and decision-making. Ensuring low latency and high reliability in data transmission and processing is crucial for time-sensitive applications.
+
+---
+
+# From Wireless Sensor Networks (WSN) and Machine-to-Machine (M2M) to IoT
+
+**Wireless Ad-hoc Sensor Networks (WSN)** are considered the **precursors** to the modern **Internet of Things (IoT)**, 
+but they operated without a common, shared **IP network**. WSNs laid the foundation for pervasive interaction between people and their environments, 
+with their potential captured in the three key elements of their acronym:
+
+- **Wireless**: Emphasizes the freedom and **mobility** enabled by eliminating physical wires, allowing for flexible and rapid **system deployment**.
+- **Sensor**: Highlights the use of **sensing technology** to **perceive** and **interact** with the physical world, enabling a wide range of applications.
+- **Networks**: Focuses on the ability to create systems with **distributed**, **communicating devices** whose collective functionality emerges from their **collaboration** across large areas.
+
+These core characteristics made WSNs a critical step toward the development of scalable, distributed, and intelligent IoT systems.
+
+---
+
+## Telemetry & Machine-to-Machine (M2M)
+
+Telemetry and Machine-to-Machine (M2M) communication are foundational concepts in the evolution of connected devices and the Internet of Things (IoT). Telemetry focuses on the remote collection of measurements, while M2M extends this paradigm to enable autonomous, bidirectional communication between devices.
+
+**Key characteristics:**
+
+- **Telemetry** enables the remote acquisition of data from field devices, allowing for continuous monitoring and analysis without direct human intervention.
+    - **Long-range measurements:** Examples include temperature, humidity, and wind data from remote weather stations using cellular or satellite networks (e.g., Inmarsat); telemetry in **Formula 1** for real-time vehicle diagnostics.
+    - **Short-range measurements:** Medical devices such as **pacemakers** use low-power telemetry coils to monitor patient activity non-invasively.
+- **Machine-to-Machine (M2M)** communication generalizes telemetry by supporting **autonomic**, **bidirectional** data exchange between non-human-operated machines and central collector systems.
+    - **Autonomous operation:** Devices communicate and coordinate actions without manual input.
+    - **Bidirectional communication:** Information flows both from field devices to central systems and vice versa, enabling remote control, configuration, and updates.
+
+---
+
+## M2M Fragmentation
+
+The Machine-to-Machine (M2M) landscape is marked by significant fragmentation and lack of standardization across industry verticals. 
+This fragmentation leads to inefficiencies, increased costs, and limited scalability, as each sector tends to develop 
+its own bespoke solutions rather than leveraging common architectures and reusable components.
+
+**Key challenges of M2M fragmentation include:**
+
+- **Industry-Specific Solutions:** Most industries address their M2M requirements independently, often converging on similar architectures and elements but rarely sharing solutions. As a result, the "M2M wheel" is repeatedly reinvented from one sector to another.
+- **Customization Overload:** Solutions are typically designed, produced, and implemented on an industry-by-industry basis. This leads to unique, customized hardware and software, often resulting in sole-sourcing and vendor lock-in.
+- **Limited Developer Ecosystem:** Software development is restricted to small groups of experts familiar with the specific architecture and APIs of each platform, driving up development and support costs.
+- **Poor Economies of Scale:** The diversity and uniqueness of solutions make it difficult to achieve economies of scale for components, resulting in higher costs and slower innovation.
+
+---
+
+## Difference between M2M and IoT
+
+![](images/Lecture1/m2m_vs_iot.png)
+
+**Figure 1.10:** Schematic representation of the difference between M2M and IoT
+
+| Aspect             | M2M                                   | IoT                                                        |
+|--------------------|---------------------------------------|------------------------------------------------------------|
+| Communication      | Point-to-point                        | Many-to-many via Internet/cloud                            |
+| Scope              | Device-specific, narrow               | Wide, heterogeneous, spanning multiple domains             |
+| Data Processing    | Local, limited                        | Cloud-based, distributed, advanced analytics               |
+| Standards          | Proprietary, domain-specific          | Open, global, cross-domain                                 |
+| Scalability        | Limited, hard to extend               | Highly scalable, billions of devices                       |
+| Applications       | Vertical solutions (e.g., smart meter)| Horizontal ecosystems (e.g., smart cities, Industry 4.0)   |
+
+WSN and M2M laid the groundwork for IoT by demonstrating the potential of connected devices. 
+However, IoT expands upon these concepts by leveraging standard Internet protocols, enabling global connectivity, interoperability, 
+and scalability across diverse applications and industries. Furthermore, in the IoT the possibility of distributing data processing and intelligence across
+the edge, fog and cloud layers is a key aspect that differentiate it from the traditional M2M approach with the potential of enabling more complex and intelligent applications
+working together in a collaborative manner.
+
+---
+
+# A Shared IoT Multi-Layer Model
+
+![](images/Lecture1/iot_industrial_multi_layer.png)
+
+**Figure 1.11:** An example of an IoT Multi-Layer Model in the Industrial Domain where different layers are represented and interconnected to support the IoT ecosystem. 
+[Link1](https://www.altexsoft.com/blog/iot-architecture-layers-components/), [Link2](https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2014/m10/the-internet-of-things-world-forum-unites-industry-leaders-in-chicago-to-accelerate-the-adoption-of-iot-business-models.html)
+
+A general multi-layer reference model is often used to abstract and describe IoT systems and architectures. 
+This model provides a high-level overview of the main layers, clarifies their roles and interactions, 
+and supports the development of scalable, interoperable IoT solutions. While the model can be tailored to specific 
+implementations and requirements, it serves as a foundational framework for understanding IoT architectures.
+
+This architecture typically comprises the following layers:
+
+- **Perception Layer:**
+  - **Physical Devices & Controllers:** This is the foundational layer where the "things" of IoT reside. It includes all the physical sensors, actuators, devices, and intelligent edge nodes that collect data from the environment or interact with it.
+- **Network Layer:**
+  - **Connectivity:** Responsible for the secure and reliable transmission of data from the perception layer to higher layers. This involves various communication technologies like Wi-Fi, Bluetooth, cellular, and specialized IoT protocols.
+  - **Edge Computing:** This layer processes data closer to the source (at the "edge" of the network), performing data element analysis and transformation. It helps reduce latency, conserve bandwidth, and improve security by processing data locally before sending it to the cloud.
+- **Data and Information Management Layer:**
+  - **Data Accumulation:** Focuses on storing the vast amounts of data collected from IoT devices. This often involves various database technologies optimized for big data.
+  - **Data Abstraction:** This layer is responsible for aggregating and accessing the stored data, presenting it in a standardized and meaningful format for higher-level applications.
+- **Services and Applications Layer:**
+  - **Application:** This layer provides the specific functionalities and services that utilize the processed IoT data. This includes reporting, analytics, and control mechanisms that enable users to interact with and manage their IoT systems.
+- **Business Layer:**
+  - **Collaboration & Processes:** The highest layer, where the insights derived from IoT data are integrated into broader business processes and decision-making. It involves people, organizational workflows, and strategic collaborations that drive value from IoT deployments.
+
+---
+
 # Cyber–Physical Systems
 
 In this context, **Cyber-Physical Systems (CPS)** play a crucial role in bridging the gap between the physical and digital worlds. CPS are systems that integrate computation, networking, and physical processes to enable real-time monitoring, control, and interaction with the physical environment.
 
-> A **Cyber-Physical System (CPS)** refers to integrated systems that combine computational elements with physical components, enabling the interaction and collaboration between the digital and physical worlds. 
-> CPS typically involve a network of **sensors**, **actuators**, and **computational devices** that **collect data** from the physical environment, **process** it, and **control** physical processes or objects.
+*A **Cyber-Physical System (CPS)** refers to integrated systems that combine computational elements with physical components, 
+enabling the interaction and collaboration between the digital and physical worlds. 
+CPS typically involve a network of **sensors**, **actuators**, and **computational devices** that **collect data** from 
+the physical environment, **process** it, and **control** physical processes or objects.*
 
 ![Cyber-Physical Systems (CPS)](images/Lecture1/cps_highlevel_overview.png)
 
 Typically, CPS are characterized by the following features:
+
 - **Integration of Physical and Cyber Components**: CPS seamlessly integrate physical components (sensors, actuators, etc.) with cyber components (computers, networks, software) to enable real-time monitoring and control of physical processes.
 - **Real-Time Interaction**: CPS are designed to operate in real-time, allowing for immediate response to changes in the physical environment and enabling dynamic interactions between the physical and digital worlds.
 - **Networked Communication**: CPS rely on networked communication to facilitate data exchange and coordination between distributed components, enabling collaboration and coordination across different physical locations.
@@ -201,6 +347,7 @@ Typically, CPS are characterized by the following features:
 ![Cyber-Physical Systems (CPS)](images/Lecture1/cps_phases.png)
 
 As illustrated in the figure above, CPS typically involve the following phases:
+
 1. **Perceive**: In this phase, sensors collect data from the physical environment, such as temperature, pressure, or motion.
 2. **Process**: The collected data is then processed and analyzed using computational algorithms to extract meaningful insights and patterns. This phase can be further broken down into sub-phases:
    - **Analyze**: The collected data is then processed and analyzed using computational algorithms to extract meaningful insights and patterns.
