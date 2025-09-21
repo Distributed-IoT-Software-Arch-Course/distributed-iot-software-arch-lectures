@@ -1,5 +1,7 @@
+<!-- omit in toc -->
 # Lecture 1 - Introduction to Cyber-Physical Systems & Internet of Things
 
+<!-- omit in toc -->
 ## Lecture Information
 
 | **Master's Degree** | Digital Automation Engineering (D.M.270/04)           |
@@ -11,20 +13,41 @@
 | **Last Update**     | September 2025                                        | 
 
 
-# Outline
+<!-- omit in toc -->
+# Table of Contents
 
-- Cyber-Physical Systems
-- Cyber-Physical Application Scenarios
-- Internet of Things (IoT) Definition & Vision
-- From WSN and M2M to IoT
-- IoT Characteristics
-- IoT Protocol Stack
-- IoT Connectivity
-- IoT Software
+- [1 Internet \& Connected Devices](#1-internet--connected-devices)
+  - [1.1 Where do we started ?](#11-where-do-we-started-)
+  - [1.2 Where are we today ?](#12-where-are-we-today-)
+  - [1.3 The "First" Connected Devices - The Cold Drink Machine](#13-the-first-connected-devices---the-cold-drink-machine)
+  - [1.4 The "First" Connected Devices - The XCoffee](#14-the-first-connected-devices---the-xcoffee)
+  - [1.5 The Mobile Centric World](#15-the-mobile-centric-world)
+    - [1.5.1 Mobile \& Wearable Computing](#151-mobile--wearable-computing)
+- [2 The Internet of Things (IoT) Evolution \& Revolution](#2-the-internet-of-things-iot-evolution--revolution)
+  - [2.1 IoT Main Characteristics](#21-iot-main-characteristics)
+  - [2.2 Some of the Main IoT Challenges](#22-some-of-the-main-iot-challenges)
+  - [2.3 From Wireless Sensor Networks (WSN) and Machine-to-Machine (M2M) to IoT](#23-from-wireless-sensor-networks-wsn-and-machine-to-machine-m2m-to-iot)
+  - [2.4 Telemetry \& Machine-to-Machine (M2M)](#24-telemetry--machine-to-machine-m2m)
+  - [2.5 M2M Fragmentation](#25-m2m-fragmentation)
+  - [2.6 Difference between M2M and IoT](#26-difference-between-m2m-and-iot)
+  - [2.7 IoT Device Core Characteristics](#27-iot-device-core-characteristics)
+  - [2.8 A Shared IoT Multi-Layer Model](#28-a-shared-iot-multi-layer-model)
+  - [2.9 IoT Software an Overview](#29-iot-software-an-overview)
+  - [2.10 IoT Software - Sensor \& Actuator](#210-iot-software---sensor--actuator)
+  - [2.11 IoT Software - Gateways](#211-iot-software---gateways)
+  - [2.12 IoT Software - Cloud \& Platforms](#212-iot-software---cloud--platforms)
+  - [2.13IoT Software - Cross-Stack Functionalities](#213iot-software---cross-stack-functionalities)
+  - [2.14 IoT Software - Key Characteristics](#214-iot-software---key-characteristics)
+- [3 Cyber–Physical Systems](#3-cyberphysical-systems)
+  - [3.1 A Multi-Disciplinary Approach](#31-a-multi-disciplinary-approach)
+  - [3.2 An Industrial "Example" of CPS Technologies](#32-an-industrial-example-of-cps-technologies)
+  - [3.3 From Technologies to Services](#33-from-technologies-to-services)
+  - [3.4 CPS Software as Distributed Software](#34-cps-software-as-distributed-software)
+  - [3.5 From CPS to CPSoS (Cyber-Physical System of Systems)](#35-from-cps-to-cpsos-cyber-physical-system-of-systems)
+ 
+# 1 Internet & Connected Devices
 
-# Internet & Connected Devices
-
-## Where do we started ?
+## 1.1 Where do we started ?
 
 Since from the beginning of the Internet, there was the desire to connect more “things” to it. Source: ARPANET Completion Report: January 4, 1978.
 
@@ -36,7 +59,7 @@ The original idea of the Internet was to connect computers, but very soon, the i
 
 ---
 
-## Where are we today ?
+## 1.2 Where are we today ?
 
 Today, the Internet and the Web have evolved far beyond their original purpose of connecting a handful of computers. They now interconnect billions of devices worldwide—including smartphones, tablets, sensors, vehicles, appliances, and industrial machines—across every continent. This massive global network enables seamless communication, collaboration, and data exchange at unprecedented scale.
 
@@ -50,7 +73,7 @@ As a result, the Internet has become the backbone for countless services and app
 
 ---
 
-## The First "Connected Devices" - The Cold Drink Machine
+## 1.3 The "First" Connected Devices - The Cold Drink Machine
 
 The ARPANET-connected Coke machine at Carnegie Mellon University is widely recognized as one of the earliest examples of a "smart" connected device. 
 This innovative project demonstrated how everyday appliances could be enhanced with network connectivity, paving the way for future developments in the Internet of Things (IoT).
@@ -71,7 +94,7 @@ Key highlights of the ARPANET-connected Coke machine:
 
 ---
 
-## The First "Connected Devices" - The XCoffee
+## 1.4 The "First" Connected Devices - The XCoffee
 
 
 > The XCoffee is created at the Computer Laboratory of the University of Cambridge. Two academics who worked at the Trojan Room in the 
@@ -87,7 +110,7 @@ Key highlights of the ARPANET-connected Coke machine:
 
 ---
 
-## The Mobile Centric World
+## 1.5 The Mobile Centric World
 
 The mobile revolution is changing the way we live, work, and interact. Mobile devices have become an integral part of our daily lives, enabling us to stay connected, access information, and perform various tasks on the go. The proliferation of smartphones, tablets, and wearable devices has transformed communication, entertainment, and productivity, making it easier than ever to stay connected to the world around us.
 
@@ -112,13 +135,12 @@ Another interesting example is the event of the concert of Vasco Rossi in Modena
 
 **Source:** [Link](https://www.digitaldata.olivetti.com/timbigdata/concerto-di-vasco-rossi)
 
-
 This is another example of how the mobile revolution is changing the way we live and interact, and how the 
 underlying network and internet infrastructures are crucial to support this massive connectivity.
 
 ---
 
-### Mobile & Wearable Computing
+### 1.5.1 Mobile & Wearable Computing
 
 Another interesting aspect of the mobile revolution is the rise of wearable computing devices, such as smartwatches, fitness trackers, and augmented reality glasses. These devices are designed to be worn on the body and provide users with real-time access to information, notifications, and health monitoring features.
 
@@ -132,7 +154,7 @@ This devices creates a new paradigm where the physical and digital worlds are in
 
 ---
 
-# The Internet of Things (IoT) Evolution & Revolution
+# 2 The Internet of Things (IoT) Evolution & Revolution
 
 In the context of the mobile revolution, the Internet of Things (IoT) has emerged as a transformative concept that envisions a world where everyday objects are connected to the internet, enabling them to collect and exchange data. The IoT represents a significant evolution in the way we interact with technology, 
 as it extends connectivity beyond traditional computing devices to encompass a wide range of physical objects and environments.
@@ -195,7 +217,7 @@ to build smarter, more responsive, and data-driven solutions across domains.
 
 ---
 
-## IoT Main Characteristics
+## 2.1 IoT Main Characteristics
 
 The **Internet of Things (IoT)** is defined by several distinctive characteristics that set it apart from traditional computing paradigms. 
 The most important keywords and concepts include:
@@ -213,7 +235,7 @@ These characteristics collectively drive the evolution of IoT, shaping its archi
 
 ---
 
-## Some of the Main IoT Challenges
+## 2.2 Some of the Main IoT Challenges
 
 The Internet of Things (IoT) presents several significant challenges that need to be addressed to ensure its successful implementation and widespread adoption. 
 Some of the main challenges include:
@@ -229,7 +251,7 @@ Some of the main challenges include:
 
 ---
 
-# From Wireless Sensor Networks (WSN) and Machine-to-Machine (M2M) to IoT
+## 2.3 From Wireless Sensor Networks (WSN) and Machine-to-Machine (M2M) to IoT
 
 **Wireless Ad-hoc Sensor Networks (WSN)** are considered the **precursors** to the modern **Internet of Things (IoT)**, 
 but they operated without a common, shared **IP network**. WSNs laid the foundation for pervasive interaction between people and their environments, 
@@ -243,7 +265,7 @@ These core characteristics made WSNs a critical step toward the development of s
 
 ---
 
-## Telemetry & Machine-to-Machine (M2M)
+## 2.4 Telemetry & Machine-to-Machine (M2M)
 
 Telemetry and Machine-to-Machine (M2M) communication are foundational concepts in the evolution of connected devices and the Internet of Things (IoT). Telemetry focuses on the remote collection of measurements, while M2M extends this paradigm to enable autonomous, bidirectional communication between devices.
 
@@ -258,7 +280,7 @@ Telemetry and Machine-to-Machine (M2M) communication are foundational concepts i
 
 ---
 
-## M2M Fragmentation
+## 2.5 M2M Fragmentation
 
 The Machine-to-Machine (M2M) landscape is marked by significant fragmentation and lack of standardization across industry verticals. 
 This fragmentation leads to inefficiencies, increased costs, and limited scalability, as each sector tends to develop 
@@ -273,7 +295,7 @@ its own bespoke solutions rather than leveraging common architectures and reusab
 
 ---
 
-## Difference between M2M and IoT
+## 2.6 Difference between M2M and IoT
 
 ![](images/Lecture1/m2m_vs_iot.png)
 
@@ -296,7 +318,7 @@ working together in a collaborative manner.
 
 ---
 
-# IoT Device Core Characteristics
+## 2.7 IoT Device Core Characteristics
 
 ![](images/Lecture1/iot_device_core_modules.png)
 
@@ -315,7 +337,7 @@ different types of architectures and deployment models as we briefly introduce i
 
 ---
 
-# A Shared IoT Multi-Layer Model
+## 2.8 A Shared IoT Multi-Layer Model
 
 ![](images/Lecture1/iot_industrial_multi_layer.png)
 
@@ -344,7 +366,7 @@ This architecture typically comprises the following layers:
 
 ---
 
-# IoT Software an Overview
+## 2.9 IoT Software an Overview
 
 ![](images/Lecture1/iot_involved_actors.png)
 
@@ -377,7 +399,7 @@ Of course this architecture can be more complex and include additional component
 
 ---
 
-## IoT Software - Sensor & Actuator
+## 2.10 IoT Software - Sensor & Actuator
 
 ![](images/Lecture1/iot_device_software.png)
 
@@ -397,7 +419,7 @@ Key features of the software stack on such devices may include:
  
 ---
 
-## IoT Software - Gateways
+## 2.11 IoT Software - Gateways
 
 ![](images/Lecture1/iot_gateway_software.png)
 
@@ -430,7 +452,7 @@ These capabilities make IoT gateways essential for bridging diverse devices, net
 
 ---
 
-## IoT Software - Cloud & Platforms
+## 2.12 IoT Software - Cloud & Platforms
 
 ![](images/Lecture1/iot_cloud_platforms.png)
 
@@ -451,7 +473,7 @@ Key features of an IoT Cloud Platform include:
 
 ---
 
-## IoT Software - Cross-Stack Functionalities
+## 2.13IoT Software - Cross-Stack Functionalities
 
 ![](images/Lecture1/iot_cross_stack_functionalities.png)
 
@@ -468,7 +490,7 @@ and flexible IoT deployments.
 
 ---
 
-## IoT Software - Key Characteristics
+## 2.14 IoT Software - Key Characteristics
 
 A robust IoT software stack should embody several foundational characteristics to ensure flexibility, interoperability, 
 and scalability across diverse deployment scenarios. These principles enable organizations to build solutions that are adaptable, 
@@ -482,7 +504,7 @@ future-proof, and capable of integrating with a wide range of devices, platforms
 
 ---
 
-# Cyber–Physical Systems
+# 3 Cyber–Physical Systems
 
 In this context, **Cyber-Physical Systems (CPS)** play a crucial role in bridging the gap between the physical and digital worlds. CPS are systems that integrate computation, networking, and physical processes to enable real-time monitoring, control, and interaction with the physical environment.
 
@@ -518,7 +540,7 @@ As illustrated in the figure above, CPS typically involve the following phases:
 
 ---
 
-## A Multi-Disciplinary Approach
+## 3.1 A Multi-Disciplinary Approach
 
 The field of cyber-physical systems is cross-disciplinary in nature — building upon complex technology systems that promote advancement in countless fields
 Cyber-physical systems are engineered systems where functionalities and salient properties emerge from the networked interaction of cyber/digital and physical components
@@ -556,7 +578,7 @@ They represent a major paradigm in the framework of collective and connected sys
 
 ---
 
-### An Industrial "Example" of CPS Technologies
+## 3.2 An Industrial "Example" of CPS Technologies
 
 ![](images/Lecture1/cps_technologies.png)
 **Figure 1.20:** Cyber-Physical Systems (CPS) Technologies. [Link1](https://www.mouser.it/new/analog-devices/adi-industry-4), [Link2](https://www.linkedin.com/pulse/examples-industry-40-use-cases-luka-kozamernik/)
@@ -577,7 +599,7 @@ The previous figure shows some of the main technologies that are used in CPS and
 
 ---
 
-### From Technologies to Services
+## 3.3 From Technologies to Services
 
 ![](images/Lecture1/cps_highlevel_services.png)
 **Figure 1.21:** Cyber-Physical Systems (CPS) Services examples.
@@ -599,7 +621,7 @@ As illustrated in the previous figure, CPS technologies can enable services in t
 
 ---
 
-### CPS Software as Distributed Software
+## 3.4 CPS Software as Distributed Software
 
 One of the main characteristics of CPS is that each component is characterized by its own software module that is responsible for the management of the component itself. When multiple components are integrated into a CPS, the software modules of each component need to interact and communicate with each other to enable the overall functionality of the system and we start talking about **Distributed Systems** and **Distributed Software**.
 
@@ -638,7 +660,7 @@ On the other hand, the envisioned goal is to build a new generation of distribut
 
 ---
 
-## From CPS to CPSoS (Cyber-Physical System of Systems)
+## 3.5 From CPS to CPSoS (Cyber-Physical System of Systems)
 
 ![](images/Lecture1/cps_of_systems.png)
 **Figure 1.23:** Cyber-Physical Systems (CPS) of Systems (CPSoS) overview.
