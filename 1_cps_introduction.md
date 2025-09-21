@@ -394,6 +394,29 @@ Key features of the software stack on such devices may include:
 - **Hardware Abstraction**: This software layer allows access to MCU's hardware features, such as flash memory, GPIOs, and serial interfaces, abstracting their complexities.
 - **Communication Support**: Drivers and protocols facilitate device connectivity to wired or wireless protocols like Bluetooth, Z-Wave, Thread, CAN bus, MQTT, CoAP, enabling efficient device communication.
 - **Remote Management**: The capability to remotely control the device, enabling firmware upgrades or battery level monitoring, ensuring efficient device management.
+ 
+---
+
+## IoT Software - Gateways
+
+![](images/Lecture1/iot_gateway_software.png)
+
+**Figure 1.14:** IoT Gateways software stack and main components. 
+[Link1](https://iot.eclipse.org/community/resources/white-papers/)
+
+IoT gateways play a pivotal role in connecting sensors, actuators, and devices to external networks and cloud platforms. 
+They act as intermediaries, enabling seamless communication, data processing, and protocol translation between heterogeneous devices and systems. 
+Gateways can be standalone hardware units or embedded as functional modules within larger devices such as industrial machines, vehicles, or smart home appliances.
+
+Key functions and characteristics of IoT gateways include:
+
+- **Edge Data Processing and Storage:** Perform local data aggregation, filtering, and temporary storage to reduce network latency and bandwidth usage.
+- **Protocol Translation:** Bridge communication between devices using different protocols, ensuring interoperability across diverse hardware and software ecosystems.
+- **Device-to-Device Connectivity:** Enable direct communication and coordination among connected devices within a local network.
+- **Security and Reliability:** Implement authentication, encryption, and access control to protect data and ensure reliable operation.
+- **Scalability:** Support large numbers of devices by managing connections and distributing workloads across multiple gateways.
+- **Remote Management:** Facilitate firmware updates, configuration changes, and monitoring of connected devices from centralized platforms.
+- **Integration with Cloud and Enterprise Systems:** Forward processed data to cloud services or enterprise applications for advanced analytics and decision-making.
 
 ---
 
