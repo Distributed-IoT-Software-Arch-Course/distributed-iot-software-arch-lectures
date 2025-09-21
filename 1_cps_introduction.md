@@ -401,7 +401,7 @@ Key features of the software stack on such devices may include:
 
 ![](images/Lecture1/iot_gateway_software.png)
 
-**Figure 1.14:** IoT Gateways software stack and main components. 
+**Figure 1.15:** IoT Gateways software stack and main components. 
 [Link1](https://iot.eclipse.org/community/resources/white-papers/)
 
 IoT gateways play a pivotal role in connecting sensors, actuators, and devices to external networks and cloud platforms. 
@@ -418,6 +418,68 @@ Key functions and characteristics of IoT gateways include:
 - **Remote Management:** Facilitate firmware updates, configuration changes, and monitoring of connected devices from centralized platforms.
 - **Integration with Cloud and Enterprise Systems:** Forward processed data to cloud services or enterprise applications for advanced analytics and decision-making.
 
+IoT gateways rely on robust software stacks to deliver their core functionalities. Key components of a modern gateway software stack include:
+
+- **Operating System:** Most gateways run a general-purpose OS, such as Linux, providing a stable and flexible foundation for device management and application execution.
+- **Application Runtime & Containerization:** Gateways often support dynamic application deployment and updates, enabling execution environments for languages like Java, Python, or Node.js. Containerization technologies (e.g., Docker) may be used for isolation and scalability.
+- **Connectivity & Protocol Support:** Gateway software must handle multiple device communication protocols (e.g., Bluetooth, Wi-Fi, ZigBee, Z-Wave, Thread) and network interfaces (Ethernet, cellular, satellite), ensuring secure and reliable data exchange across heterogeneous environments.
+- **Data Management & Messaging:** Local data persistence and buffering allow gateways to operate during network disruptions, support real-time analytics at the edge, and reliably forward device data to cloud platforms using protocols such as MQTT or HTTP.
+- **Remote Management & Orchestration:** Administrators can remotely provision, configure, monitor, and update gateways and their applications, streamlining maintenance and enabling centralized control over distributed deployments.
+
+These capabilities make IoT gateways essential for bridging diverse devices, networks, and cloud services, supporting scalable, secure, and flexible IoT solutions.
+
+---
+
+## IoT Software - Cloud & Platforms
+
+![](images/Lecture1/iot_cloud_platforms.png)
+
+**Figure 1.16:** IoT Gateways software stack and main components. 
+[Link1](https://iot.eclipse.org/community/resources/white-papers/)
+
+A modern IoT Cloud Platform provides a comprehensive set of capabilities to support the management, integration, and utilization of connected devices and data. 
+These platforms serve as the backbone for scalable, secure, and interoperable IoT solutions, enabling organizations to efficiently handle device connectivity, 
+data processing, and application development.
+
+Key features of an IoT Cloud Platform include:
+
+- **Connectivity and Message Routing:** Supports interaction with a large number of devices and gateways, handling diverse protocols and data formats. The platform normalizes and integrates incoming data for seamless enterprise integration.
+- **Device Management and Registry:** Maintains a central registry for device and gateway identification, enabling provisioning, software updates, and lifecycle management.
+- **Data Management and Storage:** Incorporates scalable data stores to efficiently handle the volume and variety of IoT data, ensuring reliable storage, retrieval, and management.
+- **Event Management, Analytics, and User Interface:** Provides scalable event processing, data consolidation, and analytics capabilities. Facilitates the creation of reports, dashboards, and user interfaces for data visualization and insight generation.
+- **Application Enablement:** Offers APIs and tools for custom application development, allowing integration with external systems and empowering developers to build tailored solutions on top of the platform.
+
+---
+
+## IoT Software - Cross-Stack Functionalities
+
+![](images/Lecture1/iot_cross_stack_functionalities.png)
+
+**Figure 1.17:** IoT Cross-Stack Functionalities and main components. 
+[Link1](https://iot.eclipse.org/community/resources/white-papers/)
+
+When designing and implementing an IoT solution, it is essential to address several cross-stack functionalities that ensure the system's reliability, 
+interoperability, and scalability. These features span across device, gateway, and cloud layers, providing foundational support for secure, efficient, 
+and flexible IoT deployments.
+
+- **Security:** Apply robust security mechanisms at every layer of the IoT architecture, including device authentication, data encryption, and access authorization. Comprehensive security strategies protect against threats and ensure data integrity throughout the ecosystem.
+- **Ontologies and Data Standardization:** Define standardized data formats, ontologies, and metadata descriptions to facilitate seamless data exchange and interoperability across heterogeneous devices and platforms. Well-structured ontologies enable effective analytics and integration in multi-domain environments.
+- **Development Tools and SDKs:** Provide developers with versatile development tools and software development kits (SDKs) that support a wide variety of hardware and software platforms. These resources streamline the development process, promote code reusability, and ensure compatibility across the IoT stack.
+
+---
+
+## IoT Software - Key Characteristics
+
+A robust IoT software stack should embody several foundational characteristics to ensure flexibility, interoperability, 
+and scalability across diverse deployment scenarios. These principles enable organizations to build solutions that are adaptable, 
+future-proof, and capable of integrating with a wide range of devices, platforms, and services.
+
+- **Loose Coupling:** Each layer of the IoT stack should operate independently, allowing components from different vendors—such as cloud platforms, gateways, and device stacks—to be combined seamlessly. This flexibility supports easy integration and replacement without disrupting the overall system.
+- **Modularity:** The stack should support the selection and integration of features from various suppliers, enabling tailored solutions that meet specific requirements. Modular design simplifies customization and accelerates innovation.
+- **Platform Independence:** Components should be agnostic to underlying hardware and cloud infrastructure. Device stacks must work across multiple microcontrollers, while cloud platforms should be compatible with different PaaS providers, ensuring broad applicability and reducing vendor lock-in.
+- **Open Standards:** Communication and data exchange should rely on open standards to guarantee interoperability and compatibility among heterogeneous IoT components. Adhering to open standards fosters ecosystem growth and simplifies integration.
+- **Well-Defined APIs:** Each layer should expose clear and consistent Application Programming Interfaces (APIs), facilitating straightforward integration with existing applications and other IoT solutions. Well-defined APIs streamline development, enhance connectivity, and support efficient data exchange.
+
 ---
 
 # Cyber–Physical Systems
@@ -429,7 +491,8 @@ enabling the interaction and collaboration between the digital and physical worl
 CPS typically involve a network of **sensors**, **actuators**, and **computational devices** that **collect data** from 
 the physical environment, **process** it, and **control** physical processes or objects.*
 
-![Cyber-Physical Systems (CPS)](images/Lecture1/cps_highlevel_overview.png)
+![](images/Lecture1/cps_highlevel_overview.png)
+**Figure 1.18:** Cyber-Physical Systems (CPS) high-level overview.
 
 Typically, CPS are characterized by the following features:
 
@@ -439,7 +502,8 @@ Typically, CPS are characterized by the following features:
 - **Autonomy and Adaptability**: CPS often incorporate autonomous decision-making capabilities, allowing them to adapt to changing conditions and optimize performance based on real-time data.
 - **Safety and Reliability**: CPS are often deployed in safety-critical applications, requiring robust safety and reliability measures to ensure the integrity and security of both physical and cyber components. 
 
-![Cyber-Physical Systems (CPS)](images/Lecture1/cps_phases.png)
+![](images/Lecture1/cps_phases.png)
+**Figure 1.19:** Cyber-Physical Systems (CPS) phases overview.
 
 As illustrated in the figure above, CPS typically involve the following phases:
 
@@ -494,8 +558,8 @@ They represent a major paradigm in the framework of collective and connected sys
 
 ### An Industrial "Example" of CPS Technologies
 
-![CPS Industrial Technologies](images/Lecture1/cps_technologies.png)
-**Sources:** [Link1](https://www.mouser.it/new/analog-devices/adi-industry-4), [Link2](https://www.linkedin.com/pulse/examples-industry-40-use-cases-luka-kozamernik/)
+![](images/Lecture1/cps_technologies.png)
+**Figure 1.20:** Cyber-Physical Systems (CPS) Technologies. [Link1](https://www.mouser.it/new/analog-devices/adi-industry-4), [Link2](https://www.linkedin.com/pulse/examples-industry-40-use-cases-luka-kozamernik/)
 
 The previous figure shows some of the main technologies that are used in CPS and Industry 4.0 applications that traditionally are complex systems that integrate physical processes with computational resources and networking capabilities to enable real-time monitoring, control, and optimization of industrial processes. There are many technologies that are used in CPS and Industry 4.0 applications, including for example:
 
@@ -515,7 +579,8 @@ The previous figure shows some of the main technologies that are used in CPS and
 
 ### From Technologies to Services
 
-![CPS Industrial Technologies](images/Lecture1/cps_highlevel_services.png)
+![](images/Lecture1/cps_highlevel_services.png)
+**Figure 1.21:** Cyber-Physical Systems (CPS) Services examples.
 
 One important aspect of CPS is that technologies are meant to enable the creation of added value for the end user, by improving efficiency, productivity, safety, and sustainability in various application domains. CPS technologies are often designed to be interoperable and scalable, allowing for seamless integration with existing systems and the ability to adapt to changing requirements and environments.
 
@@ -538,7 +603,8 @@ As illustrated in the previous figure, CPS technologies can enable services in t
 
 One of the main characteristics of CPS is that each component is characterized by its own software module that is responsible for the management of the component itself. When multiple components are integrated into a CPS, the software modules of each component need to interact and communicate with each other to enable the overall functionality of the system and we start talking about **Distributed Systems** and **Distributed Software**.
 
-![CPS Distributed Software](images/Lecture1/cps_distributed_software.png)
+![](images/Lecture1/cps_distributed_software.png)
+**Figure 1.22:** Cyber-Physical Systems (CPS) Distributed Software.
 
 Some of the main challenges and characteristics of CPS software include:
 
@@ -574,7 +640,8 @@ On the other hand, the envisioned goal is to build a new generation of distribut
 
 ## From CPS to CPSoS (Cyber-Physical System of Systems)
 
-![Cyber-Physical System of Systems](images/Lecture1/cps_of_systems.png)
+![](images/Lecture1/cps_of_systems.png)
+**Figure 1.23:** Cyber-Physical Systems (CPS) of Systems (CPSoS) overview.
 
 The concept of **Cyber-Physical System of Systems (CPSoS)** refers to the **integration** and **collaboration** of multiple, interconnected **Cyber-Physical Systems (CPSs)** to form a more complex and sophisticated system. In a CPSoS, each individual CPS maintains its **autonomy** and **functionality**, yet participates in **coordinated interaction** and **networked communication** with other CPS units to achieve shared objectives.
 
