@@ -169,9 +169,11 @@
   </style>
 </head>
 <body>
+<!-- omit in toc -->
 <h1
 id="lecture-1---introduction-to-cyber-physical-systems-internet-of-things">Lecture
 1 - Introduction to Cyber-Physical Systems &amp; Internet of Things</h1>
+<!-- omit in toc -->
 <h2 id="lecture-information">Lecture Information</h2>
 <table>
 <colgroup>
@@ -207,20 +209,77 @@ id="lecture-1---introduction-to-cyber-physical-systems-internet-of-things">Lectu
 </tr>
 </tbody>
 </table>
-<h1 id="outline">Outline</h1>
+<!-- omit in toc -->
+<h1 id="table-of-contents">Table of Contents</h1>
 <ul>
-<li>Cyber-Physical Systems</li>
-<li>Cyber-Physical Application Scenarios</li>
-<li>Internet of Things (IoT) Definition &amp; Vision</li>
-<li>From WSN and M2M to IoT</li>
-<li>IoT Characteristics</li>
-<li>IoT Protocol Stack</li>
-<li>IoT Connectivity</li>
-<li>IoT Software</li>
+<li><a href="#1-internet--connected-devices">1 Internet &amp; Connected
+Devices</a>
+<ul>
+<li><a href="#11-where-do-we-started-">1.1 Where do we started
+?</a></li>
+<li><a href="#where-are-we-today">1.2 Where are we today ?</a></li>
+<li><a
+href="#13-the-first-connected-devices---the-cold-drink-machine">1.3 The
+“First” Connected Devices - The Cold Drink Machine</a></li>
+<li><a href="#14-the-first-connected-devices---the-xcoffee">1.4 The
+“First” Connected Devices - The XCoffee</a></li>
+<li><a href="#15-the-mobile-centric-world">1.5 The Mobile Centric
+World</a>
+<ul>
+<li><a href="#151-mobile--wearable-computing">1.5.1 Mobile &amp;
+Wearable Computing</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#2-the-internet-of-things-iot-evolution--revolution">2 The
+Internet of Things (IoT) Evolution &amp; Revolution</a>
+<ul>
+<li><a href="#21-iot-main-characteristics">2.1 IoT Main
+Characteristics</a></li>
+<li><a href="#22-some-of-the-main-iot-challenges">2.2 Some of the Main
+IoT Challenges</a></li>
+<li><a
+href="#23-from-wireless-sensor-networks-wsn-and-machine-to-machine-m2m-to-iot">2.3
+From Wireless Sensor Networks (WSN) and Machine-to-Machine (M2M) to
+IoT</a></li>
+<li><a href="#24-telemetry--machine-to-machine-m2m">2.4 Telemetry &amp;
+Machine-to-Machine (M2M)</a></li>
+<li><a href="#25-m2m-fragmentation">2.5 M2M Fragmentation</a></li>
+<li><a href="#26-difference-between-m2m-and-iot">2.6 Difference between
+M2M and IoT</a></li>
+<li><a href="#27-iot-device-core-characteristics">2.7 IoT Device Core
+Characteristics</a></li>
+<li><a href="#28-a-shared-iot-multi-layer-model">2.8 A Shared IoT
+Multi-Layer Model</a></li>
+<li><a href="#29-iot-software-an-overview">2.9 IoT Software an
+Overview</a></li>
+<li><a href="#210-iot-software---sensor--actuator">2.10 IoT Software -
+Sensor &amp; Actuator</a></li>
+<li><a href="#211-iot-software---gateways">2.11 IoT Software -
+Gateways</a></li>
+<li><a href="#212-iot-software---cloud--platforms">2.12 IoT Software -
+Cloud &amp; Platforms</a></li>
+<li><a href="#213iot-software---cross-stack-functionalities">2.13IoT
+Software - Cross-Stack Functionalities</a></li>
+<li><a href="#214-iot-software---key-characteristics">2.14 IoT Software
+- Key Characteristics</a></li>
+</ul></li>
+<li><a href="#3-cyberphysical-systems">3 Cyber–Physical Systems</a>
+<ul>
+<li><a href="#31-a-multi-disciplinary-approach">3.1 A Multi-Disciplinary
+Approach</a></li>
+<li><a href="#32-an-industrial-example-of-cps-technologies">3.2 An
+Industrial “Example” of CPS Technologies</a></li>
+<li><a href="#33-from-technologies-to-services">3.3 From Technologies to
+Services</a></li>
+<li><a href="#34-cps-software-as-distributed-software">3.4 CPS Software
+as Distributed Software</a></li>
+<li><a href="#35-from-cps-to-cpsos-cyber-physical-system-of-systems">3.5
+From CPS to CPSoS (Cyber-Physical System of Systems)</a></li>
+</ul></li>
 </ul>
-<h1 id="internet-connected-devices">Internet &amp; Connected
+<h1 id="internet-connected-devices">1 Internet &amp; Connected
 Devices</h1>
-<h2 id="where-do-we-started">Where do we started ?</h2>
+<h2 id="where-do-we-started">1.1 Where do we started ?</h2>
 <p>Since from the beginning of the Internet, there was the desire to
 connect more “things” to it. Source: ARPANET Completion Report: January
 4, 1978.</p>
@@ -241,7 +300,7 @@ geographical locations such as universities, research institutions, and
 government agencies involving multiple countries and satellite
 links.</p>
 <hr />
-<h2 id="where-are-we-today">Where are we today ?</h2>
+<h2 id="where-are-we-today">1.2 Where are we today ?</h2>
 <p>Today, the Internet and the Web have evolved far beyond their
 original purpose of connecting a handful of computers. They now
 interconnect billions of devices worldwide—including smartphones,
@@ -271,26 +330,34 @@ Internet/Web</figcaption>
 <p><strong>Figure 1.2:</strong> A “snapshot” of the current state of the
 Internet/Web</p>
 <hr />
-<h2 id="the-first-connected-devices---the-cold-drink-machine">The First
-“Connected Devices” - The Cold Drink Machine</h2>
-<blockquote>
-<p>The students of Carnegie Mellon University invent the
-ARPANET-connected coke machine. Four students from the School of
-Computer Science department installed the switches in the coke machine.
-They counted how many coke bottles had remained in each row and for how
-long. If the loaded bottle spends a long time in the machine, it is
-labeled “cold”. All this data was then remotely available to customers
-via a finger interface. This experiment had inspired a lot of inventors
-all over the world to create their own connected appliances.</p>
-</blockquote>
+<h2 id="the-first-connected-devices---the-cold-drink-machine">1.3 The
+“First” Connected Devices - The Cold Drink Machine</h2>
+<p>The ARPANET-connected Coke machine at Carnegie Mellon University is
+widely recognized as one of the earliest examples of a “smart” connected
+device. This innovative project demonstrated how everyday appliances
+could be enhanced with network connectivity, paving the way for future
+developments in the Internet of Things (IoT).</p>
+<p>Key highlights of the ARPANET-connected Coke machine:</p>
+<ul>
+<li>Developed by students at Carnegie Mellon University’s School of
+Computer Science.</li>
+<li>Switches were installed in the Coke machine to monitor the number of
+bottles in each row.</li>
+<li>The system tracked how long each bottle remained in the machine;
+bottles stored for a longer time were labeled as “cold.”</li>
+<li>Users could remotely access the machine’s status via a finger
+interface over ARPANET.</li>
+<li>This pioneering experiment inspired inventors worldwide to create
+their own network-connected appliances.</li>
+</ul>
 <p><img src="images/Lecture1/drink_machine.png" /></p>
 <p><strong>Figure 1.3:</strong> CSE3002 Team Project History of Internet
 of Things (IoT) Devices and Their Influence on Cyber Security Team F
 Christopher Byars Dylan Leonard Brian Patino. <a
 href="https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/"><strong>[Link]</strong></a></p>
 <hr />
-<h2 id="the-first-connected-devices---the-xcoffee">The First “Connected
-Devices” - The XCoffee</h2>
+<h2 id="the-first-connected-devices---the-xcoffee">1.4 The “First”
+Connected Devices - The XCoffee</h2>
 <blockquote>
 <p>The XCoffee is created at the Computer Laboratory of the University
 of Cambridge. Two academics who worked at the Trojan Room in the
@@ -312,7 +379,7 @@ href="https://www.cl.cam.ac.uk/coffee/qsf/coffee.html">Link1</a>, <a
 href="https://odannyboy.medium.com/the-first-things-on-the-internet-of-things-5d817d45ac9c">Link2</a>,<a
 href="https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/">Link3</a></p>
 <hr />
-<h2 id="the-mobile-centric-world">The Mobile Centric World</h2>
+<h2 id="the-mobile-centric-world">1.5 The Mobile Centric World</h2>
 <p>The mobile revolution is changing the way we live, work, and
 interact. Mobile devices have become an integral part of our daily
 lives, enabling us to stay connected, access information, and perform
@@ -365,7 +432,8 @@ href="https://www.digitaldata.olivetti.com/timbigdata/concerto-di-vasco-rossi">L
 way we live and interact, and how the underlying network and internet
 infrastructures are crucial to support this massive connectivity.</p>
 <hr />
-<h3 id="mobile-wearable-computing">Mobile &amp; Wearable Computing</h3>
+<h3 id="mobile-wearable-computing">1.5.1 Mobile &amp; Wearable
+Computing</h3>
 <p>Another interesting aspect of the mobile revolution is the rise of
 wearable computing devices, such as smartwatches, fitness trackers, and
 augmented reality glasses. These devices are designed to be worn on the
@@ -386,8 +454,8 @@ interact with our environment and the world around us.</p>
 worlds are increasingly interconnected, leading to new opportunities and
 challenges in terms of connectivity, security, and data management.</p>
 <hr />
-<h1 id="the-internet-of-things-iot-evolution-revolution">The Internet of
-Things (IoT) Evolution &amp; Revolution</h1>
+<h1 id="the-internet-of-things-iot-evolution-revolution">2 The Internet
+of Things (IoT) Evolution &amp; Revolution</h1>
 <p>In the context of the mobile revolution, the Internet of Things (IoT)
 has emerged as a transformative concept that envisions a world where
 everyday objects are connected to the internet, enabling them to collect
@@ -396,8 +464,8 @@ we interact with technology, as it extends connectivity beyond
 traditional computing devices to encompass a wide range of physical
 objects and environments.</p>
 <blockquote>
-<p>The <strong>Internet of Things (IoT)</strong> refers to the idea of a
-network of networks with billions of uniquely identified physical
+<p>🔍 The <strong>Internet of Things (IoT)</strong> refers to the idea
+of a network of networks with billions of uniquely identified physical
 devices denoted also as <strong>Smart Objects</strong> organized in an
 <strong>Internet-like structure</strong>. Smart Objects are items such
 as sensors, consumer devices, and enterprise assets that are
@@ -439,10 +507,7 @@ completely isolated from it, depending on the specific use case and
 requirements. The common factor is that the devices must be able to
 communicate using IP protocols, regardless of their connectivity to the
 broader Internet.</p>
-<figure>
-<img src="images/Lecture1/iot_stack.png" alt="IoT Stack" />
-<figcaption aria-hidden="true">IoT Stack</figcaption>
-</figure>
+<p><img src="images/Lecture1/iot_stack.png" /></p>
 <p><strong>Figure 1.9:</strong> IoT Protocol Stack vs Traditional
 Networking Stack</p>
 <p>IoT device cannot always use the traditional Internet protocol stack
@@ -510,7 +575,601 @@ This seamless integration of IoT protocols and standard web technologies
 enables organizations to build smarter, more responsive, and data-driven
 solutions across domains.</p>
 <hr />
-<h1 id="cyberphysical-systems">Cyber–Physical Systems</h1>
+<h2 id="iot-main-characteristics">2.1 IoT Main Characteristics</h2>
+<p>The <strong>Internet of Things (IoT)</strong> is defined by several
+distinctive characteristics that set it apart from traditional computing
+paradigms. The most important keywords and concepts include:</p>
+<ul>
+<li><strong>Unique Identifiable Objects</strong>: Each “thing” in the
+IoT ecosystem is uniquely identifiable and typically equipped with
+<strong>embedded intelligence</strong> (e.g., sensors, actuators,
+microcontrollers) to <strong>sense</strong> or <strong>interact</strong>
+with the environment and <strong>communicate</strong> with external
+systems.</li>
+<li><strong>Constrained Devices</strong>: Many IoT devices operate with
+<strong>limited processing power</strong>, <strong>storage</strong>, and
+<strong>energy resources</strong>, requiring efficient and lightweight
+solutions.</li>
+<li><strong>IP-Based Networks</strong>: IoT connectivity is built on
+<strong>Internet Protocol (IP)</strong> standards (including
+<strong>IPv4</strong> and <strong>IPv6</strong>), enabling global
+addressing and interoperability.</li>
+<li><strong>Diverse Communication Technologies</strong>: IoT leverages a
+wide range of <strong>communication technologies</strong> such as
+<strong>WiFi</strong>, <strong>Cellular</strong>,
+<strong>Bluetooth</strong>, <strong>LPWAN</strong>, and <strong>IEEE
+802.15.4</strong> to connect devices across different environments.</li>
+<li><strong>Standard Protocols &amp; Interoperability</strong>: The use
+of <strong>standard protocols</strong> (e.g., <strong>MQTT</strong>,
+<strong>CoAP</strong>, <strong>HTTP</strong>) is essential for
+<strong>interoperability</strong> among heterogeneous devices and
+platforms.</li>
+<li><strong>Disruptive Heterogeneity</strong>: IoT systems exhibit
+significant <strong>heterogeneity</strong> in terms of <strong>data
+formats</strong>, <strong>hardware architectures</strong>, and
+<strong>software platforms</strong>, posing challenges for integration
+and management.</li>
+<li><strong>Security</strong>: Ensuring <strong>security</strong> and
+<strong>privacy</strong> is critical due to the vast number of connected
+devices and the sensitive nature of the data exchanged.</li>
+<li><strong>Interaction between People &amp; Things</strong>: IoT
+enables seamless <strong>interaction</strong> and
+<strong>collaboration</strong> between <strong>people</strong> and
+<strong>things</strong>, fostering new applications and user
+experiences.</li>
+</ul>
+<p>These characteristics collectively drive the evolution of IoT,
+shaping its architecture, protocols, and application domains.</p>
+<hr />
+<h2 id="some-of-the-main-iot-challenges">2.2 Some of the Main IoT
+Challenges</h2>
+<p>The Internet of Things (IoT) presents several significant challenges
+that need to be addressed to ensure its successful implementation and
+widespread adoption. Some of the main challenges include:</p>
+<ul>
+<li><strong>Scalability</strong>: The IoT ecosystem is expected to grow
+exponentially, with billions of devices connected to the internet.
+Managing and scaling such a vast network of devices poses significant
+challenges in terms of infrastructure, data management, and network
+performance.</li>
+<li><strong>Interoperability</strong>: IoT devices come from various
+manufacturers and use different communication protocols and data
+formats. Ensuring seamless interoperability among heterogeneous devices
+and platforms is crucial for the success of IoT systems.</li>
+<li><strong>Heterogeneity</strong>: The diversity of IoT devices,
+ranging from simple sensors to complex machines, introduces challenges
+in terms of device management, configuration, and integration.
+Developing standardized approaches to handle this heterogeneity is
+essential.</li>
+<li><strong>Security</strong>: The proliferation of connected devices
+increases the attack surface for cyber threats. Ensuring robust security
+measures to protect IoT devices and the data they generate is essential
+to prevent unauthorized access, data breaches, and other security
+risks.</li>
+<li><strong>Data Management</strong>: IoT generates massive amounts of
+data that need to be collected, stored, processed, and analyzed.
+Efficient data management strategies are required to handle the volume,
+velocity, and variety of IoT data.</li>
+<li><strong>Energy Efficiency</strong>: Many IoT devices are
+battery-powered and operate in resource-constrained environments.
+Developing energy-efficient solutions is critical to prolong device
+lifespan and reduce maintenance costs.</li>
+<li><strong>Privacy</strong>: IoT devices often collect sensitive
+personal data, raising concerns about user privacy. Implementing
+privacy-preserving mechanisms and ensuring compliance with data
+protection regulations is essential.</li>
+<li><strong>Real-Time Processing</strong>: Many IoT applications require
+real-time data processing and decision-making. Ensuring low latency and
+high reliability in data transmission and processing is crucial for
+time-sensitive applications.</li>
+</ul>
+<hr />
+<h2
+id="from-wireless-sensor-networks-wsn-and-machine-to-machine-m2m-to-iot">2.3
+From Wireless Sensor Networks (WSN) and Machine-to-Machine (M2M) to
+IoT</h2>
+<p><strong>Wireless Ad-hoc Sensor Networks (WSN)</strong> are considered
+the <strong>precursors</strong> to the modern <strong>Internet of Things
+(IoT)</strong>, but they operated without a common, shared <strong>IP
+network</strong>. WSNs laid the foundation for pervasive interaction
+between people and their environments, with their potential captured in
+the three key elements of their acronym:</p>
+<ul>
+<li><strong>Wireless</strong>: Emphasizes the freedom and
+<strong>mobility</strong> enabled by eliminating physical wires,
+allowing for flexible and rapid <strong>system deployment</strong>.</li>
+<li><strong>Sensor</strong>: Highlights the use of <strong>sensing
+technology</strong> to <strong>perceive</strong> and
+<strong>interact</strong> with the physical world, enabling a wide range
+of applications.</li>
+<li><strong>Networks</strong>: Focuses on the ability to create systems
+with <strong>distributed</strong>, <strong>communicating
+devices</strong> whose collective functionality emerges from their
+<strong>collaboration</strong> across large areas.</li>
+</ul>
+<p>These core characteristics made WSNs a critical step toward the
+development of scalable, distributed, and intelligent IoT systems.</p>
+<hr />
+<h2 id="telemetry-machine-to-machine-m2m">2.4 Telemetry &amp;
+Machine-to-Machine (M2M)</h2>
+<p>Telemetry and Machine-to-Machine (M2M) communication are foundational
+concepts in the evolution of connected devices and the Internet of
+Things (IoT). Telemetry focuses on the remote collection of
+measurements, while M2M extends this paradigm to enable autonomous,
+bidirectional communication between devices.</p>
+<p><strong>Key characteristics:</strong></p>
+<ul>
+<li><strong>Telemetry</strong> enables the remote acquisition of data
+from field devices, allowing for continuous monitoring and analysis
+without direct human intervention.
+<ul>
+<li><strong>Long-range measurements:</strong> Examples include
+temperature, humidity, and wind data from remote weather stations using
+cellular or satellite networks (e.g., Inmarsat); telemetry in
+<strong>Formula 1</strong> for real-time vehicle diagnostics.</li>
+<li><strong>Short-range measurements:</strong> Medical devices such as
+<strong>pacemakers</strong> use low-power telemetry coils to monitor
+patient activity non-invasively.</li>
+</ul></li>
+<li><strong>Machine-to-Machine (M2M)</strong> communication generalizes
+telemetry by supporting <strong>autonomic</strong>,
+<strong>bidirectional</strong> data exchange between non-human-operated
+machines and central collector systems.
+<ul>
+<li><strong>Autonomous operation:</strong> Devices communicate and
+coordinate actions without manual input.</li>
+<li><strong>Bidirectional communication:</strong> Information flows both
+from field devices to central systems and vice versa, enabling remote
+control, configuration, and updates.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="m2m-fragmentation">2.5 M2M Fragmentation</h2>
+<p>The Machine-to-Machine (M2M) landscape is marked by significant
+fragmentation and lack of standardization across industry verticals.
+This fragmentation leads to inefficiencies, increased costs, and limited
+scalability, as each sector tends to develop its own bespoke solutions
+rather than leveraging common architectures and reusable components.</p>
+<p><strong>Key challenges of M2M fragmentation include:</strong></p>
+<ul>
+<li><strong>Industry-Specific Solutions:</strong> Most industries
+address their M2M requirements independently, often converging on
+similar architectures and elements but rarely sharing solutions. As a
+result, the “M2M wheel” is repeatedly reinvented from one sector to
+another.</li>
+<li><strong>Customization Overload:</strong> Solutions are typically
+designed, produced, and implemented on an industry-by-industry basis.
+This leads to unique, customized hardware and software, often resulting
+in sole-sourcing and vendor lock-in.</li>
+<li><strong>Limited Developer Ecosystem:</strong> Software development
+is restricted to small groups of experts familiar with the specific
+architecture and APIs of each platform, driving up development and
+support costs.</li>
+<li><strong>Poor Economies of Scale:</strong> The diversity and
+uniqueness of solutions make it difficult to achieve economies of scale
+for components, resulting in higher costs and slower innovation.</li>
+</ul>
+<hr />
+<h2 id="difference-between-m2m-and-iot">2.6 Difference between M2M and
+IoT</h2>
+<p><img src="images/Lecture1/m2m_vs_iot.png" /></p>
+<p><strong>Figure 1.10:</strong> Schematic representation of the
+difference between M2M and IoT</p>
+<table>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 33%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr>
+<th><strong>Aspect</strong></th>
+<th><strong>M2M</strong></th>
+<th><strong>IoT</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Point-to-point</td>
+<td>Many-to-many via Internet/cloud</td>
+</tr>
+<tr>
+<td><strong>Scope</strong></td>
+<td>Device-specific, narrow</td>
+<td>Wide, heterogeneous, spanning multiple domains</td>
+</tr>
+<tr>
+<td><strong>Data Processing</strong></td>
+<td>Local, limited</td>
+<td>Cloud-based, distributed, advanced analytics</td>
+</tr>
+<tr>
+<td><strong>Standards</strong></td>
+<td>Proprietary, domain-specific</td>
+<td>Open, global, cross-domain</td>
+</tr>
+<tr>
+<td><strong>Scalability</strong></td>
+<td>Limited, hard to extend</td>
+<td>Highly scalable, billions of devices</td>
+</tr>
+<tr>
+<td><strong>Applications</strong></td>
+<td>Vertical solutions (e.g., smart meter)</td>
+<td>Horizontal ecosystems (e.g., smart cities, Industry 4.0)</td>
+</tr>
+</tbody>
+</table>
+<p>WSN and M2M laid the groundwork for IoT by demonstrating the
+potential of connected devices. However, IoT expands upon these concepts
+by leveraging standard Internet protocols, enabling global connectivity,
+interoperability, and scalability across diverse applications and
+industries. Furthermore, in the IoT the possibility of distributing data
+processing and intelligence across the edge, fog and cloud layers is a
+key aspect that differentiate it from the traditional M2M approach with
+the potential of enabling more complex and intelligent applications
+working together in a collaborative manner.</p>
+<hr />
+<h2 id="iot-device-core-characteristics">2.7 IoT Device Core
+Characteristics</h2>
+<p><img src="images/Lecture1/iot_device_core_modules.png" /></p>
+<p><strong>Figure 1.11:</strong> Schematic representation of the core
+characteristics of IoT devices</p>
+<p>Understanding the core components of IoT devices is fundamental for
+designing, developing, and deploying effective cyber-physical and IoT
+systems. Identifying these modules allows engineers to address key
+requirements such as connectivity, sensing, processing, and energy
+management, ensuring that devices can reliably interact with both the
+physical and digital worlds. A clear grasp of these building blocks also
+supports interoperability, scalability, and security across diverse
+application domains. The main modules of an IoT device usually
+include:</p>
+<ul>
+<li><strong>Communication:</strong> Enables the device to exchange data
+with other systems or networks, typically via a radio transceiver with
+an antenna or a wired connection.</li>
+<li><strong>Microcontroller:</strong> Acts as the device’s “brain,”
+running embedded software to control its behavior and manage
+operations.</li>
+<li><strong>Sensors or Actuators:</strong> Allow the device to sense
+environmental conditions or interact with the physical world, providing
+input or output capabilities.</li>
+<li><strong>Power Source:</strong> Supplies energy to the device’s
+electronic circuits. Common options include batteries, piezoelectric
+sources (activated by physical force), or small solar cells (powered by
+light).</li>
+</ul>
+<p>IoT devices do not work alone, but they are part of a larger
+ecosystem that includes multiple devices, networks, cloud services, and
+user interfaces through different types of architectures and deployment
+models as we briefly introduce in the next section.</p>
+<hr />
+<h2 id="a-shared-iot-multi-layer-model">2.8 A Shared IoT Multi-Layer
+Model</h2>
+<p><img src="images/Lecture1/iot_industrial_multi_layer.png" /></p>
+<p><strong>Figure 1.12:</strong> An example of an IoT Multi-Layer Model
+in the Industrial Domain where different layers are represented and
+interconnected to support the IoT ecosystem. <a
+href="https://www.altexsoft.com/blog/iot-architecture-layers-components/">Link1</a>,
+<a
+href="https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2014/m10/the-internet-of-things-world-forum-unites-industry-leaders-in-chicago-to-accelerate-the-adoption-of-iot-business-models.html">Link2</a></p>
+<p>A general multi-layer reference model is often used to abstract and
+describe IoT systems and architectures. This model provides a high-level
+overview of the main layers, clarifies their roles and interactions, and
+supports the development of scalable, interoperable IoT solutions. While
+the model can be tailored to specific implementations and requirements,
+it serves as a foundational framework for understanding IoT
+architectures.</p>
+<p>This architecture typically comprises the following layers:</p>
+<ul>
+<li><strong>Perception Layer:</strong>
+<ul>
+<li><strong>Physical Devices &amp; Controllers:</strong> This is the
+foundational layer where the “things” of IoT reside. It includes all the
+physical sensors, actuators, devices, and intelligent edge nodes that
+collect data from the environment or interact with it.</li>
+</ul></li>
+<li><strong>Network Layer:</strong>
+<ul>
+<li><strong>Connectivity:</strong> Responsible for the secure and
+reliable transmission of data from the perception layer to higher
+layers. This involves various communication technologies like Wi-Fi,
+Bluetooth, cellular, and specialized IoT protocols.</li>
+<li><strong>Edge Computing:</strong> This layer processes data closer to
+the source (at the “edge” of the network), performing data element
+analysis and transformation. It helps reduce latency, conserve
+bandwidth, and improve security by processing data locally before
+sending it to the cloud.</li>
+</ul></li>
+<li><strong>Data and Information Management Layer:</strong>
+<ul>
+<li><strong>Data Accumulation:</strong> Focuses on storing the vast
+amounts of data collected from IoT devices. This often involves various
+database technologies optimized for big data.</li>
+<li><strong>Data Abstraction:</strong> This layer is responsible for
+aggregating and accessing the stored data, presenting it in a
+standardized and meaningful format for higher-level applications.</li>
+</ul></li>
+<li><strong>Services and Applications Layer:</strong>
+<ul>
+<li><strong>Application:</strong> This layer provides the specific
+functionalities and services that utilize the processed IoT data. This
+includes reporting, analytics, and control mechanisms that enable users
+to interact with and manage their IoT systems.</li>
+</ul></li>
+<li><strong>Business Layer:</strong>
+<ul>
+<li><strong>Collaboration &amp; Processes:</strong> The highest layer,
+where the insights derived from IoT data are integrated into broader
+business processes and decision-making. It involves people,
+organizational workflows, and strategic collaborations that drive value
+from IoT deployments.</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="iot-software-an-overview">2.9 IoT Software an Overview</h2>
+<p><img src="images/Lecture1/iot_involved_actors.png" /></p>
+<p><strong>Figure 1.13:</strong> A schematic representation of the main
+actors involved in an IoT solution. <a
+href="https://iot.eclipse.org/community/resources/white-papers/">Link1</a></p>
+<p>An effective IoT solution comprises a diverse array of connected
+devices (“things”) that collect and transmit data. These devices often
+communicate via gateways, which serve as intermediaries to bridge local
+device networks with broader enterprise or cloud infrastructures. The
+network enables secure and reliable data exchange between devices,
+gateways, and a centralized IoT platform—typically hosted on enterprise
+back-end servers or in the cloud.</p>
+<p>The IoT platform plays a pivotal role by aggregating, processing, and
+integrating device data into existing enterprise systems and workflows.
+Each component—devices, gateways, and the cloud platform—fulfills
+distinct responsibilities:</p>
+<ul>
+<li><strong>Devices (“Things”)</strong>: Sense, actuate, and generate
+data from the physical environment.</li>
+<li><strong>Gateways</strong>: Manage connectivity, protocol
+translation, and local processing, ensuring seamless communication
+between devices and the network.</li>
+<li><strong>IoT Platform (Cloud/Enterprise Server)</strong>:
+Orchestrates device management, data analytics, integration with
+business applications, and overall system reliability.</li>
+</ul>
+<p>This layered architecture ensures scalable, interoperable, and secure
+IoT deployments that can be tailored to meet specific business and
+operational requirements. Of course this architecture can be more
+complex and include additional components such as:</p>
+<ul>
+<li><strong>Edge/Fog Computing Nodes</strong>: Intermediate processing
+units that perform data analysis and decision-making closer to the data
+source, reducing latency and bandwidth usage.</li>
+<li><strong>Security Modules</strong>: Dedicated components for ensuring
+data integrity, confidentiality, and authentication across the IoT
+ecosystem.</li>
+<li><strong>User Interfaces</strong>: Dashboards, mobile apps, and other
+interfaces that allow users to interact with and manage IoT devices and
+data.</li>
+<li><strong>Analytics Engines</strong>: Advanced data processing units
+that apply machine learning and AI techniques to derive insights from
+IoT data.</li>
+<li><strong>Integration Layers</strong>: Middleware that facilitates
+communication and data exchange between the IoT platform and existing
+enterprise systems (e.g., ERP, CRM).</li>
+<li><strong>Management and Orchestration Tools</strong>: Software for
+monitoring, updating, and managing the entire IoT infrastructure.</li>
+<li><strong>APIs and SDKs</strong>: Tools that enable developers to
+build applications and services on top of the IoT platform.</li>
+<li><strong>Data Storage Solutions</strong>: Scalable databases and data
+lakes designed to handle the large volumes of data generated by IoT
+devices.</li>
+<li><strong>Communication Networks</strong>: Various network
+technologies (e.g., LPWAN, 5G, Wi-Fi) that provide connectivity options
+tailored to different IoT use cases.</li>
+<li><strong>Backup and Recovery Systems</strong>: Mechanisms to ensure
+data resilience and availability in case of failures.</li>
+<li><strong>Monitoring and Alerting Systems</strong>: Tools that provide
+real-time monitoring of device status, performance metrics, and alerting
+for anomalies or failures.</li>
+<li><strong>Development and Testing Environments</strong>: Platforms
+that facilitate the development, simulation, and testing of IoT
+applications before deployment.</li>
+</ul>
+<hr />
+<h2 id="iot-software---sensor-actuator">2.10 IoT Software - Sensor &amp;
+Actuator</h2>
+<p><img src="images/Lecture1/iot_device_software.png" /></p>
+<p><strong>Figure 1.14:</strong> IoT Devices software stack and main
+components. <a
+href="https://iot.eclipse.org/community/resources/white-papers/">Link1</a></p>
+<p>The “Thing” serves as the initial component in an IoT solution,
+typically generating data and interacting with the physical world.
+Things are often constrained in terms of size and power supply, hence
+they commonly utilize <strong>Microcontrollers (MCUs)</strong> with
+limited capabilities. These MCUs are specialized for specific tasks,
+designed for cost-effective mass production. The software running on
+MCU-based devices is tailored to support specific functions. Key
+features of the software stack on such devices may include:</p>
+<ul>
+<li><strong>IoT Operating System</strong>: While many devices operate
+without an operating system, some incorporate embedded or real-time
+operating systems specifically suited for small, constrained devices,
+offering IoT-specific capabilities.</li>
+<li><strong>Hardware Abstraction</strong>: This software layer allows
+access to MCU’s hardware features, such as flash memory, GPIOs, and
+serial interfaces, abstracting their complexities.</li>
+<li><strong>Communication Support</strong>: Drivers and protocols
+facilitate device connectivity to wired or wireless protocols like
+Bluetooth, Z-Wave, Thread, CAN bus, MQTT, CoAP, enabling efficient
+device communication.</li>
+<li><strong>Remote Management</strong>: The capability to remotely
+control the device, enabling firmware upgrades or battery level
+monitoring, ensuring efficient device management.</li>
+</ul>
+<hr />
+<h2 id="iot-software---gateways">2.11 IoT Software - Gateways</h2>
+<p><img src="images/Lecture1/iot_gateway_software.png" /></p>
+<p><strong>Figure 1.15:</strong> IoT Gateways software stack and main
+components. <a
+href="https://iot.eclipse.org/community/resources/white-papers/">Link1</a></p>
+<p>IoT gateways play a pivotal role in connecting sensors, actuators,
+and devices to external networks and cloud platforms. They act as
+intermediaries, enabling seamless communication, data processing, and
+protocol translation between heterogeneous devices and systems. Gateways
+can be standalone hardware units or embedded as functional modules
+within larger devices such as industrial machines, vehicles, or smart
+home appliances.</p>
+<p>Key functions and characteristics of IoT gateways include:</p>
+<ul>
+<li><strong>Edge Data Processing and Storage:</strong> Perform local
+data aggregation, filtering, and temporary storage to reduce network
+latency and bandwidth usage.</li>
+<li><strong>Protocol Translation:</strong> Bridge communication between
+devices using different protocols, ensuring interoperability across
+diverse hardware and software ecosystems.</li>
+<li><strong>Device-to-Device Connectivity:</strong> Enable direct
+communication and coordination among connected devices within a local
+network.</li>
+<li><strong>Security and Reliability:</strong> Implement authentication,
+encryption, and access control to protect data and ensure reliable
+operation.</li>
+<li><strong>Scalability:</strong> Support large numbers of devices by
+managing connections and distributing workloads across multiple
+gateways.</li>
+<li><strong>Remote Management:</strong> Facilitate firmware updates,
+configuration changes, and monitoring of connected devices from
+centralized platforms.</li>
+<li><strong>Integration with Cloud and Enterprise Systems:</strong>
+Forward processed data to cloud services or enterprise applications for
+advanced analytics and decision-making.</li>
+</ul>
+<p>IoT gateways rely on robust software stacks to deliver their core
+functionalities. Key components of a modern gateway software stack
+include:</p>
+<ul>
+<li><strong>Operating System:</strong> Most gateways run a
+general-purpose OS, such as Linux, providing a stable and flexible
+foundation for device management and application execution.</li>
+<li><strong>Application Runtime &amp; Containerization:</strong>
+Gateways often support dynamic application deployment and updates,
+enabling execution environments for languages like Java, Python, or
+Node.js. Containerization technologies (e.g., Docker) may be used for
+isolation and scalability.</li>
+<li><strong>Connectivity &amp; Protocol Support:</strong> Gateway
+software must handle multiple device communication protocols (e.g.,
+Bluetooth, Wi-Fi, ZigBee, Z-Wave, Thread) and network interfaces
+(Ethernet, cellular, satellite), ensuring secure and reliable data
+exchange across heterogeneous environments.</li>
+<li><strong>Data Management &amp; Messaging:</strong> Local data
+persistence and buffering allow gateways to operate during network
+disruptions, support real-time analytics at the edge, and reliably
+forward device data to cloud platforms using protocols such as MQTT or
+HTTP.</li>
+<li><strong>Remote Management &amp; Orchestration:</strong>
+Administrators can remotely provision, configure, monitor, and update
+gateways and their applications, streamlining maintenance and enabling
+centralized control over distributed deployments.</li>
+</ul>
+<p>These capabilities make IoT gateways essential for bridging diverse
+devices, networks, and cloud services, supporting scalable, secure, and
+flexible IoT solutions.</p>
+<hr />
+<h2 id="iot-software---cloud-platforms">2.12 IoT Software - Cloud &amp;
+Platforms</h2>
+<p><img src="images/Lecture1/iot_cloud_platforms.png" /></p>
+<p><strong>Figure 1.16:</strong> IoT Gateways software stack and main
+components. <a
+href="https://iot.eclipse.org/community/resources/white-papers/">Link1</a></p>
+<p>A modern IoT Cloud Platform provides a comprehensive set of
+capabilities to support the management, integration, and utilization of
+connected devices and data. These platforms serve as the backbone for
+scalable, secure, and interoperable IoT solutions, enabling
+organizations to efficiently handle device connectivity, data
+processing, and application development.</p>
+<p>Key features of an IoT Cloud Platform include:</p>
+<ul>
+<li><strong>Connectivity and Message Routing:</strong> Supports
+interaction with a large number of devices and gateways, handling
+diverse protocols and data formats. The platform normalizes and
+integrates incoming data for seamless enterprise integration.</li>
+<li><strong>Device Management and Registry:</strong> Maintains a central
+registry for device and gateway identification, enabling provisioning,
+software updates, and lifecycle management.</li>
+<li><strong>Data Management and Storage:</strong> Incorporates scalable
+data stores to efficiently handle the volume and variety of IoT data,
+ensuring reliable storage, retrieval, and management.</li>
+<li><strong>Event Management, Analytics, and User Interface:</strong>
+Provides scalable event processing, data consolidation, and analytics
+capabilities. Facilitates the creation of reports, dashboards, and user
+interfaces for data visualization and insight generation.</li>
+<li><strong>Application Enablement:</strong> Offers APIs and tools for
+custom application development, allowing integration with external
+systems and empowering developers to build tailored solutions on top of
+the platform.</li>
+</ul>
+<hr />
+<h2 id="iot-software---cross-stack-functionalities">2.13IoT Software -
+Cross-Stack Functionalities</h2>
+<p><img src="images/Lecture1/iot_cross_stack_functionalities.png" /></p>
+<p><strong>Figure 1.17:</strong> IoT Cross-Stack Functionalities and
+main components. <a
+href="https://iot.eclipse.org/community/resources/white-papers/">Link1</a></p>
+<p>When designing and implementing an IoT solution, it is essential to
+address several cross-stack functionalities that ensure the system’s
+reliability, interoperability, and scalability. These features span
+across device, gateway, and cloud layers, providing foundational support
+for secure, efficient, and flexible IoT deployments.</p>
+<ul>
+<li><strong>Security:</strong> Apply robust security mechanisms at every
+layer of the IoT architecture, including device authentication, data
+encryption, and access authorization. Comprehensive security strategies
+protect against threats and ensure data integrity throughout the
+ecosystem.</li>
+<li><strong>Ontologies and Data Standardization:</strong> Define
+standardized data formats, ontologies, and metadata descriptions to
+facilitate seamless data exchange and interoperability across
+heterogeneous devices and platforms. Well-structured ontologies enable
+effective analytics and integration in multi-domain environments.</li>
+<li><strong>Development Tools and SDKs:</strong> Provide developers with
+versatile development tools and software development kits (SDKs) that
+support a wide variety of hardware and software platforms. These
+resources streamline the development process, promote code reusability,
+and ensure compatibility across the IoT stack.</li>
+</ul>
+<hr />
+<h2 id="iot-software---key-characteristics">2.14 IoT Software - Key
+Characteristics</h2>
+<p>A robust IoT software stack should embody several foundational
+characteristics to ensure flexibility, interoperability, and scalability
+across diverse deployment scenarios. These principles enable
+organizations to build solutions that are adaptable, future-proof, and
+capable of integrating with a wide range of devices, platforms, and
+services.</p>
+<ul>
+<li><strong>Loose Coupling:</strong> Each layer of the IoT stack should
+operate independently, allowing components from different vendors—such
+as cloud platforms, gateways, and device stacks—to be combined
+seamlessly. This flexibility supports easy integration and replacement
+without disrupting the overall system.</li>
+<li><strong>Modularity:</strong> The stack should support the selection
+and integration of features from various suppliers, enabling tailored
+solutions that meet specific requirements. Modular design simplifies
+customization and accelerates innovation.</li>
+<li><strong>Platform Independence:</strong> Components should be
+agnostic to underlying hardware and cloud infrastructure. Device stacks
+must work across multiple microcontrollers, while cloud platforms should
+be compatible with different PaaS providers, ensuring broad
+applicability and reducing vendor lock-in.</li>
+<li><strong>Open Standards:</strong> Communication and data exchange
+should rely on open standards to guarantee interoperability and
+compatibility among heterogeneous IoT components. Adhering to open
+standards fosters ecosystem growth and simplifies integration.</li>
+<li><strong>Well-Defined APIs:</strong> Each layer should expose clear
+and consistent Application Programming Interfaces (APIs), facilitating
+straightforward integration with existing applications and other IoT
+solutions. Well-defined APIs streamline development, enhance
+connectivity, and support efficient data exchange.</li>
+</ul>
+<hr />
+<h1 id="cyberphysical-systems">3 Cyber–Physical Systems</h1>
 <p>In this context, <strong>Cyber-Physical Systems (CPS)</strong> play a
 crucial role in bridging the gap between the physical and digital
 worlds. CPS are systems that integrate computation, networking, and
@@ -524,11 +1183,9 @@ digital and physical worlds. CPS typically involve a network of
 <strong>computational devices</strong> that <strong>collect
 data</strong> from the physical environment, <strong>process</strong>
 it, and <strong>control</strong> physical processes or objects.</em></p>
-<figure>
-<img src="images/Lecture1/cps_highlevel_overview.png"
-alt="Cyber-Physical Systems (CPS)" />
-<figcaption aria-hidden="true">Cyber-Physical Systems (CPS)</figcaption>
-</figure>
+<p><img src="images/Lecture1/cps_highlevel_overview.png" />
+<strong>Figure 1.18:</strong> Cyber-Physical Systems (CPS) high-level
+overview.</p>
 <p>Typically, CPS are characterized by the following features:</p>
 <ul>
 <li><strong>Integration of Physical and Cyber Components</strong>: CPS
@@ -552,11 +1209,8 @@ safety-critical applications, requiring robust safety and reliability
 measures to ensure the integrity and security of both physical and cyber
 components.</li>
 </ul>
-<figure>
-<img src="images/Lecture1/cps_phases.png"
-alt="Cyber-Physical Systems (CPS)" />
-<figcaption aria-hidden="true">Cyber-Physical Systems (CPS)</figcaption>
-</figure>
+<p><img src="images/Lecture1/cps_phases.png" /> <strong>Figure
+1.19:</strong> Cyber-Physical Systems (CPS) phases overview.</p>
 <p>As illustrated in the figure above, CPS typically involve the
 following phases:</p>
 <ol type="1">
@@ -584,7 +1238,7 @@ arm, or activating an alarm.</li>
 with the system continuously perceiving, analyzing, learning, planning,
 and acting in a dynamic and adaptive manner.</p>
 <hr />
-<h2 id="a-multi-disciplinary-approach">A Multi-Disciplinary
+<h2 id="a-multi-disciplinary-approach">3.1 A Multi-Disciplinary
 Approach</h2>
 <p>The field of cyber-physical systems is cross-disciplinary in nature —
 building upon complex technology systems that promote advancement in
@@ -632,10 +1286,10 @@ connected systems, as well as a vertical study of systems: they are
 inherently transdisciplinary, generalizing and expanding individual
 sub-fields.</p>
 <hr />
-<h3 id="an-industrial-example-of-cps-technologies">An Industrial
-“Example” of CPS Technologies</h3>
-<p><img src="images/Lecture1/cps_technologies.png"
-alt="CPS Industrial Technologies" /> <strong>Sources:</strong> <a
+<h2 id="an-industrial-example-of-cps-technologies">3.2 An Industrial
+“Example” of CPS Technologies</h2>
+<p><img src="images/Lecture1/cps_technologies.png" /> <strong>Figure
+1.20:</strong> Cyber-Physical Systems (CPS) Technologies. <a
 href="https://www.mouser.it/new/analog-devices/adi-industry-4">Link1</a>,
 <a
 href="https://www.linkedin.com/pulse/examples-industry-40-use-cases-luka-kozamernik/">Link2</a></p>
@@ -686,13 +1340,11 @@ enabling insights and decision-making based on data-driven
 approaches.</li>
 </ul>
 <hr />
-<h3 id="from-technologies-to-services">From Technologies to
-Services</h3>
-<figure>
-<img src="images/Lecture1/cps_highlevel_services.png"
-alt="CPS Industrial Technologies" />
-<figcaption aria-hidden="true">CPS Industrial Technologies</figcaption>
-</figure>
+<h2 id="from-technologies-to-services">3.3 From Technologies to
+Services</h2>
+<p><img src="images/Lecture1/cps_highlevel_services.png" />
+<strong>Figure 1.21:</strong> Cyber-Physical Systems (CPS) Services
+examples.</p>
 <p>One important aspect of CPS is that technologies are meant to enable
 the creation of added value for the end user, by improving efficiency,
 productivity, safety, and sustainability in various application domains.
@@ -747,8 +1399,8 @@ compliance with regulations and promote sustainability in industrial
 operations.</li>
 </ul>
 <hr />
-<h3 id="cps-software-as-distributed-software">CPS Software as
-Distributed Software</h3>
+<h2 id="cps-software-as-distributed-software">3.4 CPS Software as
+Distributed Software</h2>
 <p>One of the main characteristics of CPS is that each component is
 characterized by its own software module that is responsible for the
 management of the component itself. When multiple components are
@@ -757,11 +1409,9 @@ interact and communicate with each other to enable the overall
 functionality of the system and we start talking about
 <strong>Distributed Systems</strong> and <strong>Distributed
 Software</strong>.</p>
-<figure>
-<img src="images/Lecture1/cps_distributed_software.png"
-alt="CPS Distributed Software" />
-<figcaption aria-hidden="true">CPS Distributed Software</figcaption>
-</figure>
+<p><img src="images/Lecture1/cps_distributed_software.png" />
+<strong>Figure 1.22:</strong> Cyber-Physical Systems (CPS) Distributed
+Software.</p>
 <p>Some of the main challenges and characteristics of CPS software
 include:</p>
 <ul>
@@ -847,14 +1497,11 @@ interoperability</strong></li>
 evolution</strong> and <strong>behaviors</strong></li>
 </ul>
 <hr />
-<h2 id="from-cps-to-cpsos-cyber-physical-system-of-systems">From CPS to
-CPSoS (Cyber-Physical System of Systems)</h2>
-<figure>
-<img src="images/Lecture1/cps_of_systems.png"
-alt="Cyber-Physical System of Systems" />
-<figcaption aria-hidden="true">Cyber-Physical System of
-Systems</figcaption>
-</figure>
+<h2 id="from-cps-to-cpsos-cyber-physical-system-of-systems">3.5 From CPS
+to CPSoS (Cyber-Physical System of Systems)</h2>
+<p><img src="images/Lecture1/cps_of_systems.png" /> <strong>Figure
+1.23:</strong> Cyber-Physical Systems (CPS) of Systems (CPSoS)
+overview.</p>
 <p>The concept of <strong>Cyber-Physical System of Systems
 (CPSoS)</strong> refers to the <strong>integration</strong> and
 <strong>collaboration</strong> of multiple, interconnected

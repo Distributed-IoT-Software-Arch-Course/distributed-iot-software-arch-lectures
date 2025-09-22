@@ -26,6 +26,15 @@ if [[ "$format" != "pdf" && "$format" != "epub" && "$format" != "html" ]]; then
   exit 1
 fi
 
+# Ask for author and title if format is EPUB
+if [ "$format" = "epub" ]; then
+  echo "Enter the author name for the EPUB (leave empty to skip):"
+  read -e author
+  
+  echo "Enter the title for the EPUB (leave empty to skip):"
+  read -e title
+fi
+
 # Ask for the base name of the output file (without extension)
 echo "Enter the base name of the output file (extension will be added automatically):"
 read -e output_base
@@ -45,6 +54,13 @@ case $format in
     ;;
   epub)
     engine="-t epub"
+    # Add metadata if provided
+    if [ ! -z "$author" ]; then
+      engine="$engine --metadata author=\"$author\""
+    fi
+    if [ ! -z "$title" ]; then
+      engine="$engine --metadata title=\"$title\""
+    fi
     ;;
   html)
     engine="--standalone -t html5"

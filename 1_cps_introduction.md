@@ -51,7 +51,7 @@
 
 Since from the beginning of the Internet, there was the desire to connect more “things” to it. Source: ARPANET Completion Report: January 4, 1978.
 
-![ARPANET Completion Report January 4, 1978](images/Lecture1/arpanet_1978.png)
+![](images/Lecture1/arpanet_1978.png)
 
 **Figure 1.1:** ARPANET Completion Report January 4, 1978
 
@@ -67,7 +67,7 @@ The exponential growth in connected devices has led to an explosion in the volum
 
 As a result, the Internet has become the backbone for countless services and applications, powering innovation and transforming how we live, work, and interact. The availability of massive data volumes and intelligent services continues to drive new opportunities and challenges in connectivity, security, and digital transformation.
 
-![The current state of the Internet/Web](images/Lecture1/current_internet_web.png)
+![](images/Lecture1/current_internet_web.png)
 
 **Figure 1.2:** A "snapshot" of the current state of the Internet/Web
 
@@ -89,8 +89,7 @@ Key highlights of the ARPANET-connected Coke machine:
 
 ![](images/Lecture1/drink_machine.png)
 
-**Figure 1.3:** CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino. 
-[**[Link]**](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
+**Figure 1.3:** CSE3002 Team Project History of Internet of Things (IoT) Devices and Their Influence on Cyber Security Team F Christopher Byars Dylan Leonard Brian Patino. [**[Link]**](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
 ---
 
@@ -102,11 +101,9 @@ Key highlights of the ARPANET-connected Coke machine:
 > that was observing the coffee pot and taking pictures of it several times a minute. Then the pictures were sent to the client application, to 
 > keep the user updated on the information about whether the pot was filled.
 
-![XCoffee Machine](images/Lecture1/xcoffee.png)
+![](images/Lecture1/xcoffee.png)
 
-**Figure 1.4:** The XCoffee Machine - The First "Connected Device"
-
-**Sources:** [Link1](https://www.cl.cam.ac.uk/coffee/qsf/coffee.html), [Link2](https://odannyboy.medium.com/the-first-things-on-the-internet-of-things-5d817d45ac9c),[Link3](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
+**Figure 1.4:** The XCoffee Machine - The First "Connected Device". [**[Link]**](https://www.cl.cam.ac.uk/coffee/qsf/coffee.html), [**[Link]**](https://odannyboy.medium.com/the-first-things-on-the-internet-of-things-5d817d45ac9c), [**[Link]**](https://hqsoftwarelab.com/blog/the-history-of-iot-a-comprehensive-timeline-of-major-events-infographic/)
 
 ---
 
@@ -116,12 +113,9 @@ The mobile revolution is changing the way we live, work, and interact. Mobile de
 
 In the picture below, you can see how the mobile revolution has transformed St. Peter's Square in Vatican City. The left image from 2005 shows a traditional gathering of people, while the right image from 2013 captures a sea of mobile devices held up by attendees, highlighting the significant impact of mobile technology on social interactions and events.
 
->What a difference 8 years makes: St. Peter’s Square in 2005 and yesterday (2013)” 
-(Facebook NBC News)
+![](images/Lecture1/piazza_san_pietro.png)    
 
-![Piazza San Pietro - The Mobile Revolution](images/Lecture1/piazza_san_pietro.png)    
-
-**Figure 1.5:** Piazza San Pietro - The Mobile Revolution
+**Figure 1.5:** What a difference 8 years makes: St. Peter’s Square in 2005 and yesterday (2013)” (Facebook NBC News).
 
 This image hides an interesting aspect on what we are not seeing and able to support this massive number of mobile devices. The answer is the **Network and Internet infrastructures, which are the backbone of the mobile revolution and are able to support the increasing demand for data and connectivity combined with Cloud Computing infrastructures and services**.
 
@@ -129,11 +123,9 @@ Those infrastructures evolved a lot in the last 20 years, and they are still evo
 
 Another interesting example is the event of the concert of Vasco Rossi in Modena Park, July 2017, where more than 230K people attended the event and almost all of them were using their mobile devices to share the event in real time.
 
-![Vasco Rossi Concert, Modena Park](images/Lecture1/olivetti_modena_park.png)
+![](images/Lecture1/olivetti_modena_park.png)
 
-**Figure 1.6:** 230K Devices at Vasco Rossi Concert @ Modena Park - July 2017
-
-**Source:** [Link](https://www.digitaldata.olivetti.com/timbigdata/concerto-di-vasco-rossi)
+**Figure 1.6:** TIM/Olivetti Data Analysis for 230K Devices at Vasco Rossi Concert @ Modena Park - July 2017. [**[Link]**](https://www.digitaldata.olivetti.com/timbigdata/concerto-di-vasco-rossi)
 
 This is another example of how the mobile revolution is changing the way we live and interact, and how the 
 underlying network and internet infrastructures are crucial to support this massive connectivity.
@@ -144,7 +136,7 @@ underlying network and internet infrastructures are crucial to support this mass
 
 Another interesting aspect of the mobile revolution is the rise of wearable computing devices, such as smartwatches, fitness trackers, and augmented reality glasses. These devices are designed to be worn on the body and provide users with real-time access to information, notifications, and health monitoring features.
 
-![Wearable Computing](images/Lecture1/wearable_computing.png)
+![](images/Lecture1/wearable_computing.png)
 
 **Figure 1.7:** Wearable Computing Devices
 
@@ -163,9 +155,9 @@ as it extends connectivity beyond traditional computing devices to encompass a w
 > denoted also as **Smart Objects** organized in an **Internet-like structure**.
 > Smart Objects are items such as sensors, consumer devices, and enterprise assets that are **connected to both the Internet and each other**.
 
-![IoT Pillars](images/Lecture1/iot_pillars.png)
+![](images/Lecture1/iot_pillars.png)
 
-**Figure 1.8:** IoT Pillars - Communication Technologies (e.g., LoRa, NB-IoT), Hardware (e.g., Raspberry Pi, Arduino), Software (e.g., C/C++, Python, Linux, RTOS) and Protocols (e.g., MQTT, CoAP)
+**Figure 1.8:** IoT Pillars - Communication Technologies (e.g., LoRa, NB-IoT), Hardware (e.g., Raspberry Pi, Arduino), Software (e.g., C/C++, Python, Linux, RTOS) and Protocols (e.g., MQTT, CoAP).
 
 One of the **key characteristics of the Internet of Things (IoT)** is its reliance on the **Internet** itself. 
 The IoT is not simply about connecting devices; it is about connecting them **using standard Internet protocols**, rather than proprietary solutions. This approach is **crucial for achieving scalability, interoperability, and global accessibility** in IoT systems.
@@ -180,7 +172,7 @@ The common factor is that the devices must be able to communicate using IP proto
 
 ![](images/Lecture1/iot_stack.png)
 
-**Figure 1.9:** IoT Protocol Stack vs Traditional Networking Stack
+**Figure 1.9:** IoT Protocol Stack vs Traditional Networking Stack.
 
 IoT device cannot always use the traditional Internet protocol stack due to their **resource constraints** (e.g., limited processing power, memory, and energy).
 For this reason, IoT devices often use **lightweight protocols** that are specifically designed for resource-constrained environments. 
@@ -341,8 +333,7 @@ different types of architectures and deployment models as we briefly introduce i
 
 ![](images/Lecture1/iot_industrial_multi_layer.png)
 
-**Figure 1.12:** An example of an IoT Multi-Layer Model in the Industrial Domain where different layers are represented and interconnected to support the IoT ecosystem. 
-[Link1](https://www.altexsoft.com/blog/iot-architecture-layers-components/), [Link2](https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2014/m10/the-internet-of-things-world-forum-unites-industry-leaders-in-chicago-to-accelerate-the-adoption-of-iot-business-models.html)
+**Figure 1.12:** An example of an IoT Multi-Layer Model in the Industrial Domain where different layers are represented and interconnected to support the IoT ecosystem. [**[Link]**](https://www.altexsoft.com/blog/iot-architecture-layers-components/), [**[Link]**](https://newsroom.cisco.com/c/r/newsroom/en/us/a/y2014/m10/the-internet-of-things-world-forum-unites-industry-leaders-in-chicago-to-accelerate-the-adoption-of-iot-business-models.html)
 
 A general multi-layer reference model is often used to abstract and describe IoT systems and architectures. 
 This model provides a high-level overview of the main layers, clarifies their roles and interactions, 
@@ -370,8 +361,7 @@ This architecture typically comprises the following layers:
 
 ![](images/Lecture1/iot_involved_actors.png)
 
-**Figure 1.13:** A schematic representation of the main actors involved in an IoT solution. 
-[Link1](https://iot.eclipse.org/community/resources/white-papers/)
+**Figure 1.13:** A schematic representation of the main actors involved in an IoT solution. [**[Link]**](https://iot.eclipse.org/community/resources/white-papers/)
 
 An effective IoT solution comprises a diverse array of connected devices ("things") that collect and transmit data. These devices often communicate via gateways, which serve as intermediaries to bridge local device networks with broader enterprise or cloud infrastructures. The network enables secure and reliable data exchange between devices, gateways, and a centralized IoT platform—typically hosted on enterprise back-end servers or in the cloud.
 
@@ -403,8 +393,7 @@ Of course this architecture can be more complex and include additional component
 
 ![](images/Lecture1/iot_device_software.png)
 
-**Figure 1.14:** IoT Devices software stack and main components. 
-[Link1](https://iot.eclipse.org/community/resources/white-papers/)
+**Figure 1.14:** IoT Devices software stack and main components. [**[Link]**](https://iot.eclipse.org/community/resources/white-papers/)
 
 
 The "Thing" serves as the initial component in an IoT solution, typically generating data and interacting with the physical world. 
@@ -424,7 +413,7 @@ Key features of the software stack on such devices may include:
 ![](images/Lecture1/iot_gateway_software.png)
 
 **Figure 1.15:** IoT Gateways software stack and main components. 
-[Link1](https://iot.eclipse.org/community/resources/white-papers/)
+[**[Link]**](https://iot.eclipse.org/community/resources/white-papers/)
 
 IoT gateways play a pivotal role in connecting sensors, actuators, and devices to external networks and cloud platforms. 
 They act as intermediaries, enabling seamless communication, data processing, and protocol translation between heterogeneous devices and systems. 
@@ -457,7 +446,7 @@ These capabilities make IoT gateways essential for bridging diverse devices, net
 ![](images/Lecture1/iot_cloud_platforms.png)
 
 **Figure 1.16:** IoT Gateways software stack and main components. 
-[Link1](https://iot.eclipse.org/community/resources/white-papers/)
+[**[Link]**](https://iot.eclipse.org/community/resources/white-papers/)
 
 A modern IoT Cloud Platform provides a comprehensive set of capabilities to support the management, integration, and utilization of connected devices and data. 
 These platforms serve as the backbone for scalable, secure, and interoperable IoT solutions, enabling organizations to efficiently handle device connectivity, 
@@ -478,7 +467,7 @@ Key features of an IoT Cloud Platform include:
 ![](images/Lecture1/iot_cross_stack_functionalities.png)
 
 **Figure 1.17:** IoT Cross-Stack Functionalities and main components. 
-[Link1](https://iot.eclipse.org/community/resources/white-papers/)
+[**[Link]**](https://iot.eclipse.org/community/resources/white-papers/)
 
 When designing and implementing an IoT solution, it is essential to address several cross-stack functionalities that ensure the system's reliability, 
 interoperability, and scalability. These features span across device, gateway, and cloud layers, providing foundational support for secure, efficient, 
@@ -581,7 +570,8 @@ They represent a major paradigm in the framework of collective and connected sys
 ## 3.2 An Industrial "Example" of CPS Technologies
 
 ![](images/Lecture1/cps_technologies.png)
-**Figure 1.20:** Cyber-Physical Systems (CPS) Technologies. [Link1](https://www.mouser.it/new/analog-devices/adi-industry-4), [Link2](https://www.linkedin.com/pulse/examples-industry-40-use-cases-luka-kozamernik/)
+
+**Figure 1.20:** Cyber-Physical Systems (CPS) Technologies. [**[Link]**](https://www.mouser.it/new/analog-devices/adi-industry-4), [**[Link]**](https://www.linkedin.com/pulse/examples-industry-40-use-cases-luka-kozamernik/)
 
 The previous figure shows some of the main technologies that are used in CPS and Industry 4.0 applications that traditionally are complex systems that integrate physical processes with computational resources and networking capabilities to enable real-time monitoring, control, and optimization of industrial processes. There are many technologies that are used in CPS and Industry 4.0 applications, including for example:
 
@@ -602,6 +592,7 @@ The previous figure shows some of the main technologies that are used in CPS and
 ## 3.3 From Technologies to Services
 
 ![](images/Lecture1/cps_highlevel_services.png)
+
 **Figure 1.21:** Cyber-Physical Systems (CPS) Services examples.
 
 One important aspect of CPS is that technologies are meant to enable the creation of added value for the end user, by improving efficiency, productivity, safety, and sustainability in various application domains. CPS technologies are often designed to be interoperable and scalable, allowing for seamless integration with existing systems and the ability to adapt to changing requirements and environments.
@@ -626,6 +617,7 @@ As illustrated in the previous figure, CPS technologies can enable services in t
 One of the main characteristics of CPS is that each component is characterized by its own software module that is responsible for the management of the component itself. When multiple components are integrated into a CPS, the software modules of each component need to interact and communicate with each other to enable the overall functionality of the system and we start talking about **Distributed Systems** and **Distributed Software**.
 
 ![](images/Lecture1/cps_distributed_software.png)
+
 **Figure 1.22:** Cyber-Physical Systems (CPS) Distributed Software.
 
 Some of the main challenges and characteristics of CPS software include:
