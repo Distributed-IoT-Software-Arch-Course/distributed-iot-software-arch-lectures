@@ -483,3 +483,485 @@ In this example:
 
 This ability to modify attributes is a core feature of object-oriented programming, enabling your objects to evolve and respond to changes throughout your program.
 
+---
+
+## 2.2.9 Classes & Instance Methods
+
+**Instance Methods** are functions defined within a class that operate on individual instances of that class. 
+Like the `__init__()` constructor, the first parameter of every instance method is always `self`, which refers to the specific object the method is called on.
+
+```python
+class Car:
+
+  def __init__(self, manufacturer, model):
+    self.manufacturer = manufacturer
+    self.model = model
+
+  # Instance method returning a description of the car
+  def description(self):
+    return f"Manufacturer: {self.manufacturer} Model: {self.model}"
+```
+
+**Key Points:**
+- **Instance methods** are called on objects (instances) of a class, not on the class itself.
+- The `self` parameter allows the method to access and modify the instance’s attributes.
+- Instance methods can perform operations using the data stored in the object.
+- You invoke an instance method using dot notation: `car1.description()`.
+- Instance methods help encapsulate behavior that is specific to each object, making your code modular and organized.
+
+---
+
+## 2.2.10 Pythonic Class Print Method
+
+The `__str__()` method in Python is a special instance method that defines how an object is represented as a string. By default, printing an instance of a class displays its memory address, which is not informative. Implementing the `__str__()` method allows you to customize the string output, making it more meaningful and user-friendly.
+
+Replacing a custom `.description()` method with `__str__()` is considered more Pythonic, as it integrates seamlessly with built-in functions like `print()` and `str()`. This approach enhances code readability and usability, especially when debugging or logging object information.
+
+You can change what gets printed by defining a special instance method called __str__():
+
+```python
+# Replace description with __str__() method
+def __str__(self):
+    return f"Manufacturer: {self.manufacturer} Model: {self.model}"
+```
+
+**Key Points:**
+- **`__str__()`** gives a readable string for an object.
+- **Overrides** the default memory address output for instances.
+- **Preferred** over custom methods for string representation.
+- **Enhances** code clarity and debugging.
+- **Called automatically** by `print()` and `str()`.
+
+---
+
+## 2.2.10 Pythonic Dunder Methods
+
+**Dunder Methods** (short for "double underscore methods") are special methods in Python that begin and end with double underscores, such as `__init__()` and `__str__()`. These methods are also known as **magic methods** or **special methods**. They allow you to customize the behavior of your classes and objects, enabling integration with Python’s built-in functions and operators.
+
+Dunder methods are automatically invoked by Python in specific situations. For example, `__init__()` is called when an object is created, while `__str__()` is called when you print an object or convert it to a string. There are many other dunder methods that let you define how your objects behave when compared, added, indexed, iterated over, or used in other common operations.
+
+Mastering dunder methods is essential for advanced object-oriented programming in Python, as they provide powerful ways to make your classes behave more like built-in types and interact seamlessly with Python’s language features.
+
+For a comprehensive list and detailed documentation, refer to the [Python Data Model documentation](https://docs.python.org/3/reference/datamodel.html#basic-customization).
+
+**Key Points:**
+- **Dunder methods** start and end with double underscores (e.g., `__init__`, `__str__`).
+- They **customize class behavior** for built-in operations and functions.
+- Examples include **object creation** (`__init__`), **string representation** (`__str__`), **comparison** (`__eq__`), **addition** (`__add__`), and more.
+- Dunder methods are **automatically called** by Python in specific contexts.
+- Understanding and using dunder methods is **crucial for advanced OOP** and creating Pythonic, robust classes.
+
+---
+
+## 2.3 Class Inheritance
+
+**Inheritance** is a fundamental concept in object-oriented programming that allows one class (the **child class**) to acquire the attributes and methods of another class (the **parent class**). This mechanism promotes **code reuse**, **modularity**, and **extensibility** by enabling you to build new classes based on existing ones.
+
+When you create a child class, it automatically inherits all the properties and behaviors defined in its parent class. However, child classes are not limited to what they inherit—they can also **override** existing methods or **extend** the parent class by adding new attributes and methods that are unique to themselves. This flexibility allows you to customize and specialize behavior for different types of objects while maintaining a consistent structure.
+
+For example, you might have a generic `Vehicle` class that defines common attributes like `manufacturer` and `model`, and methods such as `start()`. You can then create a `Car` class that inherits from `Vehicle`, gaining all its features, but also adding specific attributes (e.g., `number_of_doors`) or overriding methods to provide specialized behavior.
+
+To inspect the type of an object and its relationship to classes, Python provides built-in functions:
+
+- Use `type(object)` to determine the exact class of an object:
+  ```python
+  type(car)
+  # Output: <class '__main__.Car'>
+  ```
+
+- Use `isinstance(object, ClassName)` to check if an object is an instance of a specific class (including parent or child classes):
+  ```python
+  isinstance(car1, Car)
+  # Output: True
+  ```
+Here’s an improved example of class inheritance in Python:
+
+```python
+class ElectricCar(Car):
+  """
+  ElectricCar inherits from Car and adds electric-specific attributes.
+  """
+  def __init__(self, manufacturer, model, battery_capacity_kwh):
+    # Initialize attributes from the parent Car class
+    super().__init__(manufacturer, model)
+    # Add new attributes specific to ElectricCar
+    self.battery_capacity_kwh = battery_capacity_kwh
+    self.battery_level = 100  # Battery level as a percentage
+```
+
+**Explanation:**
+- `ElectricCar` inherits all attributes and methods from `Car` using `super()`.
+- Adds new attributes: `battery_capacity_kwh` and `battery_level`.
+- Includes a custom `charge()` method and a Pythonic `__str__()` for readable output.
+
+**Key Points:**
+- **Inheritance** enables child classes to reuse and extend the functionality of parent classes.
+- **Child classes** inherit all attributes and methods from their parent, but can also define their own or override inherited ones.
+- **Code reuse** and **modularity** are enhanced by organizing related classes in hierarchies.
+- Use **`type()`** to check the exact class of an object.
+- Use **`isinstance()`** to verify if an object is an instance of a particular class or its subclasses.
+- Inheritance supports the creation of flexible and maintainable software architectures.
+
+---
+
+## 2.3.1 Class Inheritance
+
+**Method overriding** is a core feature of object-oriented programming that allows a child class to provide a specific implementation for a method that is already defined in its parent class. This enables you to customize or extend the behavior of inherited methods to suit the needs of the child class.
+
+To override a method, simply define a method in the child class with the **same name** and **signature** as the one in the parent class. When you call this method on an instance of the child class, Python will use the child class’s version, effectively replacing the parent’s implementation for that object.
+
+Below is an *"improved"* example of the `ElectricCar` class, which inherits from the `Car` class and overrides several methods:
+
+```python
+import random
+
+class ElectricCar(Car):
+  def __init__(self, manufacturer, model, kwh):
+    # Call the parent class constructor to initialize common attributes
+    super().__init__(manufacturer, model)
+    # Add new attributes specific to ElectricCar
+    self.kwh = kwh
+    self.battery_level = 100  # Battery level as a percentage
+
+  # Override the __str__ method to provide a custom string representation
+  def __str__(self):
+    # Use the parent class's __str__ and add electric-specific info
+    return f"{super().__str__()} - Kwh: {self.kwh}"
+
+  # Override or add new methods specific to ElectricCar
+  def estimate_air_pollution(self, path_km_value):
+    # Electric cars produce zero direct air pollution
+    return 0
+
+  def measure_battery_level(self):
+    # Simulate measuring the battery level with a random value
+    self.battery_level = random.randint(10, 100)
+    return self.battery_level
+```
+
+**Explanation**
+
+- The `__init__` method uses `super()` to call the parent class constructor, ensuring that common attributes (`manufacturer`, `model`) are properly initialized.
+- The `__str__` method is **overridden** to provide a more informative string representation, including the electric car’s battery capacity (`kwh`). It also calls the parent’s `__str__` using `super()` to avoid code duplication.
+- The `estimate_air_pollution` method is overridden to reflect that electric cars produce zero direct air pollution.
+- The `measure_battery_level` method is unique to `ElectricCar`, simulating battery measurement with a random value.
+
+**Key Points**
+
+- **Method overriding** allows child classes to customize or replace inherited behavior.
+- Use **`super()`** to access parent class methods and avoid code duplication.
+- Overridden methods in the child class take precedence when called on child class instances.
+- Child classes can introduce **new attributes and methods** in addition to overriding existing ones.
+- Overriding supports **polymorphism**, enabling flexible and extensible code design.
+
+---
+
+## 2.4 Classes & Comments
+
+Proper commenting is **essential** for writing clear, maintainable, and professional Python code. Comments help you and others understand the logic, intent, and structure of your programs, making collaboration and future updates much easier.
+
+In Python, there are two main ways to add comments:
+
+**Single-Line Comments**
+
+Single-line comments begin with the `#` symbol. Everything after `#` on the same line is ignored by the Python interpreter. Use single-line comments for brief explanations, clarifying complex code, or leaving notes for future reference.
+
+```python
+# Calculate the area of a circle
+radius = 5
+area = 3.14 * radius ** 2  # Area formula: πr²
+```
+
+**Multi-Line Docstrings**
+
+A **docstring** is a string literal placed immediately after the definition of a function, method, class, or module. Docstrings are enclosed in triple quotes (`""" ... """` or `''' ... '''`) and are used to document the purpose, behavior, and usage of code blocks. Docstrings can be accessed programmatically via the `.__doc__` attribute and are essential for generating documentation.
+
+```python
+def calculate_area(radius):
+  """
+  Calculate the area of a circle given its radius.
+
+  Parameters:
+    radius (float): The radius of the circle.
+
+  Returns:
+    float: The calculated area.
+  """
+  return 3.14 * radius ** 2
+```
+
+Or for classes:
+
+```python
+class Car:
+  """
+  Represents a car with manufacturer and model attributes.
+
+  Attributes:
+    manufacturer (str): The name of the car manufacturer.
+    model (str): The model of the car.
+  """
+  def __init__(self, manufacturer, model):
+    self.manufacturer = manufacturer
+    self.model = model
+```
+
+Class docstrings offer a concise summary of the class, describing its purpose, main attributes, and often including a usage example.  
+Method docstrings give specific details about the method, explaining its functionality, input parameters, return values, and any exceptions it might raise.
+
+**Key Points:**
+
+- **Single-line comments** (`#`) are ideal for short notes and clarifications.
+- **Docstrings** provide structured documentation for functions, classes, and modules.
+- Well-written comments and docstrings improve **code readability**, **collaboration**, and **maintenance**.
+- Docstrings are accessible via the `.__doc__` attribute and support automated documentation tools.
+- Use comments to explain **why** something is done, not just **what** is done.
+
+---
+
+## 2.5 Exception Management
+
+Exception management in Python is a crucial aspect of writing robust and reliable programs. It enables developers to **handle errors gracefully**, preventing unexpected crashes and allowing the program to recover or provide meaningful feedback to users. Exception handling is accomplished using **`try`-`except` blocks**, which catch and respond to exceptions that occur during code execution.
+
+An **exception** is an event that interrupts the normal flow of a program's instructions. Unlike **syntax errors**, which prevent code from running at all, exceptions are raised by the Python interpreter when an error occurs while the program is running. When an exception is triggered, Python displays a message starting with `Traceback (most recent call last):`, indicating where the error occurred and what type of exception was raised.
+
+**Common exception types include:**
+- **ZeroDivisionError**: Raised when dividing by zero.
+- **FileNotFoundError**: Raised when trying to access a file that does not exist.
+- **ValueError**: Raised when a function receives an argument of the correct type but inappropriate value.
+- **IndexError**: Raised when trying to access an index that is out of range in a sequence (like a list).
+- **NotImplementedError**: Raised when an abstract method that should be implemented is not.
+
+**Example: IndexError (List Index Out of Range)**
+
+```python
+numbers = [1, 2, 3]
+print(numbers[5])  # Attempting to access an index that does not exist
+```
+
+**Output:**
+```
+Traceback (most recent call last):
+  File "example.py", line 2, in <module>
+    print(numbers[5])
+IndexError: list index out of range
+```
+
+**Key Points:**
+- **Exception management** prevents program crashes and enables error recovery.
+- Use **`try`-`except` blocks** to catch and handle exceptions.
+- **Exceptions** are runtime errors that disrupt normal program flow.
+- **Syntax errors** stop code before execution; **exceptions** occur during execution.
+- Python provides detailed **tracebacks** to help locate and diagnose errors.
+- Handling exceptions improves **program reliability** and **user experience**.
+- Always anticipate and manage possible exceptions in your code for better maintainability.
+
+> **Note:** Exception are handled in a stack where if an exception is not caught in the current function, it propagates up to the caller function, and so on, until it is either caught or reaches the top level of the program, which will terminate the program if unhandled. Exception and errors are normal part of programming and should be expected and handled properly.
+
+---
+
+## 2.5.1 Exception Management in Python
+
+Python uses **exception handling** to manage errors that occur during program execution, allowing your code to respond gracefully rather than crashing. The primary mechanism for this is the `try`-`except` block, which lets you specify code that might raise an exception and define how to handle different error types.
+
+**Basic Structure**
+
+```python
+try:
+  # Code that may raise an exception
+except ExceptionType:
+  # Code to handle the specific exception
+```
+
+You can also catch **all exceptions** by omitting the exception type, or handle **multiple exception types** using multiple `except` clauses.
+
+**Example 1: Handling a Specific Exception**
+
+```python
+try:
+  result = 10 / 0
+except ZeroDivisionError:
+  print("Error: Division by zero is not allowed.")
+```
+
+**Example 2: Catching All Exceptions (Generic Handler)**
+
+```python
+try:
+  print(undefined_variable)
+except:
+  print("An unexpected error occurred.")
+```
+
+**Example 3: Multiple Exception Clauses**
+
+```python
+try:
+  value = int("abc")
+  print(10 / value)
+except ValueError:
+  print("Error: Could not convert string to integer.")
+except ZeroDivisionError:
+  print("Error: Division by zero.")
+except Exception as e:
+  print(f"Other error: {e}")
+```
+
+**Printing Error Messages**
+
+To display the actual error message, you can use the `as` keyword to bind the exception to a variable:
+
+```python
+try:
+  print(undefined_variable)
+except NameError as error:
+  print(f"NameError occurred: {error}")
+```
+
+**Key Points**
+
+- **try-except** blocks allow you to handle errors and prevent program crashes.
+- Catch **specific exceptions** for targeted error handling.
+- Use a **generic except** clause to catch any exception (not recommended for production code).
+- Multiple **except clauses** let you handle different error types separately.
+- Use **exception variables** (e.g., `except Exception as e`) to print or log detailed error messages.
+- Proper exception handling improves **program reliability** and **user experience**.
+
+## 2.5.2 Else & Finally
+
+Python’s `try`, `except`, `else`, and `finally` blocks work together to provide flexible error handling and control flow.
+
+- **`try` block**: Contains code that may raise an exception.
+- **`except` block**: Handles exceptions if they occur in the `try` block.
+- **`else` block**: Runs only if no exception was raised in the `try` block.
+- **`finally` block**: Runs no matter what—whether an exception was raised or not.
+
+**Example:**
+
+```python
+try:
+  value = int("42")
+  print("Conversion successful.")
+except ValueError:
+  print("Conversion failed.")
+else:
+  print("No errors occurred.")
+finally:
+  print("This always executes.")
+```
+
+**Output:**
+```
+Conversion successful.
+No errors occurred.
+This always executes.
+```
+
+If an exception occurs, the `except` block runs and the `else` block is skipped, but the `finally` block still executes:
+
+```python
+try:
+  value = int("abc")  # Raises ValueError
+  print("Conversion successful.")
+except ValueError:
+  print("Conversion failed.")
+else:
+  print("No errors occurred.")
+finally:
+  print("This always executes.")
+```
+
+**Output:**
+```
+Conversion failed.
+This always executes.
+```
+
+**Summary:**
+- Use `else` for code that should run only if no errors occurred.
+- Use `finally` for cleanup actions that must run regardless of errors (e.g., closing files or releasing resources).
+- The combination of these blocks makes your code robust and predictable.
+
+---
+
+## 2.5.3 Custom Exceptions
+
+You can create your own custom exceptions in Python by defining a new class that inherits from the built-in `Exception` class. Custom exceptions are useful when you want to signal specific error conditions in your code that are not covered by standard exceptions.
+
+**Example: Defining and Using a Custom Exception**
+
+```python
+class BatteryLowError(Exception):
+  """Raised when the battery level is too low for operation."""
+  def __init__(self, battery_level, message="Battery level is critically low!"):
+    self.battery_level = battery_level
+    self.message = message
+    super().__init__(f"{message} (Level: {battery_level}%)")
+```
+
+Then you can raise this exception in your code when a specific condition is met:
+
+```python
+def operate_electric_car(battery_level):
+  if battery_level < 20:
+    raise BatteryLowError(battery_level)
+  print("Car is operating normally.")
+```
+
+Then you can use the custom exception in a `try-except` block:
+
+```python
+try:
+  operate_electric_car(15)
+except BatteryLowError as error:
+  print(f"Custom Exception Caught: {error}")
+```
+
+**Explanation:**
+- A new exception class `BatteryLowError` is defined, inheriting from `Exception`.
+- The custom exception can include extra information (like `battery_level`) and a custom message.
+- In the function `operate_electric_car`, the exception is raised if the battery level is below a threshold.
+- The exception is caught using a `try-except` block, and a descriptive error message is printed.
+
+**Key Points:**
+- Custom exceptions help make your error handling more descriptive and specific.
+- Always inherit from `Exception` or one of its subclasses.
+- You can add custom attributes and messages to your exception class.
+- Use custom exceptions to signal and handle domain-specific errors in your applications.
+
+---
+
+## 2.6  Object Oriented Programming Smart Home Example (in Python)
+
+The objective of this exercise is to **practically apply object-oriented programming (OOP)** principles to model a simplified **IoT system** using Python classes. You will learn how to design and implement software components that represent real-world entities in a **Smart Home** environment.
+
+**Scenario Overview**
+
+Imagine a Smart Home equipped with various **IoT devices**:
+- **Temperature sensors**
+- **Humidity sensors**
+- **Smart lights**
+
+The task is to:
+- **Design data structures** and identify appropriate **classes** to represent these devices.
+- **Implement Python classes** to model device attributes and behaviors.
+- Create a **central system** (e.g., a `SmartHomeController` class) to **collect** and **manage data** from all devices.
+
+**Key Concepts**
+
+- Use **class** definitions to encapsulate device properties (e.g., `device_id`, `location`, `status`) and behaviors (e.g., `read_temperature()`, `switch_on()`).
+- Model each device type (e.g., `TemperatureSensor`, `HumiditySensor`, `SmartLight`) as a separate **class**.
+- The **central system** should aggregate device data and provide methods for monitoring and control.
+
+**Exercise Scope**
+
+- The scenario is **simplified**:  
+  - No network communication between devices.
+  - All components run **within the same process**.
+- Focus on **splitting components** into logical classes and enabling their **interaction** via method calls.
+- In future lectures, you will learn how to extend this architecture to support **networked communication** and distributed systems.
+
+> **Goal:**  Gain hands-on experience with OOP by modelling a Smart Home IoT system, preparing you for more advanced topics in distributed IoT software architecture.
+
+## 2.6.1 Which are the Entities in the Project ? 
+
