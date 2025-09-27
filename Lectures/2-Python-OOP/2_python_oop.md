@@ -34,6 +34,9 @@
   - [2.2.6 Instances Without Parameters](#226-instances-without-parameters)
   - [2.2.7 Access Instance Attributes](#227-access-instance-attributes)
   - [2.2.8 Change Instance Attributes](#228-change-instance-attributes)
+  - [2.2.9 Adding Methods to a Class](#229-adding-methods-to-a-class)
+  - [2.2.10 Calling Methods on an Instance](#2210-calling-methods-on-an-instance)
+  - [2.2.11 The `__str__` Method](#2211-the-__str__-method)
   
 # 2.1 Object Oriented Programming (OOP) Introduction
 
@@ -604,7 +607,7 @@ class ElectricCar(Car):
 
 ---
 
-## 2.3.1 Class Inheritance
+## 2.3.1 Method Overriding
 
 **Method overriding** is a core feature of object-oriented programming that allows a child class to provide a specific implementation for a method that is already defined in its parent class. This enables you to customize or extend the behavior of inherited methods to suit the needs of the child class.
 
