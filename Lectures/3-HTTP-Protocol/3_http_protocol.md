@@ -57,7 +57,7 @@
   
 # 3.1 Traditional Internet Protocol Stack (Overview)
 
-![](images/traditional_protocol_stack_communication.pdf)
+![](images/traditional_protocol_stack_communication.png)
 
 **Figure 3.1:** Traditional Internet Protocol Stack (Overview) with the different layers and their main protocols.
 
