@@ -579,7 +579,16 @@ When **modeling REST architectures**, several core characteristics and principle
     - **Self-descriptive messages**: Each message contains all necessary information for processing, supporting stateless communication and interoperability.
     - **Hypermedia as the engine of application state (HATEOAS)**: Clients navigate the application dynamically using hyperlinks provided in resource representations, enabling discoverability and adaptability.
 
+- **Statelessness**:  
+  - Each request from a client to a server must contain all the information needed to understand and process the request.
+  - The server does not store any client context between requests, which enhances scalability and reliability.
+  - This statelessness allows servers to handle a large number of requests efficiently, as they do not need to maintain session information.
+  - Clients may manage state locally or through tokens, but the server remains stateless.
+  - Stateless interactions simplify server design and improve fault tolerance.
+  - It is a great benefit also for the IoT, where devices may have limited resources and intermittent connectivity.
+
 > By adhering to these principles, RESTful modeling achieves **scalability**, **simplicity**, and **interoperability**, making it a foundational approach for modern web and IoT systems.
+> Using a **stateless** architecture allows for easier scaling and reliability, as servers do not need to maintain session information between requests. This is particularly beneficial in distributed systems where clients may be numerous and transient.
 
 ---
 
