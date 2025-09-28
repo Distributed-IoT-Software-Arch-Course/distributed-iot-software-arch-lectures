@@ -34,9 +34,28 @@
   - [2.2.6 Instances Without Parameters](#226-instances-without-parameters)
   - [2.2.7 Access Instance Attributes](#227-access-instance-attributes)
   - [2.2.8 Change Instance Attributes](#228-change-instance-attributes)
-  - [2.2.9 Adding Methods to a Class](#229-adding-methods-to-a-class)
-  - [2.2.10 Calling Methods on an Instance](#2210-calling-methods-on-an-instance)
-  - [2.2.11 The `__str__` Method](#2211-the-__str__-method)
+  - [2.2.9 Classes \& Instance Methods](#229-classes--instance-methods)
+  - [2.2.10 Pythonic Class Print Method](#2210-pythonic-class-print-method)
+  - [2.2.10 Pythonic Dunder Methods](#2210-pythonic-dunder-methods)
+  - [2.3 Class Inheritance](#23-class-inheritance)
+  - [2.3.1 Method Overriding](#231-method-overriding)
+  - [2.4 Classes \& Comments](#24-classes--comments)
+  - [2.5 Exception Management](#25-exception-management)
+  - [2.5.1 Exception Management in Python](#251-exception-management-in-python)
+  - [2.5.2 Else \& Finally](#252-else--finally)
+  - [2.5.3 Custom Exceptions](#253-custom-exceptions)
+  - [2.6  Object Oriented Programming Smart Home Example (in Python)](#26--object-oriented-programming-smart-home-example-in-python)
+  - [2.6.1 Which are the Entities in the Project ?](#261-which-are-the-entities-in-the-project-)
+  - [2.6.2 Sensors \& Actuators Characteristics](#262-sensors--actuators-characteristics)
+  - [2.6.3 Open "Issues" and Model Improvements](#263-open-issues-and-model-improvements)
+  - [2.6.4 Updated Modeling with Inheritance - Device Class](#264-updated-modeling-with-inheritance---device-class)
+  - [2.6.5 Updated Modeling with Inheritance - Sensor Class](#265-updated-modeling-with-inheritance---sensor-class)
+  - [2.6.6 Updated Modeling with Inheritance - Actuator Class](#266-updated-modeling-with-inheritance---actuator-class)
+  - [2.6.7 From Sensor Abstraction to TemperatureSensor \& HumiditySensor](#267-from-sensor-abstraction-to-temperaturesensor--humiditysensor)
+  - [2.6.8 From Actuator Abstraction to SmartLight](#268-from-actuator-abstraction-to-smartlight)
+  - [2.6.9 Final Overall Design and Modeling with Inheritance](#269-final-overall-design-and-modeling-with-inheritance)
+  - [2.7 Smart Home and Data Manager](#27-smart-home-and-data-manager)
+  - [2.8 Implementing the Smart Home Class and its Behaviors](#28-implementing-the-smart-home-class-and-its-behaviors)
   
 # 2.1 Object Oriented Programming (OOP) Introduction
 
@@ -968,3 +987,573 @@ The task is to:
 
 ## 2.6.1 Which are the Entities in the Project ? 
 
+![](images/smart_home_entities.png)
+
+**Figure 2.2:** Smart Home IoT System Entities that then will be mapped to classes.
+
+When designing a **Smart Home IoT system** using object-oriented programming, it is essential to identify the **key entities**, their **attributes** (data), and **behaviors** (methods) that reflect real-world requirements.
+
+In our scenario, the **Smart Home** acts as the central hub, managing all connected devices. It should encapsulate:
+
+- **Attributes:**
+  - **Home ID**: Unique identifier for the smart home.
+  - **Location Data**: Such as **latitude** and **longitude**.
+  - **Device List**: A collection of all devices (e.g., temperature sensors, humidity sensors, smart lights) installed in the home.
+
+- **Behaviors (Methods):**
+  - **Add Device**: Attach a new sensor or light to the home.
+  - **Remove Device**: Detach an existing device from the home.
+  - **List Devices**: Retrieve information about all connected devices.
+
+By using **classes** to represent both the Smart Home and its devices, you achieve:
+
+- **Encapsulation**: Group related data and behaviors together.
+- **Modularity**: Each entity is self-contained and reusable.
+- **Extensibility**: Easily add new device types or features.
+- **Clear Relationships**: The Smart Home maintains a list of devices and provides methods to manage them.
+
+This modeling approach mirrors real-world systems, making your code **organized**, **maintainable**, and **scalable** for future enhancements.
+
+![](images/smart_home_class_specs.png)
+
+**Figure 2.3:** Specifications of the Smart Home Entities with their attributes and behaviors.
+
+---
+
+## 2.6.2 Sensors & Actuators Characteristics
+
+![](images/sensor_actuators_specs.png)
+
+**Figure 2.4:** Specifications of the Sensors & Actuators with their attributes and behaviors.
+
+When modeling **Smart Home IoT devices** using object-oriented programming, it is crucial to identify the **core attributes** and **behaviors** for each entity. 
+This ensures your classes accurately represent real-world devices and support extensibility.
+In our scenario, we have three primary device types: **Temperature Sensor**, **Humidity Sensor**, and **Smart Light** (an actuator).
+Each device type should be encapsulated in its own class with specific attributes and methods.
+
+A **Temperature Sensor** class should encapsulate:
+
+- **Attributes:**
+  - **ID**: Unique identifier for the sensor.
+  - **Type**: Specifies the kind of sensor (e.g., temperature).
+  - **Manufacturer**: The company that produced the sensor.
+  - **Last Measurement Timestamp**: The time when the last reading was taken.
+  - **Last Measurement Value**: The most recent temperature value (e.g., `25°C`).
+- **Behavior (Method):**
+  - **Update Value**: Reads a new measurement from the sensor and updates both the value and timestamp.
+
+A **Humidity Sensor** class should include:
+
+- **Attributes:**
+  - **ID**: Unique identifier for the sensor.
+  - **Type**: Specifies the kind of sensor (e.g., humidity).
+  - **Manufacturer**: The company that produced the sensor.
+  - **Last Measurement Timestamp**: The time when the last humidity reading was taken.
+  - **Last Measurement Value**: The most recent humidity value (e.g., `90%`).
+- **Behavior (Method):**
+  - **Update Value**: Reads a new humidity measurement and updates the value and timestamp.
+
+A **Smart Light** class, representing an actuator, should model:
+
+- **Attributes:**
+  - **ID**: Unique identifier for the light.
+  - **Type**: Specifies the device type (e.g., smart light).
+  - **Manufacturer**: The company that produced the light.
+  - **Last Value Update Timestamp**: The time when the light’s status was last changed.
+  - **Status**: Current state of the light (e.g., `ON` or `OFF`).
+- **Behavior (Method):**
+  - **Change Status**: Triggers a change in the light’s status (e.g., switches between ON and OFF), updating the timestamp accordingly.
+
+By defining these **attributes** and **methods** in your classes, you achieve **encapsulation** of device data and behavior, making your code **modular**, **maintainable**, and ready for future expansion (such as adding new device types or features).
+
+---
+
+## 2.6.3 Open "Issues" and Model Improvements
+
+![](images/sensor_replicated_fields_methods.png)
+
+**Figure 2.5:** Sensors design issues due to replicated fields and methods.
+
+When designing the **Temperature Sensor** and **Humidity Sensor** classes, you’ll notice that they share **many common attributes**—such as `id`, `type`, `manufacturer`, `last_measurement_timestamp`, and `last_measurement_value`. They also both implement a **method** for updating their current sensor value (e.g., `update_value()`).
+
+This repetition suggests an opportunity for **modeling improvement** using **inheritance** and **abstraction**. 
+By creating a **generic Sensor base class** that encapsulates the shared attributes and behaviors, you can:
+
+- **Reduce code duplication** by defining common fields and methods only once.
+- **Increase maintainability** and **scalability** as new sensor types can inherit from the base class.
+- **Clarify relationships** between different sensor types, making your code more organized and extensible.
+
+For example, both `TemperatureSensor` and `HumiditySensor` can inherit from a `Sensor` superclass, which defines the shared structure and provides a generic `update_value()` method that can be specialized as needed.
+
+> **Key Takeaway:**  
+> Use **inheritance** to model shared characteristics and behaviors, ensuring your code is modular, reusable, and easy to extend as your IoT system evolves.
+
+![](images/actuators_replicated_fields_methods.pdf)
+
+**Figure 2.6:** Actuators design issues due to replicated fields and methods.
+
+Although the **Smart Light** class is an **actuator** and not a sensor, it shares several **common attributes** with the **Temperature Sensor** and **Humidity Sensor** classes—such as `id`, `type`, and `manufacturer`. The main difference lies in their **behavior**: sensors use an `update_value()` method to record measurements, while actuators like Smart Light use a method such as `change_status()` to perform actions (e.g., turning on or off).
+
+This observation highlights the importance of **generalization** in object-oriented modeling. By identifying shared characteristics, you can create a **generic base class** (e.g., `Device`) that encapsulates common attributes and provides a foundation for both **sensors** and **actuators**. Then, you can define specialized subclasses—such as `Sensor` and `Actuator`—that extend the base class and implement device-specific behaviors.
+
+Such a design offers several advantages:
+- **Reduces code duplication** by centralizing shared fields.
+- **Improves maintainability** and **scalability** as new device types (e.g., additional actuators) can be added easily.
+- **Clarifies relationships** between entities, making the system architecture more organized and extensible.
+
+> **Key Takeaway:**  
+> Use **inheritance** and **abstraction** to model both sensors and actuators under a unified structure, allowing your IoT system to evolve and accommodate new device types efficiently over time.
+
+---
+
+## 2.6.4 Updated Modeling with Inheritance - Device Class
+
+![](images/updated_modeling.png)
+
+**Figure 2.7:** Updated Smart Home IoT System Model with Inheritance.
+
+The `Device` class serves as the **foundation** for modeling all devices in the Smart Home IoT system. It encapsulates the **core attributes**—`id`, `type`, and `manufacturer`—that are **common to every device**, whether it is a **sensor** or an **actuator**. By defining these shared properties in a single **base class**, you achieve **abstraction** and **code reuse**, making your design more **modular** and **extensible**.
+
+This class is intentionally kept **simple**, containing only **data attributes** and **no methods or behaviors**. Its primary purpose is to provide a **consistent structure** for all device types, allowing specialized subclasses (such as `Sensor` and `Actuator`) to **inherit** these attributes and then implement their own unique behaviors. This approach ensures that any new device added to the system will automatically have the essential identifying information, streamlining future development and maintenance.
+
+**Key Points:**
+- **Base class** for all devices (sensors and actuators)
+- Defines **shared attributes**: `id`, `type`, `manufacturer`
+- Promotes **abstraction**, **code reuse**, and **extensibility**
+- Contains **no behaviors**—specialized functionality is added in subclasses
+
+This modeling strategy lays the groundwork for a scalable and organized IoT architecture, where each device type builds upon a common set of attributes.
+
+An example of the Device class is shown below:
+
+```python
+class Device:
+    """Base class for all devices in the Smart Home IoT system."""
+
+    def __init__(self, id, type, manufacturer):
+        """Initialize the Device with basic attributes."""
+        self.id = id
+        self.type = type
+        self.manufacturer = manufacturer
+```
+
+---
+
+## 2.6.5 Updated Modeling with Inheritance - Sensor Class
+
+The **Sensor** class serves as a **base class** for all sensor types in the Smart Home IoT system. Its primary purpose is to **define the common structure and expected behavior** for any sensor you implement. By inheriting from the **Device** class, it automatically includes essential attributes such as **id**, **type**, and **manufacturer**.
+
+In addition to these inherited attributes, the Sensor class introduces:
+- **last_measurement_timestamp**: Records when the most recent measurement was taken.
+- **last_measurement_value**: Stores the value of the latest sensor reading.
+- An **update_value() method**: Intended to refresh the sensor’s measurement and timestamp.
+
+The **update_value() method** is deliberately left **empty** (often called an "abstract" or "placeholder" method) in the base class. This design signals that every sensor subclass (e.g., TemperatureSensor, HumiditySensor) must provide its own specific implementation of how measurements are updated. This approach enforces a **consistent interface** and ensures that all sensors in the system share a common set of attributes and behaviors, while allowing for specialized functionality in each sensor type.
+
+Then the different implementation of the Sensor class can define their own `update_value()` method to handle the specifics of how they obtain and process their measurements.
+For example a TemperatureSensor implemented with a Raspberry Pi could read from a connected temperature sensor, while a HumiditySensor might interface with a different hardware component.
+The abstract `update_value()` method ensures that all sensor types adhere to a common protocol for updating their readings, promoting consistency and reliability across the system.
+
+**Modeling Rationale:**
+- Promotes **code reuse** and **modularity** by centralizing shared sensor features.
+- Supports **extensibility**—new sensor types can be added easily by extending the base class.
+- Enforces a **standard interface** for updating sensor values, improving maintainability and reliability.
+
+This modeling strategy is a key principle of **object-oriented programming**, enabling you to build scalable and organized systems where each sensor type is both consistent and customizable.
+
+An example of the Sensor class is shown below:
+
+```python
+class Sensor(Device):
+    """Base class for all sensors in the Smart Home IoT system."""
+
+    def __init__(self, id, type, manufacturer):
+        """Initialize the Sensor with inherited and specific attributes."""
+        super().__init__(id, type, manufacturer)
+
+        # Specific attributes for sensors set to None initially
+        # Subclasses will update these values
+        self.last_measurement_timestamp = None
+        self.last_measurement_value = None
+
+    def update_value(self):
+        """Abstract method to update the sensor's measurement."""
+        # Subclasses must implement this method, so we raise an error
+        raise NotImplementedError("Subclasses must implement this method.")
+```
+
+The main characteristics of the above `Sensor` class are:
+- Inherits from the `Device` class, gaining access to common attributes like `id`, `type`, and `manufacturer`.
+- The constructor (`__init__` method) calls the parent class constructor using `super()`, ensuring proper initialization of inherited attributes.
+- Introduces sensor-specific attributes: `last_measurement_timestamp` and `last_measurement_value`, initialized to `None`.
+- Defines an **abstract method** `update_value()`, which raises a `NotImplementedError`. This indicates that any subclass must provide its own implementation of this method to handle the specifics of updating sensor measurements.
+- Promotes a consistent interface for all sensor types while allowing for specialized behavior in subclasses.
+
+---
+
+## 2.6.6 Updated Modeling with Inheritance - Actuator Class
+
+The **Actuator** class serves as a **base class** for all actuators in the Smart Home IoT system. Its primary purpose is to **define the common structure and expected behavior** for any actuator device you implement. By inheriting from the **Device** class, it automatically includes essential attributes such as **id**, **type**, and **manufacturer**.
+
+In addition to these inherited attributes, the Actuator class introduces:
+- **last_status_change_timestamp**: Records when the actuator’s status was last changed.
+- **status**: Stores the current state of the actuator (e.g., `ON` or `OFF`).
+- An **invoke_action() method**: Intended to trigger a specific action on the actuator.
+
+The **invoke_action() method** is deliberately left **empty** (often called an "abstract" or "placeholder" method) in the base class. This design enforces that every actuator subclass (such as SmartLight or SmartLock) must provide its own specific implementation of how actions are invoked. This approach ensures a **consistent interface** for all actuators, while allowing for specialized functionality in each actuator type.
+
+**Modeling Rationale:**
+- Promotes **code reuse** and **modularity** by centralizing shared actuator features.
+- Supports **extensibility**—new actuator types can be added easily by extending the base class.
+- Enforces a **standard interface** for invoking actions, improving maintainability and reliability.
+
+This modeling strategy is a key principle of **object-oriented programming**, enabling you to build scalable and organized systems where each actuator type is both consistent and customizable.
+
+An example of the Actuator class is shown below:
+
+```python
+class Actuator(Device):
+    """Base class for all actuators in the Smart Home IoT system."""
+    def __init__(self, id, type, manufacturer):
+        """Initialize the Actuator with inherited and specific attributes."""
+        super().__init__(id, type, manufacturer)
+
+        # Specific attributes for actuators set to None initially
+        # Subclasses will update these values
+        self.last_status_change_timestamp = None
+        self.status = None  # e.g., "ON" or "OFF"
+
+    def invoke_action(self, action_type, payload):
+        """Abstract method to invoke an action on the actuator."""
+        # Subclasses must implement this method, so we raise an error
+        raise NotImplementedError("Subclasses must implement this method.")
+```
+
+The main characteristics of the above `Actuator` class are:
+- Inherits from the `Device` class, gaining access to common attributes like `id`, `type`, and `manufacturer`.
+- The constructor (`__init__` method) calls the parent class constructor using `super()`, ensuring proper initialization of inherited attributes.
+- Introduces actuator-specific attributes: `last_status_change_timestamp` and `status`, initialized to `None`.
+- Defines an **abstract method** `invoke_action()`, which raises a `NotImplementedError`. This indicates that any subclass must provide its own implementation of this method to handle the specifics of invoking actions on the actuator.
+- The `invoke_action()` method takes parameters `action_type` and `payload`, allowing subclasses to define various actions with associated data where the type identifies the action (e.g., "turn_on", "set_brightness") and the payload contains any necessary information (e.g., brightness level).
+- Promotes a consistent interface for all actuator types while allowing for specialized behavior in subclasses.
+
+---
+
+## 2.6.7 From Sensor Abstraction to TemperatureSensor & HumiditySensor
+
+When modeling **TemperatureSensor** and **HumiditySensor** classes, both are designed to **inherit** from the generic **Sensor** base class. This means they automatically acquire all the **shared attributes** of a Sensor—such as `last_measurement_timestamp` and `last_measurement_value`—as well as the foundational device attributes (`id`, `type`, and `manufacturer`) from the **Device** superclass.
+
+Each sensor type then provides its own **implementation** of the `update_value()` method, which is responsible for updating both the **measurement value** and the **timestamp** according to the specific nature of the sensor (temperature or humidity). This approach ensures that:
+
+- **Common structure and behavior** are centralized in the base classes, promoting **code reuse** and **consistency**.
+- **Specialized functionality** is handled in the subclasses, allowing each sensor to define how it obtains and processes its measurements.
+- The system remains **extensible**—new sensor types can be added easily by inheriting from the Sensor class and implementing their own update logic.
+
+By following this modeling strategy, you achieve a clear separation between **shared features** and **device-specific behavior**, making your codebase more **organized**, **maintainable**, and **scalable**.
+
+In our simple example a `TemperatureSensor` can be implemented as follows:
+
+```python
+import random
+import time
+
+class TemperatureSensor(Sensor):
+    """Temperature sensor class."""
+
+    def __init__(self, id, initial_temperature_value=25.0):
+        """Initialize the TemperatureSensor with inherited and specific attributes."""
+        # Call the parent constructor to initialize common attributes where type and manufacturer are fixed (to be associated for example to a reference model)
+        super().__init__(id, "TemperatureSensor", "GenericManufacturer")
+
+        # Initialize Value to a default or provided temperature
+        self.last_measurement_value = initial_temperature_value
+
+        # Initialize the timestamp to the current time in milliseconds
+        self.last_measurement_timestamp = time.time() * 1000  # Current time in milliseconds
+
+    def update_value(self):
+        """Update the temperature measurement."""
+
+        # Simulate temperature reading
+        self.last_measurement_value = random.uniform(15.0, 30.0)  
+        
+        # Update timestamp to current time in milliseconds
+        self.last_measurement_timestamp = time.time() * 1000 
+```
+
+Similarly, a `HumiditySensor` can be implemented as follows:
+
+```python
+import random
+import time
+
+class HumiditySensor(Sensor):
+    """Humidity sensor class."""
+
+    def __init__(self, id, initial_humidity_value=50.0):
+        """Initialize the HumiditySensor with inherited and specific attributes."""
+
+        # Call the parent constructor to initialize common attributes where type and manufacturer are fixed (to be associated for example to a reference model)
+        super().__init__(id, "HumiditySensor", "GenericManufacturer")
+
+        # Initialize Value to a default or provided humidity
+        self.last_measurement_value = initial_humidity_value
+
+        # Initialize the timestamp to the current time in milliseconds
+        self.last_measurement_timestamp = time.time() * 1000  # Current time in milliseconds
+
+    def update_value(self):
+        """Update the humidity measurement."""
+
+        # Simulate humidity reading
+        self.last_measurement_value = random.uniform(30.0, 90.0)  
+        
+        # Update timestamp to current time in milliseconds
+        self.last_measurement_timestamp = time.time() * 1000
+```
+
+---
+
+## 2.6.8 From Actuator Abstraction to SmartLight
+
+When modeling the **SmartLight** class, it is designed to **inherit** from the generic **Actuator** base class. This means it automatically acquires all the **shared attributes** of an Actuator—such as `last_status_change_timestamp` and `status`—as well as the foundational device attributes (`id`, `type`, and `manufacturer`) from the **Device** superclass.
+
+The SmartLight class then provides its own **implementation** of the `invoke_action()` method, which is responsible for changing the light's status (e.g., turning it ON or OFF) and updating the timestamp accordingly. This approach ensures that:
+- **Common structure and behavior** are centralized in the base classes, promoting **code reuse** and **consistency**.
+- **Specialized functionality** is handled in the subclass, allowing the SmartLight to define how it manages its status.
+- The system remains **extensible**—new actuator types can be added easily by inheriting from the Actuator class and implementing their own action logic.
+
+An example of the SmartLight class is shown below:
+
+```python
+import time
+class SmartLight(Actuator):
+    """Smart light actuator class."""
+
+    def __init__(self, id, initial_status="OFF"):
+        """Initialize the SmartLight with inherited and specific attributes."""
+        # Call the parent constructor to initialize common attributes where type and manufacturer are fixed (to be associated for example to a reference model)
+        super().__init__(id, "SmartLight", "GenericManufacturer")
+
+        # Initialize status to a default or provided value
+        self.status = initial_status
+
+        # Initialize the timestamp to the current time in milliseconds
+        self.last_status_change_timestamp = time.time() * 1000  # Current time in milliseconds
+
+    def invoke_action(self, action_type, payload=None):
+        """Invoke an action on the smart light."""
+        if action_type == "turn_on":
+            self.status = "ON"
+        elif action_type == "turn_off":
+            self.status = "OFF"
+        else:
+            raise ValueError(f"Unknown action type: {action_type}")
+
+        # Update timestamp to current time in milliseconds
+        self.last_status_change_timestamp = time.time() * 1000
+```
+
+---
+
+## 2.6.9 Final Overall Design and Modeling with Inheritance
+
+![](images/overall_updated_modeling_smart_home.png)
+
+**Figure 2.7:** Overall Smart Home IoT System Model with Inheritance.
+
+The **final design** of the Smart Home IoT system incorporates a well-structured hierarchy of classes that leverage **inheritance** to promote code reuse, modularity, and extensibility. At the top of the hierarchy is the **Device** class, which encapsulates the fundamental attributes shared by all devices in the system, such as `id`, `type`, and `manufacturer`.
+From the Device class, two specialized subclasses are derived: **Sensor** and **Actuator**. The Sensor class adds attributes specific to sensors, including `last_measurement_timestamp` and `last_measurement_value`, along with an abstract method `update_value()` that must be implemented by all sensor types. Similarly, the Actuator class introduces attributes like `last_status_change_timestamp` and `status`, along with an abstract method `invoke_action()` for performing actions on actuators.
+Building upon the Sensor class, two concrete sensor types are defined: **TemperatureSensor** and **HumiditySensor**. Each of these classes inherits the common attributes and behaviors from the Sensor class while providing their own specific implementations of the `update_value()` method to handle temperature and humidity measurements, respectively.
+And then **SmartLight** class inherits from the Actuator class and implements the `invoke_action()` method to manage the light's status (e.g., turning it ON or OFF).
+
+This hierarchical structure ensures that all devices in the Smart Home system share a consistent set of core attributes while allowing for specialized functionality in each device type. The use of inheritance not only reduces code duplication but also makes it easier to maintain and extend the system as new device types are added in the future.
+
+---
+
+## 2.7 Smart Home and Data Manager
+
+![](images/data_manager_smart_home.png)
+
+**Figure 2.8:** Adding a Data Manager to the Smart Home IoT System to delegate data management.
+
+In a well-designed object-oriented system, the **Smart Home** class should focus on representing the home itself—its identity, location, and high-level behaviors—rather than directly managing how device data is stored or retrieved. The responsibility for **data management** (such as storing, updating, and retrieving device information) is best **delegated** to a dedicated class, often called a **Data Manager**.
+
+By introducing a **Data Manager** class, you achieve several modeling benefits:
+
+- **Separation of Concerns**: The Smart Home class is responsible for orchestrating home-level operations, while the Data Manager handles the details of device storage and access.
+- **Encapsulation**: The Data Manager hides the internal details of how devices are managed (e.g., using a dictionary, CSV file, database, etc.), exposing only the necessary methods for the Smart Home to interact with devices.
+- **Modularity & Extensibility**: Changes to data storage (such as switching from in-memory to persistent storage) can be made within the Data Manager without affecting the Smart Home logic.
+- **Simplified Smart Home Code**: The Smart Home interacts with devices through the Data Manager’s interface, making its code cleaner and easier to maintain.
+
+**Modeling Rationale**:  
+- The **Smart Home** class should be associated with *what* the home is and *how* it is managed at a high level.
+- The **Data Manager** class should be responsible for *how* device data is stored, retrieved, and maintained.
+- This design pattern follows the principle of **delegation**, where specialized classes handle specific responsibilities, resulting in a more robust and maintainable architecture.
+
+In summary, delegating device management to a **Data Manager** class allows the Smart Home to remain focused on its core responsibilities, while data handling is abstracted and encapsulated, supporting future scalability and flexibility.
+
+An example of the DataManager class is shown below:
+
+```python
+class DataManager:
+    """Class responsible for managing device data."""
+
+    def __init__(self):
+        """Initialize the DataManager with an empty device dictionary."""
+
+        # List to store devices by their ID
+        self.devices = []
+
+        # Dictionary to store sensor data by sensor ID
+        self.sensor_data = {}
+
+    def add_device(self, device):
+        """Add a new device to the manager."""
+        self.devices.append(device)
+        if isinstance(device, Sensor):
+            self.sensor_data[device.id] = {
+                "last_measurement_timestamp": device.last_measurement_timestamp,
+                "last_measurement_value": device.last_measurement_value
+            }
+        elif isinstance(device, Actuator):
+            self.sensor_data[device.id] = {
+                "last_status_change_timestamp": device.last_status_change_timestamp,
+                "status": device.status
+            }
+    
+    def remove_device(self, device_id):
+        """Remove a device from the manager by its ID."""
+        self.devices = [d for d in self.devices if d.id != device_id]
+        if device_id in self.sensor_data:
+            del self.sensor_data[device_id]
+    
+    def get_device(self, device_id):
+        """Retrieve a device by its ID."""
+        for device in self.devices:
+            if device.id == device_id:
+                return device
+        return None
+    
+    def list_devices(self):
+        """List all devices managed by the DataManager."""
+        return self.devices
+
+    def update_sensor_data(self, sensor_id, timestamp, value):
+        """Update the data for a specific sensor."""
+        if sensor_id in self.sensor_data:
+            self.sensor_data[sensor_id]["last_measurement_timestamp"] = timestamp
+            self.sensor_data[sensor_id]["last_measurement_value"] = value
+    
+    def update_actuator_data(self, actuator_id, timestamp, status):
+        """Update the data for a specific actuator."""
+        if actuator_id in self.sensor_data:
+            self.sensor_data[actuator_id]["last_status_change_timestamp"] = timestamp
+            self.sensor_data[actuator_id]["status"] = status
+```
+The main characteristics of the above `DataManager` class are:
+- Responsible for managing device data, including adding, removing, and retrieving devices.
+- Maintains a list of devices and a dictionary to store sensor and actuator data by their IDs.
+- Provides methods to add and remove devices, retrieve a device by its ID, and list all managed devices.
+- Includes methods to update sensor and actuator data, ensuring that the latest measurements and statuses are stored.
+- Promotes separation of concerns by delegating data management responsibilities away from the Smart Home class, allowing for cleaner and more maintainable code.
+- Supports extensibility, as changes to data storage or management can be made within the DataManager without affecting other parts of the system.
+
+---
+
+## 2.8 Implementing the Smart Home Class and its Behaviors
+
+The **Smart Home** class serves as the central entity in the Smart Home IoT system, representing the home itself and managing its associated devices. It encapsulates key attributes such as `home_id`, `latitude`, and `longitude`, which uniquely identify the home and its location.
+Additionally, the Smart Home class maintains a reference to a **Data Manager** instance, which is responsible for handling the storage and retrieval of device data. This delegation allows the Smart Home to focus on high-level operations while the Data Manager manages the specifics of device data.
+
+The Smart Home class provides several important behaviors (methods) to manage its devices:
+
+- **add_device(device)**: Adds a new device (sensor or actuator) to the home by delegating the operation to the Data Manager.
+- **remove_device(device_id)**: Removes an existing device from the home using its unique ID, again delegating to the Data Manager.
+- **get_device(device_id)**: Retrieves a specific device by its ID, allowing the Smart Home to access device information as needed.
+- **list_devices()**: Lists all devices currently managed by the Smart Home, providing an overview of connected devices.
+
+An example of the SmartHome class is shown below:
+
+```python
+class SmartHome:
+    """Class representing a Smart Home."""
+
+    def __init__(self, home_id, latitude, longitude, data_manager):
+        """Initialize the SmartHome with its ID, location, and a DataManager instance."""
+        
+        # Basic attributes of the Smart Home
+        self.home_id = home_id
+        self.latitude = latitude
+        self.longitude = longitude
+
+        # Instance of DataManager to manage devices
+        self.data_manager = data_manager  
+
+    def add_device(self, device):
+        """Add a new device to the smart home."""
+        self.data_manager.add_device(device)
+
+    def remove_device(self, device_id):
+        """Remove a device from the smart home by its ID."""
+        self.data_manager.remove_device(device_id)
+
+    def get_device(self, device_id):
+        """Retrieve a device by its ID."""
+        return self.data_manager.get_device(device_id)
+
+    def list_devices(self):
+        """List all devices in the smart home."""
+        return self.data_manager.list_devices()
+```
+
+> The fact that the `SmartHome` class delegates device management to the `DataManager` class is a key design choice that promotes **separation of concerns**. This means that the Smart Home focuses on representing the home and its high-level operations, while the Data Manager handles the specifics of how devices are stored and managed. In this way **we can change the internal implementation of the DataManager (for example using a database instead of in-memory storage) without affecting the SmartHome class or its interactions with devices**.
+
+An example of how to use the SmartHome class along with the DataManager and device classes for a simple monitoring scenario is shown below:
+
+```python
+import time
+
+# Create a DataManager instance
+data_manager = DataManager()
+
+# Create a SmartHome instance
+smart_home = SmartHome("home_1", 37.7749, -122.4194, data_manager)
+
+# Create some devices
+temperature_sensor = TemperatureSensor("sensor_1", initial_temperature_value=22.5)
+humidity_sensor = HumiditySensor("sensor_2", initial_humidity_value=45.0)
+light_bulb = LightBulb("bulb_1", initial_status="OFF")
+
+# Add devices to the smart home
+smart_home.add_device(temperature_sensor)
+smart_home.add_device(humidity_sensor)
+smart_home.add_device(light_bulb)
+
+# Simulate some device readings
+temperature_sensor.update_value()
+humidity_sensor.update_value()
+light_bulb.invoke_action("turn_on", None)
+
+# Wait for a moment
+time.sleep(1)
+
+# Retrieve and print device information
+for device in smart_home.list_devices():
+    print(f"Device ID: {device.id}, Type: {device.type}, Manufacturer: {device.manufacturer}")
+    if isinstance(device, Sensor):
+        print(f"  Last Measurement: {device.last_measurement_value} at {device.last_measurement_timestamp}")
+    elif isinstance(device, Actuator):
+        print(f"  Status: {device.status} at {device.last_status_change_timestamp}")
+```
+
+In this example:
+
+- A `DataManager` instance is created to handle device data.
+- A `SmartHome` instance is initialized with a unique ID and location, along with the DataManager.
+- Several devices (a temperature sensor, a humidity sensor, and a smart light bulb) are created and added to the Smart Home.
+- The sensors update their readings, and the light bulb is turned on.
+- After a brief pause, the code retrieves and prints information about all devices in the Smart Home, demonstrating how the Smart Home interacts with its devices through the Data Manager.
+- Navigating through the devices and checking their types allows for appropriate handling of sensor and actuator-specific attributes.
+
+> **Note:** The method `isinstance()` is used to check the type of each device, allowing the code to access sensor-specific or actuator-specific attributes accordingly. This ensures that the correct information is printed based on the device type.
