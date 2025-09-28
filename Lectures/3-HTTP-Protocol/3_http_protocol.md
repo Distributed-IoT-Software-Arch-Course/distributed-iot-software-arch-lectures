@@ -29,7 +29,6 @@
   - [3.8.4 The Structure of an HTTP Message - The Response Message - POST](#384-the-structure-of-an-http-message---the-response-message---post)
   - [3.9 The Web as a Platform](#39-the-web-as-a-platform)
 - [3.10 REpresentational State Transfer (REST) Architectural Style](#310-representational-state-transfer-rest-architectural-style)
-  - [3.10 REpresentational State Transfer (REST) Architectural Style](#310-representational-state-transfer-rest-architectural-style-1)
   - [3.10.1 The concept of Resource in REST](#3101-the-concept-of-resource-in-rest)
   - [3.10.2 Differences with Other Architectural Styles](#3102-differences-with-other-architectural-styles)
   - [3.10.3 A Simple Comparison Between REST and SOAP](#3103-a-simple-comparison-between-rest-and-soap)
@@ -399,8 +398,6 @@ When **modeling distributed applications** on the web, it is essential to addres
 ---
 
 # 3.10 REpresentational State Transfer (REST) Architectural Style
-
-## 3.10 REpresentational State Transfer (REST) Architectural Style
 
 **REST** is the **architectural style** that underpins the **World Wide Web**, providing a systematic approach for **modeling distributed systems** and **web applications**. Introduced by **Roy Fielding** in his 2000 Ph.D. dissertation, *"Architectural Styles and the Design of Network-based Software Architectures"*, REST establishes a set of **rules** and **principles** that guide the design of scalable, robust, and maintainable networked applications.
 
