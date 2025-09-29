@@ -35,6 +35,12 @@
   - [3.10.4 The Client Perspective REST vs. SOAP](#3104-the-client-perspective-rest-vs-soap)
   - [3.10.5 REST Main Characteristics](#3105-rest-main-characteristics)
   - [3.10.6 REST \& Resource Representation](#3106-rest--resource-representation)
+  - [3.10.7 REST Resource Identifier \& URI](#3107-rest-resource-identifier--uri)
+  - [3.10.8 REST \& URI Example](#3108-rest--uri-example)
+  - [3.10.9 URI \& Representations](#3109-uri--representations)
+  - [3.10.10 REST \& Statelessness](#31010-rest--statelessness)
+  - [3.11 REST Maturity Levels](#311-rest-maturity-levels)
+  - [3.11.1 Level 0: The Swamp of POX (Plain Old XML)](#3111-level-0-the-swamp-of-pox-plain-old-xml)
   
 # 3.1 Traditional Internet Protocol Stack (Overview)
 
@@ -626,3 +632,281 @@ When **modeling RESTful systems**, it is essential to understand that what is ac
 - For **clarity and compactness**, we will refer to the **representation of a resource** simply as a **resource** in the following sections—but always remember the distinction between the abstract resource and its concrete representation.
 
 > **Key modeling takeaway:** Always model interactions in REST as exchanges of resource representations, enabling flexibility, interoperability, and support for diverse client requirements.
+
+---
+
+## 3.10.7 REST Resource Identifier & URI
+
+In **RESTful modeling**, the concept of a **Uniform Resource Identifier (URI)** is fundamental for uniquely identifying and interacting with resources across a distributed system. URIs provide a **standardized mechanism** to address, locate, retrieve, and manipulate resources, ensuring interoperability and clarity in resource management.
+
+**Key characteristics of URIs in RESTful modeling:**
+
+- **Unique Identification**:  
+  - Every resource in a RESTful system is assigned a unique URI, guaranteeing that clients and servers can unambiguously reference and interact with the correct entity.
+- **Standardization**:  
+  - URIs follow the syntax and rules defined in [RFC 3986](https://datatracker.ietf.org/doc/html/rfc3986), promoting consistency and compatibility across platforms and applications.
+- **Addressability**:  
+  - A URI acts as the address for a resource, enabling clients to locate, retrieve, and manipulate it over the network.
+- **Mapping**:  
+  - While a resource can be mapped to multiple URIs (for different representations or access paths), each URI points to exactly one resource, ensuring precise targeting.
+- **Types of URIs**:  
+  - **URL (Uniform Resource Locator)**: Specifies how to locate a resource, including the protocol and path (e.g., `http://mydomain.it/people/123`).
+  - **URN (Uniform Resource Name)**: Specifies the name of a resource, independent of its location (e.g., `urn:ietf:rfc:2616`).
+
+> **Modeling takeaway:**  
+> When designing RESTful systems, always use URIs to uniquely and consistently identify resources. This approach enables scalable, interoperable, and maintainable architectures, where every resource is easily addressable and accessible.
+
+---
+
+## 3.10.8 REST & URI Example
+
+![](images/uri_example.png)
+
+**Figure 3.13:** REST Resource Identifier & URI Example.
+
+In **RESTful modeling**, understanding the structure and semantics of **URIs** is essential for designing scalable and interoperable systems. A URI is composed of two main parts:
+
+- **Scheme**: Specifies the protocol or method used to interpret the rest of the URI (e.g., `http`, `https`, `urn`).
+- **Scheme-Specific Part**: Contains all information necessary to locate or identify the resource.
+
+**Key URI Types in Modeling:**
+
+- **URN (Uniform Resource Name)**: Uses the `urn` scheme and provides a unique, location-independent identifier for a resource. It is ideal for modeling resources that need persistent, global identification regardless of their network location.
+- **URL (Uniform Resource Locator)**: Includes all details required to successfully address and access a resource over the network. URLs are commonly used in RESTful APIs to model endpoints for resource interaction.
+
+**URI Components in REST**
+
+- **Scheme**: The protocol used to access the resource—in this case, `http://`. REST APIs frequently use HTTP or HTTPS as the scheme to ensure standardized client-server communication.
+- **Authority**: Refers to the domain or IP address hosting the resource—here, `192.168.1.1`. This is essential for routing requests to the correct server.
+- **Port**: Specifies the network port (`:8080`) on which the server is listening. REST endpoints may be exposed on custom ports depending on application requirements.
+- **Path**: Identifies the specific resource being addressed (e.g., `/people`). This segment is key in REST, as resources are accessed and manipulated directly via their path.
+- **Query**: Provides additional parameters to refine the request (`?id=1`). In REST, queries commonly filter, sort, or select specific representations of the resource addressed by the path.
+
+**Comment on REST URI Usage**
+
+When **modeling RESTful APIs**, the design of **URIs** is central to achieving clarity, scalability, and intuitive interaction with resources. REST relies on **well-structured, meaningful URIs** to expose resources and support efficient client-server communication.
+
+**Core modeling characteristics of REST URI design:**
+
+- **Resource Mapping**:  
+  - Each **resource** (e.g., a person, device, or sensor) is assigned a **unique path** within the URI, making endpoints easy to discover and understand.
+- **Scheme and Authority**:  
+  - The **scheme** (`http`, `https`) and **authority** (domain or IP) components ensure the service is **network-accessible** and clearly identified.
+- **Path Structure**:  
+  - The **path** segment of the URI directly reflects the resource hierarchy and relationships, supporting **modular** and **extensible** API modeling.
+- **Query Parameters**:  
+  - **Query parameters** provide **flexibility** by allowing clients to filter, sort, or request specific representations of resources without changing the endpoint structure.
+- **Scalability and Clarity**:  
+  - This approach enables **scalable** API design, where new resources and operations can be added without disrupting existing endpoints.
+  - **Clear URI conventions** make it straightforward for developers and clients to interact with the API, reducing ambiguity and improving maintainability.
+
+> In summary, **RESTful URI modeling** emphasizes unique, descriptive, and hierarchical paths, combined with flexible query parameters, to create APIs that are both **intuitive** and **scalable**. This structured methodology ensures that resources are easily addressable and interactions remain consistent across distributed systems.
+
+---
+
+## 3.10.9 URI & Representations
+
+When **modeling RESTful systems**, it is essential to treat **URIs as opaque identifiers**—they should not reveal or encode the **representation format** (such as `.json` or `.xml`) within the URI itself. Instead, the **representation type** is negotiated and specified using **HTTP headers**, ensuring clean separation between resource identification and data format.
+
+**Core characteristics of RESTful URI modeling:**
+
+- **Opaque URIs**:  
+  - URIs should uniquely identify resources without exposing implementation details or representation formats.
+- **Content Negotiation**:  
+  - The **Content-Type** and **Accept** headers in HTTP requests and responses are used to specify and negotiate the desired representation (e.g., JSON, XML).
+- **Decoupling**:  
+  - This approach decouples resource identification from representation, supporting extensibility and interoperability.
+
+**Bad Practice Example (to avoid):**
+- `http://mydomain.it/123.xml`
+- `http://mydomain.it/123.json`
+
+These URIs encode the representation format in the path, which is discouraged in RESTful modeling.
+
+**Recommended Practice:**
+- Use a single URI for the resource (e.g., `http://mydomain.it/123`)
+- Specify the desired representation using HTTP headers.
+
+**Example: Requesting the Same Resource in Different Formats**
+
+**Request 1: JSON Representation**
+```http
+GET /123 HTTP/1.1
+Host: mydomain.it
+Accept: application/json
+```
+**Response 1:**
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "id": 123,
+  "name": "Temperature Sensor",
+  "value": 22.5
+}
+```
+
+**Request 2: XML Representation**
+```http
+GET /123 HTTP/1.1
+Host: mydomain.it
+Accept: application/xml
+```
+**Response 2:**
+```http
+HTTP/1.1 200 OK
+Content-Type: application/xml
+
+<sensor>
+  <id>123</id>
+  <name>Temperature Sensor</name>
+  <value>22.5</value>
+</sensor>
+```
+
+> **Modeling takeaway:**  
+> Always keep **URIs opaque** and use **HTTP headers** for content negotiation. This ensures clean, scalable, and interoperable RESTful APIs where clients can request the same resource in multiple formats without changing the URI structure.
+
+---
+
+## 3.10.10 REST & Statelessness
+
+When **modeling RESTful systems**, the principle of **statelessness** is fundamental and shapes how client-server interactions are designed. In a **stateless REST architecture**, every request from a client must be **self-contained**—carrying all the information the server needs to process it, without relying on any previous interactions or stored context.
+
+**Core characteristics of stateless REST modeling:**
+
+- **Self-Descriptive Messages**:  
+  Each request is **self-descriptive**, including all necessary data (such as authentication, resource identifiers, and parameters) so the server can process it independently.
+- **No Session State on Server**:  
+  The server does **not maintain session state** or client context between requests. There is no concept of a persistent “session”; all state is managed by the client and transmitted as part of each request.
+- **No Reliance on Cookies**:  
+  REST discourages the use of cookies or other mechanisms that create server-side session state. This keeps interactions stateless and scalable.
+- **Client State in Requests**:  
+  Any required **client state** (such as authentication tokens or resource references) must be included in the request itself, relieving the server from tracking client-specific data.
+- **Scalability and Reliability**:  
+  Statelessness enables **horizontal scaling** and improves reliability, as servers can handle requests independently and efficiently, without complex session management.
+
+> **Modeling takeaway:**  
+> By enforcing statelessness, RESTful systems achieve **simplicity**, **scalability**, and **robustness**. Each interaction is atomic and independent, making distributed systems easier to scale and maintain.
+
+---
+
+## 3.11 REST Maturity Levels
+
+![](images/glory_of_rest.png)
+
+**Figure 3.14:** REST Maturity Levels.
+
+When **modeling RESTful systems**, understanding the concept of **REST maturity levels** is essential for evaluating and improving the design of web services. These levels provide a framework for assessing how closely an API aligns with **RESTful principles**, guiding architects and developers toward more scalable, maintainable, and interoperable solutions.
+
+**REST Maturity Levels: Modeling Perspective**
+
+- **Classification**: REST maturity levels categorize web applications based on their degree of compliance with REST principles.
+- **RESTfulness**: The higher the level, the more **RESTful** and loosely coupled the application is.
+- **Coupling**: Lower coupling between clients and servers enables **independent evolution**, scalability, and easier maintenance.
+- **Modeling Guidance**: By identifying the current maturity level, you can systematically improve your API design to better leverage RESTful patterns.
+
+**Core Characteristics of REST Maturity Levels:**
+
+The **REST maturity model**, proposed by Leonard Richardson [Link](http://martinfowler.com/articles/richardsonMaturityModel.html), consists of four levels:
+
+- **Level 0**: Single endpoint, single HTTP method, action-based payloads (RPC-style; tightly coupled).
+- **Level 1**: Multiple endpoints representing resources, but still using a single HTTP method.
+- **Level 2**: Multiple endpoints and full use of HTTP methods (GET, POST, PUT, DELETE) for resource manipulation.
+- **Level 3**: Hypermedia controls (HATEOAS) embedded in resource representations, enabling dynamic client-server interactions.
+
+> **Modeling takeaway:**  
+> Striving for higher REST maturity levels reduces coupling, increases flexibility, and supports the independent evolution of distributed systems. This approach leads to APIs that are easier to scale, maintain, and integrate across diverse platforms.
+
+---
+
+## 3.11.1 Level 0: The Swamp of POX (Plain Old XML)  
+
+At this level, the service uses a single endpoint (often `/api` or `/service`) and relies on a single HTTP method (usually `POST`) to handle all operations. The payload is typically XML or JSON, but there is no use of HTTP methods or URIs to represent resources. This approach lacks RESTful principles and is often referred to as RPC-style.
+  - **Example**: A service that accepts all requests at `/api` and uses a `POST` method with an XML payload to specify the action (e.g., `getUser`, `createOrder`).
+  - **Modeling Implication**: This level does not leverage RESTful design and is not scalable or flexible.
+  - **Example URI**: `http://mydomain.it/api`
+  - **HTTP Method**: `POST`
+  - **Payload**: XML or JSON specifying the action.
+  - **Characteristics**: Single endpoint, single method, action-based.
+  - **Use Case**: Legacy systems or simple services without RESTful design.
+  - **Diagram**:
+    ```
+    Client
+      |
+      | POST /api
+      | { "action": "getUser", "id": 123 }
+      |
+    Server
+    ```
+- **Level 1: Resources**  
+  - At this level, the service introduces the concept of **resources** and uses distinct URIs to represent different entities. However, it still relies on a single HTTP method (usually `POST`) for all operations. This level begins to embrace RESTful principles by modeling resources but does not fully utilize HTTP methods.
+  - **Example**: A service that has separate endpoints for users and orders (e.g., `/users`, `/orders`) but still uses `POST` for all actions.
+  - **Modeling Implication**: This level improves resource modeling but does not fully utilize HTTP methods.
+  - **Example URI**: `http://mydomain.it/users/123`
+  - **HTTP Method**: `POST`
+  - **Payload**: XML or JSON specifying the action.
+  - **Characteristics**: Multiple endpoints, single method, resource-based.
+  - **Use Case**: Services that are transitioning to RESTful design but have not fully adopted it.
+  - **Diagram**:
+    ```
+    Client
+      |
+      | POST /users/123
+      | { "action": "getUser" }
+      |
+    Server
+    ```
+- **Level 2: HTTP Methods**  
+  - At this level, the service fully embraces the use of **HTTP methods** to perform standard CRUD operations on resources. Each resource is accessed via a unique URI, and the appropriate HTTP method (`GET`, `POST`, `PUT`, `DELETE`) is used to perform actions. This level adheres to RESTful principles and leverages the capabilities of HTTP.
+  - **Example**: A service that uses `GET /users/123` to retrieve a user, `POST /users` to create a new user, `PUT /users/123` to update a user, and `DELETE /users/123` to delete a user.
+  - **Modeling Implication**: This level fully utilizes RESTful design, making the service more intuitive and scalable.
+  - **Example URI**: `http://mydomain.it/users/123`
+  - **HTTP Methods**: `GET`, `POST`, `PUT`, `DELETE`
+  - **Payload**: JSON or XML representing the resource state. 
+  - **Characteristics**: Multiple endpoints, multiple methods, resource-based.
+  - **Use Case**: Modern web services and APIs that follow RESTful design principles.
+  - **Diagram**:
+    ```
+    Client
+      |
+      | GET /users/123
+      |
+    Server
+      |
+      | 200 OK
+      | { "id": 123, "name": "John Doe" }
+    ```
+- **Level 3: Hypermedia as the Engine of Application State (HATEOAS)**  
+  - At this highest level, the service incorporates **hypermedia controls** (links) within resource representations. Clients can dynamically discover available actions and navigate the application state through hyperlinks provided in responses. This level fully realizes RESTful principles and enables a more flexible and adaptable client-server interaction.
+  - **Example**: A service that returns a user representation with links to related resources (e.g., orders, profile) and available actions (e.g., update, delete).
+  - **Modeling Implication**: This level promotes discoverability and adaptability, allowing clients to navigate the API dynamically.
+  - **Example URI**: `http://mydomain.it/users/123`
+  - **HTTP Methods**: `GET`, `POST`, `PUT`, `DELETE`
+  - **Payload**: JSON or XML with embedded links to related resources and actions.
+  - **Characteristics**: Multiple endpoints, multiple methods, hypermedia-driven.
+  - **Use Case**: Advanced web services and APIs that require dynamic client interactions and discoverability.
+  - **Diagram**:
+    ```
+    Client
+      |
+      | GET /users/123
+      |
+    Server
+      |
+      | 200 OK
+      | {
+      |   "id": 123,
+      |   "name": "John Doe",
+      |   "links": {
+      |     "self": "/users/123",
+      |     "orders": "/users/123/orders",
+      |     "update": "/users/123",
+      |     "delete": "/users/123"
+      |   }
+      | }
+    ```
+
+> **Modeling takeaway:**  
+> Understanding and applying the REST maturity levels helps in designing APIs that are scalable, maintainable, and aligned with RESTful principles. Striving for higher maturity levels, particularly Level 2 and Level 3, can significantly enhance the usability and flexibility of web services.
