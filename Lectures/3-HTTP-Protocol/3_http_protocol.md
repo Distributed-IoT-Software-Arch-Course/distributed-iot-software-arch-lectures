@@ -40,15 +40,15 @@
   - [3.10.9 URI \& Representations](#3109-uri--representations)
   - [3.10.10 REST \& Statelessness](#31010-rest--statelessness)
   - [3.11 REST Maturity Levels](#311-rest-maturity-levels)
-  - [3.11.1 Level 0: The Swamp of POX (Plain Old XML)](#3111-level-0-the-swamp-of-pox-plain-old-xml)
-  - [3.11.1.1 Level 0 Example](#31111-level-0-example)
-  - [3.11.1.2 Level 0 Characteristics \& Limitations](#31112-level-0-characteristics--limitations)
-  - [3.11.2 Level 1: Resources](#3112-level-1-resources)
-  - [3.11.2.1 Level 1: Example](#31121-level-1-example)
-  - [3.11.2.2 Level 1 Characteristics \& Limitations](#31122-level-1-characteristics--limitations)
-  - [3.11.3 Level 2: HTTP Methods](#3113-level-2-http-methods)
-  - [3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#3114-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
-  - [3.11.3 URI Templates \& Conventions](#3113-uri-templates--conventions)
+    - [3.11.1 Level 0: The Swamp of POX (Plain Old XML)](#3111-level-0-the-swamp-of-pox-plain-old-xml)
+      - [3.11.1.1 Level 0 Example](#31111-level-0-example)
+      - [3.11.1.2 Level 0 Characteristics \& Limitations](#31112-level-0-characteristics--limitations)
+    - [3.11.2 Level 1: Resources](#3112-level-1-resources)
+      - [3.11.2.1 Level 1: Example](#31121-level-1-example)
+      - [3.11.2.2 Level 1 Characteristics \& Limitations](#31122-level-1-characteristics--limitations)
+    - [3.11.3 Level 2: HTTP Methods](#3113-level-2-http-methods)
+    - [3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#3114-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
+- [3.12 URI Templates \& Conventions](#312-uri-templates--conventions)
   
 # 3.1 Traditional Internet Protocol Stack (Overview)
 
@@ -829,7 +829,7 @@ The **REST maturity model**, proposed by Leonard Richardson [Link](http://martin
 
 ---
 
-## 3.11.1 Level 0: The Swamp of POX (Plain Old XML)  
+### 3.11.1 Level 0: The Swamp of POX (Plain Old XML)  
 
 At this level, the service adopts a **single endpoint** (commonly `/api` or `/service`) and relies on a **single HTTP method**—typically `POST`—to process all operations. The **payload** is usually **XML** or **JSON**, but there is **no use of HTTP methods or distinct URIs to represent resources**. This approach is often called **RPC-style** or **Plain Old XML (POX)**.
 
@@ -851,7 +851,7 @@ At this level, the service adopts a **single endpoint** (commonly `/api` or `/se
 
 ---
 
-## 3.11.1.1 Level 0 Example
+#### 3.11.1.1 Level 0 Example
 
 ![](images/level_0_1.png)
 
@@ -910,7 +910,7 @@ Also in this case, the response wraps data in XML but without leveraging HTTP st
 
 ---
 
-## 3.11.1.2 Level 0 Characteristics & Limitations
+#### 3.11.1.2 Level 0 Characteristics & Limitations
 
 At **Level 0**, the service is modeled as a simple **RPC-over-HTTP** system, lacking true RESTful features. The focus is on **action-based messaging** rather than resource-oriented design, which introduces several limitations from a modeling perspective.
 
@@ -937,7 +937,7 @@ At **Level 0**, the service is modeled as a simple **RPC-over-HTTP** system, lac
  
 ---
 
-## 3.11.2 Level 1: Resources
+### 3.11.2 Level 1: Resources
 
 ![](images/level_1_1.png)
 
@@ -967,7 +967,7 @@ When **modeling at Level 1 (Resources)**, the focus shifts from a single endpoin
 
 ---
 
-## 3.11.2.1 Level 1: Example
+#### 3.11.2.1 Level 1: Example
 
 ![](images/level_1_2.png)
 
@@ -1017,7 +1017,7 @@ For this last interaction:
 
 ---
 
-## 3.11.2.2 Level 1 Characteristics & Limitations
+#### 3.11.2.2 Level 1 Characteristics & Limitations
 
 At **Level 1 (Resources)**, RESTful modeling advances by introducing **multiple, individually addressable resources** through distinct **URIs**. This approach moves away from the single endpoint and opaque payloads of Level 0, enabling clearer organization and identification of entities within the system.
 
@@ -1057,7 +1057,7 @@ At **Level 1 (Resources)**, RESTful modeling advances by introducing **multiple,
 
 ---
 
-## 3.11.3 Level 2: HTTP Methods
+### 3.11.3 Level 2: HTTP Methods
 
 At this level, the service fully embraces the use of **HTTP methods** to perform standard CRUD operations on resources. Each resource is accessed via a unique URI, and the appropriate HTTP method (`GET`, `POST`, `PUT`, `DELETE`) is used to perform actions. This level adheres to RESTful principles and leverages the capabilities of HTTP.
 
@@ -1071,7 +1071,7 @@ At this level, the service fully embraces the use of **HTTP methods** to perform
 
 ---
 
-## 3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)
+### 3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)
 
 At this highest level, the service incorporates **hypermedia controls** (links) within resource representations. Clients can dynamically discover available actions and navigate the application state through hyperlinks provided in responses. This level fully realizes RESTful principles and enables a more flexible and adaptable client-server interaction.
 
@@ -1088,7 +1088,7 @@ At this highest level, the service incorporates **hypermedia controls** (links) 
 
 ---
 
-## 3.11.3 URI Templates & Conventions
+# 3.12 URI Templates & Conventions
 
 When **modeling RESTful APIs**, the design of **URIs** is crucial for resource identification, discoverability, and maintainability. Two common approaches are **URI templates** and **flat URIs**, each with distinct modeling implications.
 
