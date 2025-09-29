@@ -48,6 +48,7 @@
   - [3.11.2.2 Level 1 Characteristics \& Limitations](#31122-level-1-characteristics--limitations)
   - [3.11.3 Level 2: HTTP Methods](#3113-level-2-http-methods)
   - [3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#3114-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
+  - [3.11.3 URI Templates \& Conventions](#3113-uri-templates--conventions)
   
 # 3.1 Traditional Internet Protocol Stack (Overview)
 
@@ -1054,7 +1055,6 @@ At **Level 1 (Resources)**, RESTful modeling advances by introducing **multiple,
 > **Summary:**  
 > Level 1 enhances resource modeling and endpoint clarity but falls short of true RESTful design due to limited use of HTTP methods and continued reliance on action semantics within URIs or payloads. Progressing to Level 2 by adopting proper HTTP verbs is essential for achieving full REST benefits.
 
-
 ---
 
 ## 3.11.3 Level 2: HTTP Methods
@@ -1085,3 +1085,61 @@ At this highest level, the service incorporates **hypermedia controls** (links) 
 
 > **Modeling takeaway:**  
 > Understanding and applying the REST maturity levels helps in designing APIs that are scalable, maintainable, and aligned with RESTful principles. Striving for higher maturity levels, particularly Level 2 and Level 3, can significantly enhance the usability and flexibility of web services.
+
+---
+
+## 3.11.3 URI Templates & Conventions
+
+When **modeling RESTful APIs**, the design of **URIs** is crucial for resource identification, discoverability, and maintainability. Two common approaches are **URI templates** and **flat URIs**, each with distinct modeling implications.
+
+**URI Templates**
+
+A **URI template** uses placeholders to represent variable parts of the resource path:
+
+```
+http://www.mydomain.it/publications/{pubId}
+http://www.mydomain.it/course/{courseId}
+```
+
+**Modeling characteristics:**
+- **Self-descriptive**: The URI structure clearly indicates the type of resource and its identifier.
+- **Human-readable**: Easier for developers and users to understand and navigate.
+- **Documentation-friendly**: Templates can be used in API docs for both human and machine consumption.
+- **Potential risks**:
+  - **Guessable states**: Clients may attempt to infer or manipulate URIs, which can lead to unintended access or tight coupling.
+  - **Information leakage**: Avoid embedding sensitive or operational data in the URI.
+
+**Modeling advice:**  
+
+Use URI templates to make APIs intuitive and maintainable, but ensure that clients do not rely on guessing or manipulating URIs for application logic. Avoid using URIs to transfer operational information (e.g., actions or parameters), as this can degrade the API to Level 0 (RPC-style) rather than true resource-based modeling.
+
+**Flat URIs**
+
+A **flat URI** approach uses opaque identifiers without conveying resource type or hierarchy:
+
+```
+http://www.mydomain.it/182763182
+http://www.mydomain.it/1083471237012
+```
+
+**Modeling characteristics:**
+- **Opaque identifiers**: No information about the resource type or structure.
+- **No discoverability**: Clients cannot infer relationships or resource types by inspecting the URI.
+- **Reduced coupling**: Prevents clients from making assumptions about URI structure.
+
+**Modeling advice:**  
+Flat URIs are suitable for scenarios where resource types and relationships are managed through representations or metadata, not URI structure. This approach minimizes client assumptions but **can reduce human readability and documentation clarity**.
+
+**Which Approach to Use?**
+
+There is **no universal convention** for URI design in RESTful modeling. The choice depends on the application's requirements and the desired balance between **clarity**, **discoverability**, and **decoupling**.
+
+**Best practices:**
+
+- Use **URI templates** for clarity and documentation, as long as they do not create tight coupling or encourage clients to guess resource states.
+- Ensure **URIs remain opaque** regarding operational details—use HTTP methods and headers for actions and parameters, not the URI path. (e.g., avoid `/createUser` or `/deleteUser` in favor of `POST /users` and `DELETE /users/{userId}`).
+- Document URI conventions clearly to support both human and machine consumers.
+
+> **Modeling takeaway:**  
+> Well-designed URI templates enhance API usability and maintainability, but always prioritize loose coupling and avoid encoding operational logic in URIs. The goal is to model resources, not actions, through URI structure.
+
