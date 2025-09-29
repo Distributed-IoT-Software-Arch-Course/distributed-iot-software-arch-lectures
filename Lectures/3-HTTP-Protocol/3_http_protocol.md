@@ -41,6 +41,10 @@
   - [3.10.10 REST \& Statelessness](#31010-rest--statelessness)
   - [3.11 REST Maturity Levels](#311-rest-maturity-levels)
   - [3.11.1 Level 0: The Swamp of POX (Plain Old XML)](#3111-level-0-the-swamp-of-pox-plain-old-xml)
+  - [3.11.1.1 Level 0 Example](#31111-level-0-example)
+  - [3.11.2 Level 1: Resources](#3112-level-1-resources)
+  - [3.11.3 Level 2: HTTP Methods](#3113-level-2-http-methods)
+  - [3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#3114-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
   
 # 3.1 Traditional Internet Protocol Stack (Overview)
 
@@ -823,90 +827,139 @@ The **REST maturity model**, proposed by Leonard Richardson [Link](http://martin
 
 ## 3.11.1 Level 0: The Swamp of POX (Plain Old XML)  
 
-At this level, the service uses a single endpoint (often `/api` or `/service`) and relies on a single HTTP method (usually `POST`) to handle all operations. The payload is typically XML or JSON, but there is no use of HTTP methods or URIs to represent resources. This approach lacks RESTful principles and is often referred to as RPC-style.
-  - **Example**: A service that accepts all requests at `/api` and uses a `POST` method with an XML payload to specify the action (e.g., `getUser`, `createOrder`).
-  - **Modeling Implication**: This level does not leverage RESTful design and is not scalable or flexible.
-  - **Example URI**: `http://mydomain.it/api`
-  - **HTTP Method**: `POST`
-  - **Payload**: XML or JSON specifying the action.
-  - **Characteristics**: Single endpoint, single method, action-based.
-  - **Use Case**: Legacy systems or simple services without RESTful design.
-  - **Diagram**:
-    ```
-    Client
-      |
-      | POST /api
-      | { "action": "getUser", "id": 123 }
-      |
-    Server
-    ```
-- **Level 1: Resources**  
-  - At this level, the service introduces the concept of **resources** and uses distinct URIs to represent different entities. However, it still relies on a single HTTP method (usually `POST`) for all operations. This level begins to embrace RESTful principles by modeling resources but does not fully utilize HTTP methods.
-  - **Example**: A service that has separate endpoints for users and orders (e.g., `/users`, `/orders`) but still uses `POST` for all actions.
-  - **Modeling Implication**: This level improves resource modeling but does not fully utilize HTTP methods.
-  - **Example URI**: `http://mydomain.it/users/123`
-  - **HTTP Method**: `POST`
-  - **Payload**: XML or JSON specifying the action.
-  - **Characteristics**: Multiple endpoints, single method, resource-based.
-  - **Use Case**: Services that are transitioning to RESTful design but have not fully adopted it.
-  - **Diagram**:
-    ```
-    Client
-      |
-      | POST /users/123
-      | { "action": "getUser" }
-      |
-    Server
-    ```
-- **Level 2: HTTP Methods**  
-  - At this level, the service fully embraces the use of **HTTP methods** to perform standard CRUD operations on resources. Each resource is accessed via a unique URI, and the appropriate HTTP method (`GET`, `POST`, `PUT`, `DELETE`) is used to perform actions. This level adheres to RESTful principles and leverages the capabilities of HTTP.
-  - **Example**: A service that uses `GET /users/123` to retrieve a user, `POST /users` to create a new user, `PUT /users/123` to update a user, and `DELETE /users/123` to delete a user.
-  - **Modeling Implication**: This level fully utilizes RESTful design, making the service more intuitive and scalable.
-  - **Example URI**: `http://mydomain.it/users/123`
-  - **HTTP Methods**: `GET`, `POST`, `PUT`, `DELETE`
-  - **Payload**: JSON or XML representing the resource state. 
-  - **Characteristics**: Multiple endpoints, multiple methods, resource-based.
-  - **Use Case**: Modern web services and APIs that follow RESTful design principles.
-  - **Diagram**:
-    ```
-    Client
-      |
-      | GET /users/123
-      |
-    Server
-      |
-      | 200 OK
-      | { "id": 123, "name": "John Doe" }
-    ```
-- **Level 3: Hypermedia as the Engine of Application State (HATEOAS)**  
-  - At this highest level, the service incorporates **hypermedia controls** (links) within resource representations. Clients can dynamically discover available actions and navigate the application state through hyperlinks provided in responses. This level fully realizes RESTful principles and enables a more flexible and adaptable client-server interaction.
-  - **Example**: A service that returns a user representation with links to related resources (e.g., orders, profile) and available actions (e.g., update, delete).
-  - **Modeling Implication**: This level promotes discoverability and adaptability, allowing clients to navigate the API dynamically.
-  - **Example URI**: `http://mydomain.it/users/123`
-  - **HTTP Methods**: `GET`, `POST`, `PUT`, `DELETE`
-  - **Payload**: JSON or XML with embedded links to related resources and actions.
-  - **Characteristics**: Multiple endpoints, multiple methods, hypermedia-driven.
-  - **Use Case**: Advanced web services and APIs that require dynamic client interactions and discoverability.
-  - **Diagram**:
-    ```
-    Client
-      |
-      | GET /users/123
-      |
-    Server
-      |
-      | 200 OK
-      | {
-      |   "id": 123,
-      |   "name": "John Doe",
-      |   "links": {
-      |     "self": "/users/123",
-      |     "orders": "/users/123/orders",
-      |     "update": "/users/123",
-      |     "delete": "/users/123"
-      |   }
-      | }
-    ```
+At this level, the service adopts a **single endpoint** (commonly `/api` or `/service`) and relies on a **single HTTP method**—typically `POST`—to process all operations. The **payload** is usually **XML** or **JSON**, but there is **no use of HTTP methods or distinct URIs to represent resources**. This approach is often called **RPC-style** or **Plain Old XML (POX)**.
+
+**Modeling Explanation:**
+- The system uses **HTTP purely as a transport mechanism**, not as an application protocol. This means it does not leverage the core features of HTTP, such as resource identification, standard methods, or stateless interactions.
+- **HTTP acts as a tunnel** for custom remote procedure calls (RPC), where the actual operation is described inside the payload rather than by the HTTP method or URI.
+- **Why HTTP?** Ports **80/443** are typically open and considered safe by firewalls, making HTTP a convenient choice for communication, even if its semantics are ignored.
+
+**Core Characteristics:**
+- **Single Endpoint**: All requests are sent to one URI (e.g., `/api`).
+- **Single HTTP Method**: Usually only `POST` is used for every operation.
+- **Action-Based Payload**: The specific action to perform is described within the XML or JSON payload, not by the HTTP method or URI.
+- **No Resource Modeling**: There is no concept of resources; everything is handled as a remote procedure call.
+- **RPC Mechanism**: Clients send requests that trigger actions, with the operation details embedded in the payload.
+- **Limited RESTfulness**: This level does not utilize RESTful principles, resulting in tight coupling and reduced scalability.
+
+> **Modeling takeaway:**  
+> Level 0 is essentially an RPC-over-HTTP approach, using HTTP for transport but not for application semantics. It lacks resource orientation, standard HTTP methods, and statelessness, making it inflexible and less scalable for modern web and IoT systems.
+
+---
+
+## 3.11.1.1 Level 0 Example
+
+![](images/level_0_1.png)
+
+**Figure 3.15:** Level 0 Example - Reading Calendar Request.
+
+In this example, we have a simple calendar service that allows clients to request events for a specific date. Communication occurs between a client and a web service. The client sends requests and receives responses as XML documents, but there is no resource-centric design or utilization of HTTP features beyond basic message delivery. The structure follows a single remote procedure-like entry point rather than multiple distinct resources.
+
+For example for reading events on a specific date, the client sends an HTTP request, usually a POST to a single endpoint like `/calendar`. The request body contains an XML payload, for example:
+
+```xml
+<eventRequest date="2015-03-24" user="123"/>
+```
+
+![](images/level_0_2.png)
+
+**Figure 3.16:** Level 0 Example - Calendar Event Response.
+
+The server responds with an XML body:
+
+```xml
+<event start="1730" end="1800" type="meeting"/>
+```
+
+The response wraps data in XML but without leveraging HTTP status codes, verbs for actions, or addressable resources and force the client to be aware of the XML structure and semantics to understand the content considering that the same endpoint is used for all operations.
+
+![](images/level_0_3.png)
+
+**Figure 3.17:** Level 0 Example - Creating a New Event Request.
+
+Another example for creating a new event, the client sends:
+
+```xml
+<newEventRequest date="2015-03-24" user="123">
+  <event start="1730" end="1800" type="meeting"/>
+</newEventRequest>
+```
+
+![](images/level_0_4.png)
+
+**Figure 3.18:** Level 0 Example - Creating a New Event Response.
+
+The server responds with:
+
+```xml
+<eventList>
+  <event start="1230" end="1430" type="teaching">
+    <course name="Internet of Things"/>
+  </event>
+  <event start="1630" end="1730" type="call">
+    <person name="Mario Rossi"/>
+  </event>
+</eventList>
+```
+
+Also in this case, the response wraps data in XML but without leveraging HTTP status codes, verbs for actions, or addressable resources. All operations access a single endpoint, such as `/calendar`, and **the meaning of each operation is embedded in the XML payload structure** rather than the request method or resource path.
+
+- **No RESTful Features**:
+  - No use of distinct HTTP verbs (GET, POST, PUT, DELETE for CRUD actions).
+  - No individual addressable resources (like `/calendar/events/123`).
+  - No hypermedia links for state transitions or discoverability.
+  - HTTP is simply a carriage for XML messages.
+ 
+---
+
+## 3.11.2 Level 1: Resources
+
+At this level, the service introduces the concept of **resources** and uses distinct URIs to represent different entities. However, it still relies on a single HTTP method (usually `POST`) for all operations. This level begins to embrace RESTful principles by modeling resources but does not fully utilize HTTP methods.
+Not many web features are used to help achieve the goals
+It is just RPC
+POX is sent back and forth
+Using SOAP and XML-RPC, instead of plain XML, does not make any difference, it is just a matter of serialization
+The really bad thing is that the client must have a very deep a-priori knowledge of the web service
+actions that can be triggered
+meaning of XML document tags and attributes
+This design is weak: if the web service changes something, the client just breaks
+
+
+- **Example**: A service that has separate endpoints for users and orders (e.g., `/users`, `/orders`) but still uses `POST` for all actions.
+- **Modeling Implication**: This level improves resource modeling but does not fully utilize HTTP methods.
+- **Example URI**: `http://mydomain.it/users/123`
+- **HTTP Method**: `POST`
+- **Payload**: XML or JSON specifying the action.
+- **Characteristics**: Multiple endpoints, single method, resource-based.
+- **Use Case**: Services that are transitioning to RESTful design but have not fully adopted it.
+
+---
+
+## 3.11.3 Level 2: HTTP Methods
+
+At this level, the service fully embraces the use of **HTTP methods** to perform standard CRUD operations on resources. Each resource is accessed via a unique URI, and the appropriate HTTP method (`GET`, `POST`, `PUT`, `DELETE`) is used to perform actions. This level adheres to RESTful principles and leverages the capabilities of HTTP.
+
+- **Example**: A service that uses `GET /users/123` to retrieve a user, `POST /users` to create a new user, `PUT /users/123` to update a user, and `DELETE /users/123` to delete a user.
+- **Modeling Implication**: This level fully utilizes RESTful design, making the service more intuitive and scalable.
+- **Example URI**: `http://mydomain.it/users/123`
+- **HTTP Methods**: `GET`, `POST`, `PUT`, `DELETE`
+- **Payload**: JSON or XML representing the resource state. 
+- **Characteristics**: Multiple endpoints, multiple methods, resource-based.
+- **Use Case**: Modern web services and APIs that follow RESTful design principles.
+
+---
+
+## 3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)
+
+At this highest level, the service incorporates **hypermedia controls** (links) within resource representations. Clients can dynamically discover available actions and navigate the application state through hyperlinks provided in responses. This level fully realizes RESTful principles and enables a more flexible and adaptable client-server interaction.
+
+- **Example**: A service that returns a user representation with links to related resources (e.g., orders, profile) and available actions (e.g., update, delete).
+- **Modeling Implication**: This level promotes discoverability and adaptability, allowing clients to navigate the API dynamically.
+- **Example URI**: `http://mydomain.it/users/123`
+- **HTTP Methods**: `GET`, `POST`, `PUT`, `DELETE`
+- **Payload**: JSON or XML with embedded links to related resources and actions.
+- **Characteristics**: Multiple endpoints, multiple methods, hypermedia-driven.
+- **Use Case**: Advanced web services and APIs that require dynamic client interactions and discoverability.
 
 > **Modeling takeaway:**  
 > Understanding and applying the REST maturity levels helps in designing APIs that are scalable, maintainable, and aligned with RESTful principles. Striving for higher maturity levels, particularly Level 2 and Level 3, can significantly enhance the usability and flexibility of web services.
