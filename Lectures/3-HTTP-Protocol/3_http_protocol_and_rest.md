@@ -49,6 +49,7 @@
     - [3.11.3 Level 2: HTTP Methods](#3113-level-2-http-methods)
     - [3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#3114-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
 - [3.12 URI Templates \& Conventions](#312-uri-templates--conventions)
+- [References](#references)
   
 # 3.1 Traditional Internet Protocol Stack (Overview)
 
@@ -1143,3 +1144,22 @@ There is **no universal convention** for URI design in RESTful modeling. The cho
 > **Modeling takeaway:**  
 > Well-designed URI templates enhance API usability and maintainability, but always prioritize loose coupling and avoid encoding operational logic in URIs. The goal is to model resources, not actions, through URI structure.
 
+---
+
+# References
+
+- Desai, Pratikkumar & Sheth, Amit & Anantharam, Pramod. (2014). Semantic Gateway as a Service Architecture for IoT Interoperability. 10.1109/MobServ.2015.51. [Link](https://doi.org/10.1109/MobServ.2015.51)
+- Mohan, P. (2014). Ponte: A M2M Bridge for MQTT, CoAP, and HTTP. [Link](http://mohanp.com/ponte-a-m2m-bridge-for-mqtt-coap-and-http/)
+- Eclipse Ponte - [Link](https://www.eclipse.org/ponte/)
+- EMQX CoAP - [Link](https://github.com/emqx/emqx-coap)
+- CoRE Link Format - RFC 6690 - [Link](https://tools.ietf.org/html/rfc6690)
+- REST Maturity Model - [Link](http://martinfowler.com/articles/richardsonMaturityModel.html)
+- Jim Webber, Savas Parastatidis, Ian Robinson, “REST in Practice,” O'Reilly Media, September 2010 [Link](http://shop.oreilly.com/product/9780596805838.do)
+- RFC5988 - [Link](https://tools.ietf.org/html/rfc5988)
+- Web to Edge - [Link](https://www.w3.org/WoT/IG/wiki/images/d/de/WebToTheEdge-WoT.pdf)
+- CoRE Interfaces - [Link](https://tools.ietf.org/html/draft-ietf-core-interfaces-14)
+- ARM CoAP Tutorial - [Link](https://www.slideshare.net/zdshelby/coap-tutorial)
+Jim Webber, Savas Parastatidis, Ian Robinson, “REST in Practice,” O'Reilly Media, September 2010 [Link](http://shop.oreilly.com/product/9780596805838.do)
+- “Internet of Things Applications - From Research and Innovation to Market Deployment”, edited by O. Vermesan and P. Friess, pp. 287-313, The River Publishers Series in Communications, Alborg, Denmark, 2014. ISBN: 9788793102941 [Link](http://riverpublishers.com/view_details.php?book_id=245)
+- Matthias Kovatsch, “CoAP: The Web-based Application-layer Protocol for the Internet of Things,” Lecture COLLECT at the Internet of Things and Smart Cities Ph.D. School 2014, Sep. 10th, 2014, Lerici (SP), Italy [Link](http://phdschool.tlc.unipr.it/iot/2014/index.php/welcome/downloads.html)
+- R. T. Fielding, “Architectural Styles and the Design of Network-based Software Architectures,” PhD thesis, University of California, 2000. Available: [Link](http://www.ics.uci.edu/∼fielding/pubs/dissertation/top.htm)
