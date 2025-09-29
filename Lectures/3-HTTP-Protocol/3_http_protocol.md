@@ -42,7 +42,10 @@
   - [3.11 REST Maturity Levels](#311-rest-maturity-levels)
   - [3.11.1 Level 0: The Swamp of POX (Plain Old XML)](#3111-level-0-the-swamp-of-pox-plain-old-xml)
   - [3.11.1.1 Level 0 Example](#31111-level-0-example)
+  - [3.11.1.2 Level 0 Characteristics \& Limitations](#31112-level-0-characteristics--limitations)
   - [3.11.2 Level 1: Resources](#3112-level-1-resources)
+  - [3.11.2.1 Level 1: Example](#31121-level-1-example)
+  - [3.11.2.2 Level 1 Characteristics \& Limitations](#31122-level-1-characteristics--limitations)
   - [3.11.3 Level 2: HTTP Methods](#3113-level-2-http-methods)
   - [3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#3114-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
   
@@ -904,34 +907,153 @@ The server responds with:
 
 Also in this case, the response wraps data in XML but without leveraging HTTP status codes, verbs for actions, or addressable resources. All operations access a single endpoint, such as `/calendar`, and **the meaning of each operation is embedded in the XML payload structure** rather than the request method or resource path.
 
-- **No RESTful Features**:
-  - No use of distinct HTTP verbs (GET, POST, PUT, DELETE for CRUD actions).
-  - No individual addressable resources (like `/calendar/events/123`).
-  - No hypermedia links for state transitions or discoverability.
-  - HTTP is simply a carriage for XML messages.
+---
+
+## 3.11.1.2 Level 0 Characteristics & Limitations
+
+At **Level 0**, the service is modeled as a simple **RPC-over-HTTP** system, lacking true RESTful features. The focus is on **action-based messaging** rather than resource-oriented design, which introduces several limitations from a modeling perspective.
+
+**Core Characteristics:**
+
+- **Single Endpoint**: All operations are sent to one URI (e.g., `/api` or `/service`), with no differentiation between resources.
+- **Single HTTP Method**: Typically, only `POST` is used for every request, regardless of the intended action.
+- **POX (Plain Old XML) or JSON Payloads**: The request and response bodies contain XML or JSON, but the structure is tightly coupled to the service’s internal logic.
+- **No Resource Modeling**: There is no concept of individual, addressable resources (such as `/calendar/events/123`). All actions are embedded in the payload.
+- **No Use of HTTP Verbs for CRUD (CREATE, READ, UPDATE, DELETE)**: Standard HTTP methods (`GET`, `PUT`, `DELETE`) are ignored; only `POST` is used, so HTTP is just a transport mechanism.
+- **No Hypermedia or Discoverability**: Responses do not include links or metadata to guide clients through available actions or state transitions.
+- **Deep Client Knowledge Required**: Clients must have detailed, a-priori knowledge of the service’s payload structure, available actions, and the meaning of XML/JSON tags and attributes.
+- **Fragile Design**: Any change in the service’s payload format or logic can break client implementations, leading to tight coupling and poor maintainability.
+- **Serialization Format Irrelevant**: Using SOAP or XML-RPC instead of plain XML does not improve the model; it only changes the serialization format, not the underlying design.
+
+**Modeling Implications:**
+
+- The system is **not RESTful**—it does not leverage HTTP as an application protocol, nor does it support scalable, loosely coupled interactions.
+- **Interoperability and extensibility** are severely limited, as clients and servers are tightly bound to specific message formats and logic.
+- **Evolution and maintenance** are difficult, since any change on the server side requires corresponding updates on all clients.
+
+> **Summary:**  
+> Level 0 is essentially an RPC-style design using HTTP as a tunnel for custom messages. It lacks resource orientation, standard HTTP methods, and hypermedia controls, resulting in a fragile, tightly coupled system that is hard to scale and maintain.
  
 ---
 
 ## 3.11.2 Level 1: Resources
 
-At this level, the service introduces the concept of **resources** and uses distinct URIs to represent different entities. However, it still relies on a single HTTP method (usually `POST`) for all operations. This level begins to embrace RESTful principles by modeling resources but does not fully utilize HTTP methods.
-Not many web features are used to help achieve the goals
-It is just RPC
-POX is sent back and forth
-Using SOAP and XML-RPC, instead of plain XML, does not make any difference, it is just a matter of serialization
-The really bad thing is that the client must have a very deep a-priori knowledge of the web service
-actions that can be triggered
-meaning of XML document tags and attributes
-This design is weak: if the web service changes something, the client just breaks
+![](images/level_1_1.png)
 
+**Figure 3.18:** Level 1 URL Mapping to Resources.
 
-- **Example**: A service that has separate endpoints for users and orders (e.g., `/users`, `/orders`) but still uses `POST` for all actions.
-- **Modeling Implication**: This level improves resource modeling but does not fully utilize HTTP methods.
-- **Example URI**: `http://mydomain.it/users/123`
-- **HTTP Method**: `POST`
-- **Payload**: XML or JSON specifying the action.
-- **Characteristics**: Multiple endpoints, single method, resource-based.
-- **Use Case**: Services that are transitioning to RESTful design but have not fully adopted it.
+When **modeling at Level 1 (Resources)**, the focus shifts from a single endpoint to **multiple, logically distinct resources**, each with its own **URI**. This approach improves resource identification and organization, but still falls short of full RESTful design because it often relies on a single HTTP method (typically `POST` or sometimes `GET`) for all operations.
+
+**Core characteristics of Level 1 modeling:**
+
+- **Individual Resource Addressing**:  
+  - Each resource (such as a user, order, or device) is assigned a unique URI, making resources **globally addressable** and easier to manage.
+- **Service Exposes Multiple Logical Resources**:  
+  - The API provides separate endpoints for different entities (e.g., `/users`, `/orders`), enhancing clarity and modularity.
+- **HTTP Used as a Tunnel**:  
+  - Despite improved resource mapping, HTTP is still primarily used as a transport mechanism, not as an application protocol. The semantics of operations are embedded in the URI or payload, rather than leveraging HTTP methods.
+- **Action Names and Parameters in URI**:  
+  - Actions and parameters are encoded directly in the URI (e.g., `/users/create?name=John`), rather than in the request body or headers.
+- **Triggering Actions via HTTP GET or POST**:  
+  - Operations are performed by sending `GET` or `POST` requests to resource URIs. However, using `GET` to trigger side effects (such as creating or deleting resources) is **bad practice**—`GET` should be **idempotent** and safe, only used for retrieval.
+- **Semantics Inserted in the URI**:  
+  - The meaning of the operation is determined by the URI structure, not by the HTTP method, which can lead to confusion and misuse of HTTP conventions.
+- **Still RPC-Oriented**:  
+  - Although resources are better modeled, the interaction style remains **RPC-like**, with actions invoked via URIs rather than standard HTTP verbs.
+
+> **Modeling takeaway:**  
+> Level 1 improves resource mapping and global addressability, but true RESTful modeling requires using appropriate HTTP methods for each operation (e.g., `GET` for retrieval, `POST` for creation, `PUT` for updates, `DELETE` for removal). Avoid using `GET` for operations that cause side effects, as this breaks HTTP semantics and can lead to unpredictable behavior.
+
+---
+
+## 3.11.2.1 Level 1: Example
+
+![](images/level_1_2.png)
+
+**Figure 3.19:** Level 1 Get Calendar Events Request.
+
+This image illustrates a client making a request to a specific resource endpoint, for instance `/calendar/events`, using the HTTP GET method. The request includes query parameters such as `user=123` and `date=2015-03-24`, which allow the client to filter or locate specific event resources for a particular user and date.  
+
+In this case, 
+
+- The request **targets a resource** (events collection) and relies on the path and query string to identify what is needed.  
+- Each type of **entity** (`events`) is **mapped to its own URI**, marking a step forward from Level 0's single endpoint.
+
+![](images/level_1_3.png)
+
+**Figure 3.20:** Level 1 Get Calendar Events Response.
+
+This image shows the server's response to the above request: a standard HTTP/1.1 200 OK message containing an XML body. The returned XML `eventList` contains multiple `event` elements, each with structured details such as start/end times, type, and child elements (`course`, `person`).  
+
+In this response:
+
+- The response delivers a representation of the requested resource, formatted as a list of events.  
+- Data is neatly scoped under well-defined XML elements (eventList, event), corresponding directly to the resource concept.
+
+Now let's analyze the request and response associated to the creation of a new event instead of reading existing ones.
+
+![](images/level_1_4.png)
+
+**Figure 3.21:** Level 1 Create Calendar Event Request.
+
+Here, the client issues a GET request to `/calendar/newEvent`, using query parameters to define the specifics of the event to be scheduled (e.g., user, date, type, start/end times). All details required for the new event are put into the query string, making the URI expressive and resource-specific.  
+
+In this scenario:
+
+- The request creates or schedules a new event, with **all event details encoded in the request URI**.  
+- Each event creation action is directed at a resource endpoint, using **URI parameters to specify new entity attributes**.
+
+![](images/level_1_5.png)
+
+**Figure 3.22:** Level 1 Create Calendar Event Response.
+
+This response is generated after the client schedules a new event. The server returns an HTTP/1.1 200 OK status and an XML representation of the newly scheduled event. The XML details the start and end times, along with the event type.  
+
+For this last interaction:
+
+- The server’s response is a direct representation of the resulting resource—the newly created event.  
+- The returned XML object mirrors the resource identified by the initial request, reinforcing the resource-oriented model.
+
+---
+
+## 3.11.2.2 Level 1 Characteristics & Limitations
+
+At **Level 1 (Resources)**, RESTful modeling advances by introducing **multiple, individually addressable resources** through distinct **URIs**. This approach moves away from the single endpoint and opaque payloads of Level 0, enabling clearer organization and identification of entities within the system.
+
+**Core Characteristics:**
+
+- **Resource-Based Modeling**:  
+  - Each entity (e.g., user, event, device) is mapped to a unique URI, making resources directly accessible and improving modularity.
+- **Multiple Endpoints**:  
+  - The API exposes separate endpoints for different resources, enhancing clarity and discoverability.
+- **Single HTTP Method Usage**:  
+  - Operations are typically performed using only one HTTP method (often `POST` or `GET`), regardless of the action (create, read, update, delete).
+- **Action Semantics in URI or Payload**:  
+  - The meaning of the operation is embedded in the URI structure or within the payload, rather than leveraging HTTP methods for intent.
+- **Payload Format**:  
+  - Requests and responses use **XML** or **JSON** to specify actions and resource data.
+
+**Modeling Implications:**
+
+- **Improved Resource Identification**:  
+  - Clients can interact with specific resources, reducing ambiguity and improving maintainability.
+- **Limited Use of HTTP Semantics**:  
+  - The full power of HTTP methods (`GET`, `POST`, `PUT`, `DELETE`) is not utilized, which can lead to misuse of HTTP conventions (e.g., using `GET` for actions that cause side effects).
+- **Transition Stage**:  
+  - This level is common in services evolving toward RESTful design but not yet fully compliant with REST principles.
+
+**Limitations:**
+
+- **Incomplete RESTfulness**:  
+  - Lack of proper HTTP method usage means the API does not fully benefit from REST’s scalability, safety, and clarity.
+- **Potential for Confusion**:  
+  - Encoding actions in URIs or payloads can make the API harder to understand and maintain.
+- **Risk of Side Effects**:  
+  - Using `GET` for operations that modify state violates HTTP standards and can cause unpredictable behavior.
+
+> **Summary:**  
+> Level 1 enhances resource modeling and endpoint clarity but falls short of true RESTful design due to limited use of HTTP methods and continued reliance on action semantics within URIs or payloads. Progressing to Level 2 by adopting proper HTTP verbs is essential for achieving full REST benefits.
+
 
 ---
 
