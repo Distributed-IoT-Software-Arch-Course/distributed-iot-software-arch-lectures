@@ -1,5 +1,5 @@
 <!-- omit in toc -->
-# Lecture 3 - The HTTP Protocol
+# Lecture 3 - The HTTP Protocol & RESTful Architectural Style
 
 <!-- omit in toc -->
 ## Lecture Information
@@ -7,7 +7,7 @@
 | **Master's Degree** | Digital Automation Engineering (D.M.270/04)                                      |
 |---------------------|----------------------------------------------------------------------------------|
 | **Curriculum**      | Digital Infrastructure                                                           |
-| **Lecture Title**   | The HTTP Protocol                                                                |
+| **Lecture Title**   | The HTTP Protocol & RESTful Architectural Style                                   |
 | **Author**          | Prof. Marco Picone (marco.picone@unimore.it)                                     |
 | **License**         | [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) | 
 
