@@ -47,6 +47,9 @@
       - [3.11.2.1 Level 1: Example](#31121-level-1-example)
       - [3.11.2.2 Level 1 Characteristics \& Limitations](#31122-level-1-characteristics--limitations)
     - [3.11.3 Level 2: HTTP Methods](#3113-level-2-http-methods)
+      - [3.11.3.1 Level 2: Response Codes](#31131-level-2-response-codes)
+      - [3.11.3.2 Level 2: Do not reinvent the wheel (with Status Codes)](#31132-level-2-do-not-reinvent-the-wheel-with-status-codes)
+      - [3.11.3.3 Level 2: HTTP Headers](#31133-level-2-http-headers)
     - [3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#3114-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
 - [3.12 URI Templates \& Conventions](#312-uri-templates--conventions)
 - [References](#references)
@@ -1060,15 +1063,211 @@ At **Level 1 (Resources)**, RESTful modeling advances by introducing **multiple,
 
 ### 3.11.3 Level 2: HTTP Methods
 
-At this level, the service fully embraces the use of **HTTP methods** to perform standard CRUD operations on resources. Each resource is accessed via a unique URI, and the appropriate HTTP method (`GET`, `POST`, `PUT`, `DELETE`) is used to perform actions. This level adheres to RESTful principles and leverages the capabilities of HTTP.
+At **Level 2**, RESTful modeling advances by fully leveraging the semantics of **HTTP methods** to manipulate resources. This approach aligns with the **CRUD** (Create, Read, Update, Delete) operations and brings clarity, scalability, and loose coupling to API design. Core modeling characteristics of Level 2 are:
 
-- **Example**: A service that uses `GET /users/123` to retrieve a user, `POST /users` to create a new user, `PUT /users/123` to update a user, and `DELETE /users/123` to delete a user.
-- **Modeling Implication**: This level fully utilizes RESTful design, making the service more intuitive and scalable.
-- **Example URI**: `http://mydomain.it/users/123`
-- **HTTP Methods**: `GET`, `POST`, `PUT`, `DELETE`
-- **Payload**: JSON or XML representing the resource state. 
-- **Characteristics**: Multiple endpoints, multiple methods, resource-based.
-- **Use Case**: Modern web services and APIs that follow RESTful design principles.
+- **Resource Addressability**:  
+  - Each resource is uniquely identified by a **URI**, making it directly accessible and manageable.
+- **HTTP Method Semantics**:  
+  - **HTTP verbs** are used to express the intended operation on a resource, adding clear semantics to interactions.
+- **CRUD Mapping**:  
+  - Each HTTP method maps to a specific CRUD operation:
+    - **GET**:  
+      - **Safe** (Indicates whether the HTTP method is "safe"—it does not modify resources on the server for example a GET only retrieves data) and **idempotent** (Indicates whether repeating the request yields the same outcome for example PUT and DELETE are idempotent while POST is not since it creates a new resource).
+      - Used to **retrieve** a resource by its URI.
+      - Does not modify the resource; repeated requests yield the same result.
+    - **POST**:  
+      - **Not safe** and **not idempotent**.
+      - Used to **create** a new resource.
+      - The server returns the URI of the newly created resource.
+    - **PUT**:  
+      - **Not safe** but **idempotent**.
+      - Used to **update** an existing resource at the given URI.
+      - Multiple identical requests produce the same result.
+    - **DELETE**:  
+      - **Not safe** but **idempotent**.
+      - Used to **remove** the resource at the given URI.
+      - Repeated requests have the same effect as a single request.
+- **Safety and Idempotence**:
+  - **Safe** methods (like GET) do **not cause side effects**—the resource remains unchanged.
+  - **Idempotent** methods (like GET, PUT, DELETE) produce the same result whether called once or multiple times.
+
+By adopting **Level 2**, APIs become more **predictable**, **maintainable**, and **aligned with web standards**. Clients interact with resources using standardized HTTP methods, reducing ambiguity and enabling independent evolution of client and server implementations. This level is a key milestone toward true RESTful design, supporting scalable and robust distributed systems.
+
+**Summary Table of HTTP Methods and CRUD Operations**
+
+The table explains the relationship between HTTP methods and their properties (safe, idempotent) as well as their typical mapping to CRUD operations in RESTful APIs[1].
+
+```markdown
+| Method  | Safe | Idempotent | CRUD Operation |
+|---------|------|------------|---------------|
+| GET     | Yes  | Yes        | Read          |
+| POST    | No   | No         | Create        |
+| PUT     | No   | Yes        | Update        |
+| DELETE  | No   | Yes        | Delete        |
+```
+
+Meaning of the columns:
+
+- **Method**: The type of HTTP request.
+- **Safe**: Indicates whether the HTTP method is "safe"—it does not modify resources on the server (e.g., GET only retrieves data).
+- **Idempotent**: Indicates whether repeating the request yields the same outcome (PUT and DELETE are idempotent; POST is not).
+- **CRUD Operation**: Refers to which CRUD (Create, Read, Update, Delete) operation the method usually implements.
+
+Main points to note:
+
+- **GET** is used for reading data, considered safe and idempotent.
+- **POST** creates new resources, is not safe nor idempotent (multiple POSTs may result in multiple resources).
+- **PUT** updates resources, not safe but idempotent (repeating PUT produces the same effect).
+- **DELETE** removes resources, not safe but idempotent (repeating DELETE remains harmless after the first call)[1].
+
+---
+
+#### 3.11.3.1 Level 2: Response Codes
+
+When **modeling RESTful APIs at Level 2**, it is essential to use **HTTP status codes** in alignment with the semantics of each HTTP method. 
+This practice ensures that client-server interactions are **transparent**, **predictable**, and **standardized**, supporting robust and maintainable distributed systems.
+The use of appropriate status codes **provides clear and immediate feedback to the client** about the outcome of each request, enabling clients to respond accordingly.
+
+**Core Modeling Characteristics:**
+
+- **Status Codes Convey Meaning**:  
+  - Each status code has a specific, standardized meaning that communicates the outcome of a request.
+  - Proper use of status codes enables clients to interpret responses and handle errors or success cases appropriately.
+
+- **Method-Specific Status Codes**:  
+  - Different HTTP methods are associated with particular sets of status codes, reflecting their intended operation and result.
+
+- **Error Handling**:  
+  - **4xx codes** indicate **client errors** (e.g., `405 Method Not Allowed`, `404 Not Found`), signaling that the client should not repeat the request without modification.
+  - **5xx codes** indicate **server errors** (e.g., `500 Internal Server Error`), suggesting that the client might retry the request later.
+
+**Typical Status Codes for RESTful Methods:**
+
+- **GET**:  
+  - Retrieves data from a resource.
+  - Responds with `200 OK` upon success.
+
+- **POST**:  
+  - Creates a new resource.
+  - Responds with `201 Created` to indicate successful creation.
+
+- **PUT**:  
+  - Updates an existing resource.
+  - Responds with `200 OK` (resource replaced, representation returned) or `204 No Content` (successful update, no content returned).
+
+- **DELETE**:  
+  - Removes a resource.
+  - Responds with `200 OK` (resource deleted), `202 Accepted` (deletion accepted, processing not complete), or `204 No Content` (resource deleted, no content returned).
+
+**Summary Table: HTTP Methods and Status Codes**
+
+```markdown
+| Method  | Typical Status Codes                          |
+|---------|-----------------------------------------------|
+| GET     | 200 OK                                        |
+| POST    | 201 Created                                   |
+| PUT     | 200 OK or 204 No Content                      |
+| DELETE  | 200 OK, 202 Accepted, or 204 No Content       |
+```
+
+**Modeling Takeaway:**
+
+- Using **standard HTTP status codes** in RESTful APIs provides clear feedback about the outcome of each request, enabling clients to respond appropriately and reducing ambiguity.
+- This approach supports **loose coupling**, **interoperability**, and **scalability** in distributed systems.
+- While the table lists the most common codes, many others (e.g., `400 Bad Request`, `401 Unauthorized`, `403 Forbidden`, `404 Not Found`) can be used to provide more specific feedback and improve error handling.
+
+> See the next section for a more comprehensive overview of HTTP status codes and their modeling implications.
+
+---
+
+#### 3.11.3.2 Level 2: Do not reinvent the wheel (with Status Codes)
+
+![](images/http_status_codes.png)
+
+**Figure 3.23:** HTTP Status Codes Table [Link](https://www.steveschoger.com/status-code-poster/).
+
+When **modeling RESTful APIs at Level 2**, it is crucial to **leverage standard HTTP status codes** rather than creating custom codes. 
+This practice enhances interoperability, clarity, and maintainability of the API.
+
+Some commonly used HTTP status codes in **RESTful APIs (Application Programming Interfaces)** include:
+
+| Status Code | Usage Scenario                                                      |
+|-------------|---------------------------------------------------------------------|
+| 202 Accepted        | Request accepted for processing, but completion pending             |
+| 204 No Content      | Success, no response body (usually DELETE, sometimes PUT)         |
+| 301 Moved Permanently | Resource moved, update client bookmarks/links                    |
+| 302 Found           | Temporary redirect, resource at different URI                      |
+| 304 Not Modified    | Cached version is valid, no new data                               |
+| 400 Bad Request     | Invalid/malformed input in request                                 |
+| 401 Unauthorized    | Missing or invalid authentication                                  |
+| 403 Forbidden       | Authenticated but not authorized                                   |
+| 404 Not Found       | Resource does not exist                                            |
+| 405 Method Not Allowed | Method not supported by endpoint                                 |
+| 409 Conflict        | Resource state conflict (e.g., duplicate data)                     |
+| 500 Internal Server Error | Server encountered an unexpected error                        |
+| 503 Service Unavailable   | Server temporarily unable to handle requests                  |
+
+**Modeling Implications:**
+
+- **Standardization**: Using established HTTP status codes ensures that clients and developers can easily understand the API's behavior without needing to learn custom codes.
+- **Interoperability**: Standard codes facilitate integration with various clients, libraries, and tools that expect conventional HTTP behavior.
+- **Error Handling**: Clear and consistent status codes help clients implement robust error handling and recovery strategies.
+- **Maintainability**: Avoiding custom codes reduces complexity and potential confusion, making the API easier to maintain and evolve.
+- **Documentation**: Standard codes are well-documented and widely understood, simplifying API documentation and usage.
+- **Avoiding Reinvention**: Creating custom status codes can lead to fragmentation and inconsistency, undermining the benefits of using HTTP as a protocol.
+- **Best Practices**: Always refer to the official HTTP status code definitions and use them appropriately based on the context of the request and response.
+
+---
+
+#### 3.11.3.3 Level 2: HTTP Headers
+
+When **modeling RESTful APIs at Level 2**, the use of **HTTP request headers** is a core aspect of designing robust, interoperable, and flexible systems. Headers provide a standardized way to convey **metadata**, control **behavior**, and enable **content negotiation** between clients and servers, all without altering the resource URI or payload structure.
+
+**Key Modeling Characteristics of HTTP Headers:**
+
+- **Metadata Transmission**:  
+  - Headers deliver essential context about each request and response, such as **data format**, **encoding**, and **language preferences**.
+- **Content Negotiation**:  
+  - Clients and servers use headers like `Accept` and `Content-Type` to agree on the representation format (e.g., JSON, XML), supporting diverse client needs and extensibility.
+- **Authentication & Security**:  
+  - Headers such as `Authorization` and `Cookie` manage authentication, access control, and session state, ensuring secure interactions.
+- **Performance & Caching**:  
+  - Headers like `Cache-Control`, and `ETag` optimize caching strategies, reduce bandwidth usage, and improve response times.
+- **Extensibility & Reliability**:  
+  - Custom headers (e.g., `X-Request-ID`, `Retry-After`) enable advanced features, debugging, and cross-platform compatibility without breaking existing API contracts.
+- **Separation of Concerns**:  
+  - By keeping operational and contextual information in headers, the API maintains a clean separation between resource identification (URI), data (body), and control logic (headers).
+  - Unlike the body—which contains the primary data—headers allow REST APIs to negotiate content types, manage authentication, support caching, enhance security, and enable extensibility without changing core API endpoints or payloads.
+
+**Modeling Advice:**
+
+- Use **standard headers** for common tasks (content negotiation, authentication, caching) to maximize interoperability.
+- Employ **custom headers** judiciously for application-specific needs, ensuring they are well-documented and do not conflict with standard usage.
+- Avoid encoding operational logic or sensitive information in the URI or body—leverage headers for these purposes to keep the API scalable and maintainable.
+
+**Common Request Headers**
+
+| Header            | Description                                         | Example                                      |
+|-------------------|-----------------------------------------------------|----------------------------------------------|
+| `Accept`          | Desired response content type                       | `Accept: application/json`                   |
+| `Authorization`   | Credentials for API authentication                  | `Authorization: Bearer <token>`              |
+| `Content-Type`    | Format of the data sent in the body                 | `Content-Type: application/json`             |
+| `User-Agent`      | Identifies the client making the request            | `User-Agent: MyClient/1.0`                   |
+| `Cookie`          | Session management                                  | `Cookie: sessionId=abc123`                   |
+
+**Common Response Headers**
+
+| Header                | Description                                   | Example                                     |
+|-----------------------|-----------------------------------------------|---------------------------------------------|
+| `Content-Type`        | Format of the response body                   | `Content-Type: application/json`            |
+| `Content-Length`      | Length of the response body in bytes          | `Content-Length: 2048`                      |
+| `ETag`                | Resource version identifier                   | `ETag: "v1.0.0"`                            |
+| `Cache-Control`       | Caching policy                                | `Cache-Control: no-cache`                   |
+| `Location`            | URI to a newly created or relocated resource  | `Location: /resource/12345`                 |
+| `Set-Cookie`          | Sets a cookie in the client’s browser         | `Set-Cookie: sessionId=abc123; HttpOnly`    |
+
+
+> **Summary:** Proper modeling and use of HTTP headers in RESTful APIs is essential for achieving **flexibility**, **security**, and **scalability**. Headers empower APIs to adapt to changing requirements and client capabilities, supporting robust distributed system design.
 
 ---
 
