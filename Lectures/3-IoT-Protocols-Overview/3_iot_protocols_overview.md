@@ -114,32 +114,9 @@ This **layered encapsulation** ensures modularity, interoperability, and reliabl
 - Used for IoT devices requiring reliable commands and data, such as firmware updates, configuration, secure communications.
 - Common in smart home devices, industrial control systems where data loss is unacceptable.
 
-```mermaid
-sequenceDiagram
-    participant Client as TCP Client
-    participant Server as TCP Server
+![](images/tcp_schema.png)
 
-    Note over Client,Server: Connection Establishment (Three-way handshake)
-    Client->>Server: SYN (Connection request)
-    Server->>Client: SYN-ACK (Acknowledge + accept)
-    Client->>Server: ACK (Acknowledge connection established)
-    
-    Note over Client,Server: Data Transmission (Reliable, ordered)
-    Client->>Server: Data Packet 1 (Part 1 of payload)
-    Server->>Client: ACK (Ack Data 1)
-    Client->>Server: Data Packet 2 (Part 2 of payload)
-    Server->>Client: ACK (Ack Data 2)
-    
-    Note over Client,Server: Server Responds
-    Server->>Client: Data Packet 1 (Response Part 1)
-    Client->>Server: ACK (Ack Response Part 1)
-    Server->>Client: Data Packet 2 (Response Part 2)
-    Client->>Server: ACK (Ack Response Part 2)
-    
-    Note over Client,Server: Connection Termination
-    Client->>Server: FIN (Request to close connection)
-    Server->>Client: ACK (Acknowledge Close)
-```
+**Figure 3.2:** TCP Communication Schema Example.
 
 ---
 
@@ -163,18 +140,9 @@ sequenceDiagram
 - Used for telemetry, sensor data, where frequent updates make occasional loss acceptable.
 - Protocols like CoAP and MQTT-SN are built on UDP for efficiency, especially in battery-powered or low-bandwidth scenarios.
 
-```mermaid
-sequenceDiagram
-    participant Client as UDP Client
-    participant Server as UDP Server
+![](images/udp_schema.png)
 
-    Client->>Server: Request message (single datagram)
-    Note right of Server: No handshake, connectionless communication
-    Server-->>Client: Response datagram 1
-    Server-->>Client: Response datagram 2
-    Server-->>Client: Response datagram 3
-    Note right of Client: Datagrams may arrive out of order or be lost
-```
+**Figure 3.3:** UDP Communication Schema Example.
 
 ---
 
@@ -210,7 +178,7 @@ While **transport protocols** such as **TCP** and **UDP** are responsible for th
 
 ![](images/iot_protocol_stack_communication.png)
 
-**Figure 3.2:** IoT Protocol Stack (Overview) with the different layers and their main protocols.
+**Figure 3.4:** IoT Protocol Stack (Overview) with the different layers and their main protocols.
 
 The **IoT protocol stack** builds upon the **traditional networking model** but introduces specialized layers, protocols, and adaptations to address the unique requirements of **resource-constrained devices**, **heterogeneous networks**, and **intermittent connectivity**. Modeling the IoT stack involves understanding how each layer is tailored for efficiency, scalability, and interoperability, while still maintaining the modularity and abstraction principles of classic protocol stacks.
 **Key Layers and Protocols in IoT Stack Modeling**
@@ -254,7 +222,7 @@ The **IoT protocol stack** is modeled to optimize for **energy efficiency**, **s
 
 ![](images/protocols_words.png)
 
-**Figure 3.3:** Some application layer protocols.
+**Figure 3.5:** Some application layer protocols.
 
 The **application layer** in networking models (OSI Levels 5, 6, and 7; TCP/IP application layer) is the **topmost layer** that interfaces between **end devices**, the **network**, and **user applications**. It is implemented via dedicated software at the device level and is responsible for **data formatting**, **presentation**, and **protocol-specific communication**. In traditional Internet services, protocols such as **HTTP**, **HTTPS**, **SMTP**, and **FTP** operate at this layer, enabling web browsing, secure transactions, email, and file transfers.
 
@@ -274,7 +242,7 @@ When **modeling IoT systems**, the application layer plays a crucial role in def
 
 ![](images/pattern_quick_comparison.png)
 
-**Figure 3.4:** Quick comparison of main protocols interaction models among Request/Response and Publish/Subscribe.
+**Figure 3.6:** Quick comparison of main protocols interaction models among Request/Response and Publish/Subscribe.
 
 When modeling IoT systems, **protocols** are designed around specific **communication paradigms** such as **request/response** and **publish/subscribe**. Each paradigm introduces distinct **requirements** that influence the selection of the most suitable protocol and **architectural style** for a given scenario.
 
@@ -295,7 +263,7 @@ When modeling IoT systems, **protocols** are designed around specific **communic
 
 ![](images/iot_protocols_interoperable_standard_objective.png)
 
-**Figure 3.5:** The objective of IoT application layer protocols is to achieve standardization and interoperability.
+**Figure 3.7:** The objective of IoT application layer protocols is to achieve standardization and interoperability.
 
 When **modeling IoT systems**, protocols such as **MQTT**, **AMQP**, **CoAP**, and **HTTP** are chosen for their **wide adoption** and **design principles** that enable **cross-device** and **cross-vendor communication**.
 
