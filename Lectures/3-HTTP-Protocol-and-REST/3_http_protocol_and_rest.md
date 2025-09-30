@@ -55,8 +55,8 @@
       - [3.11.3.6 Level 2: Interaction Flow - Update a Resource](#31136-level-2-interaction-flow---update-a-resource)
       - [3.11.3.7 Level 2: Interaction Flow - Delete a Resource](#31137-level-2-interaction-flow---delete-a-resource)
       - [3.11.3.8 Level 2: The Calendar Example Revisited](#31138-level-2-the-calendar-example-revisited)
-    - [3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#3114-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
-- [3.12 URI Templates \& Conventions](#312-uri-templates--conventions)
+      - [3.11.3.9 Level 2: URI Templates \& Conventions](#31139-level-2-uri-templates--conventions)
+    - [3.12 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#312-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
 - [References](#references)
   
 # 3.1 Traditional Internet Protocol Stack (Overview)
@@ -1344,62 +1344,7 @@ In this section, we revisit the calendar example, now modeled at **Level 2** of 
 
 ---
 
-### 3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)
-
-At this highest level, the service incorporates **hypermedia controls** (links) within resource representations. **Clients can dynamically discover available actions** and **navigate** the application state through hyperlinks provided in responses. This level fully realizes RESTful principles and enables a more flexible and adaptable client-server interaction.
-
-Some concepts to consider:
-
-**What is Hypertext and Hypermedia in HTTP?**
-
-**Hypertext** is structured text that uses logical links, called hyperlinks, which connect nodes of information (such as documents or other text units). It allows users to navigate non-linearly through related content by clicking or selecting these links. Hypertext forms the foundation of the World Wide Web, enabling interconnected documents and resources.
-In the context of HTTP (Hypertext Transfer Protocol), hypertext refers to documents (often HTML pages) containing hyperlinks allowing users to jump from one resource to another seamlessly. This structure supports web browsing, dynamic navigation, and rich user experiences by linking multiple types of content across distributed servers.
-In sum, hypertext is a powerful concept that organizes information through linked text nodes, enabling interactivity and flexible information access fundamental to the web and HTTP’s operation
-
-An example of hypertext in HTTP is an HTML document containing hyperlinks:
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hypertext Example</title>
-</head>
-<body>
-    <h1>Welcome to My Website</h1>
-    <p>This is an example of hypertext in HTTP.</p>
-    <a href="http://www.example.com/about">About Us</a>
-    <a href="http://www.example.com/contact">Contact</a>
-</body>
-</html>
-```
-
-**Hypermedia** in HTTP is a fundamental concept that extends hypertext by incorporating multimedia elements such as images, audio, and video alongside links that enable non-linear navigation between resources. In the context of RESTful APIs, **hypermedia controls are elements embedded within resource representations that provide dynamic instructions and navigational guidance** to clients. These controls, usually implemented as hyperlinks or forms, allow clients to discover available actions and navigate the API dynamically without prior knowledge of the service structure.
-
-An example of hypermedia in HTTP is a JSON response containing links to related resources:
-
-```json
-{
-    "userId": 123,
-    "name": "John Doe",
-    "links": {
-        "self": "/users/123",
-        "orders": "/users/123/orders",
-        "profile": "/users/123/profile"
-    }
-}
-```
-
-The significance of hypermedia in REST is that it embodies the principle of **“Hypermedia as the Engine of Application State” (HATEOAS)**, where the server responses contain not only data but also actionable controls. This makes APIs more flexible, decoupled, and self-descriptive, enabling clients to interact with the server by following links and controls provided dynamically at runtime, rather than relying on fixed, out-of-band information.
-
-> **Note:** In the scope of this course, we will not delve deeper into Level 3 and HATEOAS. However, it is important to be aware of its existence and significance in the REST architectural style and if you want you can find more information.
-
-![](images/glory_of_rest_book_reference.png)
-
-**Figure 3.32:** The maximum level of REST and a reference book for further reading.
-
----
-
-# 3.12 URI Templates & Conventions
+#### 3.11.3.9 Level 2: URI Templates & Conventions
 
 When **modeling RESTful APIs**, the design of **URIs** is crucial for resource identification, discoverability, and maintainability. Two common approaches are **URI templates** and **flat URIs**, each with distinct modeling implications.
 
@@ -1453,6 +1398,61 @@ There is **no universal convention** for URI design in RESTful modeling. The cho
 
 > **Modeling takeaway:**  
 > Well-designed URI templates enhance API usability and maintainability, but always prioritize loose coupling and avoid encoding operational logic in URIs. The goal is to model resources, not actions, through URI structure.
+
+---
+
+### 3.12 Level 3: Hypermedia as the Engine of Application State (HATEOAS)
+
+At this highest level, the service incorporates **hypermedia controls** (links) within resource representations. **Clients can dynamically discover available actions** and **navigate** the application state through hyperlinks provided in responses. This level fully realizes RESTful principles and enables a more flexible and adaptable client-server interaction.
+
+Some concepts to consider:
+
+**What is Hypertext and Hypermedia in HTTP?**
+
+**Hypertext** is structured text that uses logical links, called hyperlinks, which connect nodes of information (such as documents or other text units). It allows users to navigate non-linearly through related content by clicking or selecting these links. Hypertext forms the foundation of the World Wide Web, enabling interconnected documents and resources.
+In the context of HTTP (Hypertext Transfer Protocol), hypertext refers to documents (often HTML pages) containing hyperlinks allowing users to jump from one resource to another seamlessly. This structure supports web browsing, dynamic navigation, and rich user experiences by linking multiple types of content across distributed servers.
+In sum, hypertext is a powerful concept that organizes information through linked text nodes, enabling interactivity and flexible information access fundamental to the web and HTTP’s operation
+
+An example of hypertext in HTTP is an HTML document containing hyperlinks:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hypertext Example</title>
+</head>
+<body>
+    <h1>Welcome to My Website</h1>
+    <p>This is an example of hypertext in HTTP.</p>
+    <a href="http://www.example.com/about">About Us</a>
+    <a href="http://www.example.com/contact">Contact</a>
+</body>
+</html>
+```
+
+**Hypermedia** in HTTP is a fundamental concept that extends hypertext by incorporating multimedia elements such as images, audio, and video alongside links that enable non-linear navigation between resources. In the context of RESTful APIs, **hypermedia controls are elements embedded within resource representations that provide dynamic instructions and navigational guidance** to clients. These controls, usually implemented as hyperlinks or forms, allow clients to discover available actions and navigate the API dynamically without prior knowledge of the service structure.
+
+An example of hypermedia in HTTP is a JSON response containing links to related resources:
+
+```json
+{
+    "userId": 123,
+    "name": "John Doe",
+    "links": {
+        "self": "/users/123",
+        "orders": "/users/123/orders",
+        "profile": "/users/123/profile"
+    }
+}
+```
+
+The significance of hypermedia in REST is that it embodies the principle of **“Hypermedia as the Engine of Application State” (HATEOAS)**, where the server responses contain not only data but also actionable controls. This makes APIs more flexible, decoupled, and self-descriptive, enabling clients to interact with the server by following links and controls provided dynamically at runtime, rather than relying on fixed, out-of-band information.
+
+> **Note:** In the scope of this course, we will not delve deeper into Level 3 and HATEOAS. However, it is important to be aware of its existence and significance in the REST architectural style and if you want you can find more information.
+
+![](images/glory_of_rest_book_reference.png)
+
+**Figure 3.32:** The maximum level of REST and a reference book for further reading.
 
 ---
 
