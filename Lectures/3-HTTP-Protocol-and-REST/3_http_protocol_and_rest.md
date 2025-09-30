@@ -1161,14 +1161,14 @@ The use of appropriate status codes **provides clear and immediate feedback to t
 
 **Summary Table: HTTP Methods and Status Codes**
 
-```markdown
+
 | Method  | Typical Status Codes                          |
 |---------|-----------------------------------------------|
 | GET     | 200 OK                                        |
 | POST    | 201 Created                                   |
 | PUT     | 200 OK or 204 No Content                      |
 | DELETE  | 200 OK, 202 Accepted, or 204 No Content       |
-```
+
 
 **Modeling Takeaway:**
 
