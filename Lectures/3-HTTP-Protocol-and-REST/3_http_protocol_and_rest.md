@@ -1097,14 +1097,12 @@ By adopting **Level 2**, APIs become more **predictable**, **maintainable**, and
 
 The table explains the relationship between HTTP methods and their properties (safe, idempotent) as well as their typical mapping to CRUD operations in RESTful APIs[1].
 
-```markdown
 | Method  | Safe | Idempotent | CRUD Operation |
 |---------|------|------------|---------------|
 | GET     | Yes  | Yes        | Read          |
 | POST    | No   | No         | Create        |
 | PUT     | No   | Yes        | Update        |
 | DELETE  | No   | Yes        | Delete        |
-```
 
 Meaning of the columns:
 
