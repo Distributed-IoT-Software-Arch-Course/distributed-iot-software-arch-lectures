@@ -16,6 +16,10 @@
 # Table of Contents
 
 - [3.1 Traditional Internet Protocol Stack (Overview)](#31-traditional-internet-protocol-stack-overview)
+  - [3.1.1 TCP \& UDP Protocols (Quick Overview)](#311-tcp--udp-protocols-quick-overview)
+    - [3.1.1.1 TCP (Transmission Control Protocol)](#3111-tcp-transmission-control-protocol)
+    - [3.1.1.2 UDP (User Datagram Protocol)](#3112-udp-user-datagram-protocol)
+    - [3.1.1.3 TCP/UDP Comparison Summary Table](#3113-tcpudp-comparison-summary-table)
 - [3.2 IoT Protocol Stack (Overview)](#32-iot-protocol-stack-overview)
 - [3.3 Simple Comparison Between Traditional Internet Protocol Stack and IoT Protocol Stack](#33-simple-comparison-between-traditional-internet-protocol-stack-and-iot-protocol-stack)
 - [3.4 IoT Application Layer Protocols](#34-iot-application-layer-protocols)
@@ -118,6 +122,103 @@ Physical Layer (transmits bits)
 ```
 
 This **layered encapsulation** ensures modularity, interoperability, and reliable communication across diverse networks and devices.
+
+## 3.1.1 TCP & UDP Protocols (Quick Overview)
+
+**TCP (Transmission Control Protocol)** and **UDP (User Datagram Protocol)** are two fundamental transport layer protocols in the Internet protocol suite, each with distinct characteristics, strengths, and application scenarios.
+
+### 3.1.1.1 TCP (Transmission Control Protocol)
+
+**Characteristics:**
+
+- Connection-oriented protocol establishing a reliable connection between sender and receiver.
+- Provides guaranteed data delivery through acknowledgments (ACKs), retransmissions, and sequence ordering.
+- Ensures in-order delivery of packets and error detection/correction.
+- Implements flow control and congestion control to optimize network usage.
+- Suitable for applications where data integrity and reliability are crucial.
+
+**Internet Usage:**
+
+- Web browsing (HTTP/HTTPS), email (SMTP, IMAP), file transfer (FTP), and other use cases needing reliable communication.
+- Ensures all data reaches the destination intact and in the correct sequence.
+
+**IoT Usage:**
+
+- Used for IoT devices requiring reliable commands and data, such as firmware updates, configuration, secure communications.
+- Common in smart home devices, industrial control systems where data loss is unacceptable.
+
+```mermaid
+sequenceDiagram
+    participant Client as TCP Client
+    participant Server as TCP Server
+
+    Note over Client,Server: Connection Establishment (Three-way handshake)
+    Client->>Server: SYN (Connection request)
+    Server->>Client: SYN-ACK (Acknowledge + accept)
+    Client->>Server: ACK (Acknowledge connection established)
+    
+    Note over Client,Server: Data Transmission (Reliable, ordered)
+    Client->>Server: Data Packet 1 (Part 1 of payload)
+    Server->>Client: ACK (Ack Data 1)
+    Client->>Server: Data Packet 2 (Part 2 of payload)
+    Server->>Client: ACK (Ack Data 2)
+    
+    Note over Client,Server: Server Responds
+    Server->>Client: Data Packet 1 (Response Part 1)
+    Client->>Server: ACK (Ack Response Part 1)
+    Server->>Client: Data Packet 2 (Response Part 2)
+    Client->>Server: ACK (Ack Response Part 2)
+    
+    Note over Client,Server: Connection Termination
+    Client->>Server: FIN (Request to close connection)
+    Server->>Client: ACK (Acknowledge Close)
+```
+
+### 3.1.1.2 UDP (User Datagram Protocol)
+
+**Characteristics:**
+
+- Connectionless protocol that sends datagrams without ensuring delivery or order.
+- No acknowledgments or retransmission mechanisms; minimal overhead.
+- Faster and more efficient for time-sensitive applications.
+- Suitable where occasional data loss is tolerable or where application-layer protocols handle reliability.
+
+**Internet Usage:**
+
+- Streaming media (audio/video), online gaming, DNS, VoIP where low latency is prioritized over reliability.
+- Enables faster transmission by avoiding handshake and retransmission delays.
+
+**IoT Usage:**
+
+- Favored in resource-constrained devices and networks for lightweight communication.
+- Used for telemetry, sensor data, where frequent updates make occasional loss acceptable.
+- Protocols like CoAP and MQTT-SN are built on UDP for efficiency, especially in battery-powered or low-bandwidth scenarios.
+
+```mermaid
+sequenceDiagram
+    participant Client as UDP Client
+    participant Server as UDP Server
+
+    Client->>Server: Request message (single datagram)
+    Note right of Server: No handshake, connectionless communication
+    Server-->>Client: Response datagram 1
+    Server-->>Client: Response datagram 2
+    Server-->>Client: Response datagram 3
+    Note right of Client: Datagrams may arrive out of order or be lost
+```
+
+### 3.1.1.3 TCP/UDP Comparison Summary Table
+
+| Feature                | TCP                                   | UDP                              |
+|------------------------|-------------------------------------|---------------------------------|
+| Connection type        | Connection-oriented                   | Connectionless                  |
+| Reliability            | Guaranteed delivery with retransmissions | No guarantee, best effort       |
+| Ordering               | Ensures data order                    | No ordering                    |
+| Overhead               | Higher (ACKs, flow/congestion control) | Lower, minimal                  |
+| Latency                | Higher due to connection setup       | Low latency                    |
+| Usage scenarios        | Web, email, file transfers            | Streaming, gaming, IoT telemetry|
+| IoT use cases          | Reliable command/control data          | Sensor telemetry, lightweight data|
+
 
 # 3.2 IoT Protocol Stack (Overview)
 
