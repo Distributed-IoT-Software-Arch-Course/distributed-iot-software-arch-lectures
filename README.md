@@ -34,7 +34,9 @@ The Distributed and Internet of Things Software Architectures course aims to equ
 
 1. [📖 Introduction to Cyber-Physical Systems and Internet of Things](Lectures/1-CPS-Introduction/1_cps_introduction.md)
 2. [📖 Python Object-Oriented Programming (OOP) & Use Case Modeling](Lectures/2-Python-OOP/2_python_oop.md)
-3. ... (Additional lectures to be added step-by-step)
+3. [📖 IoT Protocols Overview](Lectures/3-IoT-Protocols-Overview/3_iot_protocols_overview.md)
+4. [📖 The HTTP Protocol & RESTful Architectural Style](Lectures/4-HTTP-Protocol-and-REST/4_http_protocol_and_rest.md)
+5. ...
 
 ## 🤝 Contributing & Improving the Repository
 

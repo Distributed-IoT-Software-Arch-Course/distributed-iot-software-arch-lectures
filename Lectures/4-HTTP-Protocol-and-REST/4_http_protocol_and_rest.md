@@ -7,6 +7,7 @@
 | **Master's Degree** | Digital Automation Engineering (D.M.270/04)                                      |
 |---------------------|----------------------------------------------------------------------------------|
 | **Curriculum**      | Digital Infrastructure                                                           |
+| **Course**          | Distributed IoT Software Architectures                                           |
 | **Lecture Title**   | The HTTP Protocol & RESTful Architectural Style                                  |
 | **Author**          | Prof. Marco Picone (marco.picone@unimore.it)                                     |
 | **License**         | [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) | 
@@ -700,11 +701,11 @@ At this level, the service adopts a **single endpoint** (commonly `/api` or `/se
 
 #### 4.4.1.1 Level 0 Example
 
+In this example, we have a simple calendar service that allows clients to request events for a specific date. Communication occurs between a client and a web service. The client sends requests and receives responses as XML documents, but there is no resource-centric design or utilization of HTTP features beyond basic message delivery. The structure follows a single remote procedure-like entry point rather than multiple distinct resources.
+
 ![](images/level_0_1.png)
 
 **Figure 4.10:** Level 0 Example - Reading Calendar Request.
-
-In this example, we have a simple calendar service that allows clients to request events for a specific date. Communication occurs between a client and a web service. The client sends requests and receives responses as XML documents, but there is no resource-centric design or utilization of HTTP features beyond basic message delivery. The structure follows a single remote procedure-like entry point rather than multiple distinct resources.
 
 For example for reading events on a specific date, the client sends an HTTP request, usually a POST to a single endpoint like `/calendar`. The request body contains an XML payload, for example:
 
@@ -816,11 +817,11 @@ When **modeling at Level 1 (Resources)**, the focus shifts from a single endpoin
 
 #### 4.4.2.1 Level 1: Example
 
+This image illustrates a client making a request to a specific resource endpoint, for instance `/calendar/events`, using the HTTP GET method. The request includes query parameters such as `user=123` and `date=2015-03-24`, which allow the client to filter or locate specific event resources for a particular user and date. 
+
 ![](images/level_1_2.png)
 
-**Figure 4.15:** Level 1 Get Calendar Events Request.
-
-This image illustrates a client making a request to a specific resource endpoint, for instance `/calendar/events`, using the HTTP GET method. The request includes query parameters such as `user=123` and `date=2015-03-24`, which allow the client to filter or locate specific event resources for a particular user and date.  
+**Figure 4.15:** Level 1 Get Calendar Events Request. 
 
 In this case, 
 
@@ -1023,12 +1024,12 @@ The use of appropriate status codes **provides clear and immediate feedback to t
 
 #### 4.4.3.2 Level 2: Do not reinvent the wheel (with Status Codes)
 
+When **modeling RESTful APIs at Level 2**, it is crucial to **leverage standard HTTP status codes** rather than creating custom codes. 
+This practice enhances interoperability, clarity, and maintainability of the API.
+
 ![](images/http_status_codes.png)
 
 **Figure 4.19:** HTTP Status Codes Table [Link](https://www.steveschoger.com/status-code-poster/).
-
-When **modeling RESTful APIs at Level 2**, it is crucial to **leverage standard HTTP status codes** rather than creating custom codes. 
-This practice enhances interoperability, clarity, and maintainability of the API.
 
 Some commonly used HTTP status codes in **RESTful APIs (Application Programming Interfaces)** include:
 
@@ -1114,49 +1115,49 @@ When **modeling RESTful APIs at Level 2**, the use of **HTTP request headers** i
 
 #### 4.4.3.4 Level 2: Interaction Flow - Create a New Resource
 
-![](images/post_create.png)
-
-**Figure 4.20:** Example of HTTP POST Request to Create a New Resource.
-
 - **Interaction**: The REST client issues an HTTP `POST` to `/api/devices` with a payload containing the new device data.
 - **Server Response**: The server returns status `201 Created` and includes a `Location` header pointing to the newly created device resource URI.
 - **Purpose**: Adds a new resource to the server, following RESTful principles for resource creation.
+
+![](images/post_create.png)
+
+**Figure 4.20:** Example of HTTP POST Request to Create a New Resource.
 
 ---
 
 #### 4.4.3.5 Level 2: Interaction Flow - Read a Resource
 
-![](images/get_read.png)
-
-**Figure 4.21:** Example of HTTP GET Request to Read a Resource.
-
 - **Interaction**: The REST client sends an HTTP `GET` to `/api/devices` (to list all devices) or to `/api/devices/1` (to retrieve a specific device).
 - **Server Response**: The server returns status `200 OK` with a response payload containing the requested device information[2].
 - **Purpose**: Retrieves the representation or list of resources, with no modification of server data.
+
+![](images/get_read.png)
+
+**Figure 4.21:** Example of HTTP GET Request to Read a Resource.
 
 ---
 
 #### 4.4.3.6 Level 2: Interaction Flow - Update a Resource
 
-![](images/put_update.png)
-
-**Figure 4.22:** Example of HTTP PUT Request to Update a Resource.
-
 - **Interaction**: The REST client sends an HTTP `PUT` to `/api/devices/1` with a payload including the updated device information.
 - **Server Response**: The server returns status `200 OK` indicating the resource was successfully updated[3].
 - **Purpose**: Completely replaces the existing resource at the given URI with new data from the payload.
+
+![](images/put_update.png)
+
+**Figure 4.22:** Example of HTTP PUT Request to Update a Resource.
 
 ---
 
 #### 4.4.3.7 Level 2: Interaction Flow - Delete a Resource
 
-![](images/delete_delete.png)
-
-**Figure 4.23:** Example of HTTP DELETE Request to Delete a Resource.
-
 - **Interaction**: The REST client issues an HTTP `DELETE` to `/api/devices/1` to remove a specific device resource.
 - **Server Response**: The server returns status `200 OK`, confirming successful deletion of the resource[4].
 - **Purpose**: Permanently removes the specified resource from the server, freeing up its URI.
+
+![](images/delete_delete.png)
+
+**Figure 4.23:** Example of HTTP DELETE Request to Delete a Resource.
 
 ---
 
@@ -1183,6 +1184,7 @@ In this section, we revisit the calendar example, now modeled at **Level 2** of 
 ---
 
 #### 4.4.3.9 Level 2: URI Templates & Conventions
+
 
 When **modeling RESTful APIs**, the design of **URIs** is crucial for resource identification, discoverability, and maintainability. Two common approaches are **URI templates** and **flat URIs**, each with distinct modeling implications.
 

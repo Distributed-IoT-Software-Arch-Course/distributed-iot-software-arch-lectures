@@ -7,6 +7,7 @@
 | **Master's Degree** | Digital Automation Engineering (D.M.270/04)                                      |
 |---------------------|----------------------------------------------------------------------------------|
 | **Curriculum**      | Digital Infrastructure                                                           |
+| **Course**          | Distributed IoT Software Architectures                                           |
 | **Lecture Title**   | IoT Protocols Characteristics & Overview.                                        |
 | **Author**          | Prof. Marco Picone (marco.picone@unimore.it)                                     |
 | **License**         | [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) | 
