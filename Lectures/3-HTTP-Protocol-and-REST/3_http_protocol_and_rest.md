@@ -50,6 +50,11 @@
       - [3.11.3.1 Level 2: Response Codes](#31131-level-2-response-codes)
       - [3.11.3.2 Level 2: Do not reinvent the wheel (with Status Codes)](#31132-level-2-do-not-reinvent-the-wheel-with-status-codes)
       - [3.11.3.3 Level 2: HTTP Headers](#31133-level-2-http-headers)
+      - [3.11.3.4 Level 2: Interaction Flow - Create a New Resource](#31134-level-2-interaction-flow---create-a-new-resource)
+      - [3.11.3.5 Level 2: Interaction Flow - Read a Resource](#31135-level-2-interaction-flow---read-a-resource)
+      - [3.11.3.6 Level 2: Interaction Flow - Update a Resource](#31136-level-2-interaction-flow---update-a-resource)
+      - [3.11.3.7 Level 2: Interaction Flow - Delete a Resource](#31137-level-2-interaction-flow---delete-a-resource)
+      - [3.11.3.8 Level 2: The Calendar Example Revisited](#31138-level-2-the-calendar-example-revisited)
     - [3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#3114-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
 - [3.12 URI Templates \& Conventions](#312-uri-templates--conventions)
 - [References](#references)
@@ -1269,20 +1274,128 @@ When **modeling RESTful APIs at Level 2**, the use of **HTTP request headers** i
 
 ---
 
+#### 3.11.3.4 Level 2: Interaction Flow - Create a New Resource
+
+![](images/post_create.png)
+
+**Figure 3.24:** Example of HTTP POST Request to Create a New Resource.
+
+- **Interaction**: The REST client issues an HTTP `POST` to `/api/devices` with a payload containing the new device data.
+- **Server Response**: The server returns status `201 Created` and includes a `Location` header pointing to the newly created device resource URI.
+- **Purpose**: Adds a new resource to the server, following RESTful principles for resource creation.
+
+---
+
+#### 3.11.3.5 Level 2: Interaction Flow - Read a Resource
+
+![](images/get_read.png)
+
+**Figure 3.25:** Example of HTTP GET Request to Read a Resource.
+
+- **Interaction**: The REST client sends an HTTP `GET` to `/api/devices` (to list all devices) or to `/api/devices/1` (to retrieve a specific device).
+- **Server Response**: The server returns status `200 OK` with a response payload containing the requested device information[2].
+- **Purpose**: Retrieves the representation or list of resources, with no modification of server data.
+
+---
+
+#### 3.11.3.6 Level 2: Interaction Flow - Update a Resource
+
+![](images/put_update.png)
+
+**Figure 3.26:** Example of HTTP PUT Request to Update a Resource.
+
+- **Interaction**: The REST client sends an HTTP `PUT` to `/api/devices/1` with a payload including the updated device information.
+- **Server Response**: The server returns status `200 OK` indicating the resource was successfully updated[3].
+- **Purpose**: Completely replaces the existing resource at the given URI with new data from the payload.
+
+---
+
+#### 3.11.3.7 Level 2: Interaction Flow - Delete a Resource
+
+![](images/delete_delete.png)
+
+**Figure 3.27:** Example of HTTP DELETE Request to Delete a Resource.
+
+- **Interaction**: The REST client issues an HTTP `DELETE` to `/api/devices/1` to remove a specific device resource.
+- **Server Response**: The server returns status `200 OK`, confirming successful deletion of the resource[4].
+- **Purpose**: Permanently removes the specified resource from the server, freeing up its URI.
+
+---
+
+#### 3.11.3.8 Level 2: The Calendar Example Revisited
+
+In this section, we revisit the calendar example, now modeled at **Level 2** of the REST maturity model. This level fully utilizes HTTP methods to perform CRUD operations on calendar resources, enhancing clarity, scalability, and adherence to RESTful principles.
+
+![](images/calendar_get_request.png)
+
+**Figure 3.28:** Calendar Example - HTTP GET Request to Retrieve Events.
+
+![](images/calendar_get_response.png)
+
+**Figure 3.29:** Calendar Example - HTTP GET Response to Retrieve Events.
+
+![](images/calendar_post_request.png)
+
+**Figure 3.30:** Calendar Example - HTTP POST Request to Create an Event.
+
+![](images/calendar_post_response.png)
+
+**Figure 3.31:** Calendar Example - HTTP POST Response to Create an Event.
+
+---
+
 ### 3.11.4 Level 3: Hypermedia as the Engine of Application State (HATEOAS)
 
-At this highest level, the service incorporates **hypermedia controls** (links) within resource representations. Clients can dynamically discover available actions and navigate the application state through hyperlinks provided in responses. This level fully realizes RESTful principles and enables a more flexible and adaptable client-server interaction.
+At this highest level, the service incorporates **hypermedia controls** (links) within resource representations. **Clients can dynamically discover available actions** and **navigate** the application state through hyperlinks provided in responses. This level fully realizes RESTful principles and enables a more flexible and adaptable client-server interaction.
 
-- **Example**: A service that returns a user representation with links to related resources (e.g., orders, profile) and available actions (e.g., update, delete).
-- **Modeling Implication**: This level promotes discoverability and adaptability, allowing clients to navigate the API dynamically.
-- **Example URI**: `http://mydomain.it/users/123`
-- **HTTP Methods**: `GET`, `POST`, `PUT`, `DELETE`
-- **Payload**: JSON or XML with embedded links to related resources and actions.
-- **Characteristics**: Multiple endpoints, multiple methods, hypermedia-driven.
-- **Use Case**: Advanced web services and APIs that require dynamic client interactions and discoverability.
+Some concepts to consider:
 
-> **Modeling takeaway:**  
-> Understanding and applying the REST maturity levels helps in designing APIs that are scalable, maintainable, and aligned with RESTful principles. Striving for higher maturity levels, particularly Level 2 and Level 3, can significantly enhance the usability and flexibility of web services.
+**What is Hypertext and Hypermedia in HTTP?**
+
+**Hypertext** is structured text that uses logical links, called hyperlinks, which connect nodes of information (such as documents or other text units). It allows users to navigate non-linearly through related content by clicking or selecting these links. Hypertext forms the foundation of the World Wide Web, enabling interconnected documents and resources.
+In the context of HTTP (Hypertext Transfer Protocol), hypertext refers to documents (often HTML pages) containing hyperlinks allowing users to jump from one resource to another seamlessly. This structure supports web browsing, dynamic navigation, and rich user experiences by linking multiple types of content across distributed servers.
+In sum, hypertext is a powerful concept that organizes information through linked text nodes, enabling interactivity and flexible information access fundamental to the web and HTTP’s operation
+
+An example of hypertext in HTTP is an HTML document containing hyperlinks:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hypertext Example</title>
+</head>
+<body>
+    <h1>Welcome to My Website</h1>
+    <p>This is an example of hypertext in HTTP.</p>
+    <a href="http://www.example.com/about">About Us</a>
+    <a href="http://www.example.com/contact">Contact</a>
+</body>
+</html>
+```
+
+**Hypermedia** in HTTP is a fundamental concept that extends hypertext by incorporating multimedia elements such as images, audio, and video alongside links that enable non-linear navigation between resources. In the context of RESTful APIs, **hypermedia controls are elements embedded within resource representations that provide dynamic instructions and navigational guidance** to clients. These controls, usually implemented as hyperlinks or forms, allow clients to discover available actions and navigate the API dynamically without prior knowledge of the service structure.
+
+An example of hypermedia in HTTP is a JSON response containing links to related resources:
+
+```json
+{
+    "userId": 123,
+    "name": "John Doe",
+    "links": {
+        "self": "/users/123",
+        "orders": "/users/123/orders",
+        "profile": "/users/123/profile"
+    }
+}
+```
+
+The significance of hypermedia in REST is that it embodies the principle of **“Hypermedia as the Engine of Application State” (HATEOAS)**, where the server responses contain not only data but also actionable controls. This makes APIs more flexible, decoupled, and self-descriptive, enabling clients to interact with the server by following links and controls provided dynamically at runtime, rather than relying on fixed, out-of-band information.
+
+> **Note:** In the scope of this course, we will not delve deeper into Level 3 and HATEOAS. However, it is important to be aware of its existence and significance in the REST architectural style and if you want you can find more information.
+
+![](images/glory_of_rest_book_reference.png)
+
+**Figure 3.32:** The maximum level of REST and a reference book for further reading.
 
 ---
 
