@@ -7,7 +7,7 @@
 | **Master's Degree** | Digital Automation Engineering (D.M.270/04)                                      |
 |---------------------|----------------------------------------------------------------------------------|
 | **Curriculum**      | Digital Infrastructure                                                           |
-| **Lecture Title**   | The HTTP Protocol & RESTful Architectural Style                                   |
+| **Lecture Title**   | The HTTP Protocol & RESTful Architectural Style                                  |
 | **Author**          | Prof. Marco Picone (marco.picone@unimore.it)                                     |
 | **License**         | [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) | 
 
@@ -15,312 +15,45 @@
 <!-- omit in toc -->
 # Table of Contents
 
-- [3.1 Traditional Internet Protocol Stack (Overview)](#31-traditional-internet-protocol-stack-overview)
-  - [3.1.1 TCP \& UDP Protocols (Quick Overview)](#311-tcp--udp-protocols-quick-overview)
-    - [3.1.1.1 TCP (Transmission Control Protocol)](#3111-tcp-transmission-control-protocol)
-    - [3.1.1.2 UDP (User Datagram Protocol)](#3112-udp-user-datagram-protocol)
-    - [3.1.1.3 TCP/UDP Comparison Summary Table](#3113-tcpudp-comparison-summary-table)
-- [3.2 IoT Protocol Stack (Overview)](#32-iot-protocol-stack-overview)
-- [3.3 Simple Comparison Between Traditional Internet Protocol Stack and IoT Protocol Stack](#33-simple-comparison-between-traditional-internet-protocol-stack-and-iot-protocol-stack)
-- [3.4 IoT Application Layer Protocols](#34-iot-application-layer-protocols)
-- [3.5 Main Protocols Interaction Models](#35-main-protocols-interaction-models)
-- [3.6 Protocols Objectives - Towards Standardization and Interoperability](#36-protocols-objectives---towards-standardization-and-interoperability)
-- [3.7 Using a Web-Based Approach for the Internet of Things](#37-using-a-web-based-approach-for-the-internet-of-things)
-- [3.8 The HTTP Protocol](#38-the-http-protocol)
-  - [3.8.1 The Structure of an HTTP Message - The Request Message - GET](#381-the-structure-of-an-http-message---the-request-message---get)
-  - [3.8.2 The Structure of an HTTP Message - The Response Message - GET](#382-the-structure-of-an-http-message---the-response-message---get)
-  - [3.8.3 The Structure of an HTTP Message - The Request Message - POST](#383-the-structure-of-an-http-message---the-request-message---post)
-  - [3.8.4 The Structure of an HTTP Message - The Response Message - POST](#384-the-structure-of-an-http-message---the-response-message---post)
-  - [3.9 The Web as a Platform](#39-the-web-as-a-platform)
-- [3.10 REpresentational State Transfer (REST) Architectural Style](#310-representational-state-transfer-rest-architectural-style)
-  - [3.10.1 The concept of Resource in REST](#3101-the-concept-of-resource-in-rest)
-  - [3.10.2 Differences with Other Architectural Styles](#3102-differences-with-other-architectural-styles)
-  - [3.10.3 A Simple Comparison Between REST and SOAP](#3103-a-simple-comparison-between-rest-and-soap)
-  - [3.10.4 The Client Perspective REST vs. SOAP](#3104-the-client-perspective-rest-vs-soap)
-  - [3.10.5 REST Main Characteristics](#3105-rest-main-characteristics)
-  - [3.10.6 REST \& Resource Representation](#3106-rest--resource-representation)
-  - [3.10.7 REST Resource Identifier \& URI](#3107-rest-resource-identifier--uri)
-  - [3.10.8 REST \& URI Example](#3108-rest--uri-example)
-  - [3.10.9 URI \& Representations](#3109-uri--representations)
-  - [3.10.10 REST \& Statelessness](#31010-rest--statelessness)
-  - [3.11 REST Maturity Levels](#311-rest-maturity-levels)
-    - [3.11.1 Level 0: The Swamp of POX (Plain Old XML)](#3111-level-0-the-swamp-of-pox-plain-old-xml)
-      - [3.11.1.1 Level 0 Example](#31111-level-0-example)
-      - [3.11.1.2 Level 0 Characteristics \& Limitations](#31112-level-0-characteristics--limitations)
-    - [3.11.2 Level 1: Resources](#3112-level-1-resources)
-      - [3.11.2.1 Level 1: Example](#31121-level-1-example)
-      - [3.11.2.2 Level 1 Characteristics \& Limitations](#31122-level-1-characteristics--limitations)
-    - [3.11.3 Level 2: HTTP Methods](#3113-level-2-http-methods)
-      - [3.11.3.1 Level 2: Response Codes](#31131-level-2-response-codes)
-      - [3.11.3.2 Level 2: Do not reinvent the wheel (with Status Codes)](#31132-level-2-do-not-reinvent-the-wheel-with-status-codes)
-      - [3.11.3.3 Level 2: HTTP Headers](#31133-level-2-http-headers)
-      - [3.11.3.4 Level 2: Interaction Flow - Create a New Resource](#31134-level-2-interaction-flow---create-a-new-resource)
-      - [3.11.3.5 Level 2: Interaction Flow - Read a Resource](#31135-level-2-interaction-flow---read-a-resource)
-      - [3.11.3.6 Level 2: Interaction Flow - Update a Resource](#31136-level-2-interaction-flow---update-a-resource)
-      - [3.11.3.7 Level 2: Interaction Flow - Delete a Resource](#31137-level-2-interaction-flow---delete-a-resource)
-      - [3.11.3.8 Level 2: The Calendar Example Revisited](#31138-level-2-the-calendar-example-revisited)
-      - [3.11.3.9 Level 2: URI Templates \& Conventions](#31139-level-2-uri-templates--conventions)
-    - [3.12 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#312-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
+- [4.1 Using a Web-Based Approach for the Internet of Things](#41-using-a-web-based-approach-for-the-internet-of-things)
+- [4.2 The HTTP Protocol](#42-the-http-protocol)
+  - [4.2.1 The Structure of an HTTP Message - The Request Message - GET](#421-the-structure-of-an-http-message---the-request-message---get)
+  - [4.2.2 The Structure of an HTTP Message - The Response Message - GET](#422-the-structure-of-an-http-message---the-response-message---get)
+  - [4.2.3 The Structure of an HTTP Message - The Request Message - POST](#423-the-structure-of-an-http-message---the-request-message---post)
+  - [4.2.4 The Structure of an HTTP Message - The Response Message - POST](#424-the-structure-of-an-http-message---the-response-message---post)
+  - [4.2.5 The Web as a Platform](#425-the-web-as-a-platform)
+- [4.3 REpresentational State Transfer (REST) Architectural Style](#43-representational-state-transfer-rest-architectural-style)
+  - [4.3.1 The concept of Resource in REST](#431-the-concept-of-resource-in-rest)
+  - [4.3.2 Differences with Other Architectural Styles](#432-differences-with-other-architectural-styles)
+  - [4.3.3 A Simple Comparison Between REST and SOAP](#433-a-simple-comparison-between-rest-and-soap)
+  - [4.3.4 The Client Perspective REST vs. SOAP](#434-the-client-perspective-rest-vs-soap)
+  - [4.3.5 REST Main Characteristics](#435-rest-main-characteristics)
+  - [4.3.6 REST \& Resource Representation](#436-rest--resource-representation)
+  - [4.3.7 REST Resource Identifier \& URI](#437-rest-resource-identifier--uri)
+  - [4.3.8 REST \& URI Example](#438-rest--uri-example)
+  - [4.3.9 URI \& Representations](#439-uri--representations)
+  - [4.3.10 REST \& Statelessness](#4310-rest--statelessness)
+  - [4.4 REST Maturity Levels](#44-rest-maturity-levels)
+    - [4.4.1 Level 0: The Swamp of POX (Plain Old XML)](#441-level-0-the-swamp-of-pox-plain-old-xml)
+      - [4.4.1.1 Level 0 Example](#4411-level-0-example)
+      - [4.4.1.2 Level 0 Characteristics \& Limitations](#4412-level-0-characteristics--limitations)
+    - [4.4.2 Level 1: Resources](#442-level-1-resources)
+      - [4.4.2.1 Level 1: Example](#4421-level-1-example)
+      - [4.4.2.2 Level 1 Characteristics \& Limitations](#4422-level-1-characteristics--limitations)
+    - [4.4.3 Level 2: HTTP Methods](#443-level-2-http-methods)
+      - [4.4.3.1 Level 2: Response Codes](#4431-level-2-response-codes)
+      - [4.4.3.2 Level 2: Do not reinvent the wheel (with Status Codes)](#4432-level-2-do-not-reinvent-the-wheel-with-status-codes)
+      - [4.4.3.3 Level 2: HTTP Headers](#4433-level-2-http-headers)
+      - [4.4.3.4 Level 2: Interaction Flow - Create a New Resource](#4434-level-2-interaction-flow---create-a-new-resource)
+      - [4.4.3.5 Level 2: Interaction Flow - Read a Resource](#4435-level-2-interaction-flow---read-a-resource)
+      - [4.4.3.6 Level 2: Interaction Flow - Update a Resource](#4436-level-2-interaction-flow---update-a-resource)
+      - [4.4.3.7 Level 2: Interaction Flow - Delete a Resource](#4437-level-2-interaction-flow---delete-a-resource)
+      - [4.4.3.8 Level 2: The Calendar Example Revisited](#4438-level-2-the-calendar-example-revisited)
+      - [4.4.3.9 Level 2: URI Templates \& Conventions](#4439-level-2-uri-templates--conventions)
+    - [4.5 Level 3: Hypermedia as the Engine of Application State (HATEOAS)](#45-level-3-hypermedia-as-the-engine-of-application-state-hateoas)
 - [References](#references)
   
-# 3.1 Traditional Internet Protocol Stack (Overview)
-
-![](images/traditional_protocol_stack_communication.png)
-
-**Figure 3.1:** Traditional Internet Protocol Stack (Overview) with the different layers and their main protocols.
-
-The **traditional protocol stack** is fundamental for modeling and understanding how digital communications work. By organizing network functions into **hierarchical layers**, each with specific responsibilities, the stack enables modular design and interoperability. The most common models are the **OSI** and **TCP/IP** stacks, which structure communication from the physical transmission of bits up to user-facing applications.
-
-**OSI vs. TCP/IP: Quick Differences and Similarities**
-
-- **OSI Model** has 7 layers (Physical, Data Link, Network, Transport, Session, Presentation, Application).
-- **TCP/IP Model** has 4 layers (Link, Internet, Transport, Application).
-- OSI separates presentation and session functions; TCP/IP combines them into the application layer.
-- OSI is a theoretical reference model; TCP/IP is based on real-world protocols.
-- Both models use layered architecture to promote modularity and interoperability.
-- Each layer in both models serves specific functions and communicates with adjacent layers.
-- Both models guide protocol design and troubleshooting in network engineering.
-
-**Protocol Stack Layer Overview**
-
-Each layer in the protocol stack abstracts and manages a distinct aspect of communication, relying on adjacent layers for data exchange. This layered modeling simplifies development, troubleshooting, and protocol evolution. In this overview, we focus on a simplified 5-layer model that captures the essential functions of both OSI and TCP/IP stacks:
-
-
-| **Layer**           | **Main Function**                                   | **Common Protocols**           |
-|---------------------|-----------------------------------------------------|-------------------------------|
-| **Physical**        | Transmission of raw bits over physical medium       | Ethernet (PHY), Wi-Fi (PHY)   |
-| **Data Link**       | Framing, error detection/correction, MAC addressing | Ethernet, Wi-Fi (MAC), PPP    |
-| **Network**         | Routing, addressing, packet forwarding              | IP (Internet Protocol), ICMP  |
-| **Transport**       | Reliable delivery, sequencing, flow control         | TCP, UDP                      |
-| **Application**     | End-user services and protocols                     | HTTP, HTTPS, SMTP, SSH        |
-
-
-- **Physical Layer**: The base layer, responsible for the actual transmission of data as electrical signals, light pulses, or radio waves over cables, fiber optics, or wireless channels.
-- **Data Link Layer**: Handles framing, error detection/correction, and local addressing (MAC). It ensures reliable communication within a local network segment.
-- **Network Layer**: Manages logical addressing and routing, enabling data packets to traverse multiple interconnected networks. The **IP protocol** is central here.
-- **Transport Layer**: Provides end-to-end communication, reliability, and flow control. **TCP** ensures ordered, reliable delivery; **UDP** offers faster, connectionless transmission.
-- **Application Layer**: Hosts protocols for user-facing services, such as **HTTP** for web, **SMTP** for email, and **SSH** for secure remote access.
-
-**Protocol and Communication Flow**
-
-Data originates at the **application layer**, then is **encapsulated** as it passes down through the transport, network, and data link layers, each adding its own header (and sometimes trailer) information. This encapsulation process is called **packet encapsulation**. At the sender, each layer wraps the data from the layer above, forming a protocol data unit (PDU) for transmission. The physical layer then transmits the bits over the medium.
-
-On the receiving side, the process is reversed: each layer removes its header/trailer, passing the remaining data up to the next layer until the original application data is reconstructed.
-
-**Encapsulation Example:**
-
-```
-Application Data
-  ↓
-Transport Layer (adds TCP/UDP header)
-  ↓
-Network Layer (adds IP header)
-  ↓
-Data Link Layer (adds Ethernet/Wi-Fi frame)
-  ↓
-Physical Layer (transmits bits)
-```
-
-This **layered encapsulation** ensures modularity, interoperability, and reliable communication across diverse networks and devices.
-
-## 3.1.1 TCP & UDP Protocols (Quick Overview)
-
-**TCP (Transmission Control Protocol)** and **UDP (User Datagram Protocol)** are two fundamental transport layer protocols in the Internet protocol suite, each with distinct characteristics, strengths, and application scenarios.
-
-### 3.1.1.1 TCP (Transmission Control Protocol)
-
-**Characteristics:**
-
-- Connection-oriented protocol establishing a reliable connection between sender and receiver.
-- Provides guaranteed data delivery through acknowledgments (ACKs), retransmissions, and sequence ordering.
-- Ensures in-order delivery of packets and error detection/correction.
-- Implements flow control and congestion control to optimize network usage.
-- Suitable for applications where data integrity and reliability are crucial.
-
-**Internet Usage:**
-
-- Web browsing (HTTP/HTTPS), email (SMTP, IMAP), file transfer (FTP), and other use cases needing reliable communication.
-- Ensures all data reaches the destination intact and in the correct sequence.
-
-**IoT Usage:**
-
-- Used for IoT devices requiring reliable commands and data, such as firmware updates, configuration, secure communications.
-- Common in smart home devices, industrial control systems where data loss is unacceptable.
-
-```mermaid
-sequenceDiagram
-    participant Client as TCP Client
-    participant Server as TCP Server
-
-    Note over Client,Server: Connection Establishment (Three-way handshake)
-    Client->>Server: SYN (Connection request)
-    Server->>Client: SYN-ACK (Acknowledge + accept)
-    Client->>Server: ACK (Acknowledge connection established)
-    
-    Note over Client,Server: Data Transmission (Reliable, ordered)
-    Client->>Server: Data Packet 1 (Part 1 of payload)
-    Server->>Client: ACK (Ack Data 1)
-    Client->>Server: Data Packet 2 (Part 2 of payload)
-    Server->>Client: ACK (Ack Data 2)
-    
-    Note over Client,Server: Server Responds
-    Server->>Client: Data Packet 1 (Response Part 1)
-    Client->>Server: ACK (Ack Response Part 1)
-    Server->>Client: Data Packet 2 (Response Part 2)
-    Client->>Server: ACK (Ack Response Part 2)
-    
-    Note over Client,Server: Connection Termination
-    Client->>Server: FIN (Request to close connection)
-    Server->>Client: ACK (Acknowledge Close)
-```
-
-### 3.1.1.2 UDP (User Datagram Protocol)
-
-**Characteristics:**
-
-- Connectionless protocol that sends datagrams without ensuring delivery or order.
-- No acknowledgments or retransmission mechanisms; minimal overhead.
-- Faster and more efficient for time-sensitive applications.
-- Suitable where occasional data loss is tolerable or where application-layer protocols handle reliability.
-
-**Internet Usage:**
-
-- Streaming media (audio/video), online gaming, DNS, VoIP where low latency is prioritized over reliability.
-- Enables faster transmission by avoiding handshake and retransmission delays.
-
-**IoT Usage:**
-
-- Favored in resource-constrained devices and networks for lightweight communication.
-- Used for telemetry, sensor data, where frequent updates make occasional loss acceptable.
-- Protocols like CoAP and MQTT-SN are built on UDP for efficiency, especially in battery-powered or low-bandwidth scenarios.
-
-```mermaid
-sequenceDiagram
-    participant Client as UDP Client
-    participant Server as UDP Server
-
-    Client->>Server: Request message (single datagram)
-    Note right of Server: No handshake, connectionless communication
-    Server-->>Client: Response datagram 1
-    Server-->>Client: Response datagram 2
-    Server-->>Client: Response datagram 3
-    Note right of Client: Datagrams may arrive out of order or be lost
-```
-
-### 3.1.1.3 TCP/UDP Comparison Summary Table
-
-| Feature                | TCP                                   | UDP                              |
-|------------------------|-------------------------------------|---------------------------------|
-| Connection type        | Connection-oriented                   | Connectionless                  |
-| Reliability            | Guaranteed delivery with retransmissions | No guarantee, best effort       |
-| Ordering               | Ensures data order                    | No ordering                    |
-| Overhead               | Higher (ACKs, flow/congestion control) | Lower, minimal                  |
-| Latency                | Higher due to connection setup       | Low latency                    |
-| Usage scenarios        | Web, email, file transfers            | Streaming, gaming, IoT telemetry|
-| IoT use cases          | Reliable command/control data          | Sensor telemetry, lightweight data|
-
-
-# 3.2 IoT Protocol Stack (Overview)
-
-![](images/iot_protocol_stack_communication.png)
-
-**Figure 3.2:** IoT Protocol Stack (Overview) with the different layers and their main protocols.
-
-The **IoT protocol stack** builds upon the **traditional networking model** but introduces specialized layers, protocols, and adaptations to address the unique requirements of **resource-constrained devices**, **heterogeneous networks**, and **intermittent connectivity**. Modeling the IoT stack involves understanding how each layer is tailored for efficiency, scalability, and interoperability, while still maintaining the modularity and abstraction principles of classic protocol stacks.
-**Key Layers and Protocols in IoT Stack Modeling**
-
-- **Physical and Data Link Layers**: IoT networks often use low-power wireless technologies such as **ZigBee**, **LoRa**, **NB-IoT**, and **Bluetooth Low Energy (BLE)**, chosen for their energy efficiency, range, and suitability for large-scale deployments. Standards like **IEEE 802.15.4** provide the foundation for these technologies, supporting minimal energy consumption and cost-effective connectivity for battery-powered devices.
-
-- **Network Layer**: To accommodate massive numbers of devices, IoT stacks typically adopt **IPv6** for its large address space. Protocols like **6LoWPAN** enable efficient transmission of IPv6 packets over constrained links, ensuring seamless integration with global networks while maintaining scalability and efficiency.
-
-- **Transport Layer**: IoT environments require a balance between reliability and efficiency. While **TCP** and **UDP** are still used, adaptations such as **DTLS** (for secure UDP communication) are common to address low-latency and lossy network conditions, ensuring robust communication in challenging scenarios.
-
-- **Application Layer**: Protocols like **MQTT**, **CoAP**, and **LwM2M** are designed for lightweight, efficient messaging, minimizing overhead and supporting intermittent connectivity. These protocols prioritize simplicity, low power consumption, and reliability, making them well-suited for resource-constrained IoT devices compared to traditional, heavier protocols like **HTTP**.
-
-
-> Modeling the IoT protocol stack involves selecting and adapting layers and protocols to optimize for energy efficiency, scalability, and interoperability, addressing the unique requirements of diverse IoT environments.
-
-**Interoperability and Ecosystem Integration**
-
-- The IoT stack emphasizes **interoperability**, enabling seamless integration across diverse devices, vendors, and networks. **Protocol gateways** (e.g., ZigBee-to-IP converters) and **multi-stack solutions** facilitate communication between different technologies.
-- **Open standards** and **unified APIs** are promoted to avoid vendor lock-in and foster ecosystem growth, ensuring that devices using specialized IoT protocols can participate in broader Internet-connected applications.
-
----
-
-# 3.3 Simple Comparison Between Traditional Internet Protocol Stack and IoT Protocol Stack
-
-**Comparison: IoT Protocol Stack vs. Traditional Internet Protocol Stack**
-
-| **Layer**           | **Traditional Stack**                                   | **IoT Stack**                                                                 |
-|---------------------|--------------------------------------------------------|--------------------------------------------------------------------------------|
-| **Physical**        | Ethernet, Wi-Fi                                        | ZigBee, LoRa, NB-IoT, BLE, Ethernet, Wi-Fi                                     |
-| **Data Link**       | Ethernet (MAC), Wi-Fi (MAC), PPP                       | IEEE 802.15.4, ZigBee, Thread, BLE                                             |
-| **Network**         | IPv4, IPv6, ICMP                                       | IPv6, 6LoWPAN, RPL                                                             |
-| **Transport**       | TCP, UDP                                               | UDP, TCP, DTLS (secure UDP), lightweight adaptations                           |
-| **Application**     | HTTP, HTTPS, SMTP, SSH                                 | MQTT, CoAP, LwM2M, lightweight REST, custom IoT protocols                      |
-| **Modeling Focus**  | High throughput, reliability, modularity               | Low power, scalability, interoperability, efficiency, resource constraints     |
-
-The **IoT protocol stack** is modeled to optimize for **energy efficiency**, **scalability**, and **interoperability**, using lightweight protocols and specialized layers. In contrast, the **traditional stack** prioritizes **high throughput** and **reliability** for general-purpose computing and communication. Understanding these differences is essential for designing robust IoT systems that can seamlessly integrate with existing Internet infrastructure.
-
----
-
-# 3.4 IoT Application Layer Protocols
-
-![](images/protocols_words.png)
-
-**Figure 3.3:** Some application layer protocols.
-
-The **application layer** in networking models (OSI Levels 5, 6, and 7; TCP/IP application layer) is the **topmost layer** that interfaces between **end devices**, the **network**, and **user applications**. It is implemented via dedicated software at the device level and is responsible for **data formatting**, **presentation**, and **protocol-specific communication**. In traditional Internet services, protocols such as **HTTP**, **HTTPS**, **SMTP**, and **FTP** operate at this layer, enabling web browsing, secure transactions, email, and file transfers.
-
-When **modeling IoT systems**, the application layer plays a crucial role in defining how devices interact, exchange data, and integrate with broader networks. However, **traditional protocols** are often **unsuitable for IoT environments** due to their **heavyweight nature** and **high parsing overhead**. IoT devices are typically **resource-constrained**—with limited CPU, memory, and energy—making it essential to use **lightweight protocols** that minimize computational and transmission demands.
-
-**Key modeling considerations for IoT application layer protocols:**
-
-- **CPU Processing:** IoT devices have **limited computational capabilities**, making it difficult to process large or complex messages. **Reducing processing requirements** leads to **lower energy consumption** and longer device lifespans.
-- **Data Transmission:** Large messages result in more **fragments**, increasing **overhead** and the likelihood of **retransmissions**—especially in **Low-power and Lossy Networks (LLNs)**. This can cause **higher delays** and further drain energy resources.
-- **Efficiency and Scalability:** Lightweight protocols such as **MQTT**, **CoAP**, and **LwM2M** are specifically designed for IoT, focusing on **minimal overhead**, **efficient parsing**, and **robustness** in unreliable network conditions.
-
-> In summary, modeling the application layer for IoT involves selecting protocols that optimize for **efficiency**, **scalability**, and **interoperability**, ensuring reliable communication while respecting the constraints of IoT devices and networks.
-
----
-
-# 3.5 Main Protocols Interaction Models
-
-![](images/pattern_quick_comparison.png)
-
-**Figure 3.4:** Quick comparison of main protocols interaction models among Request/Response and Publish/Subscribe.
-
-When modeling IoT systems, **protocols** are designed around specific **communication paradigms** such as **request/response** and **publish/subscribe**. Each paradigm introduces distinct **requirements** that influence the selection of the most suitable protocol and **architectural style** for a given scenario.
-
-- The **request/response** paradigm is commonly used in **RESTful architectures**, where a client sends a request and the server responds with the required data. This model is straightforward and fits well for scenarios where devices need to **retrieve or update resources** on demand.
-- The **publish/subscribe** paradigm enables **asynchronous communication**, allowing devices to **publish data** to topics and other devices to **subscribe** and receive updates automatically. This model is ideal for **event-driven** IoT applications, such as sensor networks and real-time monitoring.
-
-**Modeling the communication architecture** involves analyzing the specific needs of your scenario—such as **latency**, **scalability**, **energy efficiency**, and **data flow patterns**—to determine which paradigm and protocol best fit. While there is no universal solution, the **IoT ecosystem** is predominantly built around the **REST architectural style** (mirroring the traditional Internet) and **publish/subscribe approaches** for flexibility and scalability.
-
-> **Key takeaway:** Select the communication paradigm and protocol that align with your application's requirements, considering factors like device constraints, network reliability, and integration needs. Both **REST** and **Pub/Sub** are foundational to modern IoT system modeling.
-
-> **Note:** There are several protocols belonging to both paradigms, but in this lecture, we will focus on **HTTP** (request/response) and **MQTT** (publish/subscribe) as representative examples.
-> Additionally, we will briefly mention **CoAP**, which, despite being a request/response protocol, is specifically designed for constrained environments. 
-> We will not cover **AMQP** and **DDS** in this lecture, but they are also important protocols in the IoT landscape.
-
----
-
-# 3.6 Protocols Objectives - Towards Standardization and Interoperability
-
-![](images/iot_protocols_interoperable_standard_objective.png)
-
-**Figure 3.5:** The objective of IoT application layer protocols is to achieve standardization and interoperability.
-
-When **modeling IoT systems**, protocols such as **MQTT**, **AMQP**, **CoAP**, and **HTTP** are chosen for their **wide adoption** and **design principles** that enable **cross-device** and **cross-vendor communication**.
-
-- **Interoperability**: Adopting **standard protocols** ensures that devices from different manufacturers and domains can interact seamlessly, which is essential for building unified IoT solutions and ecosystems. This interoperability is a key modeling objective, as it allows diverse devices to exchange data reliably and efficiently.
-- **Standard Usage**: Relying on **established, well-documented protocols** helps prevent fragmentation and vendor lock-in, supporting **large-scale deployments** and **future-proof integration**. Modeling with these protocols provides a stable foundation for expanding and maintaining IoT systems over time.
-
-> The success of IoT modeling depends on selecting **standard, interoperable protocols** to build robust, scalable, and maintainable connected systems. The figure below illustrates that the primary goal of IoT application layer protocols is to achieve **standardization** and **interoperability**, laying the groundwork for the "**Web of Things**" where diverse devices and platforms can communicate easily and reliably.
-
----
-
-# 3.7 Using a Web-Based Approach for the Internet of Things
+# 4.1 Using a Web-Based Approach for the Internet of Things
 
 When **modeling IoT systems**, adopting a **web-based approach** offers several advantages:
 
@@ -330,11 +63,15 @@ When **modeling IoT systems**, adopting a **web-based approach** offers several 
 - Well-established **design patterns** for **web applications** enable developers to model IoT solutions efficiently, leveraging familiar architectures and workflows.
 - The **web architecture** has demonstrated exceptional **scalability**, which is crucial for supporting **billions of connected IoT devices**.
 
-> By modeling IoT systems using **web standards** and protocols, developers benefit from proven technologies, enhanced interoperability, and the ability to scale solutions to meet the demands of large, heterogeneous device networks.
+By modeling IoT systems using **web standards** and protocols, developers benefit from proven technologies, enhanced interoperability, and the ability to scale solutions to meet the demands of large, heterogeneous device networks.
+
+For this reason, in this lecture we will focus on the **HTTP protocol** and the **RESTful architectural style**, which are widely adopted for building web-based IoT applications and also for traditional web applications. 
+
+> **Note:** IoT device with constrained resources (e.g., limited processing power, memory, and energy) may not be able to use HTTP directly. In such cases, lightweight protocols like **CoAP (Constrained Application Protocol)** are often employed. CoAP is designed specifically for constrained environments and provides similar functionalities to HTTP but with reduced overhead, making it suitable for resource-limited IoT devices. In this lecture, however, we will focus on HTTP and REST as they are the most widely used protocols for web-based applications, including many IoT scenarios and CoAP is not covered in this course but the key concepts and principles discussed here can be applied to CoAP as well.
 
 ---
 
-# 3.8 The HTTP Protocol
+# 4.2 The HTTP Protocol
 
 The **Hyper Text Transfer Protocol (HTTP)** is a **client-server network protocol** that has been the foundation of the **World-Wide Web** since the early 1990s. In the context of **modeling networked systems**, HTTP is notable for its **request-response paradigm**, where a **client** sends a request and a **server** returns a response. This interaction model is straightforward and highly adaptable, making HTTP a reference protocol for designing interoperable systems.
 
@@ -346,11 +83,11 @@ To **avoid heterogeneity** and ensure **standardization**, the **RESTful HTTP** 
 
 ---
 
-## 3.8.1 The Structure of an HTTP Message - The Request Message - GET
+## 4.2.1 The Structure of an HTTP Message - The Request Message - GET
 
 ![](images/http_get_request.png)
 
-**Figure 3.6:** The structure of an HTTP request message (GET in this example).
+**Figure 4.1:** The structure of an HTTP request message (GET in this example).
 
 The **HTTP request message** is a fundamental element when **modeling client-server communication** in web and IoT systems. It represents how a **client** (such as a browser, mobile app, or IoT device) initiates interaction with a **server** to **retrieve**, **update**, or **manipulate resources**. In IoT architectures, HTTP is commonly used for **RESTful APIs**, enabling standardized and efficient management of device data and services. The HTTP request message initiates a communication from a client (such as a browser or IoT device) to a server, asking for a specific resource or instructing the server to perform an action. In the context of IoT, HTTP is often used for RESTful APIs to manage and retrieve device information and other resources efficiently.
 
@@ -385,11 +122,11 @@ The figure breaks down the request into distinct parts:
 
 ---
 
-## 3.8.2 The Structure of an HTTP Message - The Response Message - GET
+## 4.2.2 The Structure of an HTTP Message - The Response Message - GET
 
 ![](images/http_get_response.png)
 
-**Figure 3.7:** The structure of an HTTP response message (GET in this example).
+**Figure 4.2:** The structure of an HTTP response message (GET in this example).
 
 The **HTTP response message** is a crucial component in **modeling client-server interactions** within web and IoT systems. It represents how a **server** responds to a **client's request**, providing the requested data, status information, and additional context. In IoT architectures, HTTP responses are often used in **RESTful APIs** to deliver device data, confirm actions, or report errors.
 The HTTP response provides the client with the outcome of its request, including status information, metadata, and the actual requested content. In IoT and web applications, this enables clients to process results—such as resource data, error diagnostics, or service confirmations—in a standardized way.
@@ -422,11 +159,11 @@ This structure ensures that client applications can reliably interpret server re
 
 ---
 
-## 3.8.3 The Structure of an HTTP Message - The Request Message - POST
+## 4.2.3 The Structure of an HTTP Message - The Request Message - POST
 
 ![](images/http_post_request.png)
 
-**Figure 3.8:** The structure of an HTTP request message (POST in this example).
+**Figure 4.3:** The structure of an HTTP request message (POST in this example).
 
 This figure illustrates the **structure** and **main fields** of an HTTP **POST request message**, which is essential for **modeling data submission** and **resource creation** in web and IoT systems.
 
@@ -474,11 +211,11 @@ This structure enables flexible data communication in web and IoT systems, allow
 
 ---
 
-## 3.8.4 The Structure of an HTTP Message - The Response Message - POST
+## 4.2.4 The Structure of an HTTP Message - The Response Message - POST
 
 ![](images/http_post_response.png)
 
-**Figure 3.9:** The structure of an HTTP response message (POST in this example).
+**Figure 4.4:** The structure of an HTTP response message (POST in this example).
 
 When **modeling client-server interactions** in web and IoT systems, the **HTTP POST response** plays a crucial role in confirming the outcome of a **data submission** or **resource creation** operation. Upon successful creation, the server returns a **201 (Created) status code**, signaling that the client's request resulted in a new resource. The response includes the **Location header**, which provides the **URI of the newly created resource**, enabling clients to reference, retrieve, or further interact with it. Minimal metadata—such as the **Date** and **Content-Length**—is typically included, ensuring efficient communication. This standardized response structure supports **interoperability** and **robust modeling** of RESTful APIs, allowing diverse clients to reliably interpret the results of their POST operations.
 
@@ -509,7 +246,7 @@ This response structure communicates to the client that the data sent was proces
 
 ---
 
-## 3.9 The Web as a Platform
+## 4.2.5 The Web as a Platform
 
 The **web** was originally designed as an **easy-to-use**, **distributed**, and **loosely coupled system** for sharing documents and information. Its **architecture** is intentionally **simple**, enabling rapid development of applications and straightforward management of content. The web relies on a **small set of core principles**—such as **uniform resource identification**, **stateless communication**, and **standardized protocols**—which have allowed it to **scale** and **evolve** to meet the demands of billions of users and devices.
 
@@ -521,7 +258,7 @@ When **modeling distributed applications** on the web, it is essential to addres
 
 ---
 
-# 3.10 REpresentational State Transfer (REST) Architectural Style
+# 4.3 REpresentational State Transfer (REST) Architectural Style
 
 **REST** is the **architectural style** that underpins the **World Wide Web**, providing a systematic approach for **modeling distributed systems** and **web applications**. Introduced by **Roy Fielding** in his 2000 Ph.D. dissertation, *"Architectural Styles and the Design of Network-based Software Architectures"*, REST establishes a set of **rules** and **principles** that guide the design of scalable, robust, and maintainable networked applications.
 
@@ -545,7 +282,7 @@ When **modeling web-based systems** using REST, you focus on:
 
 ---
 
-## 3.10.1 The concept of Resource in REST
+## 4.3.1 The concept of Resource in REST
 
 In **RESTful modeling**, the concept of a **resource** is fundamental. A **resource** represents any significant entity within an application's domain that is exposed and manipulated via the web. Resources are the building blocks of REST architectures, providing a standardized way to model and interact with application data.
 
@@ -572,7 +309,7 @@ An example of a REST resource modeling in the IoT can be as reported in the foll
 
 ---
 
-## 3.10.2 Differences with Other Architectural Styles
+## 4.3.2 Differences with Other Architectural Styles
 
 When **modeling distributed systems**, it is essential to understand how **REST** differs from other architectural styles, such as **Remote Procedure Call (RPC)** and **Service-Oriented Architecture (SOA)**. Each style has its own principles and approaches to structuring interactions between components, which can significantly impact the design and functionality of the system.
 
@@ -608,11 +345,11 @@ In an IoT scenario, a SOA-based system might have a service for managing device 
 
 ---
 
-## 3.10.3 A Simple Comparison Between REST and SOAP
+## 4.3.3 A Simple Comparison Between REST and SOAP
 
 ![](images/rest_vs_soap.png)
 
-**Figure 3.10:** A simple comparison between REST and SOAP.
+**Figure 4.5:** A simple comparison between REST and SOAP.
 
 The figure compares REST and SOAP web service models, highlighting key distinctions in architecture, data formats, and messaging approaches[1].
 
@@ -648,7 +385,7 @@ The figure compares REST and SOAP web service models, highlighting key distincti
 
 ---
 
-## 3.10.4 The Client Perspective REST vs. SOAP
+## 4.3.4 The Client Perspective REST vs. SOAP
 
 When **modeling client-server interactions**, the choice between **REST** and **SOAP** can significantly impact the design and functionality of the system. From a **client perspective**, several factors should be considered.
 
@@ -681,7 +418,7 @@ In simple terms, a resource-centric approach like REST focuses on addressing and
 
 ---
 
-## 3.10.5 REST Main Characteristics
+## 4.3.5 REST Main Characteristics
 
 When **modeling REST architectures**, several core characteristics and principles guide the design of scalable, interoperable, and maintainable systems:
 
@@ -716,11 +453,11 @@ When **modeling REST architectures**, several core characteristics and principle
 
 ---
 
-## 3.10.6 REST & Resource Representation
+## 4.3.6 REST & Resource Representation
 
 ![](images/rest_resource_representation.png)
 
-**Figure 3.11:** REST & Resource Representation also with forward and reverse proxies.
+**Figure 4.6:** REST & Resource Representation also with forward and reverse proxies.
 
 When **modeling RESTful systems**, it is crucial to understand that **resources themselves are never exchanged directly** between endpoints. Instead, what is transferred is a **representation** of a resource—a snapshot or view of its state at a specific moment.
 
@@ -740,7 +477,7 @@ When **modeling RESTful systems**, it is crucial to understand that **resources 
 
 ![](images/rest_resource_representation_1_n.png)
 
-**Figure 3.12:** From 1 resource to N representations.
+**Figure 4.7:** From 1 resource to N representations.
 
 When **modeling RESTful systems**, it is essential to understand that what is actually exchanged between **clients** and **servers** is a **representation** of a resource—not the resource itself.
 
@@ -753,7 +490,7 @@ When **modeling RESTful systems**, it is essential to understand that what is ac
 
 ---
 
-## 3.10.7 REST Resource Identifier & URI
+## 4.3.7 REST Resource Identifier & URI
 
 In **RESTful modeling**, the concept of a **Uniform Resource Identifier (URI)** is fundamental for uniquely identifying and interacting with resources across a distributed system. URIs provide a **standardized mechanism** to address, locate, retrieve, and manipulate resources, ensuring interoperability and clarity in resource management.
 
@@ -776,11 +513,11 @@ In **RESTful modeling**, the concept of a **Uniform Resource Identifier (URI)** 
 
 ---
 
-## 3.10.8 REST & URI Example
+## 4.3.8 REST & URI Example
 
 ![](images/uri_example.png)
 
-**Figure 3.13:** REST Resource Identifier & URI Example.
+**Figure 4.8:** REST Resource Identifier & URI Example.
 
 In **RESTful modeling**, understanding the structure and semantics of **URIs** is essential for designing scalable and interoperable systems. A URI is composed of two main parts:
 
@@ -822,7 +559,7 @@ When **modeling RESTful APIs**, the design of **URIs** is central to achieving c
 
 ---
 
-## 3.10.9 URI & Representations
+## 4.3.9 URI & Representations
 
 When **modeling RESTful systems**, it is essential to treat **URIs as opaque identifiers**—they should not reveal or encode the **representation format** (such as `.json` or `.xml`) within the URI itself. Instead, the **representation type** is negotiated and specified using **HTTP headers**, ensuring clean separation between resource identification and data format.
 
@@ -888,7 +625,7 @@ Content-Type: application/xml
 
 ---
 
-## 3.10.10 REST & Statelessness
+## 4.3.10 REST & Statelessness
 
 When **modeling RESTful systems**, the principle of **statelessness** is fundamental and shapes how client-server interactions are designed. In a **stateless REST architecture**, every request from a client must be **self-contained**—carrying all the information the server needs to process it, without relying on any previous interactions or stored context.
 
@@ -910,11 +647,11 @@ When **modeling RESTful systems**, the principle of **statelessness** is fundame
 
 ---
 
-## 3.11 REST Maturity Levels
+## 4.4 REST Maturity Levels
 
 ![](images/glory_of_rest.png)
 
-**Figure 3.14:** REST Maturity Levels.
+**Figure 4.9:** REST Maturity Levels.
 
 When **modeling RESTful systems**, understanding the concept of **REST maturity levels** is essential for evaluating and improving the design of web services. These levels provide a framework for assessing how closely an API aligns with **RESTful principles**, guiding architects and developers toward more scalable, maintainable, and interoperable solutions.
 
@@ -939,7 +676,7 @@ The **REST maturity model**, proposed by Leonard Richardson [Link](http://martin
 
 ---
 
-### 3.11.1 Level 0: The Swamp of POX (Plain Old XML)  
+### 4.4.1 Level 0: The Swamp of POX (Plain Old XML)  
 
 At this level, the service adopts a **single endpoint** (commonly `/api` or `/service`) and relies on a **single HTTP method**—typically `POST`—to process all operations. The **payload** is usually **XML** or **JSON**, but there is **no use of HTTP methods or distinct URIs to represent resources**. This approach is often called **RPC-style** or **Plain Old XML (POX)**.
 
@@ -961,11 +698,11 @@ At this level, the service adopts a **single endpoint** (commonly `/api` or `/se
 
 ---
 
-#### 3.11.1.1 Level 0 Example
+#### 4.4.1.1 Level 0 Example
 
 ![](images/level_0_1.png)
 
-**Figure 3.15:** Level 0 Example - Reading Calendar Request.
+**Figure 4.10:** Level 0 Example - Reading Calendar Request.
 
 In this example, we have a simple calendar service that allows clients to request events for a specific date. Communication occurs between a client and a web service. The client sends requests and receives responses as XML documents, but there is no resource-centric design or utilization of HTTP features beyond basic message delivery. The structure follows a single remote procedure-like entry point rather than multiple distinct resources.
 
@@ -977,7 +714,7 @@ For example for reading events on a specific date, the client sends an HTTP requ
 
 ![](images/level_0_2.png)
 
-**Figure 3.16:** Level 0 Example - Calendar Event Response.
+**Figure 4.11:** Level 0 Example - Calendar Event Response.
 
 The server responds with an XML body:
 
@@ -989,7 +726,7 @@ The response wraps data in XML but without leveraging HTTP status codes, verbs f
 
 ![](images/level_0_3.png)
 
-**Figure 3.17:** Level 0 Example - Creating a New Event Request.
+**Figure 4.12:** Level 0 Example - Creating a New Event Request.
 
 Another example for creating a new event, the client sends:
 
@@ -1001,7 +738,7 @@ Another example for creating a new event, the client sends:
 
 ![](images/level_0_4.png)
 
-**Figure 3.18:** Level 0 Example - Creating a New Event Response.
+**Figure 4.13:** Level 0 Example - Creating a New Event Response.
 
 The server responds with:
 
@@ -1020,7 +757,7 @@ Also in this case, the response wraps data in XML but without leveraging HTTP st
 
 ---
 
-#### 3.11.1.2 Level 0 Characteristics & Limitations
+#### 4.4.1.2 Level 0 Characteristics & Limitations
 
 At **Level 0**, the service is modeled as a simple **RPC-over-HTTP** system, lacking true RESTful features. The focus is on **action-based messaging** rather than resource-oriented design, which introduces several limitations from a modeling perspective.
 
@@ -1047,11 +784,11 @@ At **Level 0**, the service is modeled as a simple **RPC-over-HTTP** system, lac
  
 ---
 
-### 3.11.2 Level 1: Resources
+### 4.4.2 Level 1: Resources
 
 ![](images/level_1_1.png)
 
-**Figure 3.18:** Level 1 URL Mapping to Resources.
+**Figure 4.14:** Level 1 URL Mapping to Resources.
 
 When **modeling at Level 1 (Resources)**, the focus shifts from a single endpoint to **multiple, logically distinct resources**, each with its own **URI**. This approach improves resource identification and organization, but still falls short of full RESTful design because it often relies on a single HTTP method (typically `POST` or sometimes `GET`) for all operations.
 
@@ -1077,11 +814,11 @@ When **modeling at Level 1 (Resources)**, the focus shifts from a single endpoin
 
 ---
 
-#### 3.11.2.1 Level 1: Example
+#### 4.4.2.1 Level 1: Example
 
 ![](images/level_1_2.png)
 
-**Figure 3.19:** Level 1 Get Calendar Events Request.
+**Figure 4.15:** Level 1 Get Calendar Events Request.
 
 This image illustrates a client making a request to a specific resource endpoint, for instance `/calendar/events`, using the HTTP GET method. The request includes query parameters such as `user=123` and `date=2015-03-24`, which allow the client to filter or locate specific event resources for a particular user and date.  
 
@@ -1092,7 +829,7 @@ In this case,
 
 ![](images/level_1_3.png)
 
-**Figure 3.20:** Level 1 Get Calendar Events Response.
+**Figure 4.16:** Level 1 Get Calendar Events Response.
 
 This image shows the server's response to the above request: a standard HTTP/1.1 200 OK message containing an XML body. The returned XML `eventList` contains multiple `event` elements, each with structured details such as start/end times, type, and child elements (`course`, `person`).  
 
@@ -1105,7 +842,7 @@ Now let's analyze the request and response associated to the creation of a new e
 
 ![](images/level_1_4.png)
 
-**Figure 3.21:** Level 1 Create Calendar Event Request.
+**Figure 4.17:** Level 1 Create Calendar Event Request.
 
 Here, the client issues a GET request to `/calendar/newEvent`, using query parameters to define the specifics of the event to be scheduled (e.g., user, date, type, start/end times). All details required for the new event are put into the query string, making the URI expressive and resource-specific.  
 
@@ -1116,7 +853,7 @@ In this scenario:
 
 ![](images/level_1_5.png)
 
-**Figure 3.22:** Level 1 Create Calendar Event Response.
+**Figure 4.18:** Level 1 Create Calendar Event Response.
 
 This response is generated after the client schedules a new event. The server returns an HTTP/1.1 200 OK status and an XML representation of the newly scheduled event. The XML details the start and end times, along with the event type.  
 
@@ -1127,7 +864,7 @@ For this last interaction:
 
 ---
 
-#### 3.11.2.2 Level 1 Characteristics & Limitations
+#### 4.4.2.2 Level 1 Characteristics & Limitations
 
 At **Level 1 (Resources)**, RESTful modeling advances by introducing **multiple, individually addressable resources** through distinct **URIs**. This approach moves away from the single endpoint and opaque payloads of Level 0, enabling clearer organization and identification of entities within the system.
 
@@ -1167,7 +904,7 @@ At **Level 1 (Resources)**, RESTful modeling advances by introducing **multiple,
 
 ---
 
-### 3.11.3 Level 2: HTTP Methods
+### 4.4.3 Level 2: HTTP Methods
 
 At **Level 2**, RESTful modeling advances by fully leveraging the semantics of **HTTP methods** to manipulate resources. This approach aligns with the **CRUD** (Create, Read, Update, Delete) operations and brings clarity, scalability, and loose coupling to API design. Core modeling characteristics of Level 2 are:
 
@@ -1226,7 +963,7 @@ Main points to note:
 
 ---
 
-#### 3.11.3.1 Level 2: Response Codes
+#### 4.4.3.1 Level 2: Response Codes
 
 When **modeling RESTful APIs at Level 2**, it is essential to use **HTTP status codes** in alignment with the semantics of each HTTP method. 
 This practice ensures that client-server interactions are **transparent**, **predictable**, and **standardized**, supporting robust and maintainable distributed systems.
@@ -1284,11 +1021,11 @@ The use of appropriate status codes **provides clear and immediate feedback to t
 
 ---
 
-#### 3.11.3.2 Level 2: Do not reinvent the wheel (with Status Codes)
+#### 4.4.3.2 Level 2: Do not reinvent the wheel (with Status Codes)
 
 ![](images/http_status_codes.png)
 
-**Figure 3.23:** HTTP Status Codes Table [Link](https://www.steveschoger.com/status-code-poster/).
+**Figure 4.19:** HTTP Status Codes Table [Link](https://www.steveschoger.com/status-code-poster/).
 
 When **modeling RESTful APIs at Level 2**, it is crucial to **leverage standard HTTP status codes** rather than creating custom codes. 
 This practice enhances interoperability, clarity, and maintainability of the API.
@@ -1323,7 +1060,7 @@ Some commonly used HTTP status codes in **RESTful APIs (Application Programming 
 
 ---
 
-#### 3.11.3.3 Level 2: HTTP Headers
+#### 4.4.3.3 Level 2: HTTP Headers
 
 When **modeling RESTful APIs at Level 2**, the use of **HTTP request headers** is a core aspect of designing robust, interoperable, and flexible systems. Headers provide a standardized way to convey **metadata**, control **behavior**, and enable **content negotiation** between clients and servers, all without altering the resource URI or payload structure.
 
@@ -1375,11 +1112,11 @@ When **modeling RESTful APIs at Level 2**, the use of **HTTP request headers** i
 
 ---
 
-#### 3.11.3.4 Level 2: Interaction Flow - Create a New Resource
+#### 4.4.3.4 Level 2: Interaction Flow - Create a New Resource
 
 ![](images/post_create.png)
 
-**Figure 3.24:** Example of HTTP POST Request to Create a New Resource.
+**Figure 4.20:** Example of HTTP POST Request to Create a New Resource.
 
 - **Interaction**: The REST client issues an HTTP `POST` to `/api/devices` with a payload containing the new device data.
 - **Server Response**: The server returns status `201 Created` and includes a `Location` header pointing to the newly created device resource URI.
@@ -1387,11 +1124,11 @@ When **modeling RESTful APIs at Level 2**, the use of **HTTP request headers** i
 
 ---
 
-#### 3.11.3.5 Level 2: Interaction Flow - Read a Resource
+#### 4.4.3.5 Level 2: Interaction Flow - Read a Resource
 
 ![](images/get_read.png)
 
-**Figure 3.25:** Example of HTTP GET Request to Read a Resource.
+**Figure 4.21:** Example of HTTP GET Request to Read a Resource.
 
 - **Interaction**: The REST client sends an HTTP `GET` to `/api/devices` (to list all devices) or to `/api/devices/1` (to retrieve a specific device).
 - **Server Response**: The server returns status `200 OK` with a response payload containing the requested device information[2].
@@ -1399,11 +1136,11 @@ When **modeling RESTful APIs at Level 2**, the use of **HTTP request headers** i
 
 ---
 
-#### 3.11.3.6 Level 2: Interaction Flow - Update a Resource
+#### 4.4.3.6 Level 2: Interaction Flow - Update a Resource
 
 ![](images/put_update.png)
 
-**Figure 3.26:** Example of HTTP PUT Request to Update a Resource.
+**Figure 4.22:** Example of HTTP PUT Request to Update a Resource.
 
 - **Interaction**: The REST client sends an HTTP `PUT` to `/api/devices/1` with a payload including the updated device information.
 - **Server Response**: The server returns status `200 OK` indicating the resource was successfully updated[3].
@@ -1411,11 +1148,11 @@ When **modeling RESTful APIs at Level 2**, the use of **HTTP request headers** i
 
 ---
 
-#### 3.11.3.7 Level 2: Interaction Flow - Delete a Resource
+#### 4.4.3.7 Level 2: Interaction Flow - Delete a Resource
 
 ![](images/delete_delete.png)
 
-**Figure 3.27:** Example of HTTP DELETE Request to Delete a Resource.
+**Figure 4.23:** Example of HTTP DELETE Request to Delete a Resource.
 
 - **Interaction**: The REST client issues an HTTP `DELETE` to `/api/devices/1` to remove a specific device resource.
 - **Server Response**: The server returns status `200 OK`, confirming successful deletion of the resource[4].
@@ -1423,29 +1160,29 @@ When **modeling RESTful APIs at Level 2**, the use of **HTTP request headers** i
 
 ---
 
-#### 3.11.3.8 Level 2: The Calendar Example Revisited
+#### 4.4.3.8 Level 2: The Calendar Example Revisited
 
 In this section, we revisit the calendar example, now modeled at **Level 2** of the REST maturity model. This level fully utilizes HTTP methods to perform CRUD operations on calendar resources, enhancing clarity, scalability, and adherence to RESTful principles.
 
 ![](images/calendar_get_request.png)
 
-**Figure 3.28:** Calendar Example - HTTP GET Request to Retrieve Events.
+**Figure 4.25:** Calendar Example - HTTP GET Request to Retrieve Events.
 
 ![](images/calendar_get_response.png)
 
-**Figure 3.29:** Calendar Example - HTTP GET Response to Retrieve Events.
+**Figure 4.26:** Calendar Example - HTTP GET Response to Retrieve Events.
 
 ![](images/calendar_post_request.png)
 
-**Figure 3.30:** Calendar Example - HTTP POST Request to Create an Event.
+**Figure 4.27:** Calendar Example - HTTP POST Request to Create an Event.
 
 ![](images/calendar_post_response.png)
 
-**Figure 3.31:** Calendar Example - HTTP POST Response to Create an Event.
+**Figure 4.28:** Calendar Example - HTTP POST Response to Create an Event.
 
 ---
 
-#### 3.11.3.9 Level 2: URI Templates & Conventions
+#### 4.4.3.9 Level 2: URI Templates & Conventions
 
 When **modeling RESTful APIs**, the design of **URIs** is crucial for resource identification, discoverability, and maintainability. Two common approaches are **URI templates** and **flat URIs**, each with distinct modeling implications.
 
@@ -1502,7 +1239,7 @@ There is **no universal convention** for URI design in RESTful modeling. The cho
 
 ---
 
-### 3.12 Level 3: Hypermedia as the Engine of Application State (HATEOAS)
+### 4.5 Level 3: Hypermedia as the Engine of Application State (HATEOAS)
 
 At this highest level, the service incorporates **hypermedia controls** (links) within resource representations. **Clients can dynamically discover available actions** and **navigate** the application state through hyperlinks provided in responses. This level fully realizes RESTful principles and enables a more flexible and adaptable client-server interaction.
 
@@ -1553,7 +1290,7 @@ The significance of hypermedia in REST is that it embodies the principle of **�
 
 ![](images/glory_of_rest_book_reference.png)
 
-**Figure 3.32:** The maximum level of REST and a reference book for further reading.
+**Figure 4.29:** The maximum level of REST and a reference book for further reading.
 
 ---
 

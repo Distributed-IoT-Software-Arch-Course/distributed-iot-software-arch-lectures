@@ -9,8 +9,6 @@
 | **Curriculum**      | Digital Infrastructure                                                           |
 | **Lecture Title**   | Python & Object-Oriented Programming (OOP)                                       |
 | **Author**          | Prof. Marco Picone (marco.picone@unimore.it)                                     |
-| **Academic Year**   | 2025/2026                                                                        |
-| **Last Update**     | September 2025                                                                   |
 | **License**         | [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/) | 
 
 
