@@ -1,5 +1,5 @@
 <!-- omit in toc -->
-# Lecture 3 - The HTTP Protocol & RESTful Architectural Style
+# Lecture 4 - The HTTP Protocol & RESTful Architectural Style
 
 <!-- omit in toc -->
 ## Lecture Information
