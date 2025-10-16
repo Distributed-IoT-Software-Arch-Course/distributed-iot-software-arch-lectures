@@ -30,6 +30,27 @@
   - [5.7.1 Single Level Topic Wildcard](#571-single-level-topic-wildcard)
   - [5.7.2 Multi Level Topic Wildcard](#572-multi-level-topic-wildcard)
   - [5.7.3 Quality of Service (QoS) Concepts \& Levels](#573-quality-of-service-qos-concepts--levels)
+    - [5.7.3.1 Why is QoS Important in IoT ?](#5731-why-is-qos-important-in-iot-)
+    - [5.7.3.2 QoS 0 - Fire and Forget](#5732-qos-0---fire-and-forget)
+    - [5.7.3.2 QoS 1 - At Least Once](#5732-qos-1---at-least-once)
+    - [5.7.3.3 QoS 2 - Exactly Once](#5733-qos-2---exactly-once)
+    - [5.7.3.4 QoS 2 - Exactly Once - Phase 1](#5734-qos-2---exactly-once---phase-1)
+    - [5.7.3.5 QoS 2 - Exactly Once - Phase 2](#5735-qos-2---exactly-once---phase-2)
+    - [5.7.3.6 QoS 2 - Exactly Once - Complete Flow with Publisher and Subscriber](#5736-qos-2---exactly-once---complete-flow-with-publisher-and-subscriber)
+    - [5.7.3.7 QoS Downgrade](#5737-qos-downgrade)
+    - [5.7.3.8 Packet Identifier](#5738-packet-identifier)
+    - [5.7.3.9 QoS Use Cases Summary](#5739-qos-use-cases-summary)
+    - [5.7.3.10 QoS Levels Summary Table](#57310-qos-levels-summary-table)
+  - [5.7.4 Persistent Sessions](#574-persistent-sessions)
+    - [5.7.4.1 Persistent Sessions Flags](#5741-persistent-sessions-flags)
+    - [5.7.4.2 Session Best Practices - Persistent Sessions](#5742-session-best-practices---persistent-sessions)
+    - [5.7.4.3 Session Best Practices - Clean Sessions](#5743-session-best-practices---clean-sessions)
+    - [5.7.4.4 Session Comparison Summary Table](#5744-session-comparison-summary-table)
+  - [5.7.5 Retained Messages](#575-retained-messages)
+  - [5.7.6 Last Will and Testament (LWT)](#576-last-will-and-testament-lwt)
+  - [5.7.6.1 Last Will and Testament (LWT) - Example](#5761-last-will-and-testament-lwt---example)
+  - [5.7.6.2 Last Will and Testament (LWT) - Disconnect Scenarios](#5762-last-will-and-testament-lwt---disconnect-scenarios)
+  - [5.7.7 MQTT Broker Bridge Mode](#577-mqtt-broker-bridge-mode)
 - [References](#references)
   
 # 5.1 Publish/Subscribe (Pub/Sub) Messaging Pattern
@@ -509,13 +530,571 @@ The multi-level wildcard is especially useful in **IoT scenarios** where you wan
 > **Summary:**  
 > QoS in MQTT enables flexible, reliable communication in IoT environments, allowing devices to balance performance and reliability according to their needs.
 
+---
+
+### 5.7.3.1 Why is QoS Important in IoT ?
+
+**Quality of Service (QoS) is a fundamental feature of the MQTT protocol, enabling clients to select the most appropriate level of message delivery reliability for their needs.**
+
+- **Customizable Reliability:**  
+  - Clients can choose a **QoS level** that matches their **network conditions** and **application requirements**.
+  - *Example (IoT):* A battery-powered sensor in a remote area may use a lower QoS to save bandwidth, while a critical alarm system uses a higher QoS for guaranteed delivery.
+
+- **Automatic Message Handling:**  
+  - MQTT **manages retransmissions** and **delivery guarantees** automatically, even over **unreliable or intermittent networks**.
+  - This reduces the complexity for developers, as the protocol handles lost or duplicated messages.
+
+**In summary:**  
+QoS in MQTT empowers IoT devices to communicate reliably and efficiently, adapting to varying network reliability and application criticality without adding complexity to device logic.
+
+---
+
+### 5.7.3.2 QoS 0 - Fire and Forget
+
+![](images/pub_qoq_0.jpg)
+
+**Figure 5.6:** Example of QoS 0 - Fire and Forget with a Publisher sending data to the broker. The same applies to the Broker sending data to the Subscriber with QoS 0.
+
+- **Minimal QoS Level:**  
+  - QoS 0 is the **lowest level of message delivery guarantee** in MQTT.
+- **Best-Effort Delivery:**  
+  - Messages are delivered on a **best-effort basis** with **no guarantee** of delivery.
+- **No Acknowledgment:**  
+  - The **receiver does not acknowledge** receipt of the message.
+- **No Retransmission or Storage:**  
+  - The **sender does not store or retransmit** the message if delivery fails.
+- **Reliability:**  
+  - Delivery is only as reliable as the **underlying TCP connection**; if the connection drops, messages may be lost.
+- **“Fire and Forget” Semantics:**  
+  - The publisher sends the message and **does not wait for any response**.
+- **Use Case Example (IoT):**  
+  - A temperature sensor sends periodic readings to a broker. Occasional data loss is acceptable because the next reading will soon arrive.
+
+**Summary:**  
+QoS 0 is ideal for **non-critical data** where **speed and low overhead** are more important than guaranteed delivery, such as frequent sensor updates in IoT scenarios.
+
+---
+
+### 5.7.3.2 QoS 1 - At Least Once
+
+![](images/pub_qoq_1.jpg)
+
+**Figure 5.7:** Example of QoS 1 - At Least Once with a Publisher sending data to the broker. The same applies to the Broker sending data to the Subscriber with QoS 1.
+
+QoS level 1 ensures that a message is delivered **at least once** to the receiver, but it may be delivered **multiple times** in case of network issues or delays.
+
+**Core Concepts:**
+
+- **Message Persistence:**  
+  - The **sender stores the message** until it receives a **PUBACK** (Publish Acknowledgment) packet from the receiver.
+- **Acknowledgment Mechanism:**  
+  - Each message is assigned a **packet identifier** to match the sent message with the received PUBACK.
+- **Retransmission:**  
+  - If the sender does **not receive a PUBACK** within a certain time, it **resends the PUBLISH packet**.
+  - This can result in the **receiver getting duplicate messages** if the PUBACK was delayed or lost.
+- **Duplicate Flag (DUP):**  
+  - When resending, the sender sets the **DUP flag** in the message header.
+  - The **DUP flag is for internal use only**; the receiver processes the message and sends a PUBACK regardless of the DUP flag.
+- **Receiver Processing:**  
+  - Upon receiving a QoS 1 message, the receiver (e.g., broker or client) can **process it immediately** and then sends a PUBACK to the sender.
+
+**Summary:**  
+QoS 1 is suitable for **important but non-critical data** in IoT, where **guaranteed delivery** is needed, but occasional **duplicates are acceptable**. It strikes a balance between reliability and performance.
+
+---
+
+### 5.7.3.3 QoS 2 - Exactly Once
+
+![](images/pub_qoq_2.jpg)
+
+**Figure 5.8:** Example of QoS 2 - Exactly Once with a Publisher sending data to the broker. The same applies to the Broker sending data to the Subscriber with QoS 2.
+
+QoS 2 is the **highest level of message delivery guarantee** in MQTT, ensuring that each message is **delivered exactly once** to the intended recipient—**no duplicates, no loss**.
+
+---
+
+### 5.7.3.4 QoS 2 - Exactly Once - Phase 1
+
+When a receiver gets a **QoS 2 PUBLISH packet** from a sender, the following steps occur to ensure **exactly-once delivery**:
+
+![](images/pub_qoq_2_a.jpg)
+
+**Figure 5.9:** First part of the QoS 2 handshake.
+
+- **Message Processing & Acknowledgment:**
+  - The receiver **processes the PUBLISH message** and immediately replies with a **PUBREC (Publish Received) packet** to acknowledge receipt.
+  - *Example (IoT):* A payment terminal publishes a transaction event to the broker; the broker responds with PUBREC to confirm it received the event.
+
+- **Handling Lost Acknowledgments:**
+  - If the sender **does not receive the `PUBREC` packet** within a certain time, it **retransmits the PUBLISH packet** with the **DUP (duplicate) flag** set.
+  - This process repeats until the sender receives the `PUBREC` acknowledgment.
+  - *Example (IoT):* If a smart meter sends usage data and the network is unstable, the meter will resend the data with the DUP flag until the broker acknowledges with PUBREC.
+
+**Key Points:**
+- The **DUP flag** helps the receiver identify retransmitted messages, but the receiver must process each PUBLISH packet as per the protocol.
+- This handshake ensures that even if packets are lost or duplicated due to unreliable networks, the message is **delivered exactly once**.
+
+**Summary:**  
+This initial phase of the QoS 2 handshake guarantees that the receiver acknowledges every PUBLISH message, and the sender will keep retrying until it receives confirmation, making it suitable for **critical IoT scenarios** where **no message loss or duplication** is acceptable.
+
+---
+
+### 5.7.3.5 QoS 2 - Exactly Once - Phase 2
+
+![](images/pub_qoq_2_b.jpg)
+
+**Figure 5.10:** Second part of the QoS 2 handshake.
+
+The second phase of the **QoS 2 handshake** ensures that the message is delivered **exactly once** and that both sender and receiver can safely discard any stored state related to the message.
+
+**Detailed Steps:**
+
+- Once the **sender receives a `PUBREC` packet** from the receiver:
+  - The sender can **safely discard the original `PUBLISH` packet**.
+  - The sender **stores the `PUBREC` packet** and responds by sending a **`PUBREL` (Publish Release) packet** to the receiver.
+
+- When the **receiver gets the `PUBREL` packet**:
+  - The receiver **processes the release** and sends back a **`PUBCOMP` (Publish Complete) packet** to the sender.
+  - The receiver can now **discard all stored state** related to this message.
+  - **Until the `PUBCOMP` is sent**, the receiver **keeps a reference** to the packet identifier of the original message to **prevent duplicate processing** in case of retransmissions.
+
+- After the **sender receives the `PUBCOMP` packet**:
+  - The sender can **discard any remaining state** for this message.
+  - The **packet identifier** used for this message is now **available for reuse**.
+
+**Key Points:**
+
+- **State Management:**  
+  - Both sender and receiver maintain state information throughout the handshake to ensure **no message is processed more than once**.
+- **Duplicate Protection:**  
+  - Storing the packet identifier until the handshake is complete prevents **duplicate message processing**.
+- **Reliability:**  
+  - If any packet in the handshake is lost, the sender or receiver will **retransmit** the last sent packet until the expected response is received.
+
+**Summary:**  
+This phase completes the **exactly-once delivery guarantee** of MQTT QoS 2, making it suitable for **critical IoT operations** where message duplication or loss is unacceptable.
+
+---
+
+### 5.7.3.6 QoS 2 - Exactly Once - Complete Flow with Publisher and Subscriber
+
+![](images/pub_qoq_2_c.jpg)
+
+**Figure 5.10:** Complete QoS 2 handshake with both publisher and subscriber exchanging messages with the broker.
+
+At the end of the **QoS 2 flow**, both the **sender** and **receiver** are **certain** that the message has been **delivered exactly once**, and the sender has received explicit **confirmation of delivery**.
+
+**Key Points:**
+
+- **Reliability:**  
+  - If any packet in the handshake is **lost** (e.g., due to network issues), the **sender automatically retransmits** the last message after a timeout.
+  - This mechanism ensures that **no message is lost or duplicated**, regardless of temporary network failures.
+
+- **Symmetry:**  
+  - The **responsibility for retransmission** applies to both **MQTT clients** and **brokers**—whichever acts as the sender must handle retransmissions.
+  - The **recipient** (client or broker) must **respond to each command message** as specified by the protocol.
+
+- **State Management:**  
+  - Both parties **maintain state** for each message until the handshake is fully completed, preventing duplicate processing.
+
+**Summary:**  
+The **QoS 2 flow** in MQTT provides the **highest level of delivery assurance**, making it ideal for **critical IoT operations** where **message loss or duplication is unacceptable**.
+
+---
+
+### 5.7.3.7 QoS Downgrade
+
+![](images/qos_downgrade.jpg)
+
+**Figure 5.11:** Example of the concept of QoS Downgrade in MQTT where the publisher sends data with QoS 2 and two subscribers are subscribed with different QoS levels (QoS 1 and QoS 0).
+
+In MQTT, the **Quality of Service (QoS) level** can differ between the **publisher-to-broker** and **broker-to-subscriber** interactions. This is known as **QoS downgrade** and is a key aspect of how MQTT manages message delivery reliability.
+
+**Core Concepts:**
+
+- **Publisher QoS:**  
+  - The **publisher** sets the QoS level when sending a message to the **broker**.
+  - *Example (IoT):* A temperature sensor publishes data to the broker with QoS 2 (exactly once) to ensure critical readings are not lost.
+
+- **Subscriber QoS:**  
+  - Each **subscriber** specifies its desired QoS level when subscribing to a topic.
+  - *Example (IoT):* A mobile dashboard subscribes to temperature updates with QoS 0 (at most once) to save bandwidth and battery.
+
+- **QoS Downgrade Rule:**  
+  - When the broker delivers a message to a subscriber, it uses the **lower** of:
+    - The QoS level set by the **publisher** for the message.
+    - The QoS level requested by the **subscriber** during subscription.
+  - This ensures that the subscriber never receives messages at a higher QoS than it requested.
+
+**Illustrative Example:**
+
+- If a **publisher** sends a message with **QoS 2** and a **subscriber** is subscribed with **QoS 1**, the broker delivers the message to that subscriber with **QoS 1**.
+- If the subscriber is subscribed with **QoS 0**, the broker delivers the message with **QoS 0**, regardless of the publisher's QoS.
+
+**Why is this important in IoT?**
+
+- **Resource Optimization:**  
+  - Devices with limited resources (e.g., battery-powered sensors or mobile apps) can choose a lower QoS to reduce overhead.
+- **Flexible Reliability:**  
+  - Critical data can be published with high QoS, while less critical consumers can opt for lower QoS to balance reliability and efficiency.
+
+**Summary:**  
+The **QoS downgrade mechanism** in MQTT allows each device in an IoT system to select the most appropriate reliability level for its needs, ensuring efficient and flexible communication across diverse devices and network conditions.
+
+---
+
+### 5.7.3.8 Packet Identifier
+
+The **packet identifier** is a key element in MQTT for managing message delivery and ensuring correct handling of QoS 1 and QoS 2 messages.
+
+**Core Concepts:**
+
+- **Uniqueness per Client-Broker Pair:**
+  - The packet identifier is **unique between a specific client and broker** during an ongoing message exchange.
+  - It is **not globally unique** across all clients or brokers.
+- **Scope and Reuse:**
+  - Once a QoS 1 or QoS 2 message flow is **fully completed** (i.e., all acknowledgments are exchanged), the packet identifier can be **reused** by the same client for new messages.
+  - This reuse is possible because the protocol ensures that no two active message flows with the same identifier exist simultaneously for a client-broker pair.
+- **Identifier Range:**
+  - The packet identifier is a **16-bit unsigned integer** (range: 1–65535).
+  - It is **unrealistic** for a client to have more than 65,535 unacknowledged messages in flight at once, especially in IoT scenarios with constrained devices.
+- **Role in QoS Flows:**
+  - For **QoS 1** (At least once) and **QoS 2** (Exactly once), the packet identifier is used to **match messages with their acknowledgments** (e.g., PUBACK, PUBREC, PUBREL, PUBCOMP).
+  - This ensures that each message is tracked and processed correctly, even if retransmissions occur.
+
+**Summary:**
+
+The **packet identifier** mechanism in MQTT enables efficient and reliable message tracking for QoS 1 and QoS 2, while keeping resource usage minimal—an important feature for **IoT devices** with limited memory and processing power.
+
+**Note:** The **client-id** is a crucial identifier in MQTT that uniquely identifies each client connected to the broker. It is used for session management, message delivery, and maintaining the state of subscriptions. If a client reconnects with the same client-id, it can resume its previous session, including any pending messages and subscriptions. **On the other hand, if a client with the same client-id is already connected, the broker will disconnect the existing client to maintain the uniqueness of client-ids.**
+
+---
+
+### 5.7.3.9 QoS Use Cases Summary
+
+**QoS 0 (At most once):**
+- **Best for:** Scenarios where **occasional message loss is acceptable** and **low overhead** is required.
+- **Typical use cases:**
+  - **Stable connections** (e.g., wired networks, local test clients, dashboards).
+  - **Non-critical sensor data** sent at frequent intervals (e.g., temperature readings every second).
+  - **No need for message queuing** for offline clients.
+
+**QoS 1 (At least once):**
+- **Best for:** Applications where **every message must be received**, but **duplicates are tolerable**.
+- **Typical use cases:**
+  - **Critical alerts** or **status updates** where missing a message is unacceptable, but processing duplicates is manageable.
+  - **Faster delivery** than QoS 2, with less protocol overhead.
+- **Application must handle duplicates** (e.g., by checking message IDs).
+
+**QoS 2 (Exactly once):**
+- **Best for:** **Mission-critical applications** where **duplicate messages can cause errors or harm**.
+- **Typical use cases:**
+  - **Financial transactions**, **commands to actuators**, or **state changes** where exactly-once delivery is essential.
+  - **Higher protocol overhead** and **slower delivery** due to the four-step handshake.
+
+---
+
+### 5.7.3.10 QoS Levels Summary Table
+
+| QoS Level | Delivery Guarantee      | Duplicates Possible | Overhead | Typical IoT Use Case Example                  |
+|-----------|------------------------|---------------------|----------|-----------------------------------------------|
+| **0**     | At most once           | No                  | Low      | Frequent sensor readings (e.g., temperature)  |
+| **1**     | At least once          | Yes                 | Medium   | Device status updates, alerts                 |
+| **2**     | Exactly once           | No                  | High     | Relevant transactions, actuator commands       |
+
+---
+
+**Summary:**  
+Choose the **QoS level** based on your application's **reliability needs**, **network conditions**, and **resource constraints**. In IoT, balancing **performance** and **reliability** is key—use higher QoS only when necessary to avoid unnecessary overhead.
+
+---
+
+## 5.7.4 Persistent Sessions
+
+In MQTT, **persistent sessions** allow clients to maintain their state and message flow even when they disconnect and reconnect. This is especially important for **IoT devices** that may experience intermittent connectivity.
+
+**When a persistent session is enabled, the broker stores:**
+
+- **Session Existence:**  
+  - The broker remembers that a session exists for the client, even if there are **no active subscriptions**.
+  - *Example (IoT):* A battery-powered sensor that connects only periodically can resume its session without re-subscribing each time.
+
+- **All Client Subscriptions:**  
+  - The broker keeps track of **all topics** the client is subscribed to.
+  - *Example (IoT):* A smart thermostat remains subscribed to `/home/alerts` and `/home/temperature` even if it temporarily disconnects.
+
+- **Unacknowledged QoS 1 and QoS 2 Messages:**  
+  - Any messages in a **QoS 1 or QoS 2 flow** that the client has not yet confirmed (acknowledged) are stored.
+  - *Example (IoT):* If a device loses connection before acknowledging a critical command, the broker will deliver it again upon reconnection.
+
+- **Missed QoS 1 and QoS 2 Messages:**  
+  - All **new QoS 1 or QoS 2 messages** published to the client’s subscribed topics while it was offline are queued.
+  - *Example (IoT):* An environmental sensor that was offline receives all important alerts sent during its downtime as soon as it reconnects.
+
+- **Incomplete QoS 2 Flows:**  
+  - Any **QoS 2 messages** received from the client that are not yet fully acknowledged are retained until the handshake completes.
+
+**When the client reconnects:**
+
+- The broker **immediately restores** all stored information, allowing the client to continue as if it was never disconnected.
+- This ensures **reliable message delivery** and seamless operation for IoT devices with unstable or power-saving network connections.
+
+**Summary:**  
+Persistent sessions in MQTT are crucial for **robust IoT deployments**, ensuring that important messages and subscriptions are never lost, even if devices connect sporadically or experience network interruptions.
+
+---
+
+### 5.7.4.1 Persistent Sessions Flags
+
+When an MQTT client connects to a broker, it specifies whether it wants a **persistent session** using the `cleanSession` flag (in MQTT 3.1.1) or `cleanStart` flag (in MQTT 5.0):
+
+- **`cleanSession = true`** (or `cleanStart = true`):
+  - The client requests a **non-persistent (clean) session**.
+  - **All session state is discarded** when the client disconnects.
+  - **No messages or subscriptions are retained** for the next connection.
+  - *Example (IoT):* A mobile app that only needs real-time updates while connected and does not care about missed messages when offline.
+
+- **`cleanSession = false`** (or `cleanStart = false`):
+  - The client requests a **persistent session**.
+  - The broker **retains all session information**, including:
+    - **Subscriptions**
+    - **Unacknowledged QoS 1 and QoS 2 messages**
+    - **Queued messages** published while the client was offline
+  - If a persistent session already exists for the client, the broker **restores it** and delivers any queued messages upon reconnection.
+  - *Example (IoT):* A battery-powered sensor that connects intermittently but needs to receive all critical alerts sent while it was offline.
+
+**Client Responsibilities for Persistent Sessions:**
+
+When a client requests a persistent session, it must also manage certain state information locally:
+
+- **Track all QoS 1 and QoS 2 messages** sent to the broker that have not yet been acknowledged.
+- **Store all QoS 2 messages** received from the broker that are not yet fully acknowledged (i.e., the four-step handshake is not complete).
+
+**Summary Table:**
+
+| Flag/Setting         | Session Type      | Broker Stores...                                   | Client Stores...                                  | Typical IoT Example                                 |
+|----------------------|------------------|----------------------------------------------------|---------------------------------------------------|-----------------------------------------------------|
+| `cleanSession=true`  | Non-persistent   | Nothing after disconnect                           | Nothing after disconnect                          | Real-time dashboards, temporary monitoring clients  |
+| `cleanSession=false` | Persistent       | Subscriptions, queued QoS 1/2 messages, session state | Unacknowledged QoS 1/2 messages, incomplete QoS 2 flows | Sensors/devices with intermittent connectivity      |
+
+**Key Points:**
+- **Persistent sessions** ensure that important messages and subscriptions are not lost during temporary disconnects—crucial for many IoT scenarios.
+- **Non-persistent sessions** are suitable for clients that only need live data and do not require message history.
+
+---
+
+### 5.7.4.2 Session Best Practices - Persistent Sessions
+
+Use a **persistent session** when the client needs to maintain its state and receive all important messages, even if it disconnects temporarily.
+
+- **Message Delivery While Offline:**
+  - The broker **queues all messages** (for subscribed topics, QoS 1 and 2) while the client is offline.
+  - When the client reconnects, the broker **delivers all missed messages**.
+  - *Example (IoT):* A remote environmental sensor that connects periodically will receive all critical alerts or commands sent during its offline period.
+
+- **Subscription Retention:**
+  - The broker **remembers the client’s subscriptions** and restores them automatically after reconnection.
+  - *Example (IoT):* A smart thermostat remains subscribed to `/home/alerts` and `/home/temperature` even after a power cycle.
+
+- **Resuming QoS 1 and 2 Flows:**
+  - All **unacknowledged QoS 1 and 2 messages** are retained and retransmitted after the client reconnects.
+  - *Example (IoT):* If a device loses connection before acknowledging a command, the broker will resend it when the device is back online.
+
+- **Recommended for:**
+  - Devices with **intermittent connectivity** or **limited resources** that cannot maintain a constant connection.
+  - Scenarios where **no critical message should be lost**.
+
+---
+
+### 5.7.4.3 Session Best Practices - Clean Sessions
+
+Use a **clean session** when the client does not need to retain any state or receive missed messages.
+
+- **No Subscription or Message Retention:**
+  - The broker **does not store any session information** after the client disconnects.
+  - **Missed messages are not delivered** when the client reconnects.
+  - *Example (IoT):* A mobile dashboard app that only needs real-time data while connected and does not care about messages sent while it was offline.
+
+- **Publish-Only Clients:**
+  - Suitable for clients that **only publish messages** and do not subscribe to any topics.
+  - The broker does **not retry transmission** of QoS 1 and 2 messages if the client disconnects.
+
+- **Recommended for:**
+  - **Stateless clients** or applications where **real-time data** is sufficient and **message history is not needed**.
+
+---
+
+### 5.7.4.4 Session Comparison Summary Table
+
+
+| Session Type        | Broker Stores...                      | Messages Delivered After Reconnect | Typical IoT Example                                  |
+|---------------------|---------------------------------------|------------------------------------|------------------------------------------------------|
+| **Persistent**      | Subscriptions, queued QoS 1/2 messages | Yes                                | Sensors/devices with intermittent connectivity       |
+| **Clean Session**   | Nothing after disconnect               | No                                 | Real-time dashboards, temporary monitoring clients   |
+
+---
+
+## 5.7.5 Retained Messages
+
+**Retained messages** in MQTT are a special feature that allows the broker to store the **last known good value** for a topic and immediately deliver it to new subscribers. This is especially useful in IoT scenarios where devices or dashboards may connect intermittently and need the latest status update as soon as they subscribe.
+
+**Core Concepts:**
+
+- A **retained message** is a standard MQTT message with the **retained flag set to `true`**.
+- The **broker stores only one retained message per topic**—the most recent message marked as retained.
+- **When a client subscribes** to a topic (or topic pattern), the broker **immediately sends the retained message** for each matching topic, if one exists.
+  - *Example (IoT):* A smart thermostat subscribes to `/home/livingroom/temperature` and instantly receives the last reported temperature, even if it was published hours ago.
+- **Wildcard subscriptions** (e.g., `/home/+/temperature`) will receive the retained message for each topic that matches the pattern.
+- The **retained message is not necessarily the last message published**—it is the last message published with the retained flag set to `true`.
+
+**Benefits:**
+
+- **Immediate status update:**  
+  - New subscribers get the latest value right away, without waiting for the next publish event.
+  - *Example (IoT):* A dashboard app reconnects and instantly displays the current state of all sensors.
+- **Efficient state sharing:**  
+  - Devices joining the network can quickly synchronize with the current system state.
+
+**Managing Retained Messages:**
+
+- **Overwriting:**  
+  - Publishing a new retained message to a topic **overwrites** the previous retained message for that topic.
+- **Deleting:**  
+  - To **delete** a retained message, publish a retained message with a **zero-byte payload** to the topic. The broker will remove the retained message for that topic.
+- **No relation to persistent sessions:**  
+  - Retained messages are managed by the broker independently of client session persistence.
+
+**Summary Table:**
+
+| Feature                  | Description                                                                                  |
+|--------------------------|----------------------------------------------------------------------------------------------|
+| **Storage**              | One retained message per topic, stored by the broker                                         |
+| **Delivery**             | Sent immediately to new subscribers of the topic (or matching pattern)                       |
+| **Overwrite/Delete**     | Overwritten by new retained messages; deleted by sending a zero-byte retained message        |
+| **Use Case (IoT)**       | Device status updates, sensor readings, last known actuator state                            |
+
+**Summary:**  
+Retained messages in MQTT provide a simple yet powerful way to ensure that new subscribers always receive the most recent state of a topic, enhancing the usability and responsiveness of IoT applications.
+
+---
+
+## 5.7.6 Last Will and Testament (LWT)
+
+The **Last Will and Testament (LWT)** feature in MQTT enables clients to define a special message that the broker will automatically publish **on their behalf if they disconnect unexpectedly**. This mechanism helps maintain **topic coherence** and allows other devices to react to client failures or outages.
+
+**Core Concepts:**
+
+- **Purpose:**  
+  - LWT provides a reliable way for clients to **signal their absence** or **critical status** to peers in case of an abrupt disconnect.
+  - Especially useful in **IoT environments** with **unreliable networks** (e.g., wireless sensors, battery-powered devices).
+
+- **Types of Disconnections:**
+  - **Graceful disconnect:**  
+    - The client sends a proper **DISCONNECT** message to the broker.
+    - The broker discards the stored LWT message.
+  - **Ungraceful disconnect:**  
+    - The client loses connection without sending a DISCONNECT (e.g., power loss, network failure).
+    - The broker detects the lost connection (e.g., TCP connection closed) and **publishes the LWT message** to the specified topic.
+
+- **LWT Message Structure:**  
+  - The LWT message is defined by the client at connection time and includes:
+    - **Topic**: Where the message will be published.
+    - **Payload**: The content of the message (e.g., `"device offline"`).
+    - **Quality of Service (QoS)**: Delivery guarantee level.
+    - **Retained flag**: Whether the message should be retained by the broker.
+
+---
+
+## 5.7.6.1 Last Will and Testament (LWT) - Example
+
+![](images/lwt.png)
+
+**Figure 5.12:** Example of the concept of Last Will and Testament (LWT) in MQTT where the client specifies a message to be sent if it disconnects unexpectedly.
+
+1. **Client connects** to the broker and specifies its LWT message.
+2. The broker **stores** the LWT message for that client.
+3. If the client disconnects **gracefully**, the broker **removes** the LWT message.
+4. If the client disconnects **ungracefully**, the broker **publishes** the LWT message to the designated topic.
+5. **All subscribers** to that topic receive the LWT message.
+
+**IoT Example:**  
+- A smart sensor in a factory sets its LWT to `"sensor/alerts"` with the payload `"Sensor A offline"`. If the sensor loses power or network connectivity, the broker automatically notifies all monitoring dashboards subscribed to `"sensor/alerts"`.
+
+**Benefits:**
+
+- **Automatic failure notification** for monitoring and alerting.
+- **Improved reliability** and **system awareness** in distributed IoT deployments.
+- **Simple configuration**—no need for complex heartbeat or polling mechanisms.
+
+---
+
+## 5.7.6.2 Last Will and Testament (LWT) - Disconnect Scenarios
+
+According to the **MQTT 3.1.1 specification**, the broker sends a client’s **Last Will and Testament (LWT)** message in several scenarios where the client disconnects unexpectedly or improperly:ensures the LWT message is distributed.
+
+- **I/O Error or Network Failure:**  
+  - If the broker detects any **input/output error** or **network failure** with the client connection, it will publish the LWT message.  
+  - *IoT Example:* A remote sensor loses Wi-Fi connectivity due to interference; the broker notifies all subscribers that the sensor is offline.
+
+- **Failed Communication within Keep Alive Period:**  
+  - If the client fails to send any message or keep alive packet within the specified **Keep Alive interval**, the broker assumes the client is unreachable and sends the LWT message.  
+  - *IoT Example:* A battery-powered device enters deep sleep and misses its keep alive window; the broker alerts monitoring systems of its absence.
+
+- **Client Closes Connection Without DISCONNECT Packet:**  
+  - If the client terminates the network connection **without sending a proper DISCONNECT packet**, the broker treats this as an ungraceful disconnect and distributes the LWT message.  
+  - *IoT Example:* A device crashes or loses power suddenly; the broker automatically publishes its LWT to notify other devices.
+
+- **Broker Closes Connection Due to Protocol Error:**  
+  - If the broker detects a **protocol violation** and closes the connection, it will also send the LWT message.  
+  - *IoT Example:* A misconfigured device sends invalid MQTT packets; the broker disconnects it and publishes the LWT to the relevant topic.
+
+**Key Points:**
+- The LWT mechanism ensures that other devices or applications are **immediately informed** when a client becomes unavailable, improving reliability and system awareness in IoT deployments.
+- Proper use of LWT helps maintain **topic coherence** and enables automated responses to device failures (e.g., triggering alerts or fallback actions).
+
+---
+
+## 5.7.7 MQTT Broker Bridge Mode
+
+![](images/bridge_mode.jpg)
+
+**Figure 5.13:** Example of MQTT Broker Bridge Mode where two brokers are connected to share messages between different networks or locations.
+
+**MQTT Broker Bridge Mode** enables the connection of **two MQTT brokers**, allowing them to **share messages and topics** across different networks or locations.
+
+**Core Concepts:**
+- A **bridge** is used to **link two brokers**, facilitating communication between separate MQTT systems.
+- **Typical use case:** Connecting **edge MQTT brokers** (e.g., in factories, smart buildings, or remote sites) to a **central or cloud-based MQTT broker** for unified data aggregation and management.
+- **Selective bridging:** Usually, only a **subset of local MQTT topics** is bridged to the remote broker, optimizing bandwidth and privacy.
+- **Configuration:** Only **one broker** needs to be configured as a **bridge**; the other operates as a standard broker.
+
+**IoT Example:**
+- An edge broker in a smart factory bridges only **critical alerts** and **machine status updates** to a central broker, while local sensor data remains within the factory network.
+
+**Benefits:**
+- **Scalable architecture:** Supports distributed deployments and hierarchical data flows.
+- **Efficient data sharing:** Enables selective topic forwarding, reducing unnecessary traffic.
+- **Improved reliability:** Local brokers can operate independently if the central broker is temporarily unavailable.
+
+**Summary Table:**
+
+| Feature                | Description                                                      |
+|------------------------|------------------------------------------------------------------|
+| **Bridge Purpose**     | Connects two brokers to share selected topics/messages           |
+| **Common Usage**       | Edge-to-central/cloud MQTT integration in IoT deployments        |
+| **Configuration**      | Only one broker needs bridge setup; other remains standard       |
+| **Selective Bridging** | Only chosen topics are forwarded to remote broker                |
+| **IoT Example**        | Factory edge broker bridges alerts to central monitoring system  |
+
+---
 
 # References
 
-- Desai, Pratikkumar & Sheth, Amit & Anantharam, Pramod. (2014). Semantic Gateway as a Service Architecture for IoT Interoperability. 10.1109/MobServ.2015.51. [Link](https://doi.org/10.1109/MobServ.2015.51)
-- REST Maturity Model - [Link](http://martinfowler.com/articles/richardsonMaturityModel.html)
-- Jim Webber, Savas Parastatidis, Ian Robinson, “REST in Practice,” O'Reilly Media, September 2010 [Link](http://shop.oreilly.com/product/9780596805838.do)
-- RFC5988 - [Link](https://tools.ietf.org/html/rfc5988)
-- Web to Edge - [Link](https://www.w3.org/WoT/IG/wiki/images/d/de/WebToTheEdge-WoT.pdf)
-- R. T. Fielding, “Architectural Styles and the Design of Network-based Software Architectures,” PhD thesis, University of California, 2000. Available: [Link](https://ics.uci.edu/~fielding/pubs/dissertation/top.htm)
-- Roy T. Fielding and Richard N. Taylor. 2002. Principled design of the modern Web architecture. ACM Trans. Internet Technol. 2, 2 (May 2002), 115–150. https://doi.org/10.1145/514183.514185 [Link](https://dl.acm.org/doi/10.1145/514183.514185)
+- MQTT - [http://mqtt.org/](http://mqtt.org/)
+- HiveMQ - MQTT Essentials - [https://www.hivemq.com/blog/](https://www.hivemq.com/blog/)
+- Mosquito MQTT Bridge Mode - [http://www.steves-internet-guide.com/mosquitto-bridge-configuration/](http://www.steves-internet-guide.com/mosquitto-bridge-configuration/)
+- Difference Between AMQP & MQTT - [https://www.educba.com/amqp-vs-mqtt/](https://www.educba.com/amqp-vs-mqtt/)
+- Introduction to RabbitMQT - [https://www.cloudamqp.com/blog/2015-05-18-part1-rabbitmq-for-beginners-what-is-rabbitmq.html](https://www.cloudamqp.com/blog/2015-05-18-part1-rabbitmq-for-beginners-what-is-rabbitmq.html)
+- RabbitMQT - [https://www.rabbitmq.com/](https://www.rabbitmq.com/)
+- AMQP & RabbitMQT - Routing and Exchanges - [https://www.cloudamqp.com/blog/2015-09-03-part4-rabbitmq-for-beginners-exchanges-routing-keys-bindings.html](https://www.cloudamqp.com/blog/2015-09-03-part4-rabbitmq-for-beginners-exchanges-routing-keys-bindings.html)
+
