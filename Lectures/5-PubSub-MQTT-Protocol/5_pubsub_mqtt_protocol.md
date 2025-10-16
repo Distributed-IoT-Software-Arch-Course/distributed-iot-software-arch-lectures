@@ -1,5 +1,5 @@
 <!-- omit in toc -->
-# Lecture 4 - Pub/Sub Introduction & MQTT Protocol
+# Lecture 5 - Pub/Sub Introduction & MQTT Protocol
 
 <!-- omit in toc -->
 ## Lecture Information
@@ -25,7 +25,7 @@
   - [5.6.1 ZeroMQ](#561-zeromq)
   - [5.6.2 DDS](#562-dds)
   - [5.6.3 Kafka](#563-kafka)
-  - [5.6.4 MQTT \& AMQP (Brief Overview)](#564-mqtt--amqp-brief-overview)
+  - [5.6.4 MQTT \& AMQP](#564-mqtt--amqp)
 - [5.7 The MQTT Protocol](#57-the-mqtt-protocol)
   - [5.7.1 Single Level Topic Wildcard](#571-single-level-topic-wildcard)
   - [5.7.2 Multi Level Topic Wildcard](#572-multi-level-topic-wildcard)
@@ -351,9 +351,9 @@ A network of environmental sensors uses ZeroMQ’s Pub/Sub pattern to broadcast 
 
 ---
 
-## 5.6.4 MQTT & AMQP (Brief Overview)
+## 5.6.4 MQTT & AMQP
 
-In this section, we provide a brief overview of two widely used Pub/Sub protocols: **MQTT (Message Queue Telemetry Transport)** and **AMQP (Advanced Message Queueing Protocol)**. Both protocols are designed to facilitate efficient and reliable communication in distributed systems, particularly in the context of the Internet of Things (IoT). **These two protocols will be covered in more detail in the next sections.**
+In this section, we provide a brief overview of two widely used Pub/Sub protocols: **MQTT (Message Queue Telemetry Transport)** and **AMQP (Advanced Message Queueing Protocol)**. Both protocols are designed to facilitate efficient and reliable communication in distributed systems, particularly in the context of the Internet of Things (IoT) and their are widely adopted in the industry and **really similar in terms of features and functionalities**.
 
 **MQTT (Message Queue Telemetry Transport)**
 
@@ -377,6 +377,99 @@ In this section, we provide a brief overview of two widely used Pub/Sub protocol
 - **Example (IoT):**  
   - Environmental sensors publish alerts to an exchange; the exchange routes messages to queues for different monitoring applications (e.g., `/alerts/fire`, `/alerts/flood`).
 - More info: [amqp.org](https://www.amqp.org)
+
+**Similarities between MQTT and AMQP:**
+
+Both **MQTT** and **AMQP** share several important features that make them suitable for IoT and distributed systems:
+
+- **Asynchronous Messaging:**  
+  - Both protocols support **asynchronous communication**, allowing devices to send and receive messages independently of each other's state or availability.  
+  - *Example (IoT):* A sensor can publish data even if the dashboard is temporarily offline; the dashboard receives the data when it reconnects.
+
+- **TCP-Based Transport:**  
+  - Both operate over the **TCP protocol**, ensuring reliable, ordered delivery of messages across networks.
+
+- **Application-Layer Multicast:**  
+  - They implement **application-layer multicast**, enabling one-to-many message distribution via topics (MQTT) or exchanges/queues (AMQP).  
+  - *Example (IoT):* Multiple devices subscribe to a topic or queue to receive updates from a single publisher.
+
+- **Transport Layer Security (TLS):**  
+  - Both protocols support **TLS encryption** for secure communication, protecting data in transit from eavesdropping or tampering.
+
+- **Cross-Platform Availability:**  
+  - There are **widely available implementations** for major platforms and programming languages, making integration straightforward in diverse IoT ecosystems.  
+  - *Example (IoT):* MQTT and AMQP clients are available for Python, Java, C, and embedded systems, enabling rapid development across device types.
+
+**Summary:**  
+These shared features make MQTT and AMQP robust choices for building secure, scalable, and interoperable IoT solutions.
+
+**Differences between MQTT and AMQP:**
+
+**Key Differences between MQTT and AMQP:**
+
+- **Architecture:**
+  - **MQTT:** Uses a **client/broker** architecture. Clients connect to a broker, which manages message routing.
+    - *IoT Example:* Sensors publish data to a central broker; dashboards subscribe to relevant topics.
+  - **AMQP:** Supports both **client/broker** and **client/server** architectures, allowing more flexible deployment models.
+    - *IoT Example:* Devices can interact with message queues or exchanges, enabling complex routing and processing.
+
+- **Queuing Mechanism:**
+  - **MQTT:** Primarily focuses on **topics** for message distribution; **Queues are managed by the broker and are not exposed to clients and cannot be customized or configured**.
+    - *Example:* Messages are sent to topics, and subscribers receive them based on their subscriptions.
+  - **AMQP:** Implements a robust **queuing mechanism** with **exchanges** and **queues**, allowing messages to be stored and processed asynchronously. Queues can be **customized** and **configured** in order to fit specific application needs and allow more complex routing scenarios. 
+    - *Example:* Messages can be routed to specific queues for processing by different applications or services through various exchange types (direct, topic, fanout, headers).
+
+- **Communication Patterns:**
+  - **MQTT:** Focuses on **publish/subscribe** messaging.
+    - *Example:* Devices publish sensor readings; subscribers receive updates from topics.
+  - **AMQP:** Supports **publish/subscribe** as well as **request/response** and **point-to-point** messaging.
+    - *Example:* An IoT device can request configuration data from a server or publish alerts to multiple consumers.
+
+- **Protocol Overhead:**
+  - **MQTT:** Has a **minimal header size** (2 bytes), resulting in **small message sizes**—ideal for resource-constrained devices and low-bandwidth networks.
+  - **AMQP:** Uses a **larger header size** (8 bytes) and **negotiable message sizes**, allowing for more metadata and advanced features.
+
+- **Supported Operations:**
+  - **MQTT:** Provides basic operations—**connect**, **publish**, **subscribe**, **disconnect**.
+  - **AMQP:** Offers a **richer set of operations**—**consume**, **deliver**, **publish**, **get**, **select**, **acknowledge**, **delete**, **recover**, **reject**, **open**, **close**.
+    - *IoT Example:* AMQP can manage message queues for reliable delivery and complex workflows.
+
+- **Caching and Proxy Support:**
+  - **MQTT:** Offers **partial support** for caching and proxying.
+  - **AMQP:** Provides **full support** for caching and proxying, enabling advanced message routing and storage.
+
+- **Security:**
+  - **MQTT:** Supports **TLS/SSL** for secure communication.
+  - **AMQP:** Supports **IPSec**, **SASL**, **TLS/SSL**, and can use **SCTP** in addition to TCP for transport.
+    - *IoT Example:* AMQP’s broader security options may be preferred in regulated environments.
+
+- **Quality of Service (QoS):**
+  - **MQTT:** Three levels—**QoS 0 (fire and forget)**, **QoS 1 (at least once)**, **QoS 2 (exactly once)**.
+    - *Example:* Use QoS 2 for critical actuator commands; QoS 0 for periodic sensor data.
+  - **AMQP:** Uses **settled** and **unsettled** message states to manage delivery guarantees, similar in concept to MQTT’s QoS.
+
+- **Standardization:**
+  - Both protocols are **supported by OASIS** and widely adopted in industry.
+
+**Summary Table:**
+
+| Feature                | MQTT                                    | AMQP                                      |
+|------------------------|-----------------------------------------|-------------------------------------------|
+| Architecture           | Client/Broker                           | Client/Broker, Client/Server              |
+| Queuing Mechanism      | Topics (managed by broker)              | Exchanges and Queues (customizable)       |
+| Messaging Pattern      | Publish/Subscribe                       | Publish/Subscribe, Request/Response       |
+| Header Size            | 2 bytes                                 | 8 bytes                                   |
+| Message Size           | Small, defined                          | Negotiable, undefined                     |
+| Operations             | Connect, Publish, Subscribe, Disconnect | Rich set: Consume, Deliver, Delete, etc.  |
+| Caching/Proxy Support  | Partial                                 | Full                                      |
+| Security               | TLS/SSL                                 | IPSec, SASL, TLS/SSL, SCTP                |
+| QoS                    | 0, 1, 2                                 | Settled/Unsettled                         |
+| Standardization        | OASIS                                   | OASIS                                     |
+
+**In summary:**  
+MQTT is ideal for **simple, lightweight IoT scenarios** with constrained devices and networks, while AMQP is suited for **complex, enterprise-grade messaging** with advanced routing, security, and reliability requirements.
+
+**Note:** In this course, we will focus on **MQTT** due to its widespread adoption in IoT applications and its suitability for resource-constrained environments. However, many concepts discussed for MQTT also apply to AMQP, given their similarities.
 
 ---
 
