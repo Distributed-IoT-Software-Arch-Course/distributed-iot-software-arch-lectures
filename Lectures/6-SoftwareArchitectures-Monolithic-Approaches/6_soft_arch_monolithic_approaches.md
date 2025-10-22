@@ -285,7 +285,7 @@ They act as a communication shorthand among architects: **a single name conveys 
 
 ## 6.4.1 Anti-Patterns - The Big Ball of Mud
 
-![](images/big_ball_of_mud_small.png)
+![](images/big_ball_of_mud.png)
 
 **Figure 6.4:** The Big Ball of Mud Anti-Pattern.
 
