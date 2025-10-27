@@ -351,6 +351,426 @@ Anti-pattern labels like the **Big Ball of Mud**, **Spaghetti code** (when code 
 
 ---
 
+## 6.4.3 Simple Patterns - Unitary Architecture
+
+Unitary Architecture describes systems where the entire software runs as a single, **tightly-coupled deployment on one machine or hardware platform**.
+
+- Background / evolution
+  - When software began, it ran on the same physical machine that provided computing resources — the software and hardware were effectively a single entity.
+  - Over time, hardware and software responsibilities split as needs grew:
+    - **Mainframes** moved toward separate data systems and storage subsystems.
+    - **Personal computers** began as single-host applications; networking later enabled client/server and distributed architectures.
+  - Today, Unitary Architecture remains common where constraints or simplicity make a single-host design appropriate.
+
+- Core characteristics
+  - **Single-host / monolithic** deployment: one executable or tightly-coupled process set.
+  - **Simple deployment and testing**: fewer moving parts, easier to install and debug.
+  - **Low operational overhead**: limited orchestration, fewer services to monitor.
+  - **Limited scalability**: vertical scaling (bigger hardware) only; horizontal scaling is difficult.
+  - **Tight coupling and low fault isolation**: failures can more easily affect the whole system.
+  - **Easier data sharing**: in-process data access avoids network serialization and latency.
+
+- Typical use cases
+  - **Embedded systems** and firmware with strict resource constraints.
+  - **Real-time systems** where predictable latency is critical.
+  - Small applications, prototypes, or tools where simplicity and fast delivery matter.
+  - Legacy systems that predate distributed paradigms.
+
+- When to choose Unitary Architecture
+  - Resource-constrained environments (CPU, memory, storage).
+  - Hard real-time or deterministic latency requirements.
+  - Projects prioritizing minimal operational complexity and fast time-to-market.
+
+- When to move away / reasons to split
+  - Need for greater **scalability** (support many users or high throughput).
+  - Desire for independent **deployability** and faster, safer releases.
+  - Improving **maintainability** by applying separation of concerns and reducing coupling.
+  - Increasing **reliability** and fault isolation across components.
+
+- Practical evolution
+  - Common path: Unitary (monolith) → modular monolith (clear boundaries) → distributed architecture (services/microservices) as requirements for **performance**, **scale**, and operability grow.
+
+---
+
+## 6.4.4 Simple Patterns - Client Server Architecture
+
+**Client–server (two‑tier)** architecture separates a system into **clients** (frontends) and a central **server** (backend). Core concepts and practical notes:
+
+- Core idea
+  - **Clients** send **requests**; the **server** processes requests, accesses or updates data, and returns **responses**.
+  - Also called **two‑tier**: **frontend** (UI, input) vs **backend** (business logic, storage).
+
+- Common variants
+  - **Thin client**: minimal logic on client, most processing on server.
+  - **Fat client**: significant business logic runs on the client.
+  - **Multi‑tier evolution**: add app servers, DB servers, caches, proxies or load balancers between client and data store.
+
+- State handling
+  - **Stateless** servers: each request independent — easier to scale.
+  - **Stateful** servers: sessions or in‑memory state — simpler semantics but harder to scale/failover.
+
+- Benefits
+  - **Simplicity** and clear responsibility split.
+  - **Centralized control** of data, security, and business rules.
+  - Easier to enforce policies, backups, and authorization.
+
+- Trade‑offs / limitations
+  - Potential **single point of failure** unless servers are replicated.
+  - **Scalability** constrained by server capacity (mitigated by clustering, load balancing, caching).
+  - Network **latency** and dependence on connectivity for remote clients.
+  - Tight coupling to server APIs can complicate client diversity.
+
+- Operational considerations
+  - Use **load balancers**, **replication**, and **caching** to improve availability and performance.
+  - Design clear **APIs** (REST, gRPC, WebSocket) and explicit **session management** strategies.
+  - Monitor server health, scale horizontally when needed, and plan failover/runbooks.
+
+- Typical use cases and evolution
+  - Widely used for web apps, mobile backends, enterprise systems, and legacy monoliths.
+  - Often evolves into **multi‑tier** or **distributed/microservices** architectures as scalability, modularity, or independent deployability become priorities.
+
+---
+
+## 6.4.5 Simple Patterns - Three-Tier Architecture
+
+![](images/three_tier_architecture.png)
+
+**Figure 6.5:** Schematic representation of Three-Tier Architecture.
+
+The **Three‑Tier Architecture** is a canonical layered pattern popularized in the late 1990s that separates concerns into three distinct tiers to improve maintainability, scalability, and testability.
+Each tier has a clear responsibility and communicates with adjacent tiers via well‑defined interfaces or APIs.
+
+- **Presentation Tier** (UI / client)
+  - Role: the user interface and communication layer that displays information and collects input from users.
+  - Responsibilities:
+    - Render views and handle user interactions.
+    - Validate user input and provide client‑side feedback.
+    - Forward requests to the Application Tier and display responses.
+  - Typical technologies: **HTML**, **CSS**, **JavaScript** (web); native or cross‑platform frameworks for desktop/mobile GUIs.
+  - Concerns: usability, accessibility, security (input sanitization), and responsiveness.
+
+- **Application Tier** (Logic / middle tier)
+  - Role: the core of the system where business rules, workflows, and application logic are executed.
+  - Responsibilities:
+    - Process and validate requests from the Presentation Tier.
+    - Enforce business rules, orchestrate transactions, and apply domain logic.
+    - Expose APIs (REST, gRPC, etc.) to the Presentation Tier and manage communication with the Data Tier.
+  - Typical technologies: **Java**, **Python**, **C#**, **Ruby**, **PHP**, or other server platforms and frameworks.
+  - Concerns: scalability (horizontal scaling, statelessness), security (authentication/authorization), performance, and observability.
+
+- **Data Tier** (Database / storage)
+  - Role: persistent storage and data management layer that stores and serves application data.
+  - Responsibilities:
+    - Provide durable storage, indexing, querying, and transactional guarantees as required.
+    - Enforce data integrity, backups, and migrations.
+  - Typical technologies: relational DBMS (**PostgreSQL**, **MySQL**, **SQL Server**) or NoSQL stores (**MongoDB**, **Cassandra**, etc.).
+  - Concerns: consistency, availability, backup/restore, scaling (sharding/replication), and data security (encryption, access control).
+
+- Cross‑tier considerations
+  - Communication: typically synchronous API calls between Presentation ↔ Application and Application ↔ Data; consider async patterns (message queues, event streams) when decoupling is required.
+  - Deployment: tiers can be co‑located or independently deployed/scaled depending on needs (e.g., separate app servers, DB cluster).
+  - Trade‑offs: clearer separation and independent scaling vs. extra operational complexity and potential latency between tiers.
+  - Best practices: define stable APIs, keep the Application Tier stateless when possible, secure every boundary, and instrument for observability and performance.
+
+---
+
+
+## 6.4.6 Software Architecture - Main Categories
+
+Architecture styles are commonly grouped into two main categories:
+
+- **Monolithic**
+  - Definition: a single, self-contained application where all components run in the same process and typically share the same codebase and datastore.
+  - Key characteristics:
+    - **Single deployable unit** — one executable or process set.
+    - **Shared codebase and storage** — simple data access and in-process integration.
+    - **Simple development & deployment** — easier local debugging, testing, and CI pipelines.
+    - **Limited horizontal scalability** — typically relies on vertical scaling; scaling the whole app even for small changes.
+    - **Stronger coupling** — changes can have wide impact; large releases can be riskier.
+  - Typical use cases: small apps, prototypes, embedded or real‑time systems, and projects where operational simplicity is a priority.
+
+- **Distributed**
+  - Definition: an application composed of multiple independent components or services that run on different machines and communicate over a network.
+  - Key characteristics:
+    - **Independent deployability** — services can be updated and scaled separately.
+    - **Horizontal scalability** and **fault isolation** — scale parts of the system independently and contain failures.
+    - **Networked communication** — introduces latency, partial failures, and serialization/compatibility concerns.
+    - **Operational complexity** — needs service discovery, orchestration, monitoring, and robust deployment practices.
+    - **Data partitioning & consistency trade-offs** — requires explicit strategies for consistency, replication, and transactions.
+  - Typical use cases: cloud-native systems, high‑scale web services, IoT backends, and applications requiring independent scaling and rapid evolution.
+
+- Common observations
+  - **Trade-offs:** monoliths favor simplicity; distributed systems favor scalability and isolation at the cost of complexity.
+  - **Shared challenges for distributed systems:** network faults and latency, partial failures, distributed transactions, consistency models, distributed testing, observability and tracing, deployment and configuration management, and security across boundaries.
+  - Many real systems occupy intermediate positions (e.g., modular monoliths, service-oriented architectures) — choose the style driven by measurable requirements (scalability, availability, team structure, operational capability).
+
+**Note:** **While no classification scheme is perfect**, distributed architectures all share a common set of challenges and issues not found in the monolithic architecture styles, making this classification scheme a good separation between the various architecture styles.
+
+---
+
+# 6.5 Software Architecture - Monolithic
+
+![](images/monolithic_soft_arch.png)
+
+**Figure 6.5:** A group of monolithic architecture styles.
+
+In this class we examine three main common monolithic architecture styles, summarizing their intent, core characteristics, trade‑offs, and typical uses.
+
+- **Layered architecture:** organize the system into stacked layers (e.g., Presentation → Application → Domain → Infrastructure) with well‑defined dependencies between adjacent layers.
+- **Pipeline (pipes-and-filters) architecture:** process data through a sequence of stages (filters) connected by pipes inside a single process; each stage transforms or filters the data.
+- **Microkernel (plug‑in) architecture:** a small core (microkernel) provides minimal runtime and extension points; features are implemented as plug‑ins or modules that run in the same process.
+
+**Summary:** all three are monolithic deployment styles that favor a single process for simplicity and low operational overhead. Choose based on the primary goals (separation and testability → layered; streamlined data flow → pipeline; extensibility and plugins → microkernel) and weigh their performance, complexity, and maintainability trade‑offs.
+
+---
+
+## 6.5.1 Monolithic Software Architecture - Layered Architecture
+
+![](images/n_tier_layered_arch.png)
+
+**Figure 6.6:** N-Tier Layered Architecture with the main classic layers.
+
+The **layered (n‑tier)** architecture is a widely adopted, pragmatic pattern for business applications. 
+It organizes functionality into stacked layers (e.g., Presentation → Business/Domain → Persistence → Data), **each with a focused responsibility**.
+
+- **Why it’s common**
+  - **Familiar**: maps naturally to common team roles (UI, backend, rules, DB experts).
+  - **Low friction**: easy to design, understand, test, and deploy.
+
+- **Key benefits**
+  - **Separation of concerns** — each layer has a clear responsibility.
+  - **Maintainability & testability** — smaller, focused modules simplify changes and testing.
+  - **Reuse & clarity** — stable interfaces between layers encourage reuse and clearer ownership.
+
+- **When to choose**
+  - Projects that require clear responsibilities, predictable delivery, and moderate scalability needs.
+
+- **Trade-offs**
+  - Can introduce extra latency and rigid boundaries; large systems may need modularization or a move toward distributed patterns as requirements grow.
+
+---
+
+## 6.5.1.1 Layered Architecture - Topology
+
+![](images/n_tier_layered_arch_topologies.png)
+
+**Figure 6.7:** Different Topologies in N-Tier Layered Architecture.
+
+- **Topology overview**  
+  Components are grouped into horizontal **layers**, each with a focused responsibility. There is no fixed number of layers, but the most common logical layers are: **Presentation**, **Business**, **Persistence**, and **Database**. Small systems may merge layers (3-layer), while large systems can have 5+ layers.
+
+- **Typical deployment variants (physical topology)**  
+  - **Monolithic deployment (app only)**: Presentation, Business and Persistence deployed as a single unit; Database is external (DB server or filesystem).  
+  - **Separated UI**: Presentation deployed independently; Business + Persistence deployed together; Database external.  
+  - **Single-package with embedded DB**: All four layers deployed together (useful for small apps or when using an embedded/in-memory DB).  
+  - **Fully separated tiers**: Presentation, Business and Persistence each deployed independently, communicating via APIs; Database hosted separately.  
+  - Choose the variant that balances operational simplicity, scalability needs, and fault isolation.
+
+- **Layer responsibilities (concise)**  
+  - **Presentation**: UI, input validation, rendering, and client-side orchestration.  
+  - **Business**: Enforce business rules, workflows, calculations and orchestration of domain logic.  
+  - **Persistence**: Data access patterns, mapping domain objects to storage, queries and transactions.  
+  - **Database**: Durable storage, indexing, consistency and backups.
+
+- **Separation of concerns — practical effect**  
+  - Each layer abstracts work for the layer above it: the Presentation doesn’t know how customer data is retrieved; the Business layer doesn’t know how data is formatted for display.  
+  - This enables focused expertise, clearer tests, and easier maintenance of each concern.
+
+- **Benefits and trade-offs**  
+  - Benefits: **clarity**, **testability**, **reuse**, and clear ownership boundaries.  
+  - Trade-off: potentially reduced **agility** when cross-layer changes are frequent and deployments are coarse-grained.
+
+- **Guideline**  
+  - Define measurable boundaries and interfaces between layers, and pick a deployment topology that matches your scalability, operational, and delivery requirements.
+
+---
+
+## 6.5.1.2 Layered Architecture - Discussion
+
+The layered architecture is an effective, low‑cost starting point for many projects. Key points:
+
+- When to choose
+  - Good for **small or simple applications**, prototypes, or websites.
+  - Appropriate when **time** and **budget** are tight or requirements are uncertain.
+  - Useful as a starting architecture while the domain and priorities are still being analyzed.
+
+- Strengths
+  - **Simplicity** and familiarity reduce onboarding and development friction.
+  - Clear **separation of concerns** (presentation, business, persistence) aids understanding and testing at layer level.
+  - Enables fast delivery and straightforward local debugging.
+
+- Limitations (as the system grows)
+  - **Maintainability**, **agility**, **testability**, and **deployability** can degrade as the codebase expands.
+  - Tends to produce **tighter coupling** and **larger deployable units**, increasing risk and MTTR.
+  - Not well suited for high horizontal scalability or independent component releases.
+
+- Practical guidance
+  - Start with layered when appropriate, but define clear module boundaries and keep code modular.
+  - Monitor growth and technical debt; plan an incremental migration (modular monolith → services) if scaling, independent deployability, or reliability needs increase.
+
+---
+
+## 6.5.1.3 Layered Architecture - Rating
+
+- **Summary:** Layered (monolithic) architectures favor simplicity and low cost but trade off deployability, scalability, and fault isolation.
+
+- Key points
+  - **Strengths**
+    - **Simplicity:** Easy to understand, develop, and operate.
+    - **Low cost:** Fewer moving parts and lower operational overhead.
+  - **Deployability & testability**
+    - **Low:** Any small code change typically requires redeploying the whole unit; changes are often bundled, increasing risk.
+  - **Scalability & elasticity**
+    - **Low:** Monolithic deployment limits horizontal scaling. Per-function scaling is possible but requires complex techniques (multithreading, internal messaging), which are awkward to implement and maintain.
+  - **Performance**
+    - **Low–Medium:** Not naturally suited for high parallelism; caching and concurrency can help but demand extra engineering.
+  - **Reliability, fault tolerance & availability**
+    - **Reliability:** Medium — benefits from lack of network complexity but still vulnerable to monolithic failure modes.
+    - **Fault tolerance:** Low — a single component failure (e.g., OOM - Out Of Memory) can crash the entire application.
+    - **Availability / MTTR (Mean Time To Recovery):** Medium–Low — long startup and recovery times increase mean-time-to-recovery (the time it takes to restore service after a failure) and availability risk.
+  - **Operational implication**
+    Suitable for small to medium systems, prototypes, or constrained environments. Monitor growth and plan modularization or service extraction before scale or availability requirements force risky rewrites.
+
+    | Characteristic             | Rating       | Definition                                                             |
+    |----------------------------|--------------|------------------------------------------------------------------------|
+    | Simplicity                 | High         | Ease of understanding, building, and operating the system.             |
+    | Cost                       | Low          | Development and operational expenses required to run the system.       |
+    | Deployability              | Low          | Ease and granularity of packaging and releasing updates.               |
+    | Testability                | Low          | Ease of writing, executing, and isolating automated tests.             |
+    | Reliability                | Medium       | Consistency of correct behavior over time under normal conditions.     |
+    | Elasticity / Scalability   | Low          | Ability to adjust capacity to meet variable load (horizontal scaling). |
+    | Performance                | Low–Medium   | Typical throughput and latency characteristics under expected load.    |
+    | Fault tolerance            | Low          | Ability to tolerate component failures without systemic collapse.      |
+    | Availability / MTTR        | Medium–Low   | Expected uptime and average time to recover from failures.             |
+
+---
+
+# 6.6 Software Architecture - Pipeline 
+
+![](images/pipe_arch.png)
+
+**Figure 6.8:** An example of Pipeline Architecture.
+
+The Pipeline architecture arranges processing as a linear sequence of stages (filters) connected by pipes. Each stage performs a focused operation on the data and forwards the result to the next stage.
+
+- **Structure**
+  - Stages (filters): self-contained units that perform one well-defined task.
+  - Pipes: unidirectional channels that carry data between stages.
+  - Data flows sequentially through the pipeline, enabling streaming or batch processing.
+
+- **Key properties**
+  - **Single responsibility:** each stage has a narrow, testable purpose.
+  - **Separation of concerns:** logic is decomposed across stages, improving clarity and reuse.
+  - **Parallelism:** independent stages (or multiple instances of a stage) can run concurrently to increase throughput.
+  - **Composability:** pipelines are easy to build, extend, and rearrange by composing stages.
+
+- **When to use**
+  - High-throughput data processing (ETL, stream analytics).
+  - Multimedia processing (audio/video encoding, transforms).
+  - Network packet processing and protocol stacks.
+  - Any workload that can be expressed as an ordered series of transformations.
+
+- **Benefits**
+  - Improved performance and scalability via parallelism and pipelining.
+  - Better maintainability and testability due to small, isolated stages.
+  - Predictable data flow and easier reasoning about processing steps.
+
+- **Considerations**
+  - Requires handling backpressure, buffering, and failure propagation between stages.
+  - Ordering constraints may limit some optimizations; careful design needed for stateful operations.
+  - Monitoring and instrumentation are important to diagnose bottlenecks.
+
+Overall, pipeline architecture is ideal when tasks can be decomposed into ordered, independent transformations that benefit from streaming and parallel execution.
+
+---
+
+## 6.6.1 Pipeline Architecture - Components 
+
+- **Pipeline components — overview**
+  - The pipeline is built from two primary elements: **pipes** (channels) and **filters** (processing stages). Design for small, well‑defined messages and composable, focused logic.
+
+- **Pipes**
+  - Unidirectional, point‑to‑point channels connecting one filter's output to the next filter's input.
+  - Carry arbitrary payloads, but prefer compact, serialized formats for performance and low latency.
+  - Responsibilities: buffering, backpressure handling, and reliable delivery between stages.
+
+- **Filters**
+  - Self‑contained processing units with a single responsibility; prefer stateless implementations so they can scale or be replicated.
+  - Complex behavior is composed by chaining multiple filters rather than embedding multiple tasks in one.
+  - Typical filter types:
+    - **Producer (Source):** generates or ingests data and pushes it into the pipeline (outbound only).
+    - **Transformer (Map):** reads input, transforms or enriches data, then forwards the result.
+    - **Tester (Filter):** evaluates criteria and conditionally forwards or drops items based on the test.
+    - **Consumer (Sink):** terminal stage that materializes results (persist, emit, or render).
+
+- **Design notes**
+  - Keep filter interfaces small and explicit to ease composition and testing.
+  - Address failure modes: retries, dead‑letter handling, and observability per stage.
+  - Optimize for parallelism by allowing independent instances of stateless filters to run concurrently.
+
+---
+
+## 6.6.2 Pipeline Architecture & ETL Processing
+
+ETL is the pipeline that makes data usable (e.g., IoT) for analytics and control: **Extract** raw telemetry, **Transform** it into consistent, enriched, and validated records, then **Load** it into a data store for real‑time or historical use.
+
+- **Context (Smart City example)**
+  - Sources: traffic sensors, weather stations, air‑quality monitors, cameras.
+  - Goal: optimize traffic flow and reduce pollution via analytics and automated actions.
+
+- **Extract**
+  - Ingest telemetry (counts, temperatures, pollution indices, timestamps) from heterogeneous devices and protocols.
+  - Support batch and streaming ingestion; handle variable arrival rates and intermittent connectivity.
+
+- **Transform**
+  - Normalize formats and units (e.g., Celsius → standardized unit, or convert to SenML).
+  - Cleanse and validate (fill/drop missing values, remove spikes, correct timestamps).
+  - Enrich with external data (map data, traffic reports, weather feeds) and derive features (rolling averages, anomaly flags).
+  - Address schema evolution and add metadata (device id, location, ingestion time).
+
+- **Load**
+  - Persist into the chosen storage (time-series DB, data warehouse, data lake) optimized for queries and retention policies.
+  - Provide both real‑time streams for control (e.g., adaptive signal timing) and historical stores for trend analysis and reporting.
+
+- **Key operational notes**
+  - Ensure observability, backpressure handling, and error handling (dead‑letter queues, retry policies).
+  - Define acceptance criteria (latency targets, data completeness, schema conformity) and automate tests.
+
+ETL turns messy IoT telemetry into reliable, analyzable data that powers real‑time decisions and long‑term insights.
+
+---
+
+## 6.6.2 An IoT ETL Example
+
+![](images/iot_etl_example.png)
+
+**Figure 6.9:** An IoT oriented ETL pipeline example.
+
+This Smart City IoT ETL Pipeline demonstrates the Pipeline (Pipes-and-Filters) architecture applied to real-world data processing. The diagram shows how raw IoT telemetry flows through a series of specialized filters connected by pipes to transform messy sensor data into actionable insights.
+
+Architecture Highlights:
+🔄 Extract Phase: Multiple Producer filters (traffic sensors, weather stations, air quality monitors, cameras) generate raw data streams that feed into the pipeline.
+
+⚙️ Transform Phase: A sequence of Transformer filters process the data:
+
+Data Cleansing removes corrupted/duplicate records
+Data Validation ensures quality standards
+Data Normalization converts to standardized formats (SenML)
+Data Enrichment combines with external APIs for context
+Data Formatting structures data for target systems
+📊 Load Phase: Consumer filters materialize results into different storage systems optimized for specific use cases (real-time analytics, historical analysis, data warehousing).
+
+Pipeline Benefits Realized:
+Single Responsibility: Each filter has one focused task (cleanse, validate, normalize)
+Composability: Filters can be rearranged or new ones added easily
+Parallelism: Multiple instances of stateless filters can run concurrently
+Fault Isolation: Failures in one stage don't crash the entire pipeline
+Scalability: Individual stages can be scaled based on bottlenecks
+This approach transforms the chaotic reality of heterogeneous IoT data into reliable, analyzable information that powers Smart City applications like traffic optimization and pollution reduction.
+
+
+---
+
 # References
 
 - MQTT - [http://mqtt.org/](http://mqtt.org/)
