@@ -37,6 +37,7 @@ The Distributed and Internet of Things Software Architectures course aims to equ
 3. [📖 IoT Protocols Overview](Lectures/3-IoT-Protocols-Overview/3_iot_protocols_overview.md)
 4. [📖 The HTTP Protocol & RESTful Architectural Style](Lectures/4-HTTP-Protocol-and-REST/4_http_protocol_and_rest.md)
 5. [📖 Publish/Subscribe Communication Pattern & MQTT Protocol](Lectures/5-PubSub-MQTT-Protocol/5_pubsub_mqtt_protocol.md)
+6. [📖 Software Architecture - Monolithic Approaches](Lectures/6-SoftwareArchitectures-Monolithic-Approaches/6_soft_arch_monolithic_approaches.md)
 
 ## 🤝 Contributing & Improving the Repository
 

@@ -26,6 +26,26 @@
 - [6.4 Software Architecture Foundations](#64-software-architecture-foundations)
   - [6.4.1 Anti-Patterns - The Big Ball of Mud](#641-anti-patterns---the-big-ball-of-mud)
   - [6.4.2 Anti-Patterns - Additional Comments](#642-anti-patterns---additional-comments)
+  - [6.4.3 Simple Patterns - Unitary Architecture](#643-simple-patterns---unitary-architecture)
+  - [6.4.4 Simple Patterns - Client Server Architecture](#644-simple-patterns---client-server-architecture)
+  - [6.4.5 Simple Patterns - Three-Tier Architecture](#645-simple-patterns---three-tier-architecture)
+  - [6.4.6 Software Architecture - Main Categories](#646-software-architecture---main-categories)
+- [6.5 Software Architecture - Monolithic](#65-software-architecture---monolithic)
+  - [6.5.1 Monolithic Software Architecture - Layered Architecture](#651-monolithic-software-architecture---layered-architecture)
+  - [6.5.1.1 Layered Architecture - Topology](#6511-layered-architecture---topology)
+  - [6.5.1.2 Layered Architecture - Discussion](#6512-layered-architecture---discussion)
+  - [6.5.1.3 Layered Architecture - Rating](#6513-layered-architecture---rating)
+- [6.6 Software Architecture - Pipeline](#66-software-architecture---pipeline)
+  - [6.6.1 Pipeline Architecture - Components](#661-pipeline-architecture---components)
+  - [6.6.2 Pipeline Architecture \& ETL Processing](#662-pipeline-architecture--etl-processing)
+  - [6.6.2 An IoT ETL Example](#662-an-iot-etl-example)
+  - [6.6.3 Pipeline Architecture \& ETL Rating](#663-pipeline-architecture--etl-rating)
+  - [6.7 Software Architecture - Microkernel](#67-software-architecture---microkernel)
+    - [6.7.1 Microkernel Topology](#671-microkernel-topology)
+    - [6.7.2 Microkernel Plugin Components](#672-microkernel-plugin-components)
+    - [6.7.3 Microkernel - Plugin Registry](#673-microkernel---plugin-registry)
+    - [6.7.3 Microkernel - Plugin Contacts](#673-microkernel---plugin-contacts)
+    - [6.7.3 Microkernel - Rating](#673-microkernel---rating)
 - [References](#references)
   
 # 6.1 Software Architecture - A Definition
@@ -44,11 +64,11 @@ It involves a set of **design decisions** that define the **overall structure an
 Architecture characteristics span a broad spectrum of concerns, from low-level code qualities to high-level operational behaviours. 
 They are not universally standardized — organisations define and measure them according to context — and new terms and metrics constantly emerge as the ecosystem evolves.
 
-- Core idea
+- **Core idea**
   - Architecture characteristics are the measurable or observable properties that influence a system’s design, operation, maintenance, and evolution.
   - They represent trade-offs: improving one characteristic (e.g., **performance**) can impact others (e.g., **maintainability**).
 
-- Common groups of characteristics
+- **Common groups of characteristics**
   - **Structural characteristics**
     - Focus on the system’s static organization: **modularity**, **cohesion**, **coupling**, **layering**, **component interfaces**.
     - Affect understandability, ease of change, and how responsibilities are decomposed.
@@ -69,32 +89,26 @@ Operational architecture characteristics define how a system behaves in producti
   - The proportion of time the system must be operational (e.g., 99.9%, 24/7).
   - Drives design choices: redundancy, failover, health checks, automated recovery.
   - Key considerations: Mean Time to Failure (MTTF), Mean Time to Repair (MTTR), service-level objectives (SLOs).
-
 - **Continuity / Disaster Recovery**
   - Ability to maintain or restore critical services after a catastrophic event.
   - Includes backup strategy, off-site replication, Recovery Time Objective (RTO), and Recovery Point Objective (RPO).
   - Planning: runbooks (e.g., documentation), periodic DR (Disaster Recovery) drills, and failover validation.
-
 - **Performance**
   - Response times, throughput, and resource utilization under expected and peak loads.
   - Requires capacity planning, stress and load testing, and profiling (CPU, memory, I/O, network).
   - Acceptance often requires dedicated test campaigns and SLAs (Service Level Agreements) for latency and throughput.
-
 - **Recoverability**
   - How quickly and completely the system can be returned to operation after failure.
   - Impacts backup frequency, data integrity checks, and automated restore pipelines.
   - Measured by RTO/RPO and validated via restore exercises.
-
 - **Reliability / Safety**
   - Consistency of service over time and whether failures cause unacceptable harms (financial, legal, or physical).
   - Determines need for fault-tolerant designs, graceful degradation, and safety-critical controls.
   - Validate through fault-injection testing and reliability growth tracking.
-
 - **Robustness**
   - Ability to tolerate errors, edge cases, and partial infrastructure failures without catastrophic collapse.
   - Includes defensive coding, input validation, retry/backoff strategies, and circuit breakers.
   - Evaluated by chaos testing and error-rate monitoring.
-
 - **Scalability**
   - Ability to maintain acceptable performance as load (users, requests, data) grows.
   - Includes vertical scaling (bigger resources) and horizontal scaling (more instances), and autoscaling policies.
@@ -112,13 +126,13 @@ Operational architecture characteristics overlap heavily with **operations** and
 
 - **DevOps** — a combination of cultural practices, principles, and tooling that integrates **Development** and **Operations** to deliver software faster, more reliably, and at scale.
 
-- Primary aims
+- **Primary aims**
   - **Collaboration**: cross-functional teams and shared ownership of code, infrastructure, and incidents.
   - **Automation**: reduce manual steps for builds, tests, deployments, and recovery.
   - **Faster feedback**: shorter feedback loops from production to development (metrics, logs, traces).
   - **Reliability & resilience**: build systems that meet SLOs (Service Level Objectives) and recover automatically.
 
-- Core practices and techniques
+- **Core practices and techniques**
   - **Continuous Integration / Continuous Delivery (CI/CD)** — automated build, test, and deploy pipelines to ensure safe, repeatable releases.
   - **Infrastructure as Code (IaC)** — versioned, reproducible infrastructure provisioning and configuration.
   - **Observability** — metrics, logs, and distributed tracing to diagnose behavior and validate SLOs.
@@ -126,7 +140,7 @@ Operational architecture characteristics overlap heavily with **operations** and
   - **Deployment strategies** — blue/green, canary, and automated rollbacks to reduce risk.
   - **Security automation (DevSecOps)** — automated scanning, secrets management, and compliance checks.
 
-- How DevOps supports operational architecture characteristics
+- **How DevOps supports operational architecture characteristics**
   - **Availability**: automated health checks, failover, and self-healing orchestrations driven by CI/CD and IaC.
   - **Scalability**: autoscaling policies, stateless design, and IaC enable predictable horizontal scaling.
   - **Performance**: performance testing in CI pipelines and production profiling inform capacity planning.
@@ -134,12 +148,12 @@ Operational architecture characteristics overlap heavily with **operations** and
   - **Robustness & Reliability**: defensive coding, circuit breakers, retries, and chaos engineering exercises.
   - **Observability & Operability**: alerting tied to SLOs, dashboards, and runbooks enable faster detection and resolution.
 
-- Organizational/cultural enablers
+- **Organizational/cultural enablers**
   - **Shift-left** testing and security practices; **shift-right** experimentation and progressive rollouts.
   - **Blameless postmortems** and continuous improvement from operational feedback.
   - Clear **SLOs/SLAs**, runbooks, and automated playbooks that connect architecture decisions to measurable operational outcomes.
 
-- Common tooling categories (examples)
+- **Common tooling categories (examples)**
   - CI/CD servers, container registries, IaC frameworks, orchestration platforms, monitoring/observability stacks, and secret/configuration stores.
 
 Together, DevOps practices operationalize architecture goals — turning non-functional requirements (availability, scalability, recoverability, performance, robustness) into automated, measurable, and repeatable processes.
@@ -153,47 +167,36 @@ Architects are responsible for code and architecture quality — ensuring **modu
 - **Modularity**
   - Decomposition into well-defined, cohesive components with clear interfaces.
   - Enables independent development, testing, and deployment.
-
 - **Controlled coupling**
   - Minimise and manage dependencies between modules (prefer abstractions, APIs).
   - Aim for loose coupling to reduce ripple effects from changes.
-
 - **Readability / Code quality**
   - Clear, consistent code style, self-descriptive names, and documentation.
   - Facilitates onboarding, review, and maintenance.
-
 - **Configurability**
   - Ability for users or operators to change behavior without code changes.
   - Examples: configuration files, feature flags, user-facing settings; pay attention to usability and validation.
-
 - **Extensibility**
   - Ease of adding new features or components with minimal changes to existing code.
   - Patterns: plugins, extension points, well-defined APIs.
-
 - **Installability**
   - Simplicity and reliability of installing the system on required platforms.
   - Includes packaging, installers, dependencies management, and clear installation docs.
-
 - **Leverageability / Reuse**
   - Capacity to share components, libraries, and services across products.
   - Encourages common modules, versioning strategy, and documentation for reuse.
-
 - **Localization**
   - Support for multiple languages, region-specific formats (dates, numbers, currencies), and multibyte character sets.
   - Design UI and data layers for easy translation and locale switching.
-
 - **Maintainability**
   - Effort required to understand, fix, and enhance the system.
   - Measured by change lead time, number of artifacts to update, and clarity of tests and docs.
-
 - **Portability**
   - Ability to run on different platforms, databases, or environments (e.g., Oracle vs MySQL, Windows vs Linux).
   - Minimise platform-specific assumptions and externalize platform bindings.
-
 - **Supportability**
   - Facilities required for effective troubleshooting and support.
   - Includes logging, metrics, diagnostics, configurable verbosity, and runbooks for common issues.
-
 - **Upgradeability**
   - Smooth migration path from one version to the next for servers and clients.
   - Consider data migrations, backward compatibility, and automated upgrade procedures.
@@ -231,27 +234,21 @@ include them in architecture decision records so cross‑cutting concerns are ve
 **- Start from the domain**
   - Describe what the system must do, who uses it, and when it is used.
   - Talk with stakeholders: product owners, users, operators, and experts to learn priorities and risks.
-
 **- Capture and prioritize requirements**
   - List **functional needs** (features) and **non‑functional needs** (availability, speed, security, privacy, etc.).
   - Rank them by business impact. Example questions: Is uptime most important? Is low latency required? Is compliance mandatory?
-
 **- Turn needs into measurable goals**
   - Convert priorities into clear targets: e.g. "99.9% uptime", "response <100 ms", "support 10k users", "RTO = 1 hour".
   - These targets become acceptance criteria for design and tests.
-
 **- Make trade-offs explicit**
   - Note conflicts (e.g., stronger security can slow responses or cost more).
   - Decide and record acceptable compromises based on cost and risk.
-
 **- Choose simple tactics that meet the goals**
   - Match tactics to goals: caching or CDNs for speed, auto‑scaling for load, encryption and IAM for security, regular backups for recoverability.
   - Prefer well‑understood, incremental changes that satisfy the measurable targets.
-
 **- Validate and iterate**
   - Prototype and run simple tests: basic load tests, failure drills, and security scans.
   - Use monitoring and real incidents to adjust priorities and design.
-
 **- Record decisions**
   - Keep short notes explaining: the business need → prioritized characteristics → measurable targets → chosen tactics.
   - Include runbooks or playbooks for operational steps (how to recover, who to call, what to monitor).
@@ -265,17 +262,15 @@ This simple loop (understand → prioritize → measure → choose → test → 
 **Architecture styles** (or **architecture patterns**) are **named templates that describe how components are organized and how they interact**. 
 They act as a communication shorthand among architects: **a single name conveys expected structure, common trade‑offs, deployment models, and typical data strategies**.
 
-- What an architecture style gives you
+- **What an architecture style gives you**
   - A brief description of the system **topology** (how parts are arranged).
   - Typical **characteristics** that tend to be strong (benefits) and weak (costs).
   - Common **deployment** and **data** approaches you can expect.
   - A shared vocabulary so teams can reason quickly about design decisions.
-
-- How to read a style in practice
+- **How to read a style in practice**
   - When someone says "**layered monolith**", they implicitly communicate structure, maintainability trade‑offs, deployment simplicity, and where scaling or coupling issues may appear.
   - Treat the style as a starting point, not an exact blueprint: details and constraints matter.
-
-- Choosing and using a style
+- **Choosing and using a style**
   - Start from **requirements** (functional and non‑functional).
   - List expected **benefits** and known **trade‑offs** for each candidate style.
   - Consider **deployment**, **data ownership**, **scalability**, and **operational** needs before committing.
@@ -320,23 +315,23 @@ To avoid the "Big Ball of Mud" anti-pattern, it is essential to prioritize **goo
 
 Anti-pattern labels like the **Big Ball of Mud**, **Spaghetti code** (when code is tangled and hard to follow) are diagnostic tools — **not personal criticisms**. They point out structural and process problems that occur when a system evolves without a clear architectural vision.
 
-- Purpose
+- **Purpose**
   - **Diagnose** structural decay and risks to maintainability and scalability.
   - **Emphasize issues**, not blame developers or intentions.
-
-- Common causes
+ 
+- **Common causes**
   - **Lack of intentional design** or documented architectural decisions.
   - **Accumulated technical debt** from short-term fixes.
   - **Poor modularity** and missing separation of concerns.
   - **Insufficient tests, refactoring, or CI practices**.
   - **Organizational factors**: time pressure, unclear ownership, or missing incentives.
 
-- Consequences
+- **Consequences**
   - Lower **maintainability** and slower feature delivery.
   - Higher **bug rates** and increased cost of change.
   - Difficult **onboarding** and reduced developer productivity.
 
-- Prevention and remediation (practical tactics)
+- **Prevention and remediation (practical tactics)**
   - Establish **intentional design**: capture architecture decision records and constraints.
   - Enforce **modularity**: clear components, interfaces, and boundaries.
   - Commit to **continuous refactoring** and scheduled technical‑debt reduction.
@@ -355,14 +350,14 @@ Anti-pattern labels like the **Big Ball of Mud**, **Spaghetti code** (when code 
 
 Unitary Architecture describes systems where the entire software runs as a single, **tightly-coupled deployment on one machine or hardware platform**.
 
-- Background / evolution
+- **Background / evolution**
   - When software began, it ran on the same physical machine that provided computing resources — the software and hardware were effectively a single entity.
   - Over time, hardware and software responsibilities split as needs grew:
     - **Mainframes** moved toward separate data systems and storage subsystems.
     - **Personal computers** began as single-host applications; networking later enabled client/server and distributed architectures.
   - Today, Unitary Architecture remains common where constraints or simplicity make a single-host design appropriate.
 
-- Core characteristics
+- **Core characteristics**
   - **Single-host / monolithic** deployment: one executable or tightly-coupled process set.
   - **Simple deployment and testing**: fewer moving parts, easier to install and debug.
   - **Low operational overhead**: limited orchestration, fewer services to monitor.
@@ -370,24 +365,24 @@ Unitary Architecture describes systems where the entire software runs as a singl
   - **Tight coupling and low fault isolation**: failures can more easily affect the whole system.
   - **Easier data sharing**: in-process data access avoids network serialization and latency.
 
-- Typical use cases
+- **Typical use cases**
   - **Embedded systems** and firmware with strict resource constraints.
   - **Real-time systems** where predictable latency is critical.
   - Small applications, prototypes, or tools where simplicity and fast delivery matter.
   - Legacy systems that predate distributed paradigms.
 
-- When to choose Unitary Architecture
+- **When to choose Unitary Architecture**
   - Resource-constrained environments (CPU, memory, storage).
   - Hard real-time or deterministic latency requirements.
   - Projects prioritizing minimal operational complexity and fast time-to-market.
 
-- When to move away / reasons to split
+- **When to move away / reasons to split**
   - Need for greater **scalability** (support many users or high throughput).
   - Desire for independent **deployability** and faster, safer releases.
   - Improving **maintainability** by applying separation of concerns and reducing coupling.
   - Increasing **reliability** and fault isolation across components.
 
-- Practical evolution
+- **Practical evolution**
   - Common path: Unitary (monolith) → modular monolith (clear boundaries) → distributed architecture (services/microservices) as requirements for **performance**, **scale**, and operability grow.
 
 ---
@@ -396,36 +391,36 @@ Unitary Architecture describes systems where the entire software runs as a singl
 
 **Client–server (two‑tier)** architecture separates a system into **clients** (frontends) and a central **server** (backend). Core concepts and practical notes:
 
-- Core idea
+- **Core idea**
   - **Clients** send **requests**; the **server** processes requests, accesses or updates data, and returns **responses**.
   - Also called **two‑tier**: **frontend** (UI, input) vs **backend** (business logic, storage).
 
-- Common variants
+- **Common variants**
   - **Thin client**: minimal logic on client, most processing on server.
   - **Fat client**: significant business logic runs on the client.
   - **Multi‑tier evolution**: add app servers, DB servers, caches, proxies or load balancers between client and data store.
 
-- State handling
+- **State handling**
   - **Stateless** servers: each request independent — easier to scale.
   - **Stateful** servers: sessions or in‑memory state — simpler semantics but harder to scale/failover.
 
-- Benefits
+- **Benefits**
   - **Simplicity** and clear responsibility split.
   - **Centralized control** of data, security, and business rules.
   - Easier to enforce policies, backups, and authorization.
 
-- Trade‑offs / limitations
+- **Trade‑offs / limitations**
   - Potential **single point of failure** unless servers are replicated.
   - **Scalability** constrained by server capacity (mitigated by clustering, load balancing, caching).
   - Network **latency** and dependence on connectivity for remote clients.
   - Tight coupling to server APIs can complicate client diversity.
 
-- Operational considerations
+- **Operational considerations**
   - Use **load balancers**, **replication**, and **caching** to improve availability and performance.
   - Design clear **APIs** (REST, gRPC, WebSocket) and explicit **session management** strategies.
   - Monitor server health, scale horizontally when needed, and plan failover/runbooks.
 
-- Typical use cases and evolution
+- **Typical use cases and evolution**
   - Widely used for web apps, mobile backends, enterprise systems, and legacy monoliths.
   - Often evolves into **multi‑tier** or **distributed/microservices** architectures as scalability, modularity, or independent deployability become priorities.
 
@@ -466,7 +461,7 @@ Each tier has a clear responsibility and communicates with adjacent tiers via we
   - Typical technologies: relational DBMS (**PostgreSQL**, **MySQL**, **SQL Server**) or NoSQL stores (**MongoDB**, **Cassandra**, etc.).
   - Concerns: consistency, availability, backup/restore, scaling (sharding/replication), and data security (encryption, access control).
 
-- Cross‑tier considerations
+- **Cross‑tier considerations**
   - Communication: typically synchronous API calls between Presentation ↔ Application and Application ↔ Data; consider async patterns (message queues, event streams) when decoupling is required.
   - Deployment: tiers can be co‑located or independently deployed/scaled depending on needs (e.g., separate app servers, DB cluster).
   - Trade‑offs: clearer separation and independent scaling vs. extra operational complexity and potential latency between tiers.
