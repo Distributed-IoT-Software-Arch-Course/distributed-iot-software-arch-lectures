@@ -316,7 +316,7 @@ To avoid the "Big Ball of Mud" anti-pattern, it is essential to prioritize **goo
 
 ![](images/spaghetti_coding.png)
 
-**Figure 6.4:** The simple "representation" of Spaghetti Code.
+**Figure 6.5:** The simple "representation" of Spaghetti Code.
 
 Anti-pattern labels like the **Big Ball of Mud**, **Spaghetti code** (when code is tangled and hard to follow) are diagnostic tools — **not personal criticisms**. They point out structural and process problems that occur when a system evolves without a clear architectural vision.
 
@@ -435,7 +435,7 @@ Unitary Architecture describes systems where the entire software runs as a singl
 
 ![](images/three_tier_architecture.png)
 
-**Figure 6.5:** Schematic representation of Three-Tier Architecture.
+**Figure 6.6:** Schematic representation of Three-Tier Architecture.
 
 The **Three‑Tier Architecture** is a canonical layered pattern popularized in the late 1990s that separates concerns into three distinct tiers to improve maintainability, scalability, and testability.
 Each tier has a clear responsibility and communicates with adjacent tiers via well‑defined interfaces or APIs.
@@ -512,7 +512,7 @@ Architecture styles are commonly grouped into two main categories:
 
 ![](images/monolithic_soft_arch.png)
 
-**Figure 6.5:** A group of monolithic architecture styles.
+**Figure 6.7:** A group of monolithic architecture styles.
 
 In this class we examine three main common monolithic architecture styles, summarizing their intent, core characteristics, trade‑offs, and typical uses.
 
@@ -528,7 +528,7 @@ In this class we examine three main common monolithic architecture styles, summa
 
 ![](images/n_tier_layered_arch.png)
 
-**Figure 6.6:** N-Tier Layered Architecture with the main classic layers.
+**Figure 6.8:** N-Tier Layered Architecture with the main classic layers.
 
 The **layered (n‑tier)** architecture is a widely adopted, pragmatic pattern for business applications. 
 It organizes functionality into stacked layers (e.g., Presentation → Business/Domain → Persistence → Data), **each with a focused responsibility**.
@@ -554,7 +554,7 @@ It organizes functionality into stacked layers (e.g., Presentation → Business/
 
 ![](images/n_tier_layered_arch_topologies.png)
 
-**Figure 6.7:** Different Topologies in N-Tier Layered Architecture.
+**Figure 6.9:** Different Topologies in N-Tier Layered Architecture.
 
 - **Topology overview**  
   Components are grouped into horizontal **layers**, each with a focused responsibility. There is no fixed number of layers, but the most common logical layers are: **Presentation**, **Business**, **Persistence**, and **Database**. Small systems may merge layers (3-layer), while large systems can have 5+ layers.
@@ -631,17 +631,17 @@ The layered architecture is an effective, low‑cost starting point for many pro
   - **Operational implication**
     Suitable for small to medium systems, prototypes, or constrained environments. Monitor growth and plan modularization or service extraction before scale or availability requirements force risky rewrites.
 
-    | Characteristic             | Rating       | Definition                                                             |
-    |----------------------------|--------------|------------------------------------------------------------------------|
-    | Simplicity                 | High         | Ease of understanding, building, and operating the system.             |
-    | Cost                       | Low          | Development and operational expenses required to run the system.       |
-    | Deployability              | Low          | Ease and granularity of packaging and releasing updates.               |
-    | Testability                | Low          | Ease of writing, executing, and isolating automated tests.             |
-    | Reliability                | Medium       | Consistency of correct behavior over time under normal conditions.     |
-    | Elasticity / Scalability   | Low          | Ability to adjust capacity to meet variable load (horizontal scaling). |
-    | Performance                | Low–Medium   | Typical throughput and latency characteristics under expected load.    |
-    | Fault tolerance            | Low          | Ability to tolerate component failures without systemic collapse.      |
-    | Availability / MTTR        | Medium–Low   | Expected uptime and average time to recover from failures.             |
+    | **Characteristic**             | **Rating**       | **Definition**                                                             |
+    |--------------------------------|------------------|----------------------------------------------------------------------------|
+    | Simplicity                     | High             | Ease of understanding, building, and operating the system.                 |
+    | Cost                           | Low              | Development and operational expenses required to run the system.           |
+    | Deployability                  | Low              | Ease and granularity of packaging and releasing updates.                   |
+    | Testability                    | Low              | Ease of writing, executing, and isolating automated tests.                 |
+    | Reliability                    | Medium           | Consistency of correct behavior over time under normal conditions.         |
+    | Elasticity / Scalability       | Low              | Ability to adjust capacity to meet variable load (horizontal scaling).     |
+    | Performance                    | Low–Medium       | Typical throughput and latency characteristics under expected load.        |
+    | Fault tolerance                | Low              | Ability to tolerate component failures without systemic collapse.          |
+    | Availability / MTTR            | Medium–Low       | Expected uptime and average time to recover from failures.                 |
 
 ---
 
@@ -649,7 +649,7 @@ The layered architecture is an effective, low‑cost starting point for many pro
 
 ![](images/pipe_arch.png)
 
-**Figure 6.8:** An example of Pipeline Architecture.
+**Figure 6.10:** An example of Pipeline Architecture.
 
 The Pipeline architecture arranges processing as a linear sequence of stages (filters) connected by pipes. Each stage performs a focused operation on the data and forwards the result to the next stage.
 
@@ -736,7 +736,8 @@ ETL is the pipeline that makes data usable (e.g., IoT) for analytics and control
   - Ensure observability, backpressure handling, and error handling (dead‑letter queues, retry policies).
   - Define acceptance criteria (latency targets, data completeness, schema conformity) and automate tests.
 
-ETL turns messy IoT telemetry into reliable, analyzable data that powers real‑time decisions and long‑term insights.
+**Note:** The main goal of ETL pipelines is to turn noisy and heterogeneous data such as IoT telemetry into reliable, analyzable data that powers real‑time decisions and long‑term insights.
+ETL pipelines are a classic use case for the Pipeline (pipes‑and‑filters) architecture pattern and are not only associated to monolithic architectures but also to distributed architectures and microservices and not only to IoT but also to data warehousing and big data processing. In this section we focus on a monolithic ETL pipeline example for IoT data due to the context of this lecture and the overall course.
 
 ---
 
@@ -744,40 +745,328 @@ ETL turns messy IoT telemetry into reliable, analyzable data that powers real‑
 
 ![](images/iot_etl_example.png)
 
-**Figure 6.9:** An IoT oriented ETL pipeline example.
+**Figure 6.11:** An IoT oriented ETL pipeline example.
 
-This Smart City IoT ETL Pipeline demonstrates the Pipeline (Pipes-and-Filters) architecture applied to real-world data processing. The diagram shows how raw IoT telemetry flows through a series of specialized filters connected by pipes to transform messy sensor data into actionable insights.
+This Smart City ETL pipeline applies the Pipeline (pipes‑and‑filters) pattern to convert heterogeneous IoT telemetry into actionable data.
 
-Architecture Highlights:
-🔄 Extract Phase: Multiple Producer filters (traffic sensors, weather stations, air quality monitors, cameras) generate raw data streams that feed into the pipeline.
+- **Extract**
+  - Multiple **Producer** filters (traffic sensors, weather stations, air‑quality monitors, cameras) ingest raw streams into the pipeline.
 
-⚙️ Transform Phase: A sequence of Transformer filters process the data:
+- **Transform** (ordered filters)
+  - **Data cleansing:** remove corrupted, duplicate or malformed records.
+  - **Validation:** enforce quality rules and schema conformance.
+  - **Normalization:** convert values and formats to a common representation (e.g., SenML).
+  - **Enrichment:** add context from external APIs (location, weather, maps).
+  - **Formatting:** serialize and structure records for target sinks.
 
-Data Cleansing removes corrupted/duplicate records
-Data Validation ensures quality standards
-Data Normalization converts to standardized formats (SenML)
-Data Enrichment combines with external APIs for context
-Data Formatting structures data for target systems
-📊 Load Phase: Consumer filters materialize results into different storage systems optimized for specific use cases (real-time analytics, historical analysis, data warehousing).
+- **Load**
+  - **Consumer** filters persist results into purpose‑built stores (real‑time analytics, time‑series DBs, data warehouses).
 
-Pipeline Benefits Realized:
-Single Responsibility: Each filter has one focused task (cleanse, validate, normalize)
-Composability: Filters can be rearranged or new ones added easily
-Parallelism: Multiple instances of stateless filters can run concurrently
-Fault Isolation: Failures in one stage don't crash the entire pipeline
-Scalability: Individual stages can be scaled based on bottlenecks
-This approach transforms the chaotic reality of heterogeneous IoT data into reliable, analyzable information that powers Smart City applications like traffic optimization and pollution reduction.
+- **Key benefits**
+  - **Single responsibility:** each filter performs one focused task.
+  - **Composability:** stages can be reordered or extended with minimal impact.
+  - **Parallelism & scalability:** stateless filters scale independently to remove bottlenecks.
+  - **Fault isolation:** failures are contained to stages (dead‑letter queues, retries).
+  - **Observability:** stage‑level metrics and tracing enable targeted monitoring and SLAs.
 
+This pipeline turns noisy, diverse IoT feeds into consistent, enriched datasets ready for Smart City use cases (traffic control, pollution monitoring, analytics).
+
+---
+
+## 6.6.3 Pipeline Architecture & ETL Rating
+
+The following table summarizes the strengths and trade‑offs of monolithic pipeline architectures and their application for ETL processing.
+
+- **Strengths**
+  - **Simplicity & low cost:** Monolithic pipeline is easy to implement and operate compared with distributed alternatives.
+  - **Modularity (in-process):** Clear separation into **filters** (producers, transformers, sinks) enables focused logic and localized changes — individual filters can be replaced or modified with minimal impact on others.
+  - **Good for streaming/ETL workloads:** Natural fit for ordered, transform‑centric data flows and for achieving high throughput inside a single process.
+
+- **Trade‑offs / limitations**
+  - Still a **monolith:** deployment granularity is coarse — the whole application is redeployed for many changes, so frequency of deploys and test cycles is constrained.
+  - **Scalability / elasticity:** **Low.** Horizontal scaling is hard because the unit is a single process; intra-process parallelism (multithreading, internal queues) is possible but complex and brittle.
+  - **Fault isolation & tolerance:** **Low.** A severe failure (e.g., OOM) in one filter can crash the entire application; limited ability to isolate faults across process boundaries. This problem is mainly due to the monolithic nature of the architecture rather than the pipeline pattern itself.
+  - **Availability / MTTR:** **Medium–Low.** Recovery often requires restarting the whole unit, increasing mean time to recovery compared with distributed designs.
+  - **Reliability:** **Medium.** Fewer network failure modes simplify behavior, but tight coupling reduces robustness to internal faults.
+
+- **Operational notes**
+  - Use per‑stage instrumentation, back‑pressure handling, dead‑letter queues, and thorough local testing to reduce risk.
+  - If growth requires independent scaling or stronger fault isolation, plan an incremental split of hot or failure‑prone filters into separately deployable components.
+
+| **Characteristic**             | **Rating**       | **Definition**                                                              |
+|-------------------------------:|:-----------------|:----------------------------------------------------------------------------|
+| Simplicity                     | High             | Easy to design, run and debug as a single process.                          |
+| Cost                           | Low              | Lower operational and development overhead vs distributed systems.          |
+| Deployability                  | Medium           | More modular than layered monoliths, but still coarse‑grained deploys.      |
+| Testability                    | Medium           | Filters are testable in isolation, but full integration tests are heavy.    |
+| Reliability                    | Medium           | Simpler runtime but vulnerable to single‑process failures.                  |
+| Elasticity / Scalability       | Low              | Hard to scale horizontally without complex internal techniques.             |
+| Performance                    | Medium           | Good streaming throughput inside process; limited by single host.           |
+| Fault tolerance                | Low              | Poor isolation — a failing filter can affect the whole app.                 |
+| Availability / MTTR            | Medium–Low       | Recovery often requires restarting the monolith, raising MTTR.              |
+
+---
+
+## 6.7 Software Architecture - Microkernel
+
+![](images/microkernel_arch.png)
+
+**Figure 6.12:** Schematic representation of the microkernel architecture with Core System and Plug-in Components.
+
+The microkernel (plug‑in) architecture separates a small, minimal **core system** from independently developed **plug‑in components** that provide application features. 
+It is especially suitable for productized software (installable packages) but is also common in custom business applications where extensibility and customization are required.
+
+- **Core system** — the minimal runtime that provides lifecycle management, extension points, plugin loading, and basic services (e.g., configuration, logging, IPC).
+- **Plug‑in components** — independent modules implementing features; loaded/unloaded by the core and interacting via well‑defined APIs.
+- **Key benefits**
+  - **Extensibility:** add or replace features without changing the core.
+  - **Modularity & isolation:** easier maintenance, testing, and fault containment.
+  - **Customizability:** deliver tailored builds by enabling/disabling plugins.
+- **Trade‑offs**
+  - Potential runtime overhead and more complex plugin/version management.
+  - Requires clear API contracts and compatibility policies.
+- **When to choose**
+  - Product platforms (IDEs, media players), extensible servers, or systems needing customer‑specific extensions.
+  - IoT gateways and edge platforms that load protocol/adaptor, device‑driver, or edge‑analytics plug‑ins to support heterogeneous devices and local processing.
+- **Example:**
+  - An IDE whose core is a basic editor (open/edit/save) and whose language support, debugging, and VCS integrations are delivered as plug‑ins.
+  - An IoT edge gateway with a microkernel core that loads protocol adapters (MQTT, CoAP), device drivers, and local analytics modules as plug‑ins.
+
+Keep the core minimal and define stable plugin APIs to maximize the pattern’s benefits.
+
+---
+
+### 6.7.1 Microkernel Topology
+
+![](images/microkernel_function_example.png)
+
+**Figure 6.13:** Example of microkernel architecture with function-specific plug-ins related to IoT protocol management.
+
+Instead of embedding client-specific customizations in the core (which increases coupling and interoperability complexity), implement them as separate plug-ins. Key points:
+
+- **Isolation:** client logic lives in independent plug-ins, keeping the core small and simple.
+- **Extensibility:** add features by dropping in a new plug-in and updating the core’s registry — no invasive core changes.
+- **Stable contracts:** the core exposes a concise plug-in API; plug-ins implement device‑specific behavior.
+- **Runtime invocation:** the core locates the appropriate plug-in via the registry and invokes the target method to run the requested function.
+- **Benefits:** reduced core complexity, easier testing and maintenance, improved fault isolation, and simpler feature rollout.
+
+![](images/microkernel_arch_topologies_1.png)
+
+**Figure 6.14:** Different Microkernel Core Topologies with a layered architecture or domain-driven design.
+
+Depending on size and complexity, the **core** can be implemented as a **layered architecture** or a **modular monolith**. Alternatively, the core can be decomposed into independently deployed **domain services**, each hosting the plug‑ins relevant to that domain (e.g., **device management**, **data processing** or **analytics**).
+
+Example: an IoT platform may implement protocol adaptors as separate plug‑ins (e.g., **MQTT**, **CoAP**, **HTTP**) that are either loaded by the core or provided by the corresponding domain service.
+
+Key points
+- **Core options:** layered or modular monolith.
+- **Decomposition:** split into independently deployable domain services when helpful.
+- **Plug‑ins:** one plug‑in per protocol/adapter for clear separation of concerns.
+- **Data strategy:** monolithic deployments commonly use a **single shared database** — if you split services, explicitly decide data ownership (shared DB vs per‑service storage) and the resulting trade‑offs (coupling, consistency, scalability).
+
+![](images/microkernel_arch_topologies_2.png)
+
+**Figure 6.15:** Other Microkernel Topologies with embedded User Interfaces and multiple deployment options.
+
+- The **presentation layer** can be either **embedded** in the core (tighter coupling, single deployment) or implemented as a **separate UI** that consumes backend services (decoupled, independently deployable).
+- A separate UI may itself adopt a **microkernel** (plug‑in) style to support extensibility and customization.
+- Architectures often mix these styles — combining embedded cores, layered modules, microkernels, or modular monoliths — producing variants with different trade‑offs in **deployability**, **extensibility**, **fault isolation**, and **operational complexity**.
+- Choose the combination that matches your measurable goals (scalability, maintainability, release cadence, and operational capacity).
+
+---
+
+### 6.7.2 Microkernel Plugin Components
+
+In this section we focus on the **plug‑in components** of the microkernel architecture, summarizing their key characteristics and design guidelines.
+
+- **Definition & purpose**
+  - Standalone, independent modules that **extend or enhance the core** by providing specialized processing, features, or custom code.
+  - Used to **isolate highly custom logic**, improving maintainability and testability.
+
+- **Independence & boundaries**
+  - Ideally **no direct dependencies between plugins**; each plugin depends only on the core’s stable API.
+  - Communicate with the core through a **well‑defined entry point** (interface / method invocation). This is typically point‑to‑point (direct call), but can also use events or callbacks if designed into the core.
+
+- **Lifecycle modes**
+  - **Runtime (dynamic) plugins**: can be added, updated, or removed without redeploying the core. Managed by plugin frameworks (e.g., OSGi, Jigsaw, Penrose, Prism or similar).
+  - **Compile‑time (static) plugins**: simpler to manage but require a full application redeploy when changed.
+
+- **Practical guidance**
+  - Define **stable, small APIs** for plugin–core interaction.
+  - Version and compatibility policy for plugins to avoid runtime conflicts.
+  - Ensure plugin failures are contained (timeouts, isolation, error handling) so the core remains resilient.
+
+
+![](images/microkernel_plugin_core_communication_example.png)
+
+**Figure 6.16:** Example of REST communication between core and plug-ins.
+
+- **Communication options:** Plug‑ins are not limited to point‑to‑point calls (e.g., in memory or internal communication among different processes and threads) — they can be invoked via **REST** or **messaging** channels such as Publish/Subscribe (Pub/Sub) or message queues.
+- **Deployment model:**
+  - In a **Monolithic Architecture** (this lecture) plug‑in is typically an **in‑process module** (e.g., shared library, dynamically loaded module) and core and plug‑in run in the same process/application/machine.
+  - In a **distributed vision** (next lecture) plug‑in can be a **standalone service** (for example, a containerized microservice) rather than an in‑process module.
+- **Benefit:** This enables better **isolation** and **independent scaling** of plug‑in logic.
+- **Limitation:** The pattern still often represents a single architectural quantum if the **monolithic core** must mediate every request — the core remains the central coupling point.
+- **When to evolve further:** To achieve true distribution, reduce the core’s mediation (e.g., allow direct client→plugin calls, introduce an API gateway, or extract responsibilities into independent services), balancing added operational complexity against scalability gains.
+
+Asynchronous communication with plug‑ins can improve responsiveness and decouple long‑running tasks, but it introduces clear trade‑offs.
+
+- Benefits
+  - **Asynchronous** triggers let the core return quickly and offload work to plug‑ins, improving perceived **responsiveness**.
+  - Plug‑ins can notify the core via a separate **messaging channel**, enabling non‑blocking user notifications and better scalability for long tasks.
+
+- Trade‑offs
+  - Remote plug‑in access effectively turns the microkernel into a **distributed architecture**, adding operational and deployment **complexity** (service discovery, network, security, monitoring).
+  - Harder to deploy for many third‑party on‑prem products and increases overall **cost**.
+  - New failure modes: if a remote plug‑in is down or **unresponsive** (especially with synchronous REST calls) requests may fail or time out.
+  - Requires additional infrastructure: timeouts, retries, circuit breakers, health checks, and dead‑letter handling.
+
+- Recommendations
+  - Base the choice on measurable requirements (latency, availability, operational capacity) and perform a **trade‑off analysis**.
+  - Consider hybrid approaches: use **async messaging** for long‑running or non‑critical tasks and local/point‑to‑point calls for latency‑sensitive operations.
+  - Implement robust failure handling (timeouts, retries, circuit breakers, monitoring, and versioning) before exposing remote plug‑ins in production.
+
+![](images/microkernel_arch_storage.png)
+
+**Figure 6.17:** Microkernel and storage possibilities.
+
+Prefer the core to mediate all access to shared storage; plug‑ins should not connect directly to a centrally shared database. 
+This preserves **decoupling** and ensures schema or platform changes affect only the **core**, not third‑party plug‑ins.
+
+Key points:
+
+- **Core‑mediated access**: the core retrieves/persists shared data and passes only the required payload to plug‑ins via well‑defined APIs.
+- **Plugin‑owned datastore (optional)**: plug‑ins may maintain their own private storage for local state, rules, or caches. This store can be:
+  - **Embedded** (in‑process, in‑memory, or embedded DB) for low latency and simpler deployments, or
+  - **External** (per‑plugin database or service) when persistence, isolation, or scaling is needed.
+- **Benefits of plugin stores**: better isolation, independent schema evolution, and confined failure domains.
+- **Design rules**:
+  - Define clear contracts (APIs) between core and plug‑ins; avoid direct schema sharing.
+  - Document ownership and consistency expectations (who is authoritative for which data).
+  - Use async messaging or APIs for long‑running or unreliable operations; add timeouts and retries.
+  - Apply versioning and compatibility policies for plugin storage formats and APIs.
+- **When to allow direct external access**: only if strong justification exists (performance or legal requirements) and with strict governance (contracts, ACLs, and change procedures).
+
+This approach balances extensibility and maintainability: the core remains the stable integration point while plug‑ins can keep private state when necessary.  
+
+---
+
+### 6.7.3 Microkernel - Plugin Registry
+
+![](images/python_registry_example.png)
+
+**Figure 6.18:** Simple Python registry example.
+
+The core system should know which plug‑ins are available and how to reach them. 
+A **plug‑in registry** provides this information: discoverability, routing, compatibility checks, and lifecycle management.
+
+- Purpose
+  - **Discoverability**: locate available plug‑ins at runtime.
+  - **Routing & access**: know how to call each plug‑in (in‑process, HTTP, gRPC, MQTT, etc.).
+  - **Compatibility**: validate data contracts and supported versions.
+  - **Lifecycle**: register/unregister, health, and versioning.
+
+- Typical registry entry (concise)
+  - **id / name** — unique identifier (e.g., TemperatureSensorDataHandler)
+  - **version**
+  - **data contract** — input → output types (e.g., SenML → JSON)
+  - **contract format** — JSON, YAML, Protobuf, etc.
+  - **access info** — in‑process reference or endpoint + protocol (URL, port, protocol)
+  - **auth / security** — required credentials, scopes, TLS (Transport Layer Security) requirements
+  - **capabilities / tags** — supported features, QoS, priority
+  - **health / status** — last heartbeat, availability metrics
+  - **lifecycle metadata** — registration time, supported versions, deprecation
+
+- Implementation options
+  - **In‑process map**: simple, owned by the core (key → component reference).
+  - **Embedded discovery**: dynamic registry built into the core (supports hot registration).
+  - **External registry/discovery**: Consul, ZooKeeper, service mesh, or DNS for larger deployments.
+
+- Best practices
+  - Keep registry entries minimal and stable; version contracts explicitly.
+  - Secure registry data and restrict who can register/update entries.
+  - Include health checks and timeouts; support dynamic registration/unregistration.
+  - Prefer core‑mediated access to shared storage or document explicit rules if plug‑ins may access storage directly.
+
+This concise registry model lets the core locate, validate, and invoke plug‑ins reliably while keeping compatibility and operational concerns explicit.
+
+---
+
+### 6.7.3 Microkernel - Plugin Contacts
+
+![](images/plugin_example.png)
+
+**Figure 6.19:** Example of simple plug-in code.
+
+In this section we focus on the **plugin–core contracts** that define how plug‑ins interact with the core system. 
+Clear, stable contracts are essential for decoupling, extensibility, and maintainability.
+
+- Plugin–core contracts should be **standardized per domain**, defining the expected behavior, input data, and output data so the core can treat all plugins uniformly.
+- When a plugin is supplied by a third party and uses a **custom contract**, implement an **adapter** that translates the custom contract into your standard contract. This keeps the core free from plugin-specific logic.
+- Contract representations can be **XML**, **JSON**, or native **objects/interfaces** exchanged in‑process or via IPC/REST. Prefer strongly‑typed interfaces when possible for clarity and safety.
+- In the IoT recycling example, an exampl of contract can include:
+  - Methods: **register()**, **deregister()**, **handleDevice(...)** — where handleDevice accepts the device request and returns a standardized result.
+  - Result object (IoTDeviceResult) fields:
+    - **deviceProtocol** — protocol used by the device (e.g., MQTT, CoAP)
+    - **connected** — boolean connection/status flag
+    - **payload** — processed or raw payload returned by the plugin
+    - **targetUrl** — resource endpoint or callback URL for further actions
+- Summary: keep the core dependent only on the standard contract; isolate variability in adapters, version contracts explicitly, and include compatibility/health metadata in the registry so plugins can be managed safely.
+
+---
+
+### 6.7.3 Microkernel - Rating
+
+- **Summary (concise)**  
+  - The microkernel is **simple and low-cost** to operate while offering strong **modularity** and **extensibility** via independent plug‑ins.  
+  - Its common weakness is **limited horizontal scalability** and potential **core‑mediated bottlenecks** (the core can become a single point of failure or a performance choke).  
+  - Microkernels can be **technically partitioned** (most common) and — when there is a strong domain-to-architecture isomorphism — also **domain partitioned** (e.g., per-location or per-client configurations, highly customizable products).
+
+- **Key points**
+  - Strengths
+    - **Simplicity / Low cost:** small core and in‑process plug‑ins reduce operational overhead.
+    - **Modularity & Extensibility:** features are added/removed as independent plug‑ins, easing maintenance and upgrades.
+    - **Testability & Deployability:** isolatable plug‑ins reduce testing scope and deployment risk; runtime plugin loading can enable hot updates.
+    - **Performance (practical):** small, streamlined deployments can run efficiently; unused plug‑ins can be disabled to improve throughput.
+  - Weaknesses / trade‑offs
+    - **Scalability:** horizontal scaling is limited unless plug‑ins are extracted to separate services.
+    - **Core bottleneck & fault isolation:** routing all requests through the core increases coupling and can raise MTTR if the core fails.
+    - **Operational complexity for plugins:** versioning, compatibility, lifecycle and registry management add governance overhead.
+    - **Failure modes with remote plugins:** moving plugins out-of-process introduces network failure modes, timeouts and orchestration needs.
+
+- **When to choose**
+  - Product platforms or extensible servers that require runtime customization, per-customer configuration, or a stable small core with replaceable features (IDEs, gateways, on‑prem extensible products).
+
+- **Short recommendations**
+  - Keep the core minimal and stable; define small, versioned plugin contracts.  
+  - Prefer core‑mediated storage access or explicitly document data ownership rules.  
+  - Use runtime plugin registries with health checks, timeouts, and compatibility metadata.  
+  - If high scale or fault isolation is required, plan an incremental evolution to extract hot or critical plugins into services.
+
+| **Characteristic**             | **Rating**       | **Definition**                                                                                            |
+|--------------------------------|------------------|-----------------------------------------------------------------------------------------------------------|
+| Simplicity                     | High             | Small core and in‑process plugins make the system easy to understand and run.                             |
+| Cost                           | Low              | Lower operational overhead than fully distributed systems.                                                |
+| Deployability                  | Medium–High      | Individual plugins can reduce deployment risk; core changes still impact whole system.                    |
+| Testability                    | Medium–High      | Plugins are testable in isolation; integration tests still required for core/plugin interactions.         |
+| Modularity                     | High             | Clear separation between core and plugins enables focused development.                                    |
+| Extensibility                  | High             | New features are added as plugins with minimal core changes.                                              |
+| Reliability                    | Medium           | Small core reduces network failure modes but core faults affect many features.                            |
+| Elasticity / Scalability       | Low–Medium       | Hard to scale horizontally unless plugins are externalized.                                               |
+| Performance                    | Medium           | Generally good for compact deployments; can be optimized by disabling plugins.                            |
+| Fault tolerance                | Low–Medium       | Limited fault isolation if core is overloaded or fails.                                                   |
+| Availability                   | Medium           | Runtime plugins can lower MTTR (Mean Time To Recovery) for plugin-only changes; core issues still costly. |
 
 ---
 
 # References
 
-- MQTT - [http://mqtt.org/](http://mqtt.org/)
-- HiveMQ - MQTT Essentials - [https://www.hivemq.com/blog/](https://www.hivemq.com/blog/)
-- Mosquito MQTT Bridge Mode - [http://www.steves-internet-guide.com/mosquitto-bridge-configuration/](http://www.steves-internet-guide.com/mosquitto-bridge-configuration/)
-- Difference Between AMQP & MQTT - [https://www.educba.com/amqp-vs-mqtt/](https://www.educba.com/amqp-vs-mqtt/)
-- Introduction to RabbitMQT - [https://www.cloudamqp.com/blog/2015-05-18-part1-rabbitmq-for-beginners-what-is-rabbitmq.html](https://www.cloudamqp.com/blog/2015-05-18-part1-rabbitmq-for-beginners-what-is-rabbitmq.html)
-- RabbitMQT - [https://www.rabbitmq.com/](https://www.rabbitmq.com/)
-- AMQP & RabbitMQT - Routing and Exchanges - [https://www.cloudamqp.com/blog/2015-09-03-part4-rabbitmq-for-beginners-exchanges-routing-keys-bindings.html](https://www.cloudamqp.com/blog/2015-09-03-part4-rabbitmq-for-beginners-exchanges-routing-keys-bindings.html)
-
+- Fundamentals of Software Architecture: An Engineering Approach, by Mark Richards, Benjamin Lange, Neal Ford, Released February 2021, ISBN: 9781663728357
+- Monolithic vs Microservices - [Link](https://articles.microservices.com/monolithic-vs-microservices-architecture-5c4848858f59)
+- Pattern: Microservice Architecture - [Link](https://microservices.io/patterns/microservices.html)
+- Monolithic Architecture - [Link](https://microservices.io/patterns/monolithic.html)
+- Don’t start with Monolith - [Link](https://martinfowler.com/articles/dont-start-monolith.html)
+- Monolithic vs Microservice and all in between - [Link](https://medium.com/swlh/monolithic-vs-micro-services-and-all-in-between-7d496408ad02)
+- Best Architecture for an MVP: Monolith, SOA, Microservices, or Serverless? - [Link](https://rubygarage.org/blog/monolith-soa-microservices-serverless)
+- Microservices Introduction (Monolithic vs. Microservice Architecture) - [Link](https://dzone.com/articles/microservices-1-introduction-monolithic-vs-microservices)
+- How to break a Monolith into Microservices - [Link](https://martinfowler.com/articles/break-monolith-into-microservices.html)
