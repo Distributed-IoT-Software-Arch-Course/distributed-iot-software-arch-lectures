@@ -16,36 +16,34 @@
 <!-- omit in toc -->
 # Table of Contents
 
-- [6.1 Software Architecture - A Definition](#61-software-architecture---a-definition)
-- [6.2 Software Architecture - Characteristics](#62-software-architecture---characteristics)
-  - [6.2.1 Operational Characteristics](#621-operational-characteristics)
-  - [6.2.2 Operational Architecture Characteristics \& DevOps](#622-operational-architecture-characteristics--devops)
-  - [6.2.3 Structural Architecture Characteristics](#623-structural-architecture-characteristics)
-  - [6.2.4 Cross-Cutting Architecture Characteristics](#624-cross-cutting-architecture-characteristics)
-- [6.3 Extracting Software Architecture Characteristics](#63-extracting-software-architecture-characteristics)
-- [6.4 Software Architecture Foundations](#64-software-architecture-foundations)
-  - [6.4.1 Anti-Patterns - The Big Ball of Mud](#641-anti-patterns---the-big-ball-of-mud)
-  - [6.4.2 Anti-Patterns - Additional Comments](#642-anti-patterns---additional-comments)
-  - [6.4.3 Simple Patterns - Unitary Architecture](#643-simple-patterns---unitary-architecture)
-  - [6.4.4 Simple Patterns - Client Server Architecture](#644-simple-patterns---client-server-architecture)
-  - [6.4.5 Simple Patterns - Three-Tier Architecture](#645-simple-patterns---three-tier-architecture)
-  - [6.4.6 Software Architecture - Main Categories](#646-software-architecture---main-categories)
-- [6.5 Software Architecture - Monolithic](#65-software-architecture---monolithic)
-  - [6.5.1 Monolithic Software Architecture - Layered Architecture](#651-monolithic-software-architecture---layered-architecture)
-  - [6.5.1.1 Layered Architecture - Topology](#6511-layered-architecture---topology)
-  - [6.5.1.2 Layered Architecture - Discussion](#6512-layered-architecture---discussion)
-  - [6.5.1.3 Layered Architecture - Rating](#6513-layered-architecture---rating)
-- [6.6 Software Architecture - Pipeline](#66-software-architecture---pipeline)
-  - [6.6.1 Pipeline Architecture - Components](#661-pipeline-architecture---components)
-  - [6.6.2 Pipeline Architecture \& ETL Processing](#662-pipeline-architecture--etl-processing)
-  - [6.6.2 An IoT ETL Example](#662-an-iot-etl-example)
-  - [6.6.3 Pipeline Architecture \& ETL Rating](#663-pipeline-architecture--etl-rating)
-  - [6.7 Software Architecture - Microkernel](#67-software-architecture---microkernel)
-    - [6.7.1 Microkernel Topology](#671-microkernel-topology)
-    - [6.7.2 Microkernel Plugin Components](#672-microkernel-plugin-components)
-    - [6.7.3 Microkernel - Plugin Registry](#673-microkernel---plugin-registry)
-    - [6.7.3 Microkernel - Plugin Contacts](#673-microkernel---plugin-contacts)
-    - [6.7.3 Microkernel - Rating](#673-microkernel---rating)
+- [7.1 Distributed Software Architectures - A Definition](#71-distributed-software-architectures---a-definition)
+- [7.2 Distributed Software Architectures - Fallacies](#72-distributed-software-architectures---fallacies)
+  - [7.2.1 Fallacy 1 - The network is reliable](#721-fallacy-1---the-network-is-reliable)
+  - [7.2.2 Fallacy 2 - Latency is zero](#722-fallacy-2---latency-is-zero)
+  - [7.2.3 Fallacy 3 - Bandwidth is infinite](#723-fallacy-3---bandwidth-is-infinite)
+  - [7.2.3.1 Stamp Coupling](#7231-stamp-coupling)
+  - [7.2.4 Fallacy 4 - The network is secure](#724-fallacy-4---the-network-is-secure)
+  - [7.2.5 Fallacy 5 - Topology doesn't change](#725-fallacy-5---topology-doesnt-change)
+  - [7.2.6 Fallacy 6 - There is one administrator](#726-fallacy-6---there-is-one-administrator)
+  - [7.2.7 Fallacy 7 - Transport cost is zero](#727-fallacy-7---transport-cost-is-zero)
+  - [7.2.8 Fallacy 8 - The network is homogeneous](#728-fallacy-8---the-network-is-homogeneous)
+- [7.3 Additional Distributed Challenges](#73-additional-distributed-challenges)
+  - [7.3.1 Distributed Transactions](#731-distributed-transactions)
+- [7.4 Service-based Architecture](#74-service-based-architecture)
+  - [7.4.1 Topology Characteristics](#741-topology-characteristics)
+  - [7.4.2 Topology Variants](#742-topology-variants)
+  - [7.4.2 Service-based Architecture - Summary \& Rating](#742-service-based-architecture---summary--rating)
+- [7.5 Event-Driven Architecture](#75-event-driven-architecture)
+  - [7.5.1 Event-Driven Architecture - Topology Characteristics](#751-event-driven-architecture---topology-characteristics)
+  - [7.5.2 Event-Driven Architecture - Broker Topology](#752-event-driven-architecture---broker-topology)
+  - [7.5.3 Event-Driven Architecture - Mediator Topology](#753-event-driven-architecture---mediator-topology)
+  - [7.5.4 Event-Driven Architecture - Topologies Comparison Summary](#754-event-driven-architecture---topologies-comparison-summary)
+  - [7.5.5 Event-Driven Architecture - Other Aspects](#755-event-driven-architecture---other-aspects)
+  - [7.5.6 Choosing Between Request-Based and Event-Based](#756-choosing-between-request-based-and-event-based)
+  - [7.5.7 Event-Driven Architecture - Summary \& Rating](#757-event-driven-architecture---summary--rating)
+- [7.6 Serverless Architecture](#76-serverless-architecture)
+  - [7.6.1 Serverless Architecture - Key Terms \& Design Concepts](#761-serverless-architecture---key-terms--design-concepts)
+  - [7.6.2 Serverless Architecture - Benefits \& Challenges](#762-serverless-architecture---benefits--challenges)
 - [References](#references)
   
 # 7.1 Distributed Software Architectures - A Definition
@@ -482,6 +480,336 @@ Key points:
 | Complexity / Cost   | Low → Moderate                                   | Prefer when ops budget or team size is limited                |
 | Network & Transactions | Lower network chatter, fewer distributed transactions | Use APIs/events for explicit data sharing and consistency handling |
 
+---
+
+# 7.5 Event-Driven Architecture
+
+![](images/event_driven_1.png)
+
+**Figure 7.14:** A schematic representation of an Event-Driven Architecture.
+
+**Event‑Driven Architecture (EDA)** defines system behavior around discrete **events**: occurrences (user actions, sensor readings, database changes, system notifications) that trigger processing and state changes.
+
+**Key characteristics:**
+- **Event sources:** producers of events (UIs, devices, services, DBs).
+- **Event handlers / subscribers:** components registered to react to specific event types.
+- **Asynchronous processing:** events are handled independently of the producer’s execution flow, improving responsiveness and throughput.
+- **Loose coupling:** components communicate via events rather than direct calls, reducing dependencies and allowing independent evolution.
+- **Publish–subscribe model:** producers publish events; consumers subscribe to event streams or topics.
+- **Message brokers / event buses:** optional intermediaries that route, buffer and persist events for reliability and scalability.
+- **Scalability & resilience:** processing can be distributed and scaled horizontally; buffering helps absorb bursts and decouple failures.
+- **Use cases:** real‑time systems, IoT, streaming analytics, financial systems, and any domain requiring reactive, loosely coupled interactions.
+
+EDA organizes systems around discrete **events** and asynchronous, **decoupled** processing. 
+It is highly scalable and adaptable — suitable as a standalone style or embedded within other patterns (e.g., event‑driven microservices).
+Use EDA when you need loose coupling, high throughput or reactive behavior; prefer request‑based orchestration for simple, synchronous CRUD interactions or when strict transactional guarantees are essential.
+
+---
+
+## 7.5.1 Event-Driven Architecture - Topology Characteristics
+
+![](images/event_driven_2.png)
+
+**Figure 7.15:** High-level view of Event-Driven Architecture components and interactions.
+
+Two primary EDA topologies are commonly used: 
+
+- **Mediator topology**
+  - **Control / orchestration:** a centralized mediator (orchestrator) defines and manages the event workflow.
+  - **Best when:** you need predictable sequencing, complex business logic, or strict coordination between handlers.
+  - **Trade‑offs:** simpler reasoning about flow but **tighter coupling** to the mediator and potential single‑point complexity.
+
+The Mediator topology centers control in a workflow or orchestration component that receives events or commands and decides the sequence of actions, enforces ordering and business rules, and tracks state progress. This approach simplifies reasoning about complex, multi‑step business processes because a single, authoritative coordinator encodes the flow and can implement compensating actions, retries, and observability for each step. The trade‑offs are increased coupling to the mediator, a larger blast radius if the mediator fails, and potential scaling challenges; these can be mitigated by using resilient workflow engines, persisting workflow state, partitioning orchestrations, or distributing mediators with leader election.
+
+- **Broker topology**
+  - **Decoupling / responsiveness:** a broker (message bus) routes events to autonomous consumers; producers and consumers are loosely coupled.
+  - **Best when:** you need high throughput, elasticity, independent scaling, or dynamic consumer composition.
+  - **Trade‑offs:** greater scalability and resilience but **less centralized control** and eventual consistency considerations.
+
+The Broker topology relies on a message broker or event bus to route events between producers and consumers, favoring loose coupling and asynchronous processing. Producers publish events to topics or channels and consumers independently subscribe and react, which enables parallelism, elastic scaling of handlers, and natural fan‑out for broadcast use cases. Because control is decentralized, the broker topology makes it easier to evolve components independently and to absorb bursts with durable queues, but it also shifts complexity to eventual consistency, message ordering semantics, delivery guarantees (at‑least‑once vs exactly‑once), and the need for idempotent handlers. Operational concerns such as partitioning, consumer group coordination, retention policies, and monitoring are central to achieving predictable behavior at scale.
+
+- **Design guidance**
+  - Use **Mediator** for workflow‑centric scenarios where order and coordination matter.
+  - Use **Broker** for reactive, scalable systems where loose coupling and parallel processing matter.
+  - Hybrid approaches are common: orchestrate critical flows with a mediator and publish other events via a broker for async processing.
+
+In practice, hybrid deployments are common: an orchestrator or mediator is used for flows that require explicit sequencing, transactional compensation, or strict business logic, while a broker is used for telemetry, integration, analytics, and other asynchronous fan‑out needs. Schema management and contract governance matter in both models; using schema registries, versioning strategies, and lightweight contracts reduces coupling and prevents-breaking changes as consumers and producers evolve. Observability practices such as distributed tracing, correlation identifiers, dead‑letter queues, and well‑defined retry/backoff policies are essential to diagnose failures and to ensure safe retries and compensations across either topology.
+
+Choosing between Mediator and Broker should be driven by control requirements, coupling tolerance, performance and scalability goals, and operational capacity. If predictable sequencing, centralized compensations, or auditability are primary concerns, a mediator or workflow engine is appropriate. If loose coupling, high throughput, elasticity, or broad event distribution are more important, a brokered, publish‑subscribe architecture is preferable. When both needs exist, mix orchestration for critical workflows with brokered events for side effects and asynchronous processing, and design handlers to be idempotent, observable, and compatible with the chosen delivery guarantees.
+
+---
+
+## 7.5.2 Event-Driven Architecture - Broker Topology
+
+![](images/event_driven_3.png)
+
+**Figure 7.16:** Broker Topology in Event-Driven Architecture.
+
+The Broker topology routes events through a lightweight message broker instead of a central orchestrator. 
+The broker handles distribution and buffering so producers and consumers remain loosely coupled.
+
+Key points
+- **Decentralized routing:** producers publish events to the broker; the broker delivers them to subscribers (pub/sub / queue semantics).
+- **When to use:** simple or high‑throughput event flows that don’t require centralized sequencing or orchestration.
+- **Trade‑offs to consider:** message ordering, delivery guarantees (at‑least‑once vs exactly‑once), idempotency of handlers, and dead‑letter/retry policies.
+- **Examples of brokers:** RabbitMQ, ActiveMQ, Kafka, HornetQ.
+
+Primary components
+- **Initiating event:** the original event produced by a source (UI, device, service).
+- **Event broker:** the message bus/queue that routes, buffers, and persists events.
+- **Event processor:** subscriber(s) that consume and handle events; can scale independently.
+- **Processing event:** resulting outputs or side effects (acknowledgements, new events, state changes).
+
+**Design Notes:** prefer idempotent processors, clear schemas, and robust retry/monitoring (dead‑letter queues, metrics, tracing) when using the broker topology.
+
+The **initiating event** is published to an event channel on the **event broker**. In the broker topology there is no central mediator: an **event processor** subscribed to that channel consumes the initiating event and performs its task. When finished, the processor **asynchronously** emits a **processing event** to the broker describing the action taken. Other processors subscribed to that processing event may react, perform their tasks, and in turn publish further processing events. This asynchronous, decoupled chain continues until no processor subscribes to the latest event.
+
+![](images/event_driven_4.png)
+
+**Figure 7.17:** Additional Example of the Broker Topology with extensibility focus.
+
+In the broker (pub/sub) topology, producers publish to **topics** and consumers independently subscribe.
+ Best practice: each event processor should **publish a processing event describing the action it took**, even when no consumers currently listen.  
+
+Why do this:
+
+- **Extensibility:** new consumers can be added later and immediately receive the needed data without changing existing components.  
+- **Loose coupling:** producers and consumers remain independent; no direct integration work is required to add features.  
+- **Observability:** publishing actions creates an audit trail useful for debugging and monitoring.
+
+Practical notes:
+- Use concise, well‑versioned event schemas (topic names and payload fields) so future consumers can rely on stable contracts.  
+- Keep events idempotent or include identifiers so consumers can safely process retries or duplicates.  
+- Don’t worry about occasional ignored messages—the small cost is outweighed by the agility and minimal integration effort when requirements evolve.
+
+**Example:** a Notification processor sends an email and then publishes an "email.sent" event to a topic. If later you need to analyze sent emails, add an analyzer consumer that subscribes to that topic—no changes to the Notification processor required.
+
+## 7.5.3 Event-Driven Architecture - Mediator Topology
+
+![](images/event_driven_5.png)
+
+**Figure 7.18:** Mediator Topology in Event-Driven Architecture.
+
+The mediator topology centralizes workflow control in an **event mediator** that coordinates initiating events requiring ordered, multi‑step processing. 
+It is best for scenarios where sequencing, compensation, or strict coordination is needed.
+
+Key components:
+
+- **Initiating event** — the event that starts the workflow (e.g., user action, device message).
+- **Event queue** — durable input queue that buffers initiating events for the mediator.
+- **Event mediator** — the central orchestrator that encodes the workflow, invokes processors, tracks state, and issues compensations or retries.
+- **Event channels** — point‑to‑point queues or channels used by the mediator to send tasks to specific processors.
+- **Event processors** — workers that perform discrete steps and typically report completion back to the mediator.
+
+Benefits and trade‑offs:
+
+- **Benefits:** deterministic sequencing, simpler compensation/retry logic, easier auditability and end‑to‑end visibility.
+- **Trade‑offs:** tighter coupling to the mediator, potential single‑point complexity (mitigated by partitioning mediators by domain), and added operational responsibility.
+
+**Design guidance:**
+
+- Use mediator topology for complex, ordered business processes; combine with brokered events for fan‑out/side effects when loose coupling is preferred.
+- Ensure mediator state is durable and processors are idempotent to support safe retries and compensations.
+
+![](images/event_driven_6.png)
+
+**Figure 7.18:** An example of multiple Event Mediator with different level of complexity and responsibilities within the same event-driven software architecture.
+
+**Initiating event:** the message that starts the workflow. 
+In the mediator topology it is placed on an *initiating event queue* and picked up by the **event mediator** (not broadcast as in the broker topology).
+
+**Flow overview:**
+- The **event mediator** knows the workflow steps and emits corresponding **processing events** to dedicated **event channels** (typically point‑to‑point queues).
+- **Event processors** subscribe to those dedicated channels, perform work, and report completion back to the mediator.
+- Unlike the broker topology, processors do **not** publish their results for all consumers; coordination and sequencing are controlled by the mediator.
+
+**Scalability and isolation:**
+- Deploy multiple mediators (e.g., per domain or event group) to reduce single‑point risk and increase throughput. Example domains: telemetry vs actuator control.
+
+**Mediator implementations (short guidance):**
+- For straightforward orchestration and light error handling, use integration frameworks such as **Apache Camel**, **Mule ESB**, or **Spring Integration** — workflows are usually expressed in code or simple routing configs.
+- For complex, conditional workflows with rich compensation and error semantics, use a BPM/BPEL engine (e.g., **Apache ODE**, **Oracle BPEL**) — BPEL provides a structured, graphical way to model steps, branching, and compensation, but is more complex to author.
+
+**Design tips:**
+- Keep mediator state durable, make processors idempotent, and model clear retry/compensation strategies to ensure safe recovery and observability.
+- Combine mediator orchestration for ordered flows with brokered events for fan‑out side effects when appropriate.
+
+---
+
+## 7.5.4 Event-Driven Architecture - Topologies Comparison Summary
+
+**Broker Topology**
+
+| **Advantages** | **Disadvantages** | **Description** |
+|-----------------|------------------|-----------------|
+| Highly decoupled event processors | Workflow control | Decentralized but harder to coordinate. |
+| High scalability | Error handling | Scales well but errors are harder to manage. |
+| High responsiveness | Recoverability | Fast response but recovery is complex. |
+| High performance | Restart capabilities | Efficient but hard to restart processes. |
+| High fault tolerance | Data inconsistency | Resilient but may cause inconsistent data. |
+
+**Mediator Topology**
+
+| **Advantages** | **Disadvantages** | **Description** |
+|-----------------|------------------|-----------------|
+| Workflow control | More coupling of event processors | Central control but more dependency. |
+| Error handling | Lower scalability | Easier recovery but less scalable. |
+| Recoverability | Lower performance | Reliable but slower. |
+| Restart capabilities | Lower fault tolerance | Easy to restart but less resilient. |
+| Better data consistency | Modeling complex workflows | Consistent data but complex to design. |
+
+---
+
+## 7.5.5 Event-Driven Architecture - Other Aspects
+
+Other aspects to consider when designing an Event-Driven Architecture (in brief):
+
+- **Error handling:** Detect, log and recover from processing failures using **retries with backoff**, circuit breakers, dead‑letter queues and explicit compensation actions; make handlers **idempotent** to allow safe retries.
+
+- **Preventing data loss:** Ensure durable delivery with **persistent event storage**, acknowledgements, replication and retention policies; use dead‑letter queues and monitoring to surface lost or poisoned messages.
+
+- **Broadcast capabilities:** Support fan‑out via **pub/sub topics** so one event reaches multiple consumers; design for delivery semantics (at‑least‑once vs exactly‑once), ordering constraints and consumer idempotency to avoid duplicates or inconsistency.
+
+- **Request/Reply management:** Implement synchronous request‑reply patterns over an async bus by using dedicated reply channels, timeouts, retries and clear correlation so callers receive timely and matched responses.
+
+- **Correlation ID:** Attach a unique **correlation identifier** to related messages (requests, replies, and follow‑up events) to enable tracing, correlate distributed work, and simplify debugging and observability.
+
+- **Management queue:** Use a management/command queue to orchestrate request prioritization, rate‑limiting and backpressure; combine with routing rules, retries and monitoring to balance load and prevent bottlenecks.
+
+These features are complementary: design contracts, schemas and observability (tracing, metrics, alerts) up front to make them reliable and maintainable.
+
+---
+
+## 7.5.6 Choosing Between Request-Based and Event-Based
+
+Prefer the request‑based model when you need **synchronous control and certainty**; prefer the event‑based model when you need **asynchrony, loose coupling and scale**. Key guidance:
+
+- **Request‑based (use when):**
+  - You require immediate responses and strict workflow control (e.g., CRUD, device profile retrieval).
+  - Transactions, strong consistency or simple error handling are important.
+  - Call chains are short and latency requirements are modest.
+
+- **Event‑based (use when):**
+  - You need high throughput, elasticity and reactive behavior (telemetry, analytics, notifications).
+  - Loose coupling, fan‑out and resilience to partial failures are priorities.
+  - You can tolerate eventual consistency and design for idempotency and retries.
+
+- **Trade‑offs to weigh:**
+  - Request model → simpler debugging and testing, but can create tighter coupling and latency amplification.
+  - Event model → better scalability and extensibility, but increases complexity (ordering, retries, observability).
+
+- **Hybrid recommendation:** mix both models—use request‑based flows for synchronous control and event‑based patterns for asynchronous, scalable side‑effects and integrations to gain the benefits of each.
+
+Choose based on workflow requirements (control vs. responsiveness), consistency needs, and operational capacity to manage complexity.
+
+| **Advantages over Request-Based** | **Trade-offs** | **Description** |
+|-----------------|----------------|-----------------|
+| Better response to dynamic user content | Only supports eventual consistency | Adapts quickly but may have temporary data delays. |
+| Better scalability and elasticity | Less control over processing flow | Grows easily but harder to manage flow. |
+| Better agility and change management | Less certainty over outcome of event flow | Flexible but unpredictable results. |
+| Better adaptability and extensibility | Difficult to test and debug | Easy to extend but harder to maintain. |
+| Better responsiveness and performance | — | Fast reaction to events. |
+| Better real-time decision making | — | Enables immediate insights and actions. |
+| Better reaction to situational awareness | — | Quickly adapts to environment changes. |
+
+---
+
+## 7.5.7 Event-Driven Architecture - Summary & Rating
+
+- **Architecture nature:** Event‑driven architectures are technically partitioned — domain behavior is distributed across multiple event processors, mediators, queues and topics rather than confined to a single service boundary.
+
+- **Strengths**
+  - **Performance:** High — gained from asynchronous communication and parallel processing.
+  - **Scalability:** High — achieved via programmatic scaling of event processors (competing consumers).
+  - **Fault tolerance:** High — decoupling, durable brokers and retries enable eventual processing and resilience.
+  - **Evolutionary:** High — brokered events make it easy to add new consumers/features without changing producers.
+
+- **Weaknesses**
+  - **Complexity:** High — nondeterministic event flows can produce large, hard‑to‑reason about “event trees.”
+  - **Testability & simplicity:** Low — many interleavings and scenarios make governance, end‑to‑end testing and debugging difficult.
+  - **Consistency & transactions:** Limited — favors eventual consistency; coordinating strong, cross‑component transactions is harder.
+
+- **When to choose:** telemetry, real‑time processing, high‑throughput integrations, or systems requiring loose coupling and extensibility.
+
+- **When not to choose:** workflows demanding strict synchronous consistency, simple CRUD with tight transaction needs, or teams lacking maturity in observability and testing.
+
+- **Design guidance:** use broker topology for loose coupling and fan‑out; use mediator/orchestration where ordering, compensation and auditability matter; invest in tracing, idempotency, schema governance and DLQs.
+
+---
+
+# 7.6 Serverless Architecture
+
+![](images/serverless_1.png)
+
+**Figure 7.19:** Simple schematic representation of Serverless Architecture.
+
+**Serverless architecture** lets developers deploy and run application logic without managing servers or infrastructure. 
+The cloud provider handles provisioning, OS/runtime management, scaling and capacity planning so you focus on code and events.
+The concept is often called **Function-as-a-Service (FaaS)** because discrete functions are deployed and executed in response to events.
+The Serverless idea is to abstract away infrastructure concerns so developers can build and deploy applications faster with lower operational overhead and it is related to the concepts of event-driven architecture since **functions are typically triggered by events**.
+
+Key points:
+- **Provider‑managed infrastructure:** servers, runtimes, and patching are handled by the cloud provider.
+- **Event‑driven execution:** functions run in response to events (HTTP, messaging, timers, storage).
+- **Automatic scaling:** compute scales up/down transparently to match demand.
+- **Pay‑as‑you‑go billing:** you pay for actual execution time and resources used.
+- **Stateless, short‑lived functions:** functions are typically ephemeral and should be idempotent.
+- **Built‑in integrations:** easy connectivity to managed services (databases, queues, storage).
+- **Trade‑offs:** potential cold starts, execution time/size limits, and increased vendor coupling.
+
+Use serverless for event‑centric, bursty workloads or to reduce operational overhead; evaluate limits and cost model before adoption.
+
+## 7.6.1 Serverless Architecture - Key Terms & Design Concepts
+
+![](images/serverless_2.png)
+
+**Figure 7.20:** Design flow in Serverless Architecture.
+
+- **Invocation:** a single execution of a function (one request or event → one run).  
+- **Duration:** wall‑clock time the function runs (billing and performance metric).  
+- **Event:** the trigger for an invocation (HTTP, DB change, file upload, timer, external webhook, etc.). Serverless apps are event‑driven.  
+- **Stateless:** functions do not retain in‑memory state between invocations; state must be externalized (DB, cache, object store).  
+- **Cold start:** extra latency when a provider must provision a runtime/container before the first invocation after inactivity.  
+- **Warm execution:** faster subsequent invocations using an already‑initialized runtime.  
+- **Concurrency limit:** max simultaneous function instances in a region (provider quota or configured limit).  
+- **Orchestration:** coordination of multiple functions/workflows (step functions, workflow engines) to implement complex business processes.  
+- **FaaS (Function‑as‑a‑Service):** the serverless model where discrete functions are deployed and executed in response to events.
+
+**Simple FaaS workflow:**
+
+- Developers implement function code in a supported language (e.g., Python, Java, Go, JavaScript).  
+- Deploy the function to the cloud provider (packaging + configuration for triggers, memory, timeout).  
+- An **event** arrives and the provider invokes the function (reuse a warm runtime if available; otherwise incur a cold start).  
+- The function executes, returns a result or emits events, and the provider handles scaling, retries, and billing based on **duration** and concurrency.
+
+**Design tips (brief):**
+
+- Keep functions small and idempotent.  
+- Externalize durable state.  
+- Watch memory/time limits and concurrency to control cost and latency.  
+- Use orchestration for multi‑step, stateful workflows instead of chaining synchronous function calls.
+
+---
+
+## 7.6.2 Serverless Architecture - Benefits & Challenges
+
+Serverless adoption is rising — according to the 2022 State of Serverless report ([Link](https://www.datadoghq.com/state-of-serverless-2022/)), ~70% of AWS, ~60% of Google Cloud and ~49% of Azure customers use serverless solutions.
+
+**Key benefits**
+- **Reduced operational overhead:** provider manages provisioning, scaling and runtime, letting teams focus on code.  
+- **Scalability:** automatic scaling to match workload spikes without manual intervention.  
+- **Cost efficiency:** pay‑per‑execution avoids charges for idle capacity (good for bursty/irregular loads).  
+- **Rapid development:** small, focused functions speed up implementation and deployment.  
+- **Granularity:** fine‑grained functions improve modularity and maintainability.  
+- **Event‑driven fit:** ideal for real‑time, IoT, analytics and other event‑centric use cases.
+
+**Main challenges**
+- **Vendor lock‑in:** platform‑specific services and APIs make cloud migration costly.  
+- **Execution time limits:** short maximum runtimes constrain long‑running tasks.  
+- **Debugging & observability:** tracing and local debugging are more complex and often need specialized tooling.  
+- **Cost trade‑offs:** for steady, high‑throughput workloads, serverless can be more expensive than reserved/managed infrastructure.
+
+Use serverless when you need fast delivery, event‑driven scale and low ops overhead; evaluate limits, observability needs and cost profile before committing.
 
 ---
 
@@ -496,3 +824,7 @@ Key points:
 - Best Architecture for an MVP: Monolith, SOA, Microservices, or Serverless? - [Link](https://rubygarage.org/blog/monolith-soa-microservices-serverless)
 - Microservices Introduction (Monolithic vs. Microservice Architecture) - [Link](https://dzone.com/articles/microservices-1-introduction-monolithic-vs-microservices)
 - How to break a Monolith into Microservices - [Link](https://martinfowler.com/articles/break-monolith-into-microservices.html)
+- Serverless Design Architecture: [Link](https://www.trendmicro.com/it_it/devops/23/f/serverless-architecture-design-patterns-guide.html)
+- Serverless Architecture: [Link](https://middleware.io/blog/serverless-architecture/)
+- A Guide to Serverless Architecture: [Link](https://www.serverless.com/blog/serverless-architecture)
+
