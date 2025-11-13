@@ -626,10 +626,6 @@ In the mediator topology it is placed on an *initiating event queue* and picked 
 **Scalability and isolation:**
 - Deploy multiple mediators (e.g., per domain or event group) to reduce single‑point risk and increase throughput. Example domains: telemetry vs actuator control.
 
-**Mediator implementations (short guidance):**
-- For straightforward orchestration and light error handling, use integration frameworks such as **Apache Camel**, **Mule ESB**, or **Spring Integration** — workflows are usually expressed in code or simple routing configs.
-- For complex, conditional workflows with rich compensation and error semantics, use a BPM/BPEL engine (e.g., **Apache ODE**, **Oracle BPEL**) — BPEL provides a structured, graphical way to model steps, branching, and compensation, but is more complex to author.
-
 **Design tips:**
 - Keep mediator state durable, make processors idempotent, and model clear retry/compensation strategies to ensure safe recovery and observability.
 - Combine mediator orchestration for ordered flows with brokered events for fan‑out side effects when appropriate.
