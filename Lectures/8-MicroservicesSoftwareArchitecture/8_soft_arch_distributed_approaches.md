@@ -225,6 +225,81 @@ Examples include:
 
 **Figure 8.8:** Schematic example of API Gateway Pattern Modules and Functionalities.
 
+The image compares **two architectural approaches** to building APIs:
+
+**Left Side – Without an API Gateway**
+
+* Clients/Services communicate **directly with multiple APIs**.
+* Each API is responsible for implementing its own cross-cutting concerns.
+* Examples of duplicated modules inside each API include:
+
+  * **Authentication**
+  * **Rate-Limiting**
+  * **Logging**
+  * **Monitoring**
+  * **Caching**
+
+This leads to **repetition of common logic**, inconsistent policies, and more maintenance effort.
+
+**Right Side – With an API Gateway**
+
+* Clients/Services send all requests to a **central API Gateway**.
+* The gateway handles shared responsibilities such as:
+
+  * **Authentication**
+  * **Rate-Limiting**
+  * **Logging**
+  * **Security / ACL**
+  * **Caching**
+  * **Monitoring**
+  * **Serverless triggers**
+* The downstream APIs become **simpler**, since they no longer need to implement these cross-cutting concerns individually.
+
+The diagram visually illustrates how an API Gateway centralizes common functionality, reducing duplication and complexity across individual APIs.
+
+A typical API Gateway provides a wide range of system-level features. Below is an overview of the core modules and their responsibilities:
+
+1. **Authentication & Authorization**
+   - Validates incoming client identities (tokens, API keys, OAuth2, JWT).
+   - Enforces access policies before the request reaches the underlying service.
+   - Supports roles, scopes, and fine-grained permissions.
+2. **Rate-Limiting & Throttling**
+   - Controls the number of requests a client can make.
+   - Prevents abuse and mitigates DoS attacks.
+   - Supports quotas, bursts, and per-client or per-API rules.
+3. **Logging & Observability**
+   - Captures structured logs for every request.
+   - Provides request/response tracing and correlation IDs.
+   - Supports integration with monitoring platforms (e.g., Prometheus).
+4. **Monitoring & Metrics**
+   - Tracks system-level metrics such as latency, error rates, and throughput.
+   - Provides dashboards and alerts.
+   - Helps teams understand API usage and performance trends.
+5. **Caching**
+   - Stores frequent or static responses to reduce backend load.
+   - Supports TTL rules, cache invalidation, and local/distributed caching.
+6. **Security Module**
+   - Performs input validation, threat detection, and payload inspection.
+   - Blocks common attack vectors (e.g., SQL injection, malicious payloads).
+   - Enforces HTTPS/TLS and secure communication practices.
+7. **Access Control Lists (ACL)**
+   - Allows/denies traffic based on IPs, tenants, or network zones.
+   - Supports whitelists, blacklists, and zero-trust enforcement policies.
+8. **Serverless / Function-Driven Integration**
+   - Triggers serverless or function-driven features to process requests.
+   - Allows dynamic request transformation or enrichment.
+   - Can implement custom logic without modifying backend APIs.
+9. **Request Routing & Load Balancing**
+   - Determines which backend service should receive each request.
+   - Performs path-based, host-based, or version-based routing.
+   - Balances traffic across multiple service instances.
+10. **Transformation & Orchestration**
+    - Modifies headers, payloads, or protocol formats (JSON, XML, etc.).
+    - Aggregates responses from multiple services.
+    - Supports API composition for microservices.
+
+A **generic API Gateway** centralizes cross-cutting concerns—authentication, rate limiting, logging, caching, monitoring, security, routing—so downstream APIs can remain simple. This leads to cleaner architecture, improved performance, and stronger governance.
+
 ---
 
 ## 8.6.3 API Gateway Pattern - Backend for Frontend (BFF) Variation
@@ -392,16 +467,19 @@ The microservices pattern leverages **functional decomposition** to achieve scal
 
 ## 8.8.2 Y-Axis Scaling
 
-![](images/x_scaling.png)
+![](images/y_scaling.png)
 
-**Figure 8.11:** Scaling on X-axis by cloning service instances.
+**Figure 8.11:** Scaling on Y-axis by splitting application into services.
 
-Y-axis axis scaling splits the application into multiple, different services. 
-Each service is responsible for one or more closely related functions. 
-There are a couple of different ways of decomposing the application into services:
-One approach is to use verb-based decomposition and define services that implement a single use case such as “checkout”.
-The other option is to decompose the application by noun and create services responsible for all operations related to a particular entity such as “customer management”.
-An application might use a combination of verb-based and noun-based decomposition.
+Y-axis scaling decomposes an application into multiple, domain-aligned services. Each service owns a cohesive business capability and can be built, deployed, and scaled independently.
+
+- **Service responsibility**: One business capability with closely related operations.
+- **Decomposition strategies**:
+  - **Verb-based (use-case)**: Services per workflow (e.g., “telemetry”, “search”).
+  - **Noun-based (entity/domain)**: Services around entities (e.g., “device”, “data”).
+- **Combination**: Most systems mix both strategies; choose what best preserves cohesion and minimizes coupling.
+- **Benefits**: **Independent scaling**, **faster deployments**, **fault isolation**, **smaller codebases**.
+- **Caveats**: Requires clear **service boundaries**, stable **API contracts**, and **decentralized data ownership** to avoid tight coupling.
 
 ---
 
