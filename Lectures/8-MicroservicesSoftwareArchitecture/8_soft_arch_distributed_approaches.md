@@ -132,7 +132,7 @@ Sometimes Microservices can be really complex in particular for big companies as
 
 ![](images/amazon_netflix_microservices.png)
 
-**Figure 8.4:** Some (Super) Complex Microservices Examples.
+**Figure 8.4:** Some (Super) Complex Microservices Examples ([Source-Link](https://www.linkedin.com/pulse/find-your-path-death-star-microservices-architecture-van-der-schaaf/)).
 
 ---
 
