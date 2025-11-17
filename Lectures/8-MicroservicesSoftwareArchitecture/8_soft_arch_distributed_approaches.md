@@ -35,8 +35,13 @@
 - [8.9 Microservices - Virtual Machine \& Containerization](#89-microservices---virtual-machine--containerization)
   - [8.9.1 Microservices - Deployment Options](#891-microservices---deployment-options)
 - [8.10 Microservices Design Patterns](#810-microservices-design-patterns)
-  - [8.10.1 Sidecar Pattern (Single Node)](#8101-sidecar-pattern-single-node)
-  - [8.10.2 Load Balancer Pattern (Multi-Node)](#8102-load-balancer-pattern-multi-node)
+  - [8.10.1 Microservices Design Pattern Categories](#8101-microservices-design-pattern-categories)
+  - [8.10.2 Sidecar Pattern (Single Node)](#8102-sidecar-pattern-single-node)
+    - [8.10.2.1 - Sidecar Pattern Example 1 - Adding HTTP Security](#81021---sidecar-pattern-example-1---adding-http-security)
+    - [8.10.2.2 - Sidecar Pattern Example 2 - Dynamic Configurability](#81022---sidecar-pattern-example-2---dynamic-configurability)
+    - [8.10.2.3 - Sidecar Pattern Benefits](#81023---sidecar-pattern-benefits)
+    - [8.10.2.4 - Sidecar Pattern \& Modularity](#81024---sidecar-pattern--modularity)
+  - [8.10.3 Load Balancer Pattern (Multi-Node)](#8103-load-balancer-pattern-multi-node)
 - [References](#references)
 
 # 8.1 Microservices Software Architectures - Introduction
@@ -626,7 +631,9 @@ Limitations of each individual scaling strategy still apply, but the combined ap
 - **Standing on giants' shoulders**: Leverage proven approaches instead of solving previously-encountered problems from scratch
 - **Common challenges**: While your business model may be unique, the technical challenges (reliability, agility, scalability) are well-understood and addressable through established patterns
 
-**Pattern Categories:**
+---
+
+## 8.10.1 Microservices Design Pattern Categories
 
 **Single Node Patterns** - Organize components within a single instance:
 
@@ -652,15 +659,156 @@ These patterns form the **foundational toolkit** for building robust, scalable m
 
 --- 
 
-## 8.10.1 Sidecar Pattern (Single Node)
+## 8.10.2 Sidecar Pattern (Single Node)
 
-TODO ...
+![](images/sidecar_pattern.png)
+
+**Figure 8.17:** Schematic high-level example of Sidecar Pattern.
+
+The Sidecar pattern (single-node) pairs an **Application Container** with a **Sidecar Container** to extend functionality without modifying core code.
+
+**Key components:**
+
+- **Application Container**: Hosts core business logic; primary service.
+- **Sidecar Container**: Adds or augments capabilities (e.g., security, config sync, proxying) often transparently to the application.
+
+**Characteristics:**
+
+- **Co-scheduled** as an atomic group where all containers share the same lifecycle and resources and work side by side.
+- **Shared runtime resources**: portions of the filesystem (volumes), network namespace (IP/ports), hostname, and potentially other local assets.
+- **Incremental enhancement**: Enables adding features that would be costly or risky to embed directly into the legacy or primary application.
+
+**Use cases:**
+
+- Injecting **TLS/HTTPS**, **logging**, **metrics**, **configuration synchronization**, **protocol adaptation**, **caching**, or **security filtering**.
+
+**Benefit:**
+
+- Decouples support concerns from core logic, enabling independent evolution, deployment, and replacement.
+
+---
+
+### 8.10.2.1 - Sidecar Pattern Example 1 - Adding HTTP Security
+
+![](images/sidecar_example_1.png)
+
+**Figure 8.18:** Adding HTTP Secure (HTTPS) via Sidecar to an existing service.
+
+An example: a legacy web service still serves plain HTTP because security was originally a low priority. New company policy now mandates **HTTPS** everywhere.
+
+**Problem:**
+
+- Outdated build system makes adding TLS certificates and HTTPS support costly and risky.
+
+**Solution (Sidecar Pattern):**
+
+- Run the legacy service only on **localhost (HTTP)**.
+- Add a **sidecar proxy container** (e.g., NGINX / Envoy) sharing the same network namespace.
+- Proxy terminates **TLS/HTTPS** externally and forwards requests internally over **localhost HTTP**.
+- No changes to legacy code or rebuild pipeline.
+
+**Benefits:**
+
+- Implements modern **security** without refactoring the application.
+- Avoids reviving or replacing fragile build tooling.
+- Clean separation of **business logic** (legacy service) and **security concerns** (sidecar).
+- Reusable approach for adding logging, metrics, auth, compression, or rate limiting.
+
+**Design Insight:**
+
+You can adopt this pattern proactively—not only after incidents—to decouple cross-cutting concerns (security, transport, observability) from core service functionality and modernize incrementally.
+
+---
+
+### 8.10.2.2 - Sidecar Pattern Example 2 - Dynamic Configurability
+
+![](images/sidecar_example_2.png)
+
+**Figure 8.19:** Dynamic configurability via Sidecar Pattern.
+
+**Dynamic Configuration with a Sidecar**
+
+Beyond simple proxying, a **sidecar** can enable **live configuration synchronization** for legacy applications that expect a static file.
+
+**Typical scenario:**
+- Legacy app reads a local config file (text, XML, JSON, YAML) at startup.
+- Cloud-native need: **push updated config via API** without modifying the app.
+
+**Sidecar approach:**
+1. Run the **application container** and a **configuration manager sidecar** together.
+2. Share a filesystem volume where the config file(s) reside.
+3. On start, the application loads config normally.
+4. The config manager polls or receives updates from a **remote configuration API**.
+5. If differences exist, it writes updated config files locally.
+6. It then **notifies the application** to reload:
+  - File watching (auto-detect changes)
+  - Sending a signal or command
+  - In worst case, restarting the process
+
+**Benefits:**
+- Adds **dynamic configurability** without refactoring the application.
+- Decouples **configuration delivery** from business logic.
+- Supports gradual modernization.
+
+**Notification options:** file watchers, signals (e.g., SIGHUP), admin endpoint call, supervised restart. This pattern cleanly introduces runtime config updates while preserving existing assumptions.
+
+---
+
+### 8.10.2.3 - Sidecar Pattern Benefits
+
+The Sidecar pattern is not only for legacy adaptation. It enables:
+
+- **Modular Extension**: Add capabilities without modifying core service code.
+- **Technology Flexibility**: Sidecars can vary by language, version, or tooling per service.
+- **Separation of Concerns**: Encapsulates logging, security, config, proxying, etc. outside business logic.
+- **Independent Lifecycle**: Main service and sidecar build, release, and evolve separately.
+- **Granular Scaling**: Scale the sidecar (e.g., metrics collector) differently from the primary container.
+- **Fault Isolation**: Failures in a sidecar (e.g., TLS proxy) rarely crash the core service.
+- **Resource Optimization**: Offload specialized tasks (compression, caching, auth) to lean, purpose-built components.
+- **Standardized Security**: Centralize encryption, authentication, authorization consistently across services.
+- **Incremental Feature Adoption**: Introduce new functionality by attaching additional sidecars instead of refactoring.
+- **Operational Consistency**: Reuse proven sidecar images to enforce uniform policies (observability, rate limiting).
+- **Reduced Risk**: Minimize changes to stable or fragile codebases while still modernizing behavior.
+
+In short: Sidecars accelerate evolution while preserving service stability.
+
+---
+
+### 8.10.2.4 - Sidecar Pattern & Modularity
+
+To ensure the success of the **Sidecar Pattern**, it should be designed for **modular reuse** across various applications and deployments. This approach can significantly accelerate application development. Consider the following three fundamental aspects for achieving configurability and modularity:
+
+- **Parameterizing Your Containers**: This is crucial for making containers modular and reusable, particularly for sidecars. For instance, parameters related to exposed ports (e.g., HTTP 80, 8080, or CoAP 5683) should be adjustable at container startup without requiring code or configuration changes. Different parameterization methods can be applied depending on the platform, such as Docker or Kubernetes.
+
+- **Creating the API Surface**: This involves defining the externally exposed functionalities and interactions that other components or services can utilize through APIs. For example, APIs can allow for changing parameters or triggering functionalities via remote calls (e.g., updating sampling frequency or changing the destination MQTT topic).
+
+- **Documenting the Container**: A clear and well-documented API surface is essential. This ensures effective communication and understanding of available capabilities among the main application, potential consumers (like other microservices or sidecar components), and their respective developers.
+
+By focusing on these aspects, you can enhance the modularity and reusability of your sidecars, leading to more efficient application development.
 
 --- 
 
-## 8.10.2 Load Balancer Pattern (Multi-Node)
+## 8.10.3 Load Balancer Pattern (Multi-Node)
 
-TODO ...
+![](images/load_balancer_pattern.png)
+
+**Figure 8.20:** Schematic example of the Load Balancer Pattern.
+
+The **Replicated Load-Balanced Service** is one of the simplest and most widely recognized distributed patterns. In this architecture:
+
+- **Identical Servers**: Each server in the setup is identical and capable of handling traffic.
+- **Scalability**: The pattern allows for a scalable number of servers, all managed by a load balancer.
+
+The load balancer can operate using one of two primary strategies:
+
+- **Round Robin**: 
+  - Assigns each incoming request to the next server in a rotating order.
+  
+- **Session Stickiness**: 
+  - Ensures that consecutive requests from the same client are directed to the same server.
+  - Utilizes specific information from the initial request (e.g., client IP or session ID) to determine which server should handle subsequent requests from that client.
+
+This approach enhances performance and reliability by distributing traffic evenly across servers while maintaining session continuity when necessary.
 
 ---
 
