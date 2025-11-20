@@ -39,7 +39,7 @@ The Distributed and Internet of Things Software Architectures course aims to equ
 5. [📖 Publish/Subscribe Communication Pattern & MQTT Protocol](Lectures/5-PubSub-MQTT-Protocol/5_pubsub_mqtt_protocol.md)
 6. [📖 Software Architecture - Monolithic Approaches](Lectures/6-SoftwareArchitectures-Monolithic-Approaches/6_soft_arch_monolithic_approaches.md)
 7. [📖 Software Architecture - Distributed Approaches](Lectures/7-SoftwareArchitectures-Distributed-Approaches/7_soft_arch_distributed_approaches.md)
-8. [📖 Software Architecture - Microservices Software Architectures](Lectures/7-SoftwareArchitectures-Distributed-Approaches/8_soft_arch_microservices.md)
+8. [📖 Software Architecture - Microservices Software Architectures](Lectures/8-MicroservicesSoftwareArchitecture/8_soft_arch_microservices.md)
 
 ## 🤝 Contributing & Improving the Repository
 
