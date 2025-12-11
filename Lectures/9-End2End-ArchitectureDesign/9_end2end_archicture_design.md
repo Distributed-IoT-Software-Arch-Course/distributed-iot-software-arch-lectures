@@ -37,7 +37,6 @@
     - [9.3.3.1 MQTT Topics \& Data](#9331-mqtt-topics--data)
     - [9.3.3.2 MQTT Topics \& Service Mapping](#9332-mqtt-topics--service-mapping)
   - [9.4 Dual-Broker Architecture](#94-dual-broker-architecture)
-- [References](#references)
 
 ---
 
@@ -662,36 +661,36 @@ An example of a Test Result object keeping the information about heart rate grap
 
 ```json
 {
-  patient_id: "0001",
-  timestamp: 1578210921,
-  doctor_id: "d0001", 
-  device_id: "treadmill-id-00001",
-  is_success: true,
-  avg_hr: 160,
-  hr_graph_data: [
+  "patient_id": "0001",
+  "timestamp": 1578210921,
+  "doctor_id": "d0001", 
+  "device_id": "treadmill-id-00001",
+  "is_success": true,
+  "avg_hr": 160,
+  "hr_graph_data": [
     {
-       timestamp: 1572121902,
-       hr_value_bpm: 140
+       "timestamp": 1572121902,
+       "hr_value_bpm": 140
     }, 
     {
-       timestamp: 1572121912,
-       hr_value_bpm: 141
+       "timestamp": 1572121912,
+       "hr_value_bpm": 141
     },
     {
-       timestamp: 1572121922,
-       hr_value_bpm: 142
+       "timestamp": 1572121922,
+       "hr_value_bpm": 142
     }
   ],
-  conf_data: [
+  "conf_data": [
      {
-        timestamp: 1572121902, 
-        speed_value: 8,
-        incline_value: 0
+        "timestamp": 1572121902, 
+        "speed_value": 8,
+        "incline_value": 0
      }, 
      {
-        timestamp: 1572141902, 
-        speed_value: 14,
-        incline_value: 3
+        "timestamp": 1572141902, 
+        "speed_value": 14,
+        "incline_value": 3
      }
   ]
 }
@@ -993,23 +992,3 @@ The dual-broker architecture also enhances reliability by providing redundancy i
 If the connection to the cloud broker is lost, the local broker can continue to operate and store telemetry data until the connection is restored.
 
 The two brokers can be synchronized using MQTT bridge mode of existing broker solutions or other synchronization mechanisms to ensure that data is consistently shared between the edge and cloud environments. The synchronization can be configured based on specific topics or data types, allowing for selective data sharing and processing. In this scenario topics that can be used for the synchronization can be for example `device/+/info` and `device/+/telemetry/#` allowing the cloud broker to receive all the telemetry data from the edge devices.
-
----
-
-# References
-
-- Design Distributed Systems: Patterns and Paradigms for Scalable, Reliable Services, by Brendan Burns, Released August 2018, ISBN: 9781491983645
-- Fundamentals of Software Architecture: An Engineering Approach, by Mark Richards, Benjamin Lange, Neal Ford, Released February 2021, ISBN: 9781663728357
-- Monolithic vs Microservices - [Link](https://articles.microservices.com/monolithic-vs-microservices-architecture-5c4848858f59)
-- Pattern: Microservice Architecture - [Link](https://microservices.io/patterns/microservices.html)
-- Monolithic Architecture - [Link](https://microservices.io/patterns/monolithic.html)
-- Don’t start with Monolith - [Link](https://martinfowler.com/articles/dont-start-monolith.html)
-- Monolithic vs Microservice and all in between - [Link](https://medium.com/swlh/monolithic-vs-micro-services-and-all-in-between-7d496408ad02)
-- Best Architecture for an MVP: Monolith, SOA, Microservices, or Serverless? - [Link](https://rubygarage.org/blog/monolith-soa-microservices-serverless)
-- Microservices Introduction (Monolithic vs. Microservice Architecture) - [Link](https://dzone.com/articles/microservices-1-introduction-monolithic-vs-microservices)
-- How to break a Monolith into Microservices - [Link](https://martinfowler.com/articles/break-monolith-into-microservices.html)
-- Serverless Design Architecture: [Link](https://www.trendmicro.com/it_it/devops/23/f/serverless-architecture-design-patterns-guide.html)
-- Serverless Architecture: [Link](https://middleware.io/blog/serverless-architecture/)
-- A Guide to Serverless Architecture: [Link](https://www.serverless.com/blog/serverless-architecture)
-- The Art of Scalability: Scalable Web Architecture, Processes, and Organizations for the Modern Enterprise, by Martin L. Abbott and Michael T. Fisher, Released April 2015, ISBN: 9780134032801
-
