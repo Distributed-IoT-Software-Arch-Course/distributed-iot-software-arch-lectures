@@ -16,35 +16,30 @@
 <!-- omit in toc -->
 # Table of Contents
 
-- [8.1 Microservices Software Architectures - Introduction](#81-microservices-software-architectures---introduction)
-- [8.2 Microservices Architecture - Definitions and Citations](#82-microservices-architecture---definitions-and-citations)
-- [8.3 Microservices Architecture - Benefits \& Drawbacks](#83-microservices-architecture---benefits--drawbacks)
-- [8.4 Monolithic vs Microservices Architecture - How to start ?](#84-monolithic-vs-microservices-architecture---how-to-start-)
-- [8.5 Microservices \& Data Management](#85-microservices--data-management)
-- [8.6 API Gateway Pattern](#86-api-gateway-pattern)
-  - [8.6.1 Microservices Architecture - Benefits \& Drawbacks Summary](#861-microservices-architecture---benefits--drawbacks-summary)
-  - [8.6.2 API Gateway Pattern - Modules \& Functionalities](#862-api-gateway-pattern---modules--functionalities)
-  - [8.6.3 API Gateway Pattern - Backend for Frontend (BFF) Variation](#863-api-gateway-pattern---backend-for-frontend-bff-variation)
-- [8.7 IoT Microservices Architecture - Example](#87-iot-microservices-architecture---example)
-- [8.8 Microservices \& Scalability](#88-microservices--scalability)
-  - [8.8.1 X-Axis Scaling](#881-x-axis-scaling)
-  - [8.8.2 Y-Axis Scaling](#882-y-axis-scaling)
-  - [8.8.3 X-Axis \& Y-Axis Scaling](#883-x-axis--y-axis-scaling)
-  - [8.8.4 Z-Axis Scaling](#884-z-axis-scaling)
-  - [8.8.5 Combining the Three Axes](#885-combining-the-three-axes)
-- [8.9 Microservices - Virtual Machine \& Containerization](#89-microservices---virtual-machine--containerization)
-  - [8.9.1 Microservices - Deployment Options](#891-microservices---deployment-options)
-- [8.10 Microservices Design Patterns](#810-microservices-design-patterns)
-  - [8.10.1 Microservices Design Pattern Categories](#8101-microservices-design-pattern-categories)
-  - [8.10.2 Sidecar Pattern (Single Node)](#8102-sidecar-pattern-single-node)
-    - [8.10.2.1 - Sidecar Pattern Example 1 - Adding HTTP Security](#81021---sidecar-pattern-example-1---adding-http-security)
-    - [8.10.2.2 - Sidecar Pattern Example 2 - Dynamic Configurability](#81022---sidecar-pattern-example-2---dynamic-configurability)
-    - [8.10.2.3 - Sidecar Pattern Benefits](#81023---sidecar-pattern-benefits)
-    - [8.10.2.4 - Sidecar Pattern \& Modularity](#81024---sidecar-pattern--modularity)
-  - [8.10.3 Load Balancer Pattern (Multi-Node)](#8103-load-balancer-pattern-multi-node)
+- [9.1 Scenario 1 - Personal Health Device \& Monitoring System](#91-scenario-1---personal-health-device--monitoring-system)
+  - [9.1.1 - High-Level Architecture \& Main Components](#911---high-level-architecture--main-components)
+  - [9.1.2 - Data Models](#912---data-models)
+  - [9.1.3 Protocols \& Communication](#913-protocols--communication)
+    - [9.1.3.1 MQTT Topics \& Data](#9131-mqtt-topics--data)
+    - [9.1.3.2 MQTT Topics \& Service Mapping](#9132-mqtt-topics--service-mapping)
+- [9.2 Scenario 2 - Health \& Sport](#92-scenario-2---health--sport)
+  - [9.2.1 High-Level Architecture \& Main Components](#921-high-level-architecture--main-components)
+  - [9.2.2 Interactions \& Data Flows](#922-interactions--data-flows)
+  - [9.2.3 Data Models](#923-data-models)
+  - [9.2.4 Protocols \& Communication](#924-protocols--communication)
+    - [9.2.4.1 MQTT Topics \& Data](#9241-mqtt-topics--data)
+    - [9.2.4.2 MQTT \& Service Mapping](#9242-mqtt--service-mapping)
+    - [9.2.4.3 HTTP RESTful APIs](#9243-http-restful-apis)
+- [9.3 Scenario 3 - Industrial Remote Telemetry](#93-scenario-3---industrial-remote-telemetry)
+  - [9.3.1 High-Level Architecture \& Main Components](#931-high-level-architecture--main-components)
+  - [9.3.2 Data Models](#932-data-models)
+  - [9.3.3 Protocols \& Communication](#933-protocols--communication)
+    - [9.3.3.1 MQTT Topics \& Data](#9331-mqtt-topics--data)
+    - [9.3.3.2 MQTT Topics \& Service Mapping](#9332-mqtt-topics--service-mapping)
+  - [9.4 Dual-Broker Architecture](#94-dual-broker-architecture)
 - [References](#references)
 
-# 9.0 Edge and Clo
+---
 
 # 9.1 Scenario 1 - Personal Health Device & Monitoring System
 
@@ -88,64 +83,64 @@ Furthermore, including a timestamp allows the system to handle out-of-order (or 
 
 Designed for the **GeoSpatial Service** to handle location tracking, geofencing, and activity mapping.
 
-| **Field** | **Type** | **Description** | **Rationale** |
-|-----------|----------|-----------------|---------------|
-| `latitude` | Double | Latitude coordinate (WGS84) | Double precision required for sub-meter accuracy |
-| `longitude` | Double | Longitude coordinate (WGS84) | Double precision required for sub-meter accuracy |
-| `altitude` | Double | Elevation above sea level (meters) | Enriches context for activity classification (climbing, hiking) |
-| `timestamp` | Long | Unix epoch timestamp (ms) | Enables trajectory reconstruction and temporal correlation |
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `latitude` | Double | Latitude coordinate |
+| `longitude` | Double | Longitude coordinate |
+| `altitude` | Double | Elevation above sea level (meters) |
+| `timestamp` | Long | Unix epoch timestamp (ms) |
 
 
 **Heart-rate Data Model**
 
 Designed for the **Health Service** to monitor cardiovascular health and detect anomalies.
 
-| **Field** | **Type** | **Description** | **Rationale** |
-|-----------|----------|-----------------|---------------|
-| `value` | Double | Heart rate measurement | Double allows fractional BPM from advanced sensors |
-| `unit` | String | Unit of measure (e.g., "bpm") | Explicit unit prevents misinterpretation |
-| `timestamp` | Long | Unix epoch timestamp (ms) | Critical for detecting tachycardia/bradycardia events |
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `value` | Double | Heart rate measurement |
+| `unit` | String | Unit of measure (e.g., "bpm") |
+| `timestamp` | Long | Unix epoch timestamp (ms) |
 
 
 **Body Temperature Data Model**
 
 Designed for the **Health Service** to detect fever, hypothermia, and health trends.
 
-| **Field** | **Type** | **Description** | **Rationale** |
-|-----------|----------|-----------------|---------------|
-| `value` | Double | Body temperature measurement | Double supports precision to 0.1°C |
-| `unit` | String | Unit of measure (e.g., "Celsius", "Fahrenheit") | Enables multi-region deployments |
-| `timestamp` | Long | Unix epoch timestamp (ms) | Tracks temperature variations over time |
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `value` | Double | Body temperature measurement |
+| `unit` | String | Unit of measure (e.g., "Celsius", "Fahrenheit") |
+| `timestamp` | Long | Unix epoch timestamp (ms) |
 
 
 **Environmental Temperature Data Model**
 
 Designed for **contextual enrichment** in both GeoSpatial and Health Services.
 
-| **Field** | **Type** | **Description** | **Rationale** |
-|-----------|----------|-----------------|---------------|
-| `value` | Double | Ambient temperature measurement | Double supports precision weather integration |
-| `unit` | String | Unit of measure (e.g., "Celsius") | Standardizes cross-region data |
-| `timestamp` | Long | Unix epoch timestamp (ms) | Correlates with body temperature for heat stress detection |
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `value` | Double | Ambient temperature measurement |
+| `unit` | String | Unit of measure (e.g., "Celsius") |
+| `timestamp` | Long | Unix epoch timestamp (ms) |
 
 **Battery Data Model**
 
 Designed for the **Device Monitoring Service** to manage device health and lifecycle.
 
-| **Field** | **Type** | **Description** | **Rationale** |
-|-----------|----------|-----------------|---------------|
-| `value` | Double | Battery level (0-100%) | Double allows fractional percentages |
-| `timestamp` | Long | Unix epoch timestamp (ms) | Tracks battery drain rate for predictive maintenance |
+| **Field**     | **Type**   | **Description**              |
+|----------|--------|--------------------------|
+| `value`   | Double | Battery level (0-100%)   |
+| `timestamp` | Long   | Unix epoch timestamp (ms) |
 
 **Device Info Data Model**
 
 Designed as **metadata** for all microservices to trace device and user context.
 
-| **Field** | **Type** | **Description** | **Rationale** |
-|-----------|----------|-----------------|---------------|
-| `id` | String | Unique device identifier (UUID) | Enables device-specific analytics and fleet management |
-| `user_id` | String | Unique user identifier (UUID) | Links device data to user profiles for personalized health insights |
-| `software_version` | String | Firmware/software version (e.g., "1.2.3") | Critical for OTA updates and compatibility tracking |
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `id` | String | Unique device identifier (UUID) |
+| `user_id` | String | Unique user identifier (UUID) |
+| `software_version` | String | Firmware/software version (e.g., "1.2.3") |
 
 ---
 
@@ -314,6 +309,690 @@ In particular it is important to highlight the following aspects:
 - The retain flag is used judiciously to ensure that only relevant and timely data is delivered to subscribers, preventing outdated information from causing confusion or errors.
 - The notification topic is designed for downlink communication from the cloud to the edge devices, ensuring that users receive timely alerts and messages.
 - The Notification Service acts as a centralized hub for sending notifications, receiving requests from multiple services and dispatching them to the appropriate devices.
+
+---
+
+# 9.2 Scenario 2 - Health & Sport
+
+![](images/scenario_2_a.png)
+
+**Figure 9.4:** Schematic representation of a Health & Sport monitoring system with high-level components and interactions.
+
+In this second scenario an IoT helth and monitoring for testing sports athletes is considered. 
+This scenario depicts an **IoT-enabled fitness ecosystem** that integrates smart exercise equipment with cloud-based health analytics and medical record management. 
+The system enables real-time monitoring of workout performance, integration with patient medical profiles, and long-term health trend analysis.
+
+---
+
+## 9.2.1 High-Level Architecture & Main Components
+
+The main components of the target scenario are:
+
+- **Edge Layer (Smart Exercise Equipment)**
+
+  - **Treadmill** with the following sensors, actuators and device information:
+    - **Sensors:**
+      - Speed Sensor: measures the speed of the treadmill belt
+      - Incline Sensor: measures the incline angle of the treadmill
+      - Heart Rate Monitor: tracks the user's heart rate during exercise
+      - Distance Sensor: measures the distance covered during the workout
+      - Training Time: tracks the duration of the workout session
+    - **Actuators:**
+      - Speed Control: adjusts the speed of the treadmill belt
+      - Incline Control: adjusts the incline angle of the treadmill
+    - **Device Info:**
+      - Device ID: unique identifier for the treadmill
+      - Software Version: firmware/software version of the treadmill
+  - **Doctor's Computer** to access patient medical records, receive telemetry data, and send test results to the cloud services. Available information about the patient are:
+    - Patient ID: unique identifier for the patient
+    - Gender: Gender of the patient
+    - Age: Age of the patient
+  - **Local Network Connectivity**: connects the treadmill and doctor's computer to the cloud services via Wi-Fi or Ethernet.
+
+- **Cloud Layer**
+  - **Patient Database Service**: manages patient profiles, medical history, and demographics.
+  - **Results Database Service**: stores workout results, health metrics, and test outcomes.
+
+---
+
+## 9.2.2 Interactions & Data Flows
+
+![](images/scenario_2_b.png)
+
+**Figure 9.5:** Local interaction between the treadmill and the doctor's computer with the main associated actions.
+
+The figure illustrates the synchronous and real-time interaction between the connected treadmill and the doctor's computer within a localized WiFi network environment. 
+The treadmill continuously streams telemetry data to the doctor's computer that is subscribed to receive and process this data in real-time. 
+The doctor can monitor the patient's performance metrics, such as speed, incline, heart rate, distance. Furthermore the doctor through the computer can send commands to the treadmill to adjust workout parameters based on the patient's performance and health status.
+
+![](images/scenario_2_c.png)
+
+**Figure 9.6:** Detailed interaction between the treadmill and the doctor's computer and also the cloud services.
+
+As illustrated in the previous figure, in this scenario we can have two main interaction patterns: 
+
+- **Publish/Subscribe Interaction**:
+  - Treadmill → Doctor's Computer:
+    - Start a new test session
+    - Stop the current test session
+    - Adjust treadmill settings (speed, incline etc ..) in order to adapt the workout to the patient's condition
+  - Treadmill → Doctor's Computer:
+    - Telemetry Data Stream: continuous streaming of workout metrics (speed, incline, heart rate, distance, training time)
+- **Request/Response Interaction**:
+  - Doctor's Computer → Cloud Services:
+    - Send patient information to the Patient Database Service
+    - Send test results to the Results Database Service
+
+---
+
+## 9.2.3 Data Models
+
+**Heart Rate Data Model**
+
+Captures real-time cardiovascular response during exercise sessions. 
+Used by the doctor's computer for immediate supervision and by cloud services for long-term health trend analysis.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `value` | Double | Heart rate measurement in beats per minute (bpm) |
+| `unit` | String | Unit of measure (typically "bpm") |
+| `timestamp` | Long | Unix epoch timestamp (ms) indicating when the reading was taken |
+
+**Speed Data Model**
+
+Represents the treadmill belt speed during exercise. 
+Critical for workout intensity assessment and correlation with cardiovascular response.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `value` | Double | Treadmill belt speed measurement |
+| `unit` | String | Unit of measure (e.g., "km/h", "mph") |
+| `timestamp` | Long | Unix epoch timestamp (ms) indicating when the reading was taken |
+
+**Incline Data Model**
+
+Captures the treadmill slope angle during exercise. Used to calculate exercise intensity and resistance level.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `value` | Double | Incline angle measurement |
+| `unit` | String | Unit of measure (e.g., "degrees", "percentage") |
+| `timestamp` | Long | Unix epoch timestamp (ms) indicating when the reading was taken |
+
+**Training Info Data Model**
+
+Aggregates session-level workout information. Provides a summary of the exercise session for medical assessment and historical record-keeping.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `start_timestamp` | Long | Unix epoch timestamp (ms) indicating session start time |
+| `end_timestamp` | Long | Unix epoch timestamp (ms) indicating session end time |
+| `distance` | Double | Total distance covered during the session |
+| `distance_unit` | String | Unit of measure for distance (e.g., "km", "miles") |
+
+Derived Metrics:
+- Session duration: `end_timestamp - start_timestamp`
+- Average speed: `distance / session_duration`
+- Workout intensity profile: correlation with heart rate trends
+
+
+**Device Info Data Model**
+
+Contains metadata about the treadmill device. Used for device fleet management, troubleshooting, and compatibility tracking.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `id` | String | Unique device identifier (UUID) for the treadmill |
+| `software_version` | String | Firmware/software version (e.g., "2.1.5") |
+| `manufacturer` | String | Device manufacturer name (e.g., "TechnoGym", "Life Fitness") |
+| `device_type` | String | Type of exercise equipment (e.g., "treadmill", "elliptical") |
+
+**Patient Info Data Model**
+
+Stores demographic and clinical information about the patient undergoing the exercise test. Used to contextualize workout data and apply age/gender-specific health guidelines.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `id` | String | Unique patient identifier (UUID) |
+| `gender` | String | Patient gender (e.g., "Male", "Female", "Other") |
+| `age` | Integer | Patient age in years |
+
+**Test Result Data Model**
+
+Aggregates and summarizes the complete exercise test session. Generated by the doctor's computer and stored in the cloud Results Database Service for long-term medical record-keeping and trend analysis.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `id` | String | Unique test result identifier (UUID) |
+| `timestamp` | Long | Unix epoch timestamp (ms) of test completion |
+| `avg_hr` | Double | Average heart rate throughout the session (bpm) |
+| `is_success` | Boolean | Indicator of whether the test was completed successfully |
+| `hr_graph_data` | Array[...] | Time-series array of heart rate readings for graphical visualization |
+| `conf_data` | Array[...] | Configuration data (speed/incline profiles, test protocol parameters) |
+
+---
+
+## 9.2.4 Protocols & Communication
+
+![](images/scenario_2_d.png)
+
+**Figure 9.7:** Identifed protocols and communication patterns in the target scenario through HTTP and MQTT.
+
+Since the target scenario involves both synchronous request/response interactions and real-time telemetry streaming, a hybrid communication approach is adopted using HTTP and MQTT protocols.
+
+In particular:
+
+- **HTTP** is used for request/response interactions between the doctor's computer and cloud services. This includes sending patient information to the Patient Database Service and submitting test results to the Results Database Service. HTTP is well-suited for these operations due to its widespread adoption, ease of use, and support for structured data formats like JSON.
+- **MQTT** is employed for real-time telemetry data streaming from the treadmill to the doctor's computer. The publish/subscribe model of MQTT allows for efficient, low-latency transmission of continuous data streams such as heart rate, speed, and incline metrics. This is crucial for real-time monitoring during exercise sessions. The same protocol can be also used for sending control commands from the doctor's computer to the treadmill to start/stop sessions and adjust settings.
+
+### 9.2.4.1 MQTT Topics & Data
+
+In this section, the MQTT topics and the associated data payloads for each telemetry type and control command are defined. The topics are structured to facilitate easy subscription and filtering by the doctor's computer.
+
+**Heart Rate Data Topic**
+
+- **Topic**: `treadmill/{device_id}/telemetry/heart_rate`
+- **Payload**:
+  ```json
+  {
+    "value": double,
+    "unit": "string",
+    "timestamp": long
+  }
+  ```
+- **QoS Level**: 2 (ensures exactly once delivery for critical health data, we want to avoid duplicates and data loss)
+- **Retain Flag**: false (heart rate data is time-sensitive and should not be retained)
+
+With this setup, the doctor's computer can subscribe to the heart rate topic to receive real-time updates during the exercise session.
+The QoS level of 2 ensures that each heart rate reading is delivered exactly once, which is crucial for accurate health monitoring and analysis.
+The retain flag is set to false to prevent outdated heart rate data from being sent to the doctor's computer.
+
+**Speed Data Topic**
+
+- **Topic**: `treadmill/{device_id}/telemetry/speed`
+- **Payload**:
+  ```json
+  {
+    "value": double,
+    "unit": "string",
+    "timestamp": long
+  }
+  ```
+- **QoS Level**: 2 (ensures exactly once delivery for critical speed data, we want to avoid duplicates and data loss)
+- **Retain Flag**: false (speed data is time-sensitive and should not be retained)
+
+This topic configuration allows the doctor's computer to efficiently receive and process speed data for real-time monitoring of the workout session.
+The QoS level of 2 ensures that each speed reading is delivered exactly once, which is crucial for accurate performance assessment.
+The retain flag is set to false to prevent outdated speed data from being sent to the doctor's computer
+
+**Incline Data Topic**
+- **Topic**: `treadmill/{device_id}/telemetry/incline`
+- **Payload**:
+  ```json
+  {
+    "value": double,
+    "unit": "string",
+    "timestamp": long
+  }
+  ```
+- **QoS Level**: 2 (ensures exactly once delivery for critical incline data, we want to avoid duplicates and data loss)
+- **Retain Flag**: false (incline data is time-sensitive and should not be retained)
+
+This topic configuration allows the doctor's computer to efficiently receive and process incline data for real-time monitoring of the workout session.
+The QoS level of 2 ensures that each incline reading is delivered exactly once, which is crucial for accurate performance assessment.
+The retain flag is set to false to prevent outdated incline data from being sent to the doctor's computer.
+
+**Device Info Topic**
+
+- **Topic**: `treadmill/{device_id}/info`
+- **Payload**:
+  ```json
+  {
+    "id": "string",
+    "software_version": "string",
+    "manufacturer": "string",
+    "device_type": "string"
+  }
+  ```
+- **QoS Level**: 2 (ensures exactly once delivery for critical metadata)
+- **Retain Flag**: true (to keep the latest device info available for new subscribers)
+
+With this setup, the doctor's computer can subscribe to the device info topic to obtain metadata about the treadmill.
+The QoS level of 2 ensures that the device information is delivered exactly once, which is crucial for accurate device identification and management.
+The retain flag is set to true to ensure that the latest device information is always available to the doctor's computer even if it subscribes after the initial publication or a device or applications reboot.
+
+**Control Command Topic (Speed & Incline)**
+
+- **Topic**: `treadmill/{device_id}/speed` or `treadmill/{device_id}/incline`
+- **Payload**:
+  ```json
+  {
+    "value": double,
+    "unit": "string"
+  }
+  ``` 
+- **QoS Level**: 2 (ensures exactly once delivery for control commands)
+- **Retain Flag**: false (commands are time-sensitive and should not be retained)
+
+These topics allow the doctor's computer to send control commands to the treadmill to adjust speed and incline settings during the workout session.
+The QoS level of 2 ensures that each command is delivered exactly once, preventing duplicate adjustments that could confuse the user or disrupt the workout.
+The retain flag is set to false to ensure that commands are only executed when they are relevant and timely.
+
+---
+
+### 9.2.4.2 MQTT & Service Mapping
+
+Once the MQTT topics and their configurations are defined, they can be mapped to the respective microservices in the cloud architecture as shown in Figure 9.3.
+This mapping is strategic for the scenario design, as it ensures that each microservice subscribes only to the topics relevant to its functionality, optimizing resource usage and processing efficiency.
+
+In particular we have the mapping described and summarized below:
+
+| Topic / Pattern                             | Purpose                               | Publisher                       | Subscriber(s)                 | Notes |
+|---------------------------------------------|---------------------------------------|---------------------------------|--------------------------------|-------|
+| `treadmill/+/info`                         | Device metadata (id, sw, manufacturer) | Treadmill                       | Doctor's Computer             | Retained for late subscribers |
+| `treadmill/<id>/telemetry/#`               | All telemetry from a treadmill           | Treadmill                       | Doctor's Computer              | Use when a service wants all signals |
+| `treadmill/<id>/telemetry/heart_rate`      | Heart-rate stream                     | Treadmill                       | Doctor's Computer              | QoS 2; idempotent processing |
+| `treadmill/<id>/telemetry/speed`           | Speed stream                         | | Treadmill                       | Doctor's Computer              | QoS 2; idempotent processing |
+| `treadmill/<id>/telemetry/incline`         | Incline stream                       | Treadmill                       | Doctor's Computer              | QoS 2; idempotent processing |
+| `treadmill/<id>/speed`                      | Speed control command                 | Doctor's Computer              | Treadmill                      | QoS 2 for critical commands |
+| `treadmill/<id>/incline`                    | Incline control command               | | Doctor's Computer              | Treadmill                      | QoS 2 for critical commands |
+
+---
+
+### 9.2.4.3 HTTP RESTful APIs 
+
+In this section, the RESTful APIs for interacting with the Patient Database Service and Results Database Service are defined.
+
+**Base URL:** /sporthealth/api
+
+**Patient APIs**
+
+- GET /patient
+  - Description: Retrieve the list of all patients.
+  - Response: 200 OK, array of Patient Info objects.
+- POST /patient
+  - Description: Create a new patient profile.
+  - Request: Patient Info payload.
+  - Response: 201 Created, created Patient Info object.
+
+- GET /patient/{patient_id}
+  - Description: Get detailed data for a specific patient.
+  - Response: 200 OK, Patient Info object; 404 Not Found if missing.
+- PUT /patient/{patient_id}
+  - Description: Update an existing patient profile.
+  - Request: Patient Info payload (full or partial).
+  - Response: 200 OK, updated Patient Info object; 404 Not Found if missing.
+- DELETE /patient/{patient_id}
+  - Description: Remove an existing patient.
+  - Response: 204 No Content; 404 Not Found if missing.
+
+An example of a Patient Info object:
+
+```json
+{
+  "patient_id": "0001",
+  "name": "Marco", 
+  "surname": "Rossi", 
+  "age": 35
+}
+```
+
+**Test Result APIs**
+
+- GET /patient/{patient_id}/results
+  - Description: Retrieve all completed test results for a patient.
+  - Response: 200 OK, array of Test Result objects.
+- POST /patient/{patient_id}/results
+  - Description: Create a new test result for a patient.
+  - Request: Test Result payload.
+  - Response: 201 Created, created Test Result object.
+
+- GET /patient/{patient_id}/results/{result_id}
+  - Description: Load detailed data for a specific result.
+  - Response: 200 OK, Test Result object; 404 Not Found if missing.
+- PUT /patient/{patient_id}/results/{result_id}
+  - Description: Update data for a specific result.
+  - Request: Test Result payload (full or partial).
+  - Response: 200 OK, updated Test Result object; 404 Not Found if missing.
+- DELETE /patient/{patient_id}/results/{result_id}
+  - Description: Remove a specific result.
+  - Response: 204 No Content; 404 Not Found if missing.
+
+An example of a Test Result object keeping the information about heart rate graph data and configuration data can be:
+
+```json
+{
+  patient_id: "0001",
+  timestamp: 1578210921,
+  doctor_id: "d0001", 
+  device_id: "treadmill-id-00001",
+  is_success: true,
+  avg_hr: 160,
+  hr_graph_data: [
+    {
+       timestamp: 1572121902,
+       hr_value_bpm: 140
+    }, 
+    {
+       timestamp: 1572121912,
+       hr_value_bpm: 141
+    },
+    {
+       timestamp: 1572121922,
+       hr_value_bpm: 142
+    }
+  ],
+  conf_data: [
+     {
+        timestamp: 1572121902, 
+        speed_value: 8,
+        incline_value: 0
+     }, 
+     {
+        timestamp: 1572141902, 
+        speed_value: 14,
+        incline_value: 3
+     }
+  ]
+}
+```
+---
+
+# 9.3 Scenario 3 - Industrial Remote Telemetry
+
+![](images/scenario_3_a.png)
+
+**Figure 9.8:** Schematic representation of an Industrial Remote Telemetry system with high-level components and interactions.
+
+In this third scenario, an industrial remote telemetry system is considered. 
+This scenario depicts an **IoT-enabled industrial monitoring ecosystem** that integrates smart sensors and devices with cloud-based analytics and control systems. 
+The system enables real-time monitoring of industrial equipment, integration with maintenance and operational data, and long-term performance analysis.
+
+---
+
+## 9.3.1 High-Level Architecture & Main Components
+
+![](images/scenario_3_b.png)
+
+**Figure 9.9:** Main data categories and flows in the Industrial Remote Telemetry system.
+
+The Figure illustrates an Industrial Remote Telemetry scenario within an IoT architecture. It depicts a connected industrial robot that communicates with multiple cloud-based services over the Internet. These services include anomaly detection, energy consumption monitoring, and device monitoring. 
+
+**- Edge/Local Layer (Industrial Robot)**
+  **- Sensors:**
+    - Temperature (thermal conditions)
+    - Pressure (fluid/gas systems)
+    - Electric motor (rotation, direction)
+    - Vibration (mechanical health)
+    - Energy consumption (power usage)
+
+**- Connectivity Layer**
+  - Remote communication between the industrial robot and cloud services via Internet.
+
+**- Analytics & Services**
+  - Anomaly Detection Service (real-time alerts) for example based on sensors trends
+  - Energy Monitoring Service (usage profiling, efficiency KPIs) to monitor power consumption and optimize energy usage
+  - Device Monitoring Service (status, health) to track the overall device health 
+  - Notification Service (alerts, maintenance reminders) to send notifications based on analytics results
+
+In this scenario the interactions are similar to the first scenario with publish/subscribe interactions for telemetry data with a unidirectional flow from edge to cloud in 
+order to feed the different services with data coming from the industrial robot.
+
+---
+
+## 9.3.2 Data Models
+
+**Electric Motor Sensor Data Model**
+
+Captures real-time operational characteristics of the electric motor driving the industrial robot. Used by the Device Monitoring Service for health assessment and by the Anomaly Detection Service for predictive maintenance.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `speed` | Double | Rotational speed of the motor (RPM or rad/s) |
+| `speed_unit` | String | Unit of measure for speed (e.g., "RPM", "rad/s") |
+| `rotation` | Double | Current rotation angle or position (degrees or radians) |
+| `rotation_unit` | String | Unit of measure for rotation (e.g., "degrees", "radians") |
+| `timestamp` | Long | Unix epoch timestamp (ms) indicating when the reading was taken |
+
+**Pressure Sensor Data Model**
+
+Monitors fluid or gas pressure in industrial systems (hydraulic circuits, pneumatic lines, pressurized chambers). Critical for safety and efficiency in manufacturing and process control.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `value` | Double | Pressure measurement |
+| `unit` | String | Unit of measure (e.g., "bar", "PSI", "Pa") |
+| `timestamp` | Long | Unix epoch timestamp (ms) indicating when the reading was taken |
+
+**Temperature Sensor Data Model**
+
+Monitors thermal conditions of equipment, bearings, motors, and control systems. Essential for preventing overheating failures and optimizing thermal efficiency.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `value` | Double | Temperature measurement |
+| `unit` | String | Unit of measure (e.g., "Celsius", "Fahrenheit", "Kelvin") |
+| `timestamp` | Long | Unix epoch timestamp (ms) indicating when the reading was taken |
+
+**Vibration Sensor Data Model**
+
+Captures mechanical vibration characteristics indicating equipment health and operational quality. Vibration analysis is a leading indicator of mechanical failures.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `value` | Double | Vibration amplitude measurement (acceleration, displacement, or velocity) |
+| `unit` | String | Unit of measure (e.g., "m/s²", "mm", "mm/s") |
+| `timestamp` | Long | Unix epoch timestamp (ms) indicating when the reading was taken |
+
+
+**Energy Consumption Sensor Data Model**
+
+Tracks electrical power consumption and energy usage of the industrial robot and associated systems. Used by the Energy Monitoring Service for efficiency profiling, cost tracking, and demand management.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `value` | Double | Energy consumption measurement |
+| `unit` | String | Unit of measure (e.g., "kWh", "Wh", "J") |
+| `timestamp` | Long | Unix epoch timestamp (ms) indicating when the reading was taken |
+
+**Device Info Data Model**
+
+Contains metadata about the industrial robot and associated equipment. Used for device fleet management, software updates, warranty tracking, and asset identification.
+
+| **Field** | **Type** | **Description** |
+|-----------|----------|-----------------|
+| `id` | String | Unique device identifier (UUID or serial number) for the industrial robot |
+| `software_version` | String | Firmware/software version (e.g., "3.2.1-industrial") |
+| `manufacturer` | String | Equipment manufacturer name (e.g., "FANUC", "ABB", "Siemens") |
+| `manufacturer_device_type` | String | Device model and type (e.g., "CRB-6-90-GiD", "M-710ic/50") |
+
+---
+
+## 9.3.3 Protocols & Communication
+
+![](images/scenario_3_c.png)
+
+**Figure 9.9:** Mapping of the MQTT protocol on the target scenario with the broker and the main data flows.
+
+The target scenario in mainly associated to the concept of **Telemetry Data Ingestion** from edge devices to cloud services with a few messages coming from the cloud to the edge associated to 
+**notification** messages. In this context, the MQTT protocol is a perfect fit due to its lightweight nature, publish-subscribe model, and efficiency in handling intermittent connectivity common in IoT environments.
+
+The Figure 9.9 shows how the MQTT protocol can be mapped on the target scenario with the broker and the main data flows. In this case, the MQTT broker can be hosted in the cloud since the main data flows are from the edge to the cloud and edge devices are connected with internet access and the broker can be reached without problems. A deployment where the broker is hosted on the edge could be considered in scenarios where edge devices are connected via local network without internet access or with limited connectivity.
+
+Other protocols could be considered for this scenario such as CoAP or AMQP but MQTT is the most adopted protocol in the IoT industry for telemetry data ingestion scenarios where resource-constrained devices and unreliable networks are common and also data are mainly used for monitoring and analytics purposes by remote cloud services.
+
+---
+
+### 9.3.3.1 MQTT Topics & Data
+
+In this section, the MQTT topics and the associated data payloads for each telemetry type and notification messages are defined. The topics are structured to facilitate easy subscription and filtering by the cloud services.
+
+**Device Info Topic**
+
+- **Topic**: `device/{device_id}/info`
+- **Payload**:
+  ```json
+  {
+    "id": "string",
+    "software_version": "string",
+    "manufacturer": "string",
+    "manufacturer_device_type": "string"
+  }
+  ``` 
+- **QoS Level**: 2 (ensures exactly once delivery for critical metadata)
+- **Retain Flag**: true (to keep the latest device info available for new subscribers
+
+This setup allows cloud services to subscribe to the device info topic to obtain metadata about the industrial robot.
+The QoS level of 2 ensures that the device information is delivered exactly once, which is crucial for accurate device identification and management.
+The retain flag is set to true to ensure that the latest device information is always available to cloud services even if they subscribe after the initial publication or a device reboot or application restart.
+
+**Electric Motor Data Topic**
+
+- **Topic**: `device/{device_id}/telemetry/electric_motor`
+- **Payload**:
+  ```json
+  {
+    "speed": double,
+    "speed_unit": "string",
+    "rotation": double,
+    "rotation_unit": "string",
+    "timestamp": long
+  }
+  ```
+- **QoS Level**: 0 (high-frequency data where occasional loss is acceptable)
+- **Retain Flag**: false (electric motor data is time-sensitive and should not be retained)
+
+This topic configuration allows cloud services to efficiently receive and process electric motor data for real-time monitoring of the industrial robot.
+The QoS level of 0 ensures that each electric motor reading is delivered at most once, which is sufficient for high-frequency telemetry data where occasional data loss is acceptable. 
+The retain flag is set to false to prevent outdated electric motor data from being sent to cloud services.
+
+**Pressure Data Topic**
+
+- **Topic**: `device/{device_id}/telemetry/pressure`
+- **Payload**:
+  ```json
+  {
+    "value": double,
+    "unit": "string",
+    "timestamp": long
+  }
+  ```
+- **QoS Level**: 1 (balances reliability with performance for high-frequency data)
+- **Retain Flag**: false (pressure data is time-sensitive and should not be retained)
+
+This topic configuration allows cloud services to efficiently receive and process pressure data for real-time monitoring of the industrial robot.
+The QoS level of 1 ensures that each pressure reading is delivered at least once, which is sufficient for high-frequency telemetry data where occasional duplicates can be handled by idempotent processing. The retain flag is set to false to prevent outdated pressure data from being sent to cloud services. 
+
+**Vibration Data Topic**
+
+- **Topic**: `device/{device_id}/telemetry/vibration`
+- **Payload**:
+  ```json
+  {
+    "value": double,
+    "unit": "string",
+    "timestamp": long
+  }
+  ```
+- **QoS Level**: 0 (high-frequency data where occasional loss is acceptable)
+- **Retain Flag**: false (vibration data is time-sensitive and should not be retained)
+
+This topic configuration allows cloud services to efficiently receive and process vibration data for real-time monitoring of the industrial robot.
+The QoS level of 0 ensures that each vibration reading is delivered at most once, which is sufficient for high-frequency telemetry data where occasional data loss is acceptable. 
+The retain flag is set to false to prevent outdated vibration data from being sent to cloud services.
+
+**Temperature Data Topic**
+
+- **Topic**: `device/{device_id}/telemetry/temperature`
+- **Payload**:
+  ```json
+  {
+    "value": double,
+    "unit": "string",
+    "timestamp": long
+  }
+  ```
+- **QoS Level**: 1 (balances reliability with performance for high-frequency data)
+- **Retain Flag**: false (temperature data is time-sensitive and should not be retained
+
+This topic configuration allows cloud services to efficiently receive and process temperature data for real-time monitoring of the industrial robot.
+The QoS level of 1 ensures that each temperature reading is delivered at least once, which is sufficient for high-frequency telemetry data where occasional duplicates can be handled by idempotent processing. The retain flag is set to false to prevent outdated temperature data from being sent to cloud services.
+
+**Energy Consumption Data Topic**
+
+- **Topic**: `device/{device_id}/telemetry/energy_consumption`
+- **Payload**:
+  ```json
+  {
+    "value": double,
+    "unit": "string",
+    "timestamp": long
+  }
+  ```
+- **QoS Level**: 1 (balances reliability with performance for high-frequency data)
+- **Retain Flag**: false (energy consumption data is time-sensitive and should not be retained)
+
+This topic configuration allows cloud services to efficiently receive and process energy consumption data for real-time monitoring of the industrial robot.
+The QoS level of 1 ensures that each energy consumption reading is delivered at least once, which is sufficient for high-frequency telemetry data where occasional duplicates can be handled by idempotent processing. The retain flag is set to false to prevent outdated energy consumption data from being sent to cloud services.
+
+**Notification Topic**
+
+- **Topic**: `/notification`
+- **Payload**:
+  ```json
+  {
+    "message": "string",
+    "timestamp": long
+  }
+  ```
+- **QoS Level**: 2 (ensures exactly once delivery for critical notifications)
+- **Retain Flag**: false (notifications are time-sensitive and should not be retained)
+
+This topic allows cloud services to send notification messages related to the industrial robot or associated systems and/or any interested subscribers about critical events, maintenance reminders, or alerts.
+The QoS level of 2 ensures that each notification message is delivered exactly once, which is crucial for critical alerts that require guaranteed delivery. 
+The retain flag is set to false to ensure that notifications are only delivered when they are relevant and
+
+---
+
+### 9.3.3.2 MQTT Topics & Service Mapping
+
+![](images/scenario_3_d.png)
+
+**Figure 9.10:** Association of the different MQTT topics with the corresponding services in the target scenario.
+
+Once the MQTT topics and their configurations are defined, they can be mapped to the respective microservices in the cloud architecture as shown in Figure 9.10.
+This mapping is strategic for the scenario design, as it ensures that each microservice subscribes only to the topics relevant to its functionality, optimizing resource usage and processing efficiency.
+
+In particular we have the mapping described and summarized below.
+
+| Topic / Pattern                     | Purpose                               | Publisher                       | Subscriber(s)                 | Notes |
+|-------------------------------------|---------------------------------------|---------------------------------|--------------------------------|-------|
+| `device/+/info`                     | Device metadata (id, sw, manufacturer) | | Industrial Robot                  | Device Monitoring Service       | Retained for late subscribers |
+| `device/<id>/telemetry/#`           | All telemetry from a device            | | Industrial Robot                  | Anomaly Detection, Energy Monitoring, Device Monitoring Services | Use when a service wants all signals |
+| `device/<id>/telemetry/electric_motor` | Electric motor data stream            | | Industrial Robot                  | Device Monitoring Service, Anomaly Detection Service | QoS 0; idempotent processing |
+| `device/<id>/telemetry/pressure`    | Pressure data stream                  | | Industrial Robot                  | Device Monitoring Service, Anomaly Detection Service | QoS 1; idempotent processing |
+| `device/<id>/telemetry/vibration`   | Vibration data stream                 | | | Industrial Robot                  | Device Monitoring Service, Anomaly Detection Service | QoS 0; idempotent processing |
+| `device/<id>/telemetry/temperature` | Temperature data stream               | | Industrial Robot                  | Device Monitoring Service, Anomaly Detection Service | QoS 1; idempotent processing |
+| `device/<id>/telemetry/energy_consumption` | Energy consumption data stream     | | Industrial Robot                  | Energy Monitoring Service        | QoS 1; idempotent processing |
+| `/notification`                     | Notification messages                 | Cloud Services                  | Any interested subscribers | QoS 2 for critical notifications |
+
+---
+
+## 9.4 Dual-Broker Architecture
+
+![](images/scenario_3_e.png)
+
+**Figure 9.11:** The same Industrial Remote Telemetry system with a dual-broker architecture for enhanced reliability and scalability and local processing capabilities.
+
+The same Industrial Remote Telemetry system can be designed with a dual-broker architecture for enhanced reliability and scalability and local processing capabilities as shown in Figure 9.11.
+In this architecture, two MQTT brokers are deployed: one on the edge (local broker) and one in the cloud (cloud broker).
+The local broker handles communication between the industrial robot and edge-based applications or services, while the cloud broker manages communication with cloud-based services.
+This setup allows for local processing of telemetry data, reducing latency and bandwidth usage, while still enabling cloud-based analytics and storage.
+
+The dual-broker architecture also enhances reliability by providing redundancy in case of network disruptions or broker failures.
+If the connection to the cloud broker is lost, the local broker can continue to operate and store telemetry data until the connection is restored.
+
+The two brokers can be synchronized using MQTT bridge mode of existing broker solutions or other synchronization mechanisms to ensure that data is consistently shared between the edge and cloud environments. The synchronization can be configured based on specific topics or data types, allowing for selective data sharing and processing. In this scenario topics that can be used for the synchronization can be for example `device/+/info` and `device/+/telemetry/#` allowing the cloud broker to receive all the telemetry data from the edge devices.
 
 ---
 
