@@ -4,9 +4,8 @@ This repository contains the complete lecture content for the course "Distribute
 
 ## 📋 Repository Structure and Content Formats
 
-This repository provides lecture contents in multiple formats to enhance accessibility and learning experience:
+**📝 Markdown** is the primary format used for all lecture content in this repository: every lecture is authored and maintained directly in markdown, making it easy to edit, version control, and collaboratively improve through issues and pull requests. From these markdown source files, additional formats are generated for convenience:
 
-- **📝 Markdown Format**: Primary source files containing lecture content directly in markdown format for easy editing, version control, and collaborative development
 - **📕 PDF Export**: Professional PDF versions exported for easy note-taking, printing, and offline reading
 - **📘 ePub Format**: Electronic publication format for massive readability across different devices and applications (e-readers, tablets, smartphones, reading apps)
 

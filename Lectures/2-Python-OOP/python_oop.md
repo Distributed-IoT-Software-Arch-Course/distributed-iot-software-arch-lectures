@@ -68,10 +68,7 @@
     - [2.2.2.9.1 Informal Interfaces](#22291-informal-interfaces)
     - [2.2.2.9.2 Formal Abstraction with `abc`](#22292-formal-abstraction-with-abc)
   - [2.2.2.10 Classes & Comments](#22210-classes--comments)
-- [2.2.3 Exception Management](#223-exception-management)
-  - [2.2.3.1 Exception Management in Python](#2231-exception-management-in-python)
-  - [2.2.3.2 Else & Finally](#2232-else--finally)
-  - [2.2.3.3 Custom Exceptions](#2233-custom-exceptions)
+- [2.2.3 Classes & Custom Exceptions](#223-classes--custom-exceptions)
 - [2.2.4 Object Oriented Programming Smart Home Example (in Python)](#224-object-oriented-programming-smart-home-example-in-python)
   - [2.2.4.1 Which are the Entities in the Project ?](#2241-which-are-the-entities-in-the-project-)
   - [2.2.4.2 Sensors & Actuators Characteristics](#2242-sensors--actuators-characteristics)
@@ -82,15 +79,15 @@
   - [2.2.4.7 From Sensor Abstraction to TemperatureSensor & HumiditySensor](#2247-from-sensor-abstraction-to-temperaturesensor--humiditysensor)
   - [2.2.4.8 From Actuator Abstraction to SmartLight](#2248-from-actuator-abstraction-to-smartlight)
   - [2.2.4.9 Final Overall Design and Modeling with Inheritance](#2249-final-overall-design-and-modeling-with-inheritance)
-- [2.2.5 Smart Home and Data Manager](#225-smart-home-and-data-manager)
-- [2.2.6 Implementing the Smart Home Class and its Behaviors](#226-implementing-the-smart-home-class-and-its-behaviors)
-- [2.2.7 Design Patterns](#227-design-patterns)
-  - [2.2.7.1 What Are Design Patterns?](#2271-what-are-design-patterns)
-  - [2.2.7.2 Classification: Creational, Structural, Behavioral](#2272-classification-creational-structural-behavioral)
-  - [2.2.7.3 The Delegation Principle in Our Smart Home Example](#2273-the-delegation-principle-in-our-smart-home-example)
-  - [2.2.7.4 Singleton Pattern](#2274-singleton-pattern)
-  - [2.2.7.5 Factory Pattern](#2275-factory-pattern)
-  - [2.2.7.6 Observer Pattern](#2276-observer-pattern)
+  - [2.2.4.10 Smart Home and Data Manager](#22410-smart-home-and-data-manager)
+  - [2.2.4.11 Implementing the Smart Home Class and its Behaviors](#22411-implementing-the-smart-home-class-and-its-behaviors)
+- [2.2.5 Design Patterns](#225-design-patterns)
+  - [2.2.5.1 What Are Design Patterns?](#2251-what-are-design-patterns)
+  - [2.2.5.2 Classification: Creational, Structural, Behavioral](#2252-classification-creational-structural-behavioral)
+  - [2.2.5.3 The Delegation Principle in Our Smart Home Example](#2253-the-delegation-principle-in-our-smart-home-example)
+  - [2.2.5.4 Singleton Pattern](#2254-singleton-pattern)
+  - [2.2.5.5 Factory Pattern](#2255-factory-pattern)
+  - [2.2.5.6 Observer Pattern](#2256-observer-pattern)
 
 # 2.2.1 Object Oriented Programming (OOP) Introduction
 
@@ -711,7 +708,7 @@ So far, object creation has been described only through `__init__()`. In reality
 - **`__new__(cls, ...)`**: responsible for **allocating** and **returning** a new (empty) instance of the class. It is called **first**.
 - **`__init__(self, ...)`**: responsible for **initializing** the instance that `__new__()` has just created — this is the constructor already covered in Section 2.2.2.2.1. It is called **right after** `__new__()`, on the object it returned.
 
-In most day-to-day Python code you will only need `__init__()` — `__new__()` uses a sensible default implementation inherited from `object`. Overriding `__new__()` becomes relevant in advanced scenarios, such as controlling how many instances of a class can exist (see the Singleton design pattern in Section 2.2.7.4) or working with immutable types.
+In most day-to-day Python code you will only need `__init__()` — `__new__()` uses a sensible default implementation inherited from `object`. Overriding `__new__()` becomes relevant in advanced scenarios, such as controlling how many instances of a class can exist (see the Singleton design pattern in Section 2.2.5.4) or working with immutable types.
 
 ```python
 class Car:
@@ -810,10 +807,115 @@ print(Car.total_cars)    # 2
 
 Class attributes are useful for shared values, shared counters, common configuration, or utilities that do not depend on any particular instance. They are accessed through the class name (`Car.wheels`), though they remain readable from an instance too (`car_1.wheels`).
 
+**Class Attributes vs. Instance Attributes: What Actually Changes**
+
+Reading `car_1.wheels` and assigning `car_1.wheels = ...` look like the same kind of operation, but they behave very differently. The following example changes `wheels` in four different ways, printing the result after each one:
+
+```python
+class Car:
+  wheels = 4   # class attribute
+
+  def __init__(self, manufacturer, model):
+    self.manufacturer = manufacturer
+    self.model = model
+
+
+car_1 = Car("Toyota", "Corolla")
+car_2 = Car("Honda", "Civic")
+
+print(car_1.wheels, car_2.wheels)   # 4 4
+
+Car.wheels = 6                      # (1) reassigning the CLASS attribute
+print(car_1.wheels, car_2.wheels)   # 6 6
+
+car_1.wheels = 3                    # (2) assigning directly on ONE instance
+print(car_1.wheels, car_2.wheels)   # 3 6
+
+Car.wheels = 8                      # (3) reassigning the class attribute again
+print(car_1.wheels, car_2.wheels)   # 3 8
+```
+
+- Before any assignment, neither `car_1` nor `car_2` has its own `wheels` — reading `car_1.wheels` finds nothing on the instance and **falls back** to `Car.wheels`, which is why both print `4`.
+- **(1)** `Car.wheels = 6` changes the class attribute itself. Since neither instance has its own `wheels` yet, both still fall back to it, and both now read `6`.
+- **(2)** `car_1.wheels = 3` does **not** touch `Car.wheels` at all — assigning to `instance.attribute` always creates a **new instance attribute**, here on `car_1` only. From this point on, `car_1.wheels` finds its own value before ever looking at the class, while `car_2` — which still has no instance attribute of its own — keeps falling back to `Car.wheels`.
+- **(3)** `Car.wheels = 8` changes the class attribute again, but `car_1` no longer notices: it has its own instance attribute (`3`) shadowing the class one, so only `car_2`, which still relies on the fallback, picks up the new value.
+
 **Key Points:**
 - Class attributes are declared **outside** `__init__()`, directly in the class body.
 - They are **shared** across every instance of the class.
 - Access them with `ClassName.attribute_name` (preferred) or `instance.attribute_name`.
+- Reading `instance.attribute` first looks for an **instance** attribute with that name, and only **falls back** to the class attribute if the instance has none.
+- Assigning `instance.attribute = value` **never** modifies the class attribute — it always creates or overwrites an attribute on that one instance, permanently shadowing the class attribute for it from then on.
+
+**Risks of Class Attributes**
+
+Because a class attribute is a **single, shared object**, two common mistakes can silently break a class:
+
+**1. Mutable class attributes leaking state between instances**
+
+```python
+class Car:
+  passengers = []   # DANGER: one single list, shared by every instance
+
+  def __init__(self, manufacturer, model):
+    self.manufacturer = manufacturer
+    self.model = model
+
+
+car_1 = Car("Toyota", "Corolla")
+car_2 = Car("Honda", "Civic")
+
+car_1.passengers.append("Alice")
+print(car_1.passengers)   # ['Alice']
+print(car_2.passengers)   # ['Alice']  <- BUG: car_2 never touched passengers, yet sees Alice too!
+```
+
+`car_1.passengers.append("Alice")` is a **mutation**, not an assignment: it never creates an instance attribute on `car_1` (unlike `car_1.wheels = 3` above), it just modifies the list object in place — and that object is still the *one and only* `Car.passengers` list, shared by every instance that has not shadowed it. The fix is to give each instance its **own** list inside `__init__()`:
+
+```python
+def __init__(self, manufacturer, model):
+  self.manufacturer = manufacturer
+  self.model = model
+  self.passengers = []   # instance attribute: a fresh, separate list per Car
+```
+
+**2. Accidentally shadowing a shared counter**
+
+```python
+class Car:
+  total_cars = 0
+
+  def __init__(self, manufacturer, model):
+    self.manufacturer = manufacturer
+    self.model = model
+    self.total_cars += 1   # BUG: meant to update the shared counter
+
+
+car_1 = Car("Toyota", "Corolla")
+car_2 = Car("Honda", "Civic")
+
+print(Car.total_cars)     # 0  <- the shared counter was never actually incremented!
+print(car_1.total_cars)   # 1  <- car_1 now has its own, separate instance attribute
+print(car_2.total_cars)   # 1  <- and so does car_2, independently
+```
+
+`self.total_cars += 1` is really `self.total_cars = self.total_cars + 1`: the **read** on the right-hand side falls back to the class attribute (`0`, as expected), but the **write** on the left-hand side always creates a brand-new *instance* attribute, exactly as `car_1.wheels = 3` did earlier. Each `Car` ends up with its own, independent `total_cars`, while `Car.total_cars` itself is silently never updated. The correct way to update shared state is to go through the class explicitly — `Car.total_cars += 1`, as already shown in the very first example of this section — never through `self`.
+
+**Best Practices**
+
+- **Use class attributes only for data that is genuinely shared** across every instance — constants, configuration values, or counters tracking the whole class — not as a shortcut for setting a "default" value that each instance is actually expected to hold independently; that belongs in `__init__()` as an instance attribute instead.
+- **Never use a mutable object (`list`, `dict`, `set`, or a custom mutable class) as a class attribute** meant to hold per-instance data. If every instance needs its own collection, create it inside `__init__()` (`self.passengers = []`), so each instance gets a separate object instead of silently sharing one.
+- **Always update genuinely shared state through the class name** (`Car.total_cars += 1`), never through `self` (`self.total_cars += 1`) — the latter silently creates a per-instance shadow instead of updating the shared value, as shown above.
+- **Name true constants in `UPPER_CASE`** (e.g., `MAX_PASSENGERS = 5`), following the same convention used for module-level constants, to signal at a glance that a class attribute is not expected to change.
+- **When in doubt about whether an attribute is shared or per-instance, prefer an instance attribute.** It is the safer default: it cannot leak state between instances, and it is trivially promoted to a class attribute later if sharing turns out to be genuinely needed.
+
+> **Note: Python Has No Real Constants**
+>
+> `UPPER_CASE` naming (above) is only a **convention** — Python has no `const` keyword, and **nothing actually stops** `Car.MAX_PASSENGERS = 10` from running, even on a class attribute named in all caps. Unlike languages such as Java (`final`) or C++ (`const`), there is no built-in, enforced way to make a class attribute truly read-only.
+>
+> The main **risk** is exactly what was shown for `wheels` and `total_cars` earlier in this section: any code, anywhere, can silently reassign what was only ever *meant* to be a constant — there is no error, no warning, nothing to catch the mistake before it causes a bug somewhere else.
+>
+> Python does offer a few ways to get closer to real immutability — `typing.Final` (checked only by static type checkers like `mypy`, not enforced at run time), overriding `__setattr__` on a custom **metaclass** to actually reject reassignment at run time, or `enum.Enum` for a fixed, closed set of related values. All of these go beyond what this lecture covers at this point, and are **out of scope for now**.
 
 ---
 
@@ -1138,7 +1240,7 @@ class ElectricCar(Car):
 **Explanation:**
 - `ElectricCar` inherits all attributes and methods from `Car` using `super()` — including `__str__()` and `estimate_air_pollution()`, even though `ElectricCar` does not mention either of them here.
 - Adds new attributes: `battery_capacity_kwh` and `battery_level`, which `Car` does not have.
-- The next section (2.7.2) picks up this exact `Car`/`ElectricCar` pair and shows `ElectricCar` **overriding** `__str__()` and `estimate_air_pollution()` — now that the `Car` versions of both are visible above, it will be clear exactly what is being replaced.
+- The next section (2.2.2.7.2) picks up this exact `Car`/`ElectricCar` pair and shows `ElectricCar` **overriding** `__str__()` and `estimate_air_pollution()` — now that the `Car` versions of both are visible above, it will be clear exactly what is being replaced.
 
 **Key Points:**
 - **Inheritance** enables child classes to reuse and extend the functionality of parent classes.
@@ -1323,7 +1425,9 @@ A
 
 ## 2.2.2.8 Polymorphism
 
-This section puts the **Polymorphism** pillar introduced generically in Section 2.2.1.7 into practice in Python, which offers several different forms of it.
+This section puts the **Polymorphism** pillar introduced generically in Section 2.2.1.7 into practice in Python. As a reminder, Section 2.2.1.7 defined it, independently of any language, as the ability of components — objects, methods, or functions — to exhibit **different behaviors** depending on the context or the specific type involved, while being used through a **common interface** (e.g., calling `start_engine()` the same way on an `ICECar` or on an `ElectricCar`, and getting a different, type-appropriate behavior from each).
+
+Python realizes this general idea in several concrete, and quite different, ways: **duck typing** (2.2.2.8.1), **operator overloading** (2.2.2.8.2), **class-based polymorphism** across unrelated classes (2.2.2.8.3), **polymorphism via method overriding** inside an inheritance hierarchy (2.2.2.8.4), and the closest Python gets to **method overloading** (2.2.2.8.5). Each realizes the same "common interface, different behavior" idea, but with different guarantees and trade-offs — which the rest of this section walks through.
 
 ### 2.2.2.8.1 Duck Typing
 
@@ -1336,6 +1440,50 @@ print(len([1, 2, 3]))   # 3 -> list length
 print(max(1, 3, 2))         # 3
 print(max("a", "z", "m"))   # z
 ```
+
+The same benefit extends, with **no extra effort**, to functions you write yourself: a plain developer-declared function automatically gains this flexibility too, as long as it only relies on operations — like calling `len()` — that many different types happen to support:
+
+```python
+def combined_length(a, b):
+  # No type hints, no isinstance() checks: `a` and `b` can be anything that supports len().
+  return len(a) + len(b)
+
+
+print(combined_length("Hi", "Bye"))         # 5 -> two strings
+print(combined_length([1, 2], [3, 4, 5]))   # 5 -> two lists
+print(combined_length("Hi", [1, 2, 3]))     # 5 -> a string and a list, mixed freely
+```
+
+- `combined_length()` was declared without ever mentioning `str` or `list` — it just calls `len()` on whatever it receives.
+- It therefore works with **any** two objects supporting `len()`: dictionaries, tuples, sets, or even a custom class that defines `__len__()`, all work without a single change to `combined_length()` itself.
+
+Duck typing is not limited to functions relying on other functions, either — it works exactly the same way with **methods declared in your own classes**. Any function that calls a method on its argument works with **any** object exposing a method with that name, regardless of the object's actual class:
+
+```python
+class Duck:
+  def make_sound(self):
+    return "Quack!"
+
+
+class Dog:
+  # Note: Dog does NOT inherit from Duck, and shares no common parent with it.
+  def make_sound(self):
+    return "Woof!"
+
+
+def announce(animal):
+  # No type check here: `animal` can be any object, as long as it has make_sound().
+  print(animal.make_sound())
+
+
+announce(Duck())   # Quack!
+announce(Dog())    # Woof!
+```
+
+**What declaring `make_sound()` on each class actually buys you here:**
+- `announce()` never checks `isinstance(animal, ...)` anywhere — it simply calls `animal.make_sound()` and trusts that whatever object it receives will respond correctly.
+- `Duck` and `Dog` share no common parent class at all: they only agree, purely by naming convention, that a method called `make_sound()` exists on both.
+- The price of that flexibility: if `announce()` is called with an object that has **no** `make_sound()` method, Python raises an `AttributeError` **at run time**, exactly at the point of the call — there is no compile-time check confirming, in advance, that every object ever passed to `announce()` actually supports the method.
 
 > [!Tip] Duck Typing
 >
@@ -1351,9 +1499,13 @@ print("Hello " + "World!")   # Hello World!  -> string concatenation
 print([1, 2] + [3, 4])       # [1, 2, 3, 4]  -> list concatenation
 ```
 
+This behavior is not magic: for each built-in type, `+` is itself implemented as a call to a **dunder method** — `__add__()` — already introduced in Section 2.2.2.4.3. `int.__add__()`, `str.__add__()`, and `list.__add__()` are three separate implementations, each one defined by Python itself for its own type; the `+` operator is really just convenient syntax for calling whichever `__add__()` belongs to the type on the left-hand side.
+
+Because operators are ultimately just dunder methods, they are, in principle, **extensible**: a custom class can define its own `__add__()` (or `__eq__()`, `__lt__()`, etc.) to make `+`, `==`, `<`, and the other operators work on its own instances too — this is known as **operator overloading**. Doing this correctly, however, is more involved than it looks: it means handling operands of unexpected types gracefully (typically by returning `NotImplemented` rather than raising an error), keeping the operation consistent with related operators (e.g., if `__eq__()` is defined, `__hash__()` usually needs attention too), and respecting the behavior Python and other developers already expect from that operator. Getting this right is a more advanced topic than what this lecture is aiming to cover, and is intentionally left out of scope here.
+
 ### 2.2.2.8.3 Class-Based Polymorphism
 
-Two classes that are **not related by inheritance** can implement a method with the same name and signature, and be used interchangeably through that shared method — as long as the caller only relies on the method being present.
+Two classes that are **not related by inheritance** can implement a method with the same name and signature, and still be used interchangeably through that shared method — this is essentially duck typing (2.2.2.8.1) applied to entire classes rather than to a single function argument.
 
 ```python
 class Car:
@@ -1380,13 +1532,84 @@ for v in vehicles:
   print(v.start())
 ```
 
+**Is this actually a good design here? Usually not.** The example above only looks convenient because `Car` and `Motorcycle` happen to share nearly identical code — same constructor, same two attributes. In a real codebase, that kind of overlap is precisely the signal that the two classes **should** share a common parent instead: a `Vehicle` base class defining `__init__()` and a `start()` method, with `Car` and `Motorcycle` inheriting from it (Section 2.2.2.7). Introducing that shared `Vehicle` parent would:
+- Remove the duplicated `__init__` code between `Car` and `Motorcycle`, instead of copy-pasting it across every "vehicle-like" class.
+- Let the relationship between the classes be checked with `isinstance(v, Vehicle)`, and let tools (IDE, type checkers) confirm that a subclass actually implements `start()` — something plain duck typing cannot do (Section 2.2.2.9 covers formalizing this further with Abstract Base Classes).
+- Make the relationship explicit in the code itself, instead of leaving it as an implicit convention that exists only in the programmer's head (and in this document).
+
+So when does unrelated, class-based polymorphism genuinely make sense? Mainly when the classes involved do **not** actually belong to the same conceptual family, or when at least one of them is outside your control (e.g., a class from a third-party library), so introducing a shared base class is not possible or not desirable:
+- **Plugin/handler-style architectures**, where independent, pluggable components only need to agree on one method name (e.g., every plugin exposes `run()`).
+- **Coincidental overlap**, where two unrelated classes happen to support the same operation for unrelated reasons (e.g., both a `Logger` and a `NetworkSocket` might expose `close()`, without being conceptually related at all).
+
+**Risks of reaching for class-based polymorphism when a real "is-a" relationship exists instead:**
+- **No enforced contract**: nothing stops one class from silently omitting the shared method, or implementing it with a different signature — the mismatch only surfaces as an `AttributeError` or `TypeError` at run time, exactly where the method is called (as in 2.8.1).
+- **Code duplication and drift**: without a shared parent, identical logic (like the `__init__` above) is copy-pasted across classes, and can silently fall out of sync as one class is updated and the others are forgotten.
+- **Poor discoverability**: a reader — or an IDE — cannot tell, just by looking at `Car`, that `Motorcycle` is meant to be interchangeable with it; that relationship isn't written down anywhere in the code, only implied by a shared method name.
+
+In short: unrelated, class-based polymorphism is a **convenience for genuinely unrelated types**, not a substitute for inheritance whenever a real "is-a" relationship exists between the classes involved.
+
 ### 2.2.2.8.4 Polymorphism via Method Overriding
 
-Overriding a method in a subclass, already covered in Section 2.2.2.7.2 (`ElectricCar` overriding `__str__()` and `estimate_air_pollution()`), is itself a form of polymorphism: the same method call (`car.__str__()`, or simply `print(car)`) produces a different result depending on the actual class of the object it is called on — `Car` or `ElectricCar` — even though both are accessed through the exact same interface.
+Overriding a method in a subclass — already covered in Section 2.2.2.7.2 — is itself a form of polymorphism: the same method call, invoked through the exact same interface, produces a **different result** depending on the actual class of the object it is called on. To see this clearly, the full `Car`/`ElectricCar` pair from Section 2.2.2.7.2 is reproduced here, in front of the polymorphism example that follows:
+
+```python
+class Car:
+  def __init__(self, manufacturer, model):
+    self.manufacturer = manufacturer
+    self.model = model
+
+  def __str__(self):
+    return f"Manufacturer: {self.manufacturer} Model: {self.model}"
+
+  def estimate_air_pollution(self, path_km_value):
+    # This generic Car has no information about its engine/fuel type,
+    # so it cannot produce a real estimate: -1 signals "not available".
+    return -1
+
+
+class ElectricCar(Car):
+  def __init__(self, manufacturer, model, kwh):
+    super().__init__(manufacturer, model)
+    self.kwh = kwh
+
+  # Overrides Car.estimate_air_pollution() with a real, meaningful value.
+  def estimate_air_pollution(self, path_km_value):
+    # Electric cars produce zero direct air pollution.
+    return 0
+```
+
+- `Car.estimate_air_pollution()` always returns `-1`, a sentinel value meaning "not available" — a generic `Car` has no idea what engine it has.
+- `ElectricCar` **overrides** that same method: it redefines `estimate_air_pollution()` with the **same name and signature**, but a completely different, meaningful implementation.
+
+With both classes visible, the polymorphism becomes concrete by instantiating one of each and calling the exact same method, through the exact same interface, on both:
+
+```python
+car = Car("Toyota", "Corolla")
+ecar = ElectricCar("Tesla", "Model 3", 75)
+
+fleet = [car, ecar]
+for vehicle in fleet:
+  # The exact same call, vehicle.estimate_air_pollution(100), on every iteration...
+  print(f"{vehicle.manufacturer} {vehicle.model}: {vehicle.estimate_air_pollution(100)}")
+```
+
+**Output:**
+```
+Toyota Corolla: -1
+Tesla Model 3: 0
+```
+
+- The loop body calls `vehicle.estimate_air_pollution(100)` **identically** on every element of `fleet` — it never checks, anywhere, whether `vehicle` is a `Car` or an `ElectricCar`.
+- Yet the result differs, because Python resolves the call at run time to whichever version of the method belongs to the object's actual class (`Car.estimate_air_pollution` vs. `ElectricCar.estimate_air_pollution`). This run-time resolution of *which* method implementation actually runs is known as **dynamic dispatch**.
+
+**Why this is preferable to class-based polymorphism (2.2.2.8.3) whenever a real relationship exists:**
+- Because `ElectricCar` inherits from `Car`, the relationship is explicit and checkable: `isinstance(ecar, Car)` is `True` — unlike the unrelated `Car`/`Motorcycle` pair in 2.8.3.
+- New vehicle types can be added later (e.g., a `HydrogenCar(Car)`) **without ever touching the loop above**: as long as the new subclass overrides `estimate_air_pollution()`, it slots into `fleet` and behaves correctly. This is the essence of the **Open/Closed Principle**: code that consumes the polymorphic interface (the loop) stays closed for modification, while the class hierarchy stays open for extension.
+- Because every subclass derives from the same `Car` parent, `isinstance()` checks — and, with the tools from Section 2.2.2.9, even an enforced abstract method — can confirm the shared method actually exists on every subclass, closing the "no enforced contract" gap called out as a risk in 2.8.3.
 
 ### 2.2.2.8.5 Method Overloading vs. Method Overriding
 
-- **Overriding**: redefining, in a subclass, a method already provided by a parent class, to get more specific behavior (Section 2.2.2.7.2).
+- **Overriding**: redefining, in a subclass, a method already provided by a parent class, to get more specific behavior (Section 2.2.2.7.2, and 2.2.2.8.4 above).
 - **Overloading**: defining, in the *same* class, several methods with the same name but different parameters, letting the call be resolved based on the arguments passed.
 
 Unlike languages such as Java or C++, **Python does not natively support method overloading** — a later definition simply replaces an earlier one with the same name:
@@ -1398,7 +1621,15 @@ def product(a, b):
 def product(a, b, c):
   return a * b * c
 
-# product(4, 5) -> TypeError: missing 1 required positional argument: 'c'
+# The second `product` definition replaced the first one entirely - calling it
+# with only two arguments now fails, even though a two-argument version was
+# defined above:
+product(4, 5)   # TypeError: missing 1 required positional argument: 'c'
+```
+
+Only a call matching the **surviving** definition — the one with three parameters — works:
+
+```python
 print(product(4, 5, 5))    # 100
 ```
 
@@ -1406,6 +1637,8 @@ To emulate overloading in Python, common strategies include:
 - **`*args`/`**kwargs`**, dispatching manually based on how many/which arguments were passed.
 - **Default parameter values** (e.g., `def add(a=None, b=None)`), checking which ones were actually provided.
 - Third-party tools such as the `multipledispatch` package, for a closer match to true overloading (outside the scope of this lecture).
+
+**`*args`, for an unbounded or unknown number of arguments:**
 
 ```python
 def add(*args):
@@ -1420,15 +1653,38 @@ print(add(2, 3, 4))               # 9
 print(add("Hello, ", "World!"))   # Hello, World!
 ```
 
+`*args` is not the most convenient default choice, though: as the next section explains, it hides the function's parameters behind a generic, unnamed tuple, so it should be reached for only when the number of arguments truly cannot be known in advance. **Default parameter values**, covered next, are far more convenient whenever the set of parameters is small and known in advance, and should generally be one of the **first design choices** when defining a new function or method — reaching for `*args`/`**kwargs` only once that no longer fits.
+
+**Default parameter values, for a small, fixed set of optional parameters:**
+
+```python
+def add(a=None, b=None, c=None):
+  if c is not None:
+    return a + b + c
+  if b is not None:
+    return a + b
+  return a
+
+
+print(add(2, 3))         # 5  -> only a and b were provided
+print(add(2, 3, 4))       # 9  -> a, b and c were all provided
+print(add(a=2, c=4))     # TypeError: unsupported operand type(s) for +: 'int' and 'NoneType' -> b was skipped, but c was provided
+```
+
+**Why prefer this over `*args` for a small, known set of parameters:**
+- **Named, self-documenting parameters**: the signature `add(a=None, b=None, c=None)` tells the caller — and their IDE, through autocompletion and inline parameter hints — exactly which parameters exist and what they're called. `add(*args)` hides that information entirely; a caller has to read the docstring or the function body to know how many arguments are accepted and what each one means.
+- **Keyword calls remain possible and readable**: `add(a=2, c=4)` is valid and clearly shows, at the call site, which parameter is being skipped — something that is not directly expressible with `*args`, where arguments are only ever identified by position.
+- **The trade-off**: this approach only scales to a small, fixed number of optional parameters known in advance at the time the function is written. If the number of arguments to accept is unbounded, or not known until run time, `*args`/`**kwargs` remains the more appropriate tool — as in the `add(*args)` example above, which accepts any number of values without its signature having to change.
+
 **Key Points:**
-- Duck typing and operator polymorphism come **for free** from Python's dynamic typing.
-- Class-based polymorphism works across **unrelated classes** that just happen to share a method name.
-- Polymorphism via overriding works **within an inheritance hierarchy** (Section 2.2.2.7.2).
-- Python has no native method overloading; `*args`/`**kwargs` or default values are the idiomatic replacements.
+- Duck typing and operator polymorphism come **for free** from Python's dynamic typing, and work with user-defined classes exactly as they do with built-ins.
+- Class-based polymorphism works across **unrelated classes** that just happen to share a method name — useful when the classes genuinely are unrelated, but a poor substitute for inheritance when a real "is-a" relationship exists (2.2.2.8.3).
+- Polymorphism via overriding works **within an inheritance hierarchy** (Section 2.2.2.7.2) via **dynamic dispatch**, and enables the **Open/Closed Principle**: new subclasses plug into existing polymorphic code without modifying it (2.2.2.8.4).
+- Python has no native method overloading; `*args`/`**kwargs` (unbounded arguments) or default parameter values (a small, fixed set of named optional arguments) are the idiomatic replacements.
 
 **Let's See How It Works**
 
-A third, unrelated class — `HybridCar` — joining `Car` and `Motorcycle` in the same mixed list:
+Despite the caveats raised in 2.8.3 about unrelated classes, the pattern still holds for a third, genuinely unrelated class — `HybridCar` — joining `Car` and `Motorcycle` in the same mixed list:
 
 ```python
 class HybridCar:
@@ -1464,6 +1720,57 @@ The `for` loop never checks what type `v` is — it just calls `v.start()` and t
 ## 2.2.2.9 Abstraction
 
 This section puts the **Abstraction** pillar introduced generically in Section 2.2.1.7 into practice in Python, and formalizes the **Interface** concept introduced in Section 2.2.1.6.
+
+**What Are Interfaces and Abstract Classes, and What Are They For?**
+
+Independently of any specific language, object-oriented design distinguishes **two** related but different tools for expressing a contract:
+
+- **Interface**: a pure **contract**. It only lists method signatures that any implementing class must provide, without supplying an implementation for them, and without holding any state (attributes) of its own. Its only purpose is to guarantee that a set of classes — even completely unrelated ones — can all be used the same way, through the same set of method calls, regardless of how each one actually works internally.
+- **Abstract class**: a **partial** implementation. It can mix **abstract methods** (declared but left unimplemented, exactly like on an interface) with fully **concrete methods** (implemented once, and inherited as-is by every subclass) and even shared **state** (attributes). Like an interface, it can never be instantiated directly — but unlike an interface, it also exists to hand real, working code down to its subclasses, not just a list of method names.
+
+Both exist for the same underlying reason: they let calling code depend on **what** a class can do, without depending on **how** it does it — the essence of the Abstraction pillar from Section 2.2.1.7 — while also *guaranteeing*, rather than merely hoping, that every class claiming to honor the contract actually implements it in full.
+
+Languages like **Java** make this distinction explicit, with two dedicated keywords. Since, as the next part of this section shows, Python has neither, a short Java example is useful first, purely to fix the general shape of both tools before translating them into Python:
+
+```java
+// Interface: pure contract - no implementation, no state.
+interface Drivable {
+  String start();
+  String stop();
+}
+
+// Abstract class: mixes a shared, concrete implementation (registerTrip())
+// with an abstract method (start()) that every subclass must still provide.
+abstract class Vehicle implements Drivable {
+  private int totalTrips = 0;
+
+  // Concrete method: implemented once here, reused by every subclass as-is.
+  protected void registerTrip() {
+    totalTrips++;
+  }
+
+  // Abstract method: every concrete subclass MUST override this.
+  public abstract String start();
+}
+```
+
+- `Drivable` cannot hold any code or data at all: every implementing class must write its own `start()`/`stop()` from scratch.
+- `Vehicle` holds both kinds of members at once: `registerTrip()` is written once and reused by every subclass unchanged, while `start()` is left abstract, exactly as it is on `Drivable`.
+- Neither `Drivable` nor `Vehicle` can ever be instantiated directly (`new Drivable()` and `new Vehicle()` are both compile-time errors in Java) — only a concrete class providing every abstract method can be.
+
+**Interfaces and Abstract Classes in Python: What Exists, and What Doesn't**
+
+Python has **no dedicated `interface` keyword**, and **no separate "abstract class" keyword** either — unlike Java, it does not treat the two as different language constructs at all. What Python does have is a **single** mechanism, the `abc` module (covered in Section 2.2.2.9.2), capable of expressing *both* ends of the spectrum described above, depending only on how the class using it is written:
+
+- An `abc.ABC` subclass with **only** abstract methods and no state behaves like an **interface**.
+- An `abc.ABC` subclass mixing abstract **and** concrete methods (and possibly attributes too) behaves like an **abstract class**.
+
+There is no rule enforcing this split, and no separate syntax for either case — it is entirely up to the developer writing the class.
+
+Concretely, this lecture covers **two** ways of expressing this idea in Python, from the weakest to the strongest guarantee:
+
+1. **Informal interfaces** (Section 2.2.2.9.1) — plain inheritance plus a convention: placeholder methods that raise `NotImplementedError` if a subclass forgets to override them. This uses no dedicated syntax at all — just regular Python classes and a disciplined convention.
+2. **Formal abstraction with `abc`** (Section 2.2.2.9.2) — the `abc` module's `ABC` base class and `@abstractmethod` decorator: Python's actual, built-in tool for this job, and the closest thing it has to Java's `interface`/`abstract class` — the one to reach for in real code.
 
 ### 2.2.2.9.1 Informal Interfaces
 
@@ -1546,6 +1853,44 @@ Compared to informal interfaces, `ABC` provides:
 - Informal interfaces (`NotImplementedError`) rely on discipline and fail only when the placeholder method is actually called.
 - `ABC` + `@abstractmethod` fail immediately, at instantiation time, and make the contract explicit.
 - Both are ways of realizing the generic **Interface** concept from Section 2.2.1.6 in Python.
+
+**Mixing Abstract and Concrete Methods**
+
+The `Vehicle` example above used `@abstractmethod` on every single method, making it behave like a pure interface. An abstract class, though, is not limited to that: exactly like the Java `Vehicle` shown earlier in this section, a Python `ABC` subclass can mix `@abstractmethod`-decorated methods with **ordinary, fully implemented** methods — the concrete ones are inherited **as-is** by every subclass, with no need to override them at all:
+
+```python
+from abc import ABC, abstractmethod
+
+class Vehicle(ABC):
+  def __init__(self):
+    self.total_trips = 0
+
+  # Concrete method: a normal `def`, no @abstractmethod - implemented once
+  # here, and inherited unchanged by every subclass.
+  def register_trip(self):
+    self.total_trips += 1
+    return f"Trip registered. Total trips: {self.total_trips}"
+
+  # Abstract method: every concrete subclass MUST still override this.
+  @abstractmethod
+  def start(self):
+    pass
+
+
+class Car(Vehicle):
+  def start(self):
+    return "Car engine starting..."
+
+
+car = Car()
+print(car.start())            # Car engine starting...
+print(car.register_trip())    # Trip registered. Total trips: 1
+print(car.register_trip())    # Trip registered. Total trips: 2
+```
+
+- `register_trip()` has no `@abstractmethod` decorator, so it behaves like any other method: `Car` inherits it fully working, without writing a single line for it.
+- `start()` is still `@abstractmethod`, so `Car` must override it — exactly as in the earlier, "pure interface" version of `Vehicle` — or `Car()` itself would fail to instantiate, for the same reason `Vehicle()` does.
+- This mirrors the Java example earlier in this section exactly: `register_trip()` plays the role of `registerTrip()` (shared, concrete behavior, inherited as-is), while `start()` plays the role of the abstract `start()` (a contract each subclass must honor on its own). A single Python class can therefore act as a **pure interface**, a **partial "abstract class"**, or anything in between, depending only on which of its methods carry `@abstractmethod` and which don't.
 
 **Let's See How It Works**
 
@@ -1636,172 +1981,7 @@ Method docstrings give specific details about the method, explaining its functio
 
 ---
 
-## 2.2.3 Exception Management
-
-Exception management in Python is a crucial aspect of writing robust and reliable programs. It enables developers to **handle errors gracefully**, preventing unexpected crashes and allowing the program to recover or provide meaningful feedback to users. Exception handling is accomplished using **`try`-`except` blocks**, which catch and respond to exceptions that occur during code execution.
-
-An **exception** is an event that interrupts the normal flow of a program's instructions. Unlike **syntax errors**, which prevent code from running at all, exceptions are raised by the Python interpreter when an error occurs while the program is running. When an exception is triggered, Python displays a message starting with `Traceback (most recent call last):`, indicating where the error occurred and what type of exception was raised.
-
-**Common exception types include:**
-- **ZeroDivisionError**: Raised when dividing by zero.
-- **FileNotFoundError**: Raised when trying to access a file that does not exist.
-- **ValueError**: Raised when a function receives an argument of the correct type but inappropriate value.
-- **IndexError**: Raised when trying to access an index that is out of range in a sequence (like a list).
-- **NotImplementedError**: Raised when an abstract method that should be implemented is not.
-
-**Example: IndexError (List Index Out of Range)**
-
-```python
-numbers = [1, 2, 3]
-print(numbers[5])  # Attempting to access an index that does not exist
-```
-
-**Output:**
-```
-Traceback (most recent call last):
-  File "example.py", line 2, in <module>
-    print(numbers[5])
-IndexError: list index out of range
-```
-
-**Key Points:**
-- **Exception management** prevents program crashes and enables error recovery.
-- Use **`try`-`except` blocks** to catch and handle exceptions.
-- **Exceptions** are runtime errors that disrupt normal program flow.
-- **Syntax errors** stop code before execution; **exceptions** occur during execution.
-- Python provides detailed **tracebacks** to help locate and diagnose errors.
-- Handling exceptions improves **program reliability** and **user experience**.
-- Always anticipate and manage possible exceptions in your code for better maintainability.
-
-> **Note:** Exception are handled in a stack where if an exception is not caught in the current function, it propagates up to the caller function, and so on, until it is either caught or reaches the top level of the program, which will terminate the program if unhandled. Exception and errors are normal part of programming and should be expected and handled properly.
-
----
-
-## 2.2.3.1 Exception Management in Python
-
-Python uses **exception handling** to manage errors that occur during program execution, allowing your code to respond gracefully rather than crashing. The primary mechanism for this is the `try`-`except` block, which lets you specify code that might raise an exception and define how to handle different error types.
-
-**Basic Structure**
-
-```python
-try:
-  # Code that may raise an exception
-except ExceptionType:
-  # Code to handle the specific exception
-```
-
-You can also catch **all exceptions** by omitting the exception type, or handle **multiple exception types** using multiple `except` clauses.
-
-**Example 1: Handling a Specific Exception**
-
-```python
-try:
-  result = 10 / 0
-except ZeroDivisionError:
-  print("Error: Division by zero is not allowed.")
-```
-
-**Example 2: Catching All Exceptions (Generic Handler)**
-
-```python
-try:
-  print(undefined_variable)
-except:
-  print("An unexpected error occurred.")
-```
-
-**Example 3: Multiple Exception Clauses**
-
-```python
-try:
-  value = int("abc")
-  print(10 / value)
-except ValueError:
-  print("Error: Could not convert string to integer.")
-except ZeroDivisionError:
-  print("Error: Division by zero.")
-except Exception as e:
-  print(f"Other error: {e}")
-```
-
-**Printing Error Messages**
-
-To display the actual error message, you can use the `as` keyword to bind the exception to a variable:
-
-```python
-try:
-  print(undefined_variable)
-except NameError as error:
-  print(f"NameError occurred: {error}")
-```
-
-**Key Points**
-
-- **try-except** blocks allow you to handle errors and prevent program crashes.
-- Catch **specific exceptions** for targeted error handling.
-- Use a **generic except** clause to catch any exception (not recommended for production code).
-- Multiple **except clauses** let you handle different error types separately.
-- Use **exception variables** (e.g., `except Exception as e`) to print or log detailed error messages.
-- Proper exception handling improves **program reliability** and **user experience**.
-
-## 2.2.3.2 Else & Finally
-
-Python's `try`, `except`, `else`, and `finally` blocks work together to provide flexible error handling and control flow.
-
-- **`try` block**: Contains code that may raise an exception.
-- **`except` block**: Handles exceptions if they occur in the `try` block.
-- **`else` block**: Runs only if no exception was raised in the `try` block.
-- **`finally` block**: Runs no matter what—whether an exception was raised or not.
-
-**Example:**
-
-```python
-try:
-  value = int("42")
-  print("Conversion successful.")
-except ValueError:
-  print("Conversion failed.")
-else:
-  print("No errors occurred.")
-finally:
-  print("This always executes.")
-```
-
-**Output:**
-```
-Conversion successful.
-No errors occurred.
-This always executes.
-```
-
-If an exception occurs, the `except` block runs and the `else` block is skipped, but the `finally` block still executes:
-
-```python
-try:
-  value = int("abc")  # Raises ValueError
-  print("Conversion successful.")
-except ValueError:
-  print("Conversion failed.")
-else:
-  print("No errors occurred.")
-finally:
-  print("This always executes.")
-```
-
-**Output:**
-```
-Conversion failed.
-This always executes.
-```
-
-**Summary:**
-- Use `else` for code that should run only if no errors occurred.
-- Use `finally` for cleanup actions that must run regardless of errors (e.g., closing files or releasing resources).
-- The combination of these blocks makes your code robust and predictable.
-
----
-
-## 2.2.3.3 Custom Exceptions
+## 2.2.3 Classes & Custom Exceptions
 
 You can create your own custom exceptions in Python by defining a new class that inherits from the built-in `Exception` class. Custom exceptions are useful when you want to signal specific error conditions in your code that are not covered by standard exceptions.
 
@@ -2270,7 +2450,7 @@ This hierarchical structure ensures that all devices in the Smart Home system sh
 
 ---
 
-## 2.2.5 Smart Home and Data Manager
+## 2.2.4.10 Smart Home and Data Manager
 
 ![](images/data_manager_smart_home.png)
 
@@ -2288,7 +2468,7 @@ By introducing a **Data Manager** class, you achieve several modeling benefits:
 **Modeling Rationale**:  
 - The **Smart Home** class should be associated with *what* the home is and *how* it is managed at a high level.
 - The **Data Manager** class should be responsible for *how* device data is stored, retrieved, and maintained.
-- This design pattern follows the principle of **delegation**, where specialized classes handle specific responsibilities, resulting in a more robust and maintainable architecture — a first, informal example of what Section 2.2.7 (Design Patterns) will formalize.
+- This design pattern follows the principle of **delegation**, where specialized classes handle specific responsibilities, resulting in a more robust and maintainable architecture — a first, informal example of what Section 2.2.5 (Design Patterns) will formalize.
 
 In summary, delegating device management to a **Data Manager** class allows the Smart Home to remain focused on its core responsibilities, while data handling is abstracted and encapsulated, supporting future scalability and flexibility.
 
@@ -2360,7 +2540,7 @@ The main characteristics of the above `DataManager` class are:
 
 ---
 
-## 2.2.6 Implementing the Smart Home Class and its Behaviors
+## 2.2.4.11 Implementing the Smart Home Class and its Behaviors
 
 The **Smart Home** class serves as the central entity in the Smart Home IoT system, representing the home itself and managing its associated devices. It encapsulates key attributes such as `home_id`, `latitude`, and `longitude`, which uniquely identify the home and its location.
 Additionally, the Smart Home class maintains a reference to a **Data Manager** instance, which is responsible for handling the storage and retrieval of device data. This delegation allows the Smart Home to focus on high-level operations while the Data Manager manages the specifics of device data.
@@ -2459,9 +2639,9 @@ In this example:
 
 ---
 
-## 2.2.7 Design Patterns
+## 2.2.5 Design Patterns
 
-## 2.2.7.1 What Are Design Patterns?
+## 2.2.5.1 What Are Design Patterns?
 
 **Design patterns** are standard, reusable solutions to problems that recur often in software design. They are not finished code to copy-paste, but **proven design structures**, distilled from decades of shared engineering experience. The term was popularized by the book *"Design Patterns: Elements of Reusable Object-Oriented Software"* (1994), by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides — commonly known as the **"Gang of Four" (GoF)**.
 
@@ -2483,7 +2663,7 @@ In this example:
 
 > Design patterns solve **design** problems, not every problem — using one where it is not needed adds indirection without benefit. As with any tool, judgment matters more than the pattern itself. The best resource for further documentation is [refactoring.guru](https://refactoring.guru/design-patterns).
 
-## 2.2.7.2 Classification: Creational, Structural, Behavioral
+## 2.2.5.2 Classification: Creational, Structural, Behavioral
 
 Classic design patterns are grouped into three broad categories:
 
@@ -2493,13 +2673,13 @@ Classic design patterns are grouped into three broad categories:
 | **Structural** | *How* classes/objects are composed into larger structures | Adapter, Decorator, Facade |
 | **Behavioral** | *How* objects interact and communicate | Observer, Strategy, State |
 
-This lecture covers two Creational patterns (**Singleton**, **Factory**) and one Behavioral pattern (**Observer**) — chosen because all three map naturally onto the Smart Home case study already built in Sections 2.2.4–2.2.6.
+This lecture covers two Creational patterns (**Singleton**, **Factory**) and one Behavioral pattern (**Observer**) — chosen because all three map naturally onto the Smart Home case study already built in Section 2.2.4.
 
-## 2.2.7.3 The Delegation Principle in Our Smart Home Example
+## 2.2.5.3 The Delegation Principle in Our Smart Home Example
 
-Before introducing new patterns, it is worth naming something already present in this lecture: in Section 2.2.5, the `SmartHome` class does not manage device storage itself — it **delegates** that responsibility to a `DataManager` instance, as already noted at the time ("*this design pattern follows the principle of delegation*"). **Delegation** — letting a specialized object handle a specific responsibility on behalf of another — is itself a recurring, reusable design idea, and a good first illustration of what a "design pattern" actually is, before looking at three more formal, named ones below.
+Before introducing new patterns, it is worth naming something already present in this lecture: in Section 2.2.4.10, the `SmartHome` class does not manage device storage itself — it **delegates** that responsibility to a `DataManager` instance, as already noted at the time ("*this design pattern follows the principle of delegation*"). **Delegation** — letting a specialized object handle a specific responsibility on behalf of another — is itself a recurring, reusable design idea, and a good first illustration of what a "design pattern" actually is, before looking at three more formal, named ones below.
 
-## 2.2.7.4 Singleton Pattern
+## 2.2.5.4 Singleton Pattern
 
 - **Problem:** how can a program guarantee that only **one instance** of a given class exists, accessible from anywhere?
 - **Solution:** control object creation inside the class itself, overriding `__new__()` (Section 2.2.2.4.4) to return the same instance on every call.
@@ -2560,7 +2740,7 @@ Europe/Rome
 - **Benefit:** any part of the program can call `SmartHomeConfig()` and always reach the same, consistent configuration — no need to pass a config object around everywhere.
 - **Drawback:** that same global, shared state makes the class harder to test in isolation (tests can leak state into one another through `_instance`) and hides the dependency — code using `SmartHomeConfig()` doesn't visibly declare that it depends on shared configuration, the way it would if the config were passed in as a parameter.
 
-## 2.2.7.5 Factory Pattern
+## 2.2.5.5 Factory Pattern
 
 - **Problem:** how can objects be created without the calling code depending on their concrete classes?
 - **Solution:** centralize creation logic inside a dedicated class (the **Factory**), which returns the right concrete instance based on the input it receives.
@@ -2645,7 +2825,7 @@ Rejected: Unknown device type: unknown
 
 The client code (the last five lines) never imports or names `SmartLock` directly — it only ever calls `DeviceFactory.create_device(...)`. That is precisely why adding a whole new device type only meant adding one `elif` branch and one new class, without touching a single line of the `"temperature"`, `"humidity"`, or `"light"` branches, or of any code that already used the factory.
 
-## 2.2.7.6 Observer Pattern
+## 2.2.5.6 Observer Pattern
 
 - **Problem:** how can other parts of a program be notified automatically whenever something changes in one specific place, without tightly coupling the two?
 - **Solution:** a **Subject** keeps a list of **Observers** and calls a common notification method on each of them whenever its state changes.
