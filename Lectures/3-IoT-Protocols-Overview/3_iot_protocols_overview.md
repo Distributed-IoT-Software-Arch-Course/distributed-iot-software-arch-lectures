@@ -73,21 +73,91 @@ Data originates at the **application layer**, then is **encapsulated** as it pas
 
 On the receiving side, the process is reversed: each layer removes its header/trailer, passing the remaining data up to the next layer until the original application data is reconstructed.
 
-**Encapsulation Example:**
+### Encapsulation Example: HTTP → TCP → IP → Data Link
+
+When a browser requests a web page, the data travels down the protocol stack. Each layer **wraps** the payload from the layer above with its own header (and, for the Data Link layer, a trailer).
+
+**1. Application Layer: HTTP**
+
+The application creates the message. This is the original **data**.
+
+```http
+GET /index.html HTTP/1.1
+Host: www.example.com
+User-Agent: Mozilla/5.0
+Accept: text/html
+```
+
+**2. Transport Layer: TCP**
+
+TCP adds a header to the HTTP message. The result is called a **segment**.
+
+| TCP Header Field    | Example Value |
+|---------------------|---------------|
+| Source Port         | 51234         |
+| Destination Port    | 80            |
+| Sequence Number     | 1000          |
+| Acknowledgment No.  | 0             |
+| Flags               | PSH, ACK      |
+| Window Size         | 65535         |
+| Checksum            | 0x1a2b        |
 
 ```
-Application Data
-  ↓
-Transport Layer (adds TCP/UDP header)
-  ↓
-Network Layer (adds IP header)
-  ↓
-Data Link Layer (adds Ethernet/Wi-Fi frame)
-  ↓
-Physical Layer (transmits bits)
++------------+----------------------------+
+| TCP Header |        HTTP Message        |
++------------+----------------------------+
+|<---------------- Segment -------------->|
 ```
 
-This **layered encapsulation** ensures modularity, interoperability, and reliable communication across diverse networks and devices.
+**3. Network Layer: IP**
+
+IP adds its own header to the TCP segment. The result is called a **packet**.
+
+| IP Header Field     | Example Value  |
+|---------------------|----------------|
+| Version             | 4              |
+| Protocol            | 6 (TCP)        |
+| TTL                 | 64             |
+| Source Address      | 192.168.1.10   |
+| Destination Address | 93.184.216.34  |
+
+```
++-----------+------------+----------------------------+
+| IP Header | TCP Header |        HTTP Message        |
++-----------+------------+----------------------------+
+|<------------------- Packet ------------------------>|
+```
+
+**4. Data Link Layer: Ethernet**
+
+The Data Link layer adds a header and a trailer. The result is called a **frame**.
+
+| Field            | Example Value       |
+|------------------|---------------------|
+| Destination MAC  | 00:1A:2B:3C:4D:5E   |
+| Source MAC       | 00:1F:3A:4B:5C:6D   |
+| EtherType        | 0x0800 (IPv4)       |
+| FCS (trailer)    | CRC-32              |
+
+```
++--------------+-----------+------------+--------------+---------+
+| Eth Header   | IP Header | TCP Header | HTTP Message | Eth     |
+|              |           |            |              | Trailer |
++--------------+-----------+------------+--------------+---------+
+|<------------------------- Frame ---------------------------->|
+```
+
+**Summary**
+
+| Layer        | Protocol | Unit (PDU) | Adds                          |
+|--------------|----------|------------|-------------------------------|
+| Application  | HTTP     | Data       | Request/response message      |
+| Transport    | TCP      | Segment    | Ports, sequence numbers       |
+| Network      | IP       | Packet     | Source/destination IP address |
+| Data Link    | Ethernet | Frame      | MAC addresses, CRC trailer    |
+
+> **Note:** At the receiver, the process is reversed (**decapsulation**):
+> each layer strips its own header and passes the payload upward.
 
 ## 3.1.1 TCP & UDP Protocols (Quick Overview)
 
